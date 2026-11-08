@@ -59,8 +59,20 @@ def kv_bytes_per_token(model_dir: str, kv_dtype_bytes: float = 2.0) -> float:
 
 
 def check_run(recs: list[dict], meta: dict, model_info: dict, bw_gbps: float, ignore_eos: bool = True,
-              slack: float = 0.03) -> dict:
+              slack: float = 0.03, expect_prefix_hits: bool | None = None) -> dict:
     res = {}
+    # AMENDMENTS A2: workloads without cross-request prefix sharing (chat, prefill) must not
+    # see prefix-cache hits; a hit means state leaked between repetitions/levels.
+    if expect_prefix_hits is False:
+        ok = [r for r in recs if not r.get("error") and r.get("usage_cached") is not None]
+        if ok:
+            cached = sum(r["usage_cached"] for r in ok)
+            prompt = sum((r.get("usage_in") or r.get("exp_in") or 0) for r in ok)
+            rate = cached / max(1, prompt)
+            top = sorted(((r["usage_cached"], r["id"]) for r in ok), reverse=True)[:5]
+            # a few hits can be genuine (ShareGPT prompts with common prefixes); leakage from a
+            # previous repetition shows up as a large fraction of all prompt tokens
+            res["no_unexpected_cache_hits"] = {"pass": rate <= 0.05, "hit_rate": rate, "top": top}
     errs = [r for r in recs if r.get("error")]
     res["no_errors"] = {"pass": not errs, "n_err": len(errs),
                         "examples": [e["error"][:200] for e in errs[:3]]}

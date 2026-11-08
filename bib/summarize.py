@@ -66,7 +66,9 @@ def recompute_run(rdir: str, plan: dict, minfo_cache: dict) -> dict:
     if sid not in minfo_cache:
         si = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(rdir))), "server_info.json")))
         minfo_cache[sid] = si["model_bytes"]
-    chk = sanity.check_run(recs, meta, minfo_cache[sid], plan["gpu_bandwidth_gbps"], ignore_eos=True)
+    wlc = next((w for w in plan.get("workloads", []) if w["name"] == wl), {})
+    chk = sanity.check_run(recs, meta, minfo_cache[sid], plan["gpu_bandwidth_gbps"], ignore_eos=True,
+                           expect_prefix_hits=bool(wlc.get("prefix_sensitive")))
     return {"meta": meta, "metrics": m, "sanity": chk, "recs": recs}
 
 

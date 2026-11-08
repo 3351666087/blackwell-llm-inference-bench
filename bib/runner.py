@@ -247,7 +247,8 @@ def _measure(server, scfg, wl, plan, reqs, conc, rdir, fid, commit, minfo):
             "gpu_before": snap0, "gpu_after": snap1, "prefix_cache": scfg.get("prefix_cache", True)}
     pw = read_power(os.path.join(rdir, "power.csv.gz"))
     m = metrics.run_metrics(recs, pw, meta, plan.get("slo", {}).get(wl.get("slo", wl["name"])))
-    chk = sanity.check_run(recs, meta, minfo, plan["gpu_bandwidth_gbps"], ignore_eos=True)
+    chk = sanity.check_run(recs, meta, minfo, plan["gpu_bandwidth_gbps"], ignore_eos=True,
+                           expect_prefix_hits=bool(wl.get("prefix_sensitive")))
     meta["metrics"] = m
     meta["sanity"] = chk
     json.dump(meta, open(os.path.join(rdir, "meta.json"), "w"), indent=1, default=str)
@@ -286,7 +287,9 @@ def run_workload(server, scfg, wl, plan, plan_dir, sdir, root, fid, minfo, commi
                 rep_metas.append(json.load(open(mp)))
                 continue
             how = server.reset_cache()
-            if how == "none" and wl.get("prefix_sensitive"):
+            # AMENDMENTS A2: TensorRT-LLM has no cache-reset endpoint and the same request
+            # subset is reused across reps/levels, so it is restarted before EVERY rep.
+            if how == "none" and (wl.get("prefix_sensitive") or scfg["framework"] == "trtllm"):
                 server.stop()
                 server.start(plan.get("server_timeout_s", 3600))
                 how = "restart"
