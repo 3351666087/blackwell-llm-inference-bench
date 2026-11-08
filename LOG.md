@@ -221,3 +221,13 @@ of each start. Hours are counted from the console's start/stop timestamps.
   the 32B work is done.
 - **13:47 · 3.x** · Added matplotlib to the bench env (re-lock only added packages; no
   existing package changed under the running runner).
+- **14:51 · 2.5** · `Qwen/Qwen3-32B-FP8` (rev `109733d8`, 34.34 GB, 18 files) finished downloading
+  into `/dev/shm` (throttled, 13:35–14:51); all SHA-256 match the hub listing; symlinked as
+  `/root/autodl-tmp/models/Qwen3-32B-FP8`. Manifests of all three checkpoints copied to
+  `models/`. NVFP4 download started right after (same throttling).
+- **~14:30 · 5.3** · vLLM 0.32.0 env built (`envs/vllm-0.32.0`, torch 2.13.0+cu130,
+  FlashInfer 0.7.0.post1). System disk now 79 % used.
+- **14:42 · 4.5 (A1 check)** · Cached-token reporting works: vLLM agent c=1 rep1 hit rate
+  0.842; e.g. turn 1 of session 0 has 4399 prompt tokens of which 3152 cached (= previous
+  prompt rounded down to vLLM's 16-token block); the first request of every rep has 0
+  cached tokens, confirming the cache reset between repetitions.

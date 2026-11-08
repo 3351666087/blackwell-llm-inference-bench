@@ -1,0 +1,99 @@
+{
+ "source": "modelscope.cn",
+ "repo": "Qwen/Qwen3-8B-FP8",
+ "revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+ "fetched_at": "2026-11-08T11:24:39+0800",
+ "files": [
+  {
+   "path": ".gitattributes",
+   "size": 2127,
+   "sha256": "088e25d6bceaa8943f4f292006210358292349cc36e7578f80c62fce75535f46",
+   "hub_sha256": "088e25d6bceaa8943f4f292006210358292349cc36e7578f80c62fce75535f46",
+   "verified": true
+  },
+  {
+   "path": "LICENSE",
+   "size": 11343,
+   "sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+   "hub_sha256": "832dd9e00a68dd83b3c3fb9f5588dad7dcf337a0db50f7d9483f310cd292e92e",
+   "verified": true
+  },
+  {
+   "path": "README.md",
+   "size": 17487,
+   "sha256": "27c5d08b13bff69ddccff08e89c06d5e92a576dedec15317adf3d39c113a3117",
+   "hub_sha256": "27c5d08b13bff69ddccff08e89c06d5e92a576dedec15317adf3d39c113a3117",
+   "verified": true
+  },
+  {
+   "path": "config.json",
+   "size": 896,
+   "sha256": "79e454d6cc36c41ab0e9418c8f78a033afa9ac88e5a58d67c1471de315c8d29a",
+   "hub_sha256": "79e454d6cc36c41ab0e9418c8f78a033afa9ac88e5a58d67c1471de315c8d29a",
+   "verified": true
+  },
+  {
+   "path": "configuration.json",
+   "size": 73,
+   "sha256": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+   "hub_sha256": "f888421726665e8a84b738eed42a64875aed79de8be7daade851ac8bf4c0cef9",
+   "verified": true
+  },
+  {
+   "path": "generation_config.json",
+   "size": 213,
+   "sha256": "36efbc59151975193688a7e86804764f697478c6542fe0acbf1f40f119f4fdc9",
+   "hub_sha256": "36efbc59151975193688a7e86804764f697478c6542fe0acbf1f40f119f4fdc9",
+   "verified": true
+  },
+  {
+   "path": "merges.txt",
+   "size": 1671853,
+   "sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+   "hub_sha256": "8831e4f1a044471340f7c0a83d7bd71306a5b867e95fd870f74d0c5308a904d5",
+   "verified": true
+  },
+  {
+   "path": "model-00001-of-00002.safetensors",
+   "size": 4953240624,
+   "sha256": "83bb444edc7d4a1ed91ab67ad19620e2ed74724cdd62ede330fcaa7748c64404",
+   "hub_sha256": "83bb444edc7d4a1ed91ab67ad19620e2ed74724cdd62ede330fcaa7748c64404",
+   "verified": true
+  },
+  {
+   "path": "model-00002-of-00002.safetensors",
+   "size": 4483388160,
+   "sha256": "c59d27856ca358b24770802ea52f1785258830f61ff3ac72a4b3896fad648f9b",
+   "hub_sha256": "c59d27856ca358b24770802ea52f1785258830f61ff3ac72a4b3896fad648f9b",
+   "verified": true
+  },
+  {
+   "path": "model.safetensors.index.json",
+   "size": 55847,
+   "sha256": "e7bb72e12dcae27a9968ded73109349d4d7f193c2496533d89ffa7184eeea5ae",
+   "hub_sha256": "e7bb72e12dcae27a9968ded73109349d4d7f193c2496533d89ffa7184eeea5ae",
+   "verified": true
+  },
+  {
+   "path": "tokenizer.json",
+   "size": 11422654,
+   "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+   "hub_sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+   "verified": true
+  },
+  {
+   "path": "tokenizer_config.json",
+   "size": 9732,
+   "sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+   "hub_sha256": "d5d09f07b48c3086c508b30d1c9114bd1189145b74e982a265350c923acd8101",
+   "verified": true
+  },
+  {
+   "path": "vocab.json",
+   "size": 2776833,
+   "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+   "hub_sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+   "verified": true
+  }
+ ]
+}

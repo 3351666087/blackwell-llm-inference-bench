@@ -84,7 +84,8 @@ def build_command(cfg: dict, port: int, workdir: str) -> tuple[list[str], dict]:
                "--slots", str(o.get("slots", 64))]
     else:
         raise ValueError(f"unknown framework {fw}")
-    return cmd + extra, env
+    # optional launcher prefix, e.g. ["nsys", "launch", "--session-new=x", ...] (task 5.1)
+    return list(cfg.get("launcher_prefix") or []) + cmd + extra, env
 
 
 def _get(url: str, timeout: float = 5.0) -> tuple[int, str]:
