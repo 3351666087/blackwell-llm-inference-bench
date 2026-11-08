@@ -42,6 +42,10 @@ def main():
     ap.add_argument("--out", default="results/nsys")
     ap.add_argument("--env-var", action="append", default=[])
     ap.add_argument("--extra", default="")
+    ap.add_argument("--capture-delay", type=float, default=0.0,
+                    help="seconds after the measured load starts before nsys capture begins (reach steady state)")
+    ap.add_argument("--capture-seconds", type=float, default=0.0,
+                    help="capture duration; 0 = until the measured load finishes")
     a = ap.parse_args()
     out = os.path.abspath(a.out)
     os.makedirs(out, exist_ok=True)
@@ -62,11 +66,26 @@ def main():
         info["load_s"] = srv.start(3600)
         run_load(ClientConfig(srv.base, srv.model_name, a.concurrency), warm)
         srv.reset_cache() if a.framework != "trtllm" else None
+        import threading
+        box = {}
+        cfgc = ClientConfig(srv.base, srv.model_name, a.concurrency, keep_text=0,
+                            procs=max(1, min(6, (a.concurrency + 31) // 32)))
+        th = threading.Thread(target=lambda: box.update(res=run_load(cfgc, meas)))
+        t_load = time.time()
+        th.start()
+        time.sleep(a.capture_delay)
         r = sh([NSYS, "start", f"--session={session}", "-o", os.path.join(out, a.name), "--force-overwrite=true"])
         info["nsys_start"] = r.stdout[-500:] + r.stderr[-500:]
-        res = run_load(ClientConfig(srv.base, srv.model_name, a.concurrency, keep_text=0), meas)
-        r = sh([NSYS, "stop", f"--session={session}"], timeout=1800)
+        info["capture_start_s_after_load"] = time.time() - t_load
+        if a.capture_seconds > 0:
+            time.sleep(a.capture_seconds)
+        else:
+            th.join()
+        r = sh([NSYS, "stop", f"--session={session}"], timeout=3600)
+        info["capture_stop_s_after_load"] = time.time() - t_load
         info["nsys_stop"] = r.stdout[-800:] + r.stderr[-800:]
+        th.join()
+        res = box["res"]
         write_records(os.path.join(out, a.name + "_requests.jsonl.gz"), res["records"])
         rec = res["records"]
         info["ttft_ms"] = [round(x["ttft"] * 1000, 2) for x in rec if x.get("ttft")]
