@@ -196,3 +196,28 @@ of each start. Hours are counted from the console's start/stop timestamps.
   be logged. Any run whose `wall_start` falls inside the download window can be
   identified from `meta.json`; the 7.3 reproduction run (no background activity) is the
   check that this did not matter.
+- **13:36 · 3.4 (agent bug)** · First GSM8K quality result for vLLM BF16: **accuracy 0.032**.
+  Implausible (Qwen3-8B non-thinking should be ~0.9), so I inspected the outputs: only
+  9 of 250 records had text. Cause: my client gave the "keep full text" budget to worker
+  0 only (each of the 32 workers got its own budget list). Performance records were
+  unaffected (they never needed text). Fixed in `5f8a684`; stopped the runner after its
+  first warm-up (no measured rep had completed), deleted the bad quality summary,
+  restarted at 13:38 → **accuracy 0.928**. Listed in REPORT §"agent 哪里写错了".
+- **13:40 · 4.1** · First measured repetition (vLLM BF16, chat, c=1): all sanity checks
+  pass; TPOT p50 11.57 ms vs bandwidth floor 9.48 ms; three reps within 0.1 %.
+- **13:42 · 3.2 (agent bug)** · Energy for that run fell back to the coarse "outer window"
+  counter value: the power sampler's last row can precede the last stream end by up to
+  one 100 ms period, and my interpolation required full coverage. Fixed: bounded (≤ 0.5 s)
+  linear tail extrapolation in `bib/metrics.py` (summaries recompute every run from raw
+  data, so earlier runs benefit) + the sampler now writes a final row (effective from the
+  next runner start). Cross-check on that run: counter 15 332.8 J vs ∫P dt 15 311.2 J
+  (0.14 %).
+- **13:43 · 5.2/5.3/5.1** · Queued background jobs (niced, ≤ 8 MB/s): 32B-FP8 → NVFP4 →
+  Nsight Systems .deb; vLLM 0.32.0 env build (2 concurrent downloads, nice 19, idle I/O).
+  Decision: the 32B FP8 and NVFP4 checkpoints will be **served from `/dev/shm`** (55 GB of
+  the 60 GB tmpfs; container RAM 120 GB): the data disk cannot hold them next to the
+  TensorRT-LLM env and the 8B models, which are still needed for 4.5/5.1/5.3/6.1/7.3.
+  Risk accepted: `/dev/shm` is lost if the instance stops, so the instance stays on until
+  the 32B work is done.
+- **13:47 · 3.x** · Added matplotlib to the bench env (re-lock only added packages; no
+  existing package changed under the running runner).
