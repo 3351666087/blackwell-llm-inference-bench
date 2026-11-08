@@ -247,3 +247,13 @@ of each start. Hours are counted from the console's start/stop timestamps.
   7067 tok/s). Under 8k–16k prefill load SGLang keeps TPOT lower and TTFT higher than
   vLLM — consistent with different prefill-vs-decode scheduling priorities. Candidate for
   the 5.1 deep dive.
+- **17:17 · 4.2 / 5.1 candidate** · **Performance cliff:** SGLang BF16, agent workload, 128
+  concurrent sessions: output throughput fell from 699 tok/s (c=64) to 391 tok/s, TTFT p50
+  12.2 s. SGLang's own log during the run: KV pool `token usage` 0.96–0.98, ~90 running and
+  ~30–44 queued requests, and prefill batches where only the 2.8k-token system prompt is
+  cached (`#cached-token: 2844`) for requests that should reuse ~10k tokens of history.
+  Over the window: 2.06 M new vs 2.33 M cached prefill tokens → hit rate **0.53** (vs ~0.84
+  at low concurrency). Hypothesis: 128 sessions × ~10k tokens ≫ 477k-token KV pool →
+  radix-cache eviction thrash → history recomputed every turn. vLLM's sweep had already
+  stopped at c=64 by the knee rule, so there is no vLLM c=128 point to compare (protocol
+  as pre-registered; noted as a limitation).
