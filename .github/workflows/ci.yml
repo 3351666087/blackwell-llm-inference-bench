@@ -15,7 +15,7 @@ jobs:
       - name: Unit tests (stats, regression detector, client vs mock server)
         run: python -m pytest -q tests/
       - name: Secret scan
-        run: bash tools/secret_scan.sh
+        run: python tools/secret_scan.py
       - name: Regression report on committed results (vLLM 0.32.0 -> 0.33.0), if present
         run: |
           f=results/regression/summary/points.json

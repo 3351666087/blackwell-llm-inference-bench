@@ -76,7 +76,11 @@ def verify_request_files(plan: dict, plan_dir: str):
             p = wl.get(key)
             if not p:
                 continue
-            got = sha256_file(os.path.join(plan_dir, p))
+            fp = os.path.join(plan_dir, p)
+            if not os.path.exists(fp):
+                raise SystemExit(f"missing request file {p}: request files are not committed; regenerate them with "
+                                 f"`python -m bib workloads ...` (README, 'Reproduce') and check SHA256SUMS")
+            got = sha256_file(fp)
             want = sums.get(os.path.basename(p))
             if got != want:
                 raise SystemExit(f"request file checksum mismatch for {p}: {got} != {want}")

@@ -59,10 +59,14 @@ bash envs/cuda13.0-toolkit/setup.sh /root/cuda13.0
 python3 tools/fetch_model.py Qwen/Qwen3-8B      /root/autodl-tmp/models/Qwen3-8B
 python3 tools/fetch_model.py Qwen/Qwen3-8B-FP8  /root/autodl-tmp/models/Qwen3-8B-FP8
 python3 tools/fetch_model.py Qwen/Qwen3-32B-FP8 /root/autodl-tmp/models/Qwen3-32B-FP8
-cd data/requests && sha256sum -c SHA256SUMS && cd -        # request files must match
-# optional: regenerate request files (byte-identical; see data/requests/MANIFEST.json)
-/root/envs/bench/bin/python -m bib workloads --sharegpt ShareGPT_V3_unfiltered_cleaned_split.json \
-    --gsm8k gsm8k_main_test.parquet --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json
+# request files are NOT committed (they contain third-party ShareGPT text, including credentials
+# that users once pasted into chats). Regenerate them byte-identically:
+source /etc/network_turbo   # AutoDL only: proxy for huggingface.co
+aria2c -x16 -o sharegpt.json https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/192ab2185289094fc556ec8ce5ce1e8e587154ca/ShareGPT_V3_unfiltered_cleaned_split.json
+aria2c -x4 -o gsm8k_test.parquet "https://modelscope.cn/api/v1/datasets/AI-ModelScope/gsm8k/repo?Revision=master&FilePath=main/test-00000-of-00001.parquet"
+/root/envs/bench/bin/python -m bib workloads --sharegpt sharegpt.json --gsm8k gsm8k_test.parquet \
+    --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json --out data/requests
+cd data/requests && sha256sum -c SHA256SUMS && cd -        # must print OK for every file
 # run (resumable; completed repetitions are skipped)
 /root/envs/bench/bin/python -m bib run plans/main.yaml
 /root/envs/bench/bin/python -m bib report results     # summaries, comparisons, dashboard
@@ -111,7 +115,7 @@ tests/          offline tests (run in GitHub Actions, no GPU)
 ## License
 
 Code: Apache-2.0. Model weights (Qwen3, Apache-2.0) are downloaded from ModelScope,
-never redistributed. `data/requests/` contains request files derived from
+never redistributed. `data/requests/` holds the generator manifest and SHA-256 sums of request files derived from
 ShareGPT V3 (`anon8231489123/ShareGPT_Vicuna_unfiltered`, Apache-2.0) and GSM8K
 (`openai/gsm8k` via ModelScope `AI-ModelScope/gsm8k`, MIT); see
 `data/requests/MANIFEST.json` for source checksums.
