@@ -136,9 +136,20 @@ class Server:
         t0 = time.monotonic()
         self.proc = subprocess.Popen(cmd, env=env, stdout=logf, stderr=subprocess.STDOUT,
                                      cwd=self.workdir, start_new_session=True)
+        fatal = ("Segfault encountered", "job has been aborted", "Engine core initialization failed",
+                 "Scheduler hit an exception", "CUDA out of memory", "Traceback (most recent call last)")
+        last_scan = 0.0
         while True:
             if self.proc.poll() is not None:
                 raise RuntimeError(f"{self.fw} server exited rc={self.proc.returncode}; see {self.log_path}")
+            if time.monotonic() - last_scan > 10:
+                # fail fast when a worker died but the launcher process keeps running
+                last_scan = time.monotonic()
+                tail = self.log_tail(400)
+                hit = next((f for f in fatal if f in tail), None)
+                if hit and time.monotonic() - t0 > 5:
+                    self.stop()
+                    raise RuntimeError(f"{self.fw} server log shows fatal error '{hit}'; see {self.log_path}")
             code, _ = _get(self.base + "/health", timeout=3)
             if code == 200:
                 code2, body = _get(self.base + "/v1/models", timeout=10)
@@ -199,6 +210,8 @@ class Server:
                     pass
                 self.proc.wait(timeout=30)
         self.proc = None
+        if self.fw == "trtllm":
+            subprocess.run(["pkill", "-9", "-f", "orted --hnp"], capture_output=True)
         # make sure the GPU is really free before the next server starts
         for _ in range(60):
             out = subprocess.run(["nvidia-smi", "--query-compute-apps=pid", "--format=csv,noheader"],
