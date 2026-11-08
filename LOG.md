@@ -231,3 +231,19 @@ of each start. Hours are counted from the console's start/stop timestamps.
   0.842; e.g. turn 1 of session 0 has 4399 prompt tokens of which 3152 cached (= previous
   prompt rounded down to vLLM's 16-token block); the first request of every rep has 0
   cached tokens, confirming the cache reset between repetitions.
+- **15:15 · 4.1** · vLLM BF16 (Qwen3-8B) finished all five workloads (13:39–15:15). Low-
+  priority summary on the instance: **84 runs, 0 invalid**; the request closest to the
+  bandwidth floor still had TPOT = 1.157 × floor.
+- **15:37–15:39 · 5.2/5.1** · `nv-community/Qwen3-32B-NVFP4` (rev `f7bc063e`, 19 files, all
+  SHA-256 match) in `/dev/shm`, symlinked into the models dir; Nsight Systems 2026.5.2
+  .deb downloaded. **Background-download window ended 15:39** (13:35–15:39 overlapped
+  vLLM BF16 and the start of SGLang BF16; both at ≤ 8 MB/s, nice 19, idle I/O class).
+- **16:10 · 5.1** · Installed Nsight Systems CLI (`dpkg -i`, nice/ionice, ~10 s during the
+  SGLang prefill32k sweep). dpkg reports unmet GUI-only deps (libxcb-xinerama0/icccm4/
+  image0); the CLI works (`nsys --version` = 2026.5.2.323), so I left the GUI deps out.
+- **15:20–16:10 · 4.2** · First SGLang BF16 observations (no conclusions yet): at c=1 SGLang
+  is slightly faster than vLLM (TPOT 11.29 vs 11.57 ms, TTFT 24 vs 36 ms), at c=64/128 it
+  has ~9–10 % lower throughput but lower TTFT, at c=512 higher throughput (7326 vs
+  7067 tok/s). Under 8k–16k prefill load SGLang keeps TPOT lower and TTFT higher than
+  vLLM — consistent with different prefill-vs-decode scheduling priorities. Candidate for
+  the 5.1 deep dive.
