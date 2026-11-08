@@ -257,3 +257,19 @@ of each start. Hours are counted from the console's start/stop timestamps.
   radix-cache eviction thrash → history recomputed every turn. vLLM's sweep had already
   stopped at c=64 by the knee rule, so there is no vLLM c=128 point to compare (protocol
   as pre-registered; noted as a limitation).
+- **17:41–18:00 · 4.3** · **TensorRT-LLM BF16 failed to start in the main run** although
+  the same env passed the smoke test at 13:21: the MPI-spawned worker crashed right after
+  `Model init total -- 7.39s` with `!!!!!!! Segfault encountered !!!!!!!`, C stack ending in
+  `nvmlSystemGetConfComputeSettings` (called by `tensorrt_llm._utils.confidential_compute_enabled`).
+  The launcher process did not exit (OpenMPI: "1 process returned a non-zero exit code…
+  job has been aborted"), so the runner waited. I killed it at 18:00; the runner logged
+  `SERVER START FAILED` and moved on to vLLM FP8 (no GPU idle). Checks: the same NVML call
+  (and TensorRT-LLM's own `confidential_compute_enabled()`) run fine standalone three times
+  (returns `NVML_ERROR_ARGUMENT_VERSION_MISMATCH`=25, cc disabled); NVML library resolution
+  unchanged after the nsys install; container memory 110.7 of 128.8 GB used, of which
+  55.3 GB is `/dev/shm` (the 32B checkpoints) — **/dev/shm was empty during the smoke test**,
+  so shared-memory pressure is one candidate cause; an intermittent race is another.
+  Actions: (1) `bib/servers.py` now fails fast when the server log shows a fatal pattern
+  (segfault, MPI abort, engine init failure, CUDA OOM) instead of waiting for the 1 h
+  timeout, and kills leftover `orted`; (2) the queue retries the TensorRT-LLM 8B configs
+  after the vLLM/SGLang 8B runs. Root-cause test planned for when the GPU is free.
