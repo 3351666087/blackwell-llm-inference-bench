@@ -40,6 +40,7 @@ def main():
     ap.add_argument("dest")
     ap.add_argument("--revision", default="master")
     ap.add_argument("--connections", type=int, default=16)
+    ap.add_argument("--max-speed", default="0", help="aria2 --max-overall-download-limit, e.g. 8M (0 = unlimited)")
     a = ap.parse_args()
 
     files = list_files(a.repo, a.revision)
@@ -63,7 +64,8 @@ def main():
         t0 = time.time()
         cmd = ["aria2c", "-i", lst, "-x", str(a.connections), "-s", str(a.connections),
                "-k", "8M", "-j", "4", "--continue=true", "--max-tries=20", "--retry-wait=5",
-               "--file-allocation=none", "--console-log-level=warn", "--summary-interval=60"]
+               "--file-allocation=none", "--console-log-level=warn", "--summary-interval=60",
+               f"--max-overall-download-limit={a.max_speed}"]
         rc = subprocess.call(cmd)
         if rc != 0:
             sys.exit(f"aria2c failed rc={rc}")

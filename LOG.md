@@ -173,3 +173,26 @@ of each start. Hours are counted from the console's start/stop timestamps.
   torch 2.9.1+cu130, compute capability (12, 0).
 - **13:20 · 1 (费用)** · Running total: instance `fnrr36bcry` on since 10:55 → ≈2.4 h ×
   ¥6.98 ≈ ¥17 so far (GPU mostly idle during installs, see 11:00 decision).
+- **13:21–13:33 · 2.6** · **TensorRT-LLM 1.2.1 smoke: pass on BF16 and FP8.** First attempt
+  failed because my launcher passed a relative `--extra_llm_api_options` path while the
+  server's cwd is the result dir (fixed: absolute paths). BF16: load 56 s, PyTorch backend,
+  `max_batch_size=2048, max_num_tokens=8192`, KV block reuse on by default, tokens per
+  block 32. FP8: the official block-scaled checkpoint loads (`pre-quantized checkpoint`,
+  `trtllm::fp8_block_scaling_gemm`); a warm-up log line says the autotuner used a
+  fallback tactic on a cache miss for one shape (noted; warm-up reps absorb tuning).
+  No cache-reset endpoint → `cache_reset: none` as pre-registered.
+- **13:34 · 2.2** · Commit `e729d24` (smoke reports, env fixes, all plans,
+  `prereg/comparisons.yaml`) tagged **`prereg-v1`** (commit time 13:34:39 +08:00) and
+  pushed. `envs/trtllm/requirements.lock` re-locked with `pyarrow<20`: the only change
+  vs. the previous lock is pyarrow 26.0.1 → 19.0.1 (same as the patched env).
+- **13:34:51 · 4.1/4.2/4.3** · **First formal run started**: `plans/main.yaml`, the six
+  Qwen3-8B configs in order vLLM → SGLang → TensorRT-LLM (BF16), then the same for FP8,
+  so frameworks are interleaved in time per checkpoint. Runner commit recorded in every
+  `meta.json`.
+- **13:35 · 2.5 / protocol** · Deviation from my 11:35 decision: to avoid ~1.5 h of idle
+  GPU later, the 34 GB `Qwen/Qwen3-32B-FP8` download runs **during** the 8B runs, but
+  throttled (aria2 ≤ 8 MB/s, 8 connections, `nice 19`, `ionice -c3` idle class) and into
+  `/dev/shm` (the data disk is full until the 8B phase ends). Start 13:35:41; end time will
+  be logged. Any run whose `wall_start` falls inside the download window can be
+  identified from `meta.json`; the 7.3 reproduction run (no background activity) is the
+  check that this did not matter.

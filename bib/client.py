@@ -189,8 +189,8 @@ async def _run_async(cfg: ClientConfig, sessions: list[list[dict]], conc: int, k
     out: list[dict] = []
     connector = aiohttp.TCPConnector(limit=0, force_close=False, enable_cleanup_closed=True)
     async with aiohttp.ClientSession(connector=connector, read_bufsize=1 << 20) as http:
-        workers = [asyncio.create_task(_worker(http, cfg, queue, out, [keep_text if i == 0 else 0]))
-                   for i in range(conc)]
+        budget = [keep_text]  # shared by all workers of this process (was per-worker: bug found by GSM8K check)
+        workers = [asyncio.create_task(_worker(http, cfg, queue, out, budget)) for i in range(conc)]
         await asyncio.gather(*workers)
     return out
 
