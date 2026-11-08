@@ -293,3 +293,14 @@ of each start. Hours are counted from the console's start/stop timestamps.
   pre-registered rule (these runs stay invalid in the primary tables). After the TRT runs
   finish I will add a clearly labelled post-hoc amendment (A2) with a burst-tolerant
   validity rule and report both versions side by side. Runs continue unchanged.
+- **21:30 · 4.3 (agent protocol error)** · Noticed TensorRT-LLM prefill8k c=2 TTFT p50 = 132 ms,
+  physically impossible for an 8000-token prefill (c=1 rep1: 497 ms). Cause: my
+  pre-registered reasoning "TensorRT-LLM needs no reset for chat/prefill" ignored that the
+  same request subset is replayed in every repetition and level; with KV-block reuse the
+  prompts were cache hits (rep2 104 ms, rep3 102 ms; `cached_tokens` = full prompt). None of
+  the sanity checks covered this. Fix = AMENDMENTS A2: restart TensorRT-LLM before every
+  repetition of every workload + new `no_unexpected_cache_hits` check (validated: flags the
+  contaminated reps, passes all 354 vLLM/SGLang runs). Contaminated TRT BF16 chat/prefill
+  results moved to `results/_superseded/A2_trt_cache_contaminated/` (kept for the record).
+  21:35 queue restarted: TRT 8B BF16+FP8 (restart per rep) → prefix_cache → regression → 32B.
+  Expected extra cost ≈ 1 h of restarts per TensorRT-LLM config.
