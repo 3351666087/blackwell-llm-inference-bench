@@ -9,3 +9,4 @@ tokenizers
 pyarrow
 nvidia-ml-py
 pytest
+matplotlib

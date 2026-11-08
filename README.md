@@ -25,32 +25,52 @@ Reproducible, pre-registered LLM serving benchmark of **vLLM**, **SGLang** and
 | Metrics | TTFT, TPOT, ITL, E2E (p50/p90/p99), throughput, goodput under SLOs, peak memory, GPU energy per token |
 | Checks | bandwidth roofline bound on every request, exact token accounting, client saturation, cross-framework GSM8K quality |
 
+## Environments (exact versions, one command each)
+
+| Env | Command | Key versions (from the lock file) |
+|---|---|---|
+| bench (client/analysis) | `bash envs/setup.sh bench` | Python 3.12, aiohttp, uvloop, numpy, scipy, tokenizers 0.23.3, nvidia-ml-py |
+| vLLM | `bash envs/setup.sh vllm` | vLLM 0.33.0, torch 2.14.0+cu130, FlashInfer 0.7.2.post1, transformers 5.20.2, Triton 3.8.0 |
+| SGLang | `bash envs/setup.sh sglang` | SGLang 0.5.23, sglang-kernel 0.4.10, torch 2.14.1+cu130, FlashInfer 0.7.2, transformers 5.19.0 |
+| TensorRT-LLM | `bash envs/setup.sh trtllm` | TensorRT-LLM 1.2.1 (PyTorch backend), torch 2.9.1+cu130, TensorRT 10.14.1, FlashInfer 0.6.4, ModelOpt 0.37.0 |
+| CUDA 13.0 toolchain | `bash envs/cuda13.0-toolkit/setup.sh` | nvcc 13.0.88 + matching headers, used as `CUDA_HOME` by vLLM/SGLang JIT |
+| vLLM 0.32.0 (task 5.3) | `bash envs/setup.sh vllm-0.32.0` | vLLM 0.32.0, torch 2.13.0+cu130 |
+
+All locks were resolved with uv 0.13.7 against `mirrors.aliyun.com` (PyPI), `pypi.nvidia.com`
+(TensorRT/TensorRT-LLM) and the Aliyun PyTorch cu130 wheel mirror. Blackwell sm_120 support was
+**verified on the GPU**, not assumed: every framework ran a smoke test on Qwen3-8B BF16 and FP8
+(`results/smoke/*/smoke_report.json`). Two environment fixes were needed on AutoDL (details in `LOG.md`):
+
+- vLLM and SGLang JIT-compile DeepGEMM kernels, which require nvcc ≥ 12.9; the image ships 12.8 →
+  `CUDA_HOME` points at the pip-built CUDA 13.0 toolchain (set per server in the plan files).
+- TensorRT-LLM initialises OpenMPI, which hangs because hwloc's GL plugin probes X display `:7`
+  (`127.0.0.1:6007`, occupied by a non-X service in the container) → `HWLOC_COMPONENTS=-gl`
+  (set by `bib/servers.py`). Also `pyarrow<20` (pyarrow ≥ 20 needs numpy ≥ 2, TensorRT-LLM pins numpy < 2).
+
 ## Reproduce
 
-Everything heavy runs on the GPU instance. The Mac/laptop only edits code.
+Everything heavy runs on the GPU instance. The laptop only edits code.
 
 ```bash
-# on the GPU machine (Ubuntu 22.04, NVIDIA driver >= 580, CUDA 13 capable)
+# on the GPU machine (Ubuntu 22.04, NVIDIA driver >= 580)
 git clone https://github.com/3351666087/blackwell-llm-inference-bench && cd blackwell-llm-inference-bench
-bash envs/setup.sh bench          # load generator / analysis env (separate from every framework)
-bash envs/setup.sh vllm           # one command per framework, from the exact lock file
-bash envs/setup.sh sglang
-bash envs/setup.sh trtllm
+for e in bench vllm sglang trtllm; do bash envs/setup.sh $e; done
+bash envs/cuda13.0-toolkit/setup.sh /root/cuda13.0
 python3 tools/fetch_model.py Qwen/Qwen3-8B      /root/autodl-tmp/models/Qwen3-8B
 python3 tools/fetch_model.py Qwen/Qwen3-8B-FP8  /root/autodl-tmp/models/Qwen3-8B-FP8
 python3 tools/fetch_model.py Qwen/Qwen3-32B-FP8 /root/autodl-tmp/models/Qwen3-32B-FP8
-# (optional) regenerate request files; checksums must match data/requests/SHA256SUMS
-/root/envs/bench/bin/python -m bib workloads --sharegpt <ShareGPT_V3_unfiltered_cleaned_split.json> \
-    --gsm8k <gsm8k main/test parquet> --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json
+cd data/requests && sha256sum -c SHA256SUMS && cd -        # request files must match
+# optional: regenerate request files (byte-identical; see data/requests/MANIFEST.json)
+/root/envs/bench/bin/python -m bib workloads --sharegpt ShareGPT_V3_unfiltered_cleaned_split.json \
+    --gsm8k gsm8k_main_test.parquet --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json
 # run (resumable; completed repetitions are skipped)
 /root/envs/bench/bin/python -m bib run plans/main.yaml
 /root/envs/bench/bin/python -m bib report results     # summaries, comparisons, dashboard
 ```
 
-Environments are created with `uv` from hash-locked requirement files
-(`envs/<fw>/requirements.lock`); the container image digest is not exposed by
-AutoDL, so the fingerprint records `/etc/os-release`, a hash of `dpkg -l`, the
-CUDA toolkit version and the AutoDL image label instead.
+The container image digest is not exposed by AutoDL, so each fingerprint records the AutoDL image
+label, `/etc/os-release`, a SHA-256 of `dpkg -l`, the CUDA toolkit version, the full `nvidia-smi -q`
+and `pip freeze` of the framework env instead.
 
 ## Run protocol (enforced by `bib/runner.py`)
 
