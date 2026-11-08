@@ -27,7 +27,12 @@ def make_app(ttft_ms: float, tpot_ms: float, slots: int):
     async def completions(req):
         body = await req.json()
         n = int(body["max_tokens"])
-        n_in = len(body["prompt"].split())  # mock "tokenizer": whitespace words
+        n_in = int(req.headers.get("X-Exp-In", 0)) or len(body["prompt"].split())
+        if not body.get("stream"):
+            await asyncio.sleep((ttft_ms + tpot_ms * (n - 1)) / 1000)
+            return web.json_response({"choices": [{"index": 0, "text": "".join(f" t{i}" for i in range(n)),
+                                                   "finish_reason": "length"}],
+                                      "usage": {"prompt_tokens": n_in, "completion_tokens": n}})
         resp = web.StreamResponse(headers={"Content-Type": "text/event-stream"})
         await resp.prepare(req)
         async with sem:

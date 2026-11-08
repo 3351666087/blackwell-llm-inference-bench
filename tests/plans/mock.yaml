@@ -1,0 +1,31 @@
+# Pipeline test with the mock server (no GPU numbers). Token-count and bandwidth
+# checks are expected to FAIL here (mock tokenizer != Qwen tokenizer), which also
+# exercises the invalid-run path.
+name: mock
+results_dir: results/_mock
+request_sums: data/requests/SHA256SUMS
+gpu_bandwidth_gbps: 1597
+port: 18080
+reps: 2
+max_client_procs: 2
+power_interval_s: 0.1
+server_timeout_s: 60
+slo:
+  chat: {ttft_ms: 1000, tpot_ms: 50}
+  agent: {ttft_ms: 1000, tpot_ms: 50}
+workloads:
+  - name: chat
+    file: data/requests/chat.jsonl.gz
+    warmup_file: data/requests/chat_warmup.jsonl.gz
+    concurrency: [1, 8, 32, 64]
+    requests: {per_conc: 2, min: 8, max: 64}
+    knee_min_conc: 8
+    knee_gain: 0.05
+  - name: agent
+    file: data/requests/agent.jsonl.gz
+    warmup_file: data/requests/agent_warmup.jsonl.gz
+    prefix_sensitive: true
+    concurrency: [4]
+    requests: {per_conc: 1, min: 4, max: 8}
+servers:
+  - {id: mock-a, framework: mock, env: /root/envs/bench, model: /root/autodl-tmp/models/Qwen3-8B, model_id: Qwen3-8B, precision: bf16, mock: {ttft_ms: 30, tpot_ms: 12, slots: 16}}

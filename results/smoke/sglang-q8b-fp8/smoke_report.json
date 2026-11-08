@@ -1,0 +1,74 @@
+{
+ "framework": "sglang",
+ "model": "/root/autodl-tmp/models/Qwen3-8B-FP8",
+ "time": "2026-11-08 12:17:26",
+ "checks": {
+  "chat_template_identical": true,
+  "server_up": true,
+  "paris_in_answer": true,
+  "speed_80_in_answer": true,
+  "def_in_code_answer": true,
+  "stream_usage_present": true,
+  "ignore_eos_exact_len": true,
+  "prompt_tokens_match": true,
+  "one_chunk_per_token": false,
+  "cache_reset": "endpoint:/flush_cache"
+ },
+ "server_env_vars": {
+  "CUDA_HOME": "/root/cuda13.0/nvidia/cu13"
+ },
+ "load_s": 125.08437780849636,
+ "greedy_outputs": [
+  {
+   "prompt": "What is the capital of France? Answer in one sentence.",
+   "text": "The capital of France is Paris.",
+   "usage": {
+    "prompt_tokens": 24,
+    "total_tokens": 32,
+    "completion_tokens": 8,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 0,
+    "completion_tokens_details": null
+   },
+   "finish": "stop"
+  },
+  {
+   "prompt": "A train travels 120 km in 1.5 hours. What is its average speed in km/h? Show the calculation briefly.",
+   "text": "To find the **average speed**, use the formula:\n\n$$\n\\text{Average speed} = \\frac{\\text{Distance}}{\\text{Time}}\n$$\n\nGiven:\n- Distance = 120 km  \n- Time = 1.5 hours\n\n$$\n\\text{Average speed} = \\frac{120}{1.5} = 80 \\text{ km/h}\n$$\n\n**Answer:** 80 km/h",
+   "usage": {
+    "prompt_tokens": 41,
+    "total_tokens": 136,
+    "completion_tokens": 95,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 0,
+    "completion_tokens_details": null
+   },
+   "finish": "stop"
+  },
+  {
+   "prompt": "Write a Python function that returns the n-th Fibonacci number iteratively.",
+   "text": "Here's a Python function that returns the **n-th Fibonacci number iteratively**:\n\n```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n```\n\n### Explanation:\n- The function uses an iterative approach to compute the Fibonacci number.\n- It starts with the first two Fibonacci numbers: `a = 0` (F(0)) and `b = 1` (F(1)).\n- It iterates from 2 to `n`, updating `a` and `b` in each step to represent the current and next Fibonacci numbers.\n- Finally, it returns `b`, which is the n-th Fibonacci number.\n\n### Example usage:\n```python\nprint(fibonacci(0)) ",
+   "usage": {
+    "prompt_tokens": 26,
+    "total_tokens": 226,
+    "completion_tokens": 200,
+    "prompt_tokens_details": null,
+    "reasoning_tokens": 0,
+    "completion_tokens_details": null
+   },
+   "finish": "length"
+  }
+ ],
+ "stream_record": {
+  "usage_in": 15,
+  "usage_out": 64,
+  "exp_in": 15,
+  "exp_out": 64,
+  "n_chunks": 60,
+  "finish": "length",
+  "error": null,
+  "ttft": 0.054320125840604305,
+  "e2e": 0.4814457381144166,
+  "text_head": "Hello! How can I assist you today? 😊\n\n</think>\n\nHello! How can I assist you today? 😊\n\n</think>\n\nHello! How can I assist you today? 😊\n\n</think>\n\nHello! How can I"
+ }
+}

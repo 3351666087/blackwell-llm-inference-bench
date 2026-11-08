@@ -1,0 +1,42 @@
+# Pre-registered NVFP4 study (task 5.2, prediction P13). Compared against the
+# Qwen3-32B FP8 configs of plans/main.yaml (same workloads, same request files).
+# KV cache is forced to BF16 for the FP4 checkpoint (its ModelOpt config asks for an
+# FP8 KV cache), so the comparison isolates weight/activation quantization.
+# Exact KV-dtype flags per framework are recorded in AMENDMENTS.md if they had to change.
+name: nvfp4
+results_dir: results/nvfp4
+request_sums: data/requests/SHA256SUMS
+image_label: "AutoDL base image PyTorch 2.8.0 / Python 3.12 (ubuntu22.04) / CUDA 12.8"
+gpu_bandwidth_gbps: 1597
+port: 8000
+reps: 3
+max_client_procs: 6
+streams_per_proc: 32
+power_interval_s: 0.1
+server_timeout_s: 3600
+quality:
+  file: data/requests/quality_gsm8k.jsonl.gz
+  concurrency: 32
+slo:
+  chat:      {ttft_ms: 1000, tpot_ms: 50}
+  prefill8k: {ttft_ms: 2000, tpot_ms: 100}
+workloads:
+  - name: chat
+    file: data/requests/chat.jsonl.gz
+    warmup_file: data/requests/chat_warmup.jsonl.gz
+    concurrency: [1, 4, 16, 32, 64, 128, 256, 512]
+    requests: {per_conc: 8, min: 16, max: 2048}
+    knee_min_conc: 64
+    knee_gain: 0.05
+  - name: prefill8k
+    file: data/requests/prefill8k.jsonl.gz
+    warmup_file: data/requests/prefill8k_warmup.jsonl.gz
+    concurrency: [1, 2, 4, 8, 16, 32]
+    requests: {per_conc: 4, min: 16, max: 96}
+    knee_min_conc: 8
+    knee_gain: 0.05
+    warmup_min: 4
+servers:
+  - {id: vllm-q32b-nvfp4,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "auto"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: sglang-q32b-nvfp4, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: trtllm-q32b-nvfp4, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960}

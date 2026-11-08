@@ -1,0 +1,21 @@
+{
+ "cmd": [
+  "/root/envs/trtllm/bin/trtllm-serve",
+  "/root/autodl-tmp/models/Qwen3-8B-FP8",
+  "--host",
+  "127.0.0.1",
+  "--port",
+  "8000",
+  "--backend",
+  "pytorch",
+  "--max_seq_len",
+  "40960",
+  "--extra_llm_api_options",
+  "/root/autodl-tmp/bench-repo/results/smoke/trtllm-q8b-fp8/trtllm_llm_api_options.yaml"
+ ],
+ "shell": "/root/envs/trtllm/bin/trtllm-serve /root/autodl-tmp/models/Qwen3-8B-FP8 --host 127.0.0.1 --port 8000 --backend pytorch --max_seq_len 40960 --extra_llm_api_options /root/autodl-tmp/bench-repo/results/smoke/trtllm-q8b-fp8/trtllm_llm_api_options.yaml",
+ "env_overrides": {
+  "HF_HUB_OFFLINE": "1",
+  "TRANSFORMERS_OFFLINE": "1"
+ }
+}

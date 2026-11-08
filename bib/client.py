@@ -81,6 +81,7 @@ async def _one_request(http: aiohttp.ClientSession, cfg: ClientConfig, req: dict
         "prompt": req["prompt"],
         "max_tokens": int(req["max_tokens"]),
         "temperature": cfg.temperature,
+        "top_p": 1.0,   # explicit: servers may otherwise inherit generation_config.json defaults
         "stream": True,
         "stream_options": {"include_usage": True},
         "ignore_eos": req.get("ignore_eos", cfg.ignore_eos),
@@ -194,7 +195,7 @@ async def _run_async(cfg: ClientConfig, sessions: list[list[dict]], conc: int, k
     return out
 
 
-def _proc_main(cfg: ClientConfig, sessions, conc, keep_text, start_at, conn):
+def _proc_body(cfg: ClientConfig, sessions, conc, keep_text, start_at) -> dict:
     # all processes start together so the offered load is a clean step
     delay = start_at - time.monotonic()
     if delay > 0:
@@ -208,7 +209,11 @@ def _proc_main(cfg: ClientConfig, sessions, conc, keep_text, start_at, conn):
         recs = asyncio.run(coro)
     cpu = time.process_time() - c0
     wall = time.monotonic() - w0
-    conn.send({"records": recs, "cpu_s": cpu, "wall_s": wall, "pid": os.getpid()})
+    return {"records": recs, "cpu_s": cpu, "wall_s": wall, "pid": os.getpid()}
+
+
+def _proc_main(cfg: ClientConfig, sessions, conc, keep_text, start_at, conn):
+    conn.send(_proc_body(cfg, sessions, conc, keep_text, start_at))
     conn.close()
 
 
@@ -223,9 +228,9 @@ def run_load(cfg: ClientConfig, requests: list[dict]) -> dict:
     t_wall0 = time.time()
     t_mono0 = time.monotonic()
     if procs == 1:
-        r, w = mp.Pipe(duplex=False)
-        _proc_main(cfg, shards[0], concs[0], cfg.keep_text, start_at, w)
-        results = [r.recv()]
+        # in-process: no pipe (a pipe written and read by the same process deadlocks
+        # once the payload exceeds the OS pipe buffer -- found by tests/plans/mock.yaml)
+        results = [_proc_body(cfg, shards[0], concs[0], cfg.keep_text, start_at)]
     else:
         ctx = mp.get_context("fork")
         pipes, ps = [], []

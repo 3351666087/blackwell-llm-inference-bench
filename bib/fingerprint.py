@@ -109,6 +109,8 @@ def collect(env_python: str | None, packages: list[str], image_label: str | None
             m = re.search(r'"cuda"\s*:\s*\{[^}]*"version"\s*:\s*"([^"]+)"', txt) or re.search(r"([0-9]+\.[0-9]+\.[0-9]+)", txt)
             cuda_toolkit = m.group(1) if m else txt[:80]
             break
+    if not cuda_toolkit:
+        cuda_toolkit = (_run(["/usr/local/cuda/bin/nvcc", "--version"]).strip().splitlines() or [None])[-1]
     dpkg = _run("dpkg -l 2>/dev/null | awk '{print $2\" \"$3}'")
 
     info = {

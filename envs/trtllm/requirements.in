@@ -1,3 +1,5 @@
 tensorrt-llm==1.2.1
 torch==2.9.1+cu130
 torchvision==0.24.1+cu130
+# pyarrow>=20 needs numpy>=2 at import time but does not declare it; TRT-LLM pins numpy<2
+pyarrow<20

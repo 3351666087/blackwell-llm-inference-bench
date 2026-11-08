@@ -19,6 +19,7 @@ import os
 import shlex
 import signal
 import subprocess
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -56,17 +57,29 @@ def build_command(cfg: dict, port: int, workdir: str) -> tuple[list[str], dict]:
         if not pc:
             cmd.append("--disable-radix-cache")
     elif fw == "trtllm":
+        # OpenMPI (used by TensorRT-LLM even on one GPU) hangs at init on AutoDL:
+        # hwloc's GL plugin connects to X display :7 = 127.0.0.1:6007, where another
+        # service accepts but never answers. Disabling that hwloc component fixes it.
+        env["HWLOC_COMPONENTS"] = "-gl"
+        env["OMPI_ALLOW_RUN_AS_ROOT"] = "1"
+        env["OMPI_ALLOW_RUN_AS_ROOT_CONFIRM"] = "1"
         opts = dict(cfg.get("llm_api_options") or {})
         kv = dict(opts.get("kv_cache_config") or {})
         kv.setdefault("enable_block_reuse", bool(pc))
         opts["kv_cache_config"] = kv
-        yml = os.path.join(workdir, "trtllm_llm_api_options.yaml")
+        yml = os.path.abspath(os.path.join(workdir, "trtllm_llm_api_options.yaml"))
         with open(yml, "w") as f:
             json.dump(opts, f)  # JSON is valid YAML
         cmd = [os.path.join(env_dir, "bin", "trtllm-serve"), model,
                "--host", "127.0.0.1", "--port", str(port), "--backend", "pytorch",
                "--max_seq_len", str(max_len), "--extra_llm_api_options", yml]
         # trtllm-serve names the model after the path; we pass the alias in requests
+    elif fw == "mock":  # tools/mock_server.py, for testing the pipeline without a GPU
+        here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        o = cfg.get("mock") or {}
+        cmd = [sys.executable, os.path.join(here, "tools", "mock_server.py"), "--port", str(port),
+               "--ttft-ms", str(o.get("ttft_ms", 30)), "--tpot-ms", str(o.get("tpot_ms", 12)),
+               "--slots", str(o.get("slots", 64))]
     else:
         raise ValueError(f"unknown framework {fw}")
     return cmd + extra, env
@@ -107,6 +120,7 @@ class Server:
         self.start_count = 0
 
     def start(self, timeout_s: float = 3600.0) -> float:
+        self.workdir = os.path.abspath(self.workdir)
         os.makedirs(self.workdir, exist_ok=True)
         cmd, env = build_command(self.cfg, self.port, self.workdir)
         self.start_count += 1
@@ -146,6 +160,8 @@ class Server:
             if code != 200:
                 raise RuntimeError(f"reset_prefix_cache failed: {code} {body[:200]}")
             return "endpoint:/reset_prefix_cache"
+        if self.fw == "mock":
+            return "endpoint:/reset_prefix_cache(mock)"
         if self.fw == "sglang":
             code, body = _post(self.base + "/flush_cache")
             if code != 200:

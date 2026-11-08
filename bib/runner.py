@@ -50,8 +50,15 @@ def sha256_file(p: str) -> str:
 
 
 def git_commit() -> str | None:
+    """HEAD commit of the checkout, suffixed with '+dirty' if tracked files differ."""
     try:
-        return subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip() or None
+        g = ["git", "-c", f"safe.directory={os.getcwd()}"]
+        head = subprocess.run(g + ["rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+        if not head:
+            return None
+        dirty = subprocess.run(g + ["status", "--porcelain", "--untracked-files=no"],
+                               capture_output=True, text=True).stdout.strip()
+        return head + ("+dirty" if dirty else "")
     except Exception:
         return None
 
@@ -182,8 +189,13 @@ def run_plan(plan_path: str, only_servers: list[str] | None = None, only_workloa
                       open(os.path.join(sdir, "server_info.json"), "w"), indent=1)
             server.stop()
             continue
-        smoke = server.complete("<|im_start|>user\nWhat is the capital of France? Answer in one word."
-                                "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n", 16)
+        try:
+            smoke = server.complete("<|im_start|>user\nWhat is the capital of France? Answer in one word."
+                                    "<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n", 16)
+        except Exception as e:
+            log(root, f"SMOKE REQUEST FAILED {scfg['id']}: {e}")
+            server.stop()
+            continue
         sinfo = {"status": "ok", "fingerprint": fid, "load_s": load_s, "server_cfg": scfg,
                  "kv_capacity": kv_capacity(scfg["framework"], open(server.log_path, errors="replace").read()),
                  "model_bytes": minfo, "model_manifest_revision": (model_manifest or {}).get("revision"),

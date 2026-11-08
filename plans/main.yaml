@@ -71,14 +71,14 @@ workloads:
 # experiment needs. Env paths are created by envs/<fw>/setup.sh.
 servers:
   # ---------------- Qwen3-8B BF16
-  - {id: vllm-q8b-bf16,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-8B,     model_id: Qwen3-8B,  precision: bf16, max_model_len: 40960}
-  - {id: sglang-q8b-bf16, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-8B,     model_id: Qwen3-8B,  precision: bf16, max_model_len: 40960}
+  - {id: vllm-q8b-bf16,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-8B,     model_id: Qwen3-8B,  precision: bf16, max_model_len: 40960, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: sglang-q8b-bf16, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-8B,     model_id: Qwen3-8B,  precision: bf16, max_model_len: 40960, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
   - {id: trtllm-q8b-bf16, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-8B,     model_id: Qwen3-8B,  precision: bf16, max_model_len: 40960}
   # ---------------- Qwen3-8B FP8 (official block-wise 128x128 FP8 checkpoint)
-  - {id: vllm-q8b-fp8,    framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-8B-FP8, model_id: Qwen3-8B,  precision: fp8,  max_model_len: 40960}
-  - {id: sglang-q8b-fp8,  framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-8B-FP8, model_id: Qwen3-8B,  precision: fp8,  max_model_len: 40960}
+  - {id: vllm-q8b-fp8,    framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-8B-FP8, model_id: Qwen3-8B,  precision: fp8,  max_model_len: 40960, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: sglang-q8b-fp8,  framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-8B-FP8, model_id: Qwen3-8B,  precision: fp8,  max_model_len: 40960, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
   - {id: trtllm-q8b-fp8,  framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-8B-FP8, model_id: Qwen3-8B,  precision: fp8,  max_model_len: 40960}
   # ---------------- Qwen3-32B FP8 (prefill32k excluded to bound GPU time)
-  - {id: vllm-q32b-fp8,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-FP8, model_id: Qwen3-32B, precision: fp8, max_model_len: 40960, skip_workloads: [prefill32k]}
-  - {id: sglang-q32b-fp8, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-FP8, model_id: Qwen3-32B, precision: fp8, max_model_len: 40960, skip_workloads: [prefill32k]}
+  - {id: vllm-q32b-fp8,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-FP8, model_id: Qwen3-32B, precision: fp8, max_model_len: 40960, skip_workloads: [prefill32k], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: sglang-q32b-fp8, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-FP8, model_id: Qwen3-32B, precision: fp8, max_model_len: 40960, skip_workloads: [prefill32k], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
   - {id: trtllm-q32b-fp8, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-32B-FP8, model_id: Qwen3-32B, precision: fp8, max_model_len: 40960, skip_workloads: [prefill32k]}

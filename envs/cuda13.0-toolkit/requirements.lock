@@ -1,0 +1,9 @@
+# Minimal, self-consistent CUDA 13.0 compiler toolchain used as CUDA_HOME for JIT
+# kernels (vLLM DeepGEMM needs nvcc >= 12.9; the AutoDL image ships 12.8, and the
+# nvcc 13.5 pulled into the vLLM env does not match its CUDA 13.0 runtime headers).
+nvidia-cuda-nvcc==13.0.88
+nvidia-cuda-cccl==13.0.85
+nvidia-cuda-runtime==13.0.96
+nvidia-nvvm==13.0.88
+nvidia-cuda-crt==13.0.88
+nvidia-curand==10.4.0.35

@@ -2,9 +2,11 @@
 
 Written and tagged (`prereg-v1`) **before the first formal benchmark run**. No
 throughput or latency number from this GPU had been measured when the predictions
-below were written; only installation and smoke tests (one short request per
-framework) had run. Any later change goes into `AMENDMENTS.md` with a note of
-which results had been seen at the time.
+below were written. *Disclosure:* after the predictions were written (and before
+this tag) the smoke tests ran one 64-token request per framework; their timings
+(vLLM BF16 ≈ 11.5 ms/token, SGLang BF16 ≈ 11 ms/token end-to-end incl. TTFT) were
+visible in the smoke logs. No prediction was changed afterwards. Any later change
+goes into `AMENDMENTS.md` with a note of which results had been seen at the time.
 
 ## 1. Question
 
@@ -30,7 +32,10 @@ start if a checksum differs.
 
 Server settings: each framework's defaults (scheduler, memory fraction, CUDA graphs,
 chunked prefill, attention backend), plus `max_model_len = 40960`, seed 0, and the
-prefix-cache switch for §6. Rationale: we measure what an informed user gets out of
+prefix-cache switch for §6. Environment fix (not a tuning knob): vLLM and SGLang
+JIT-compile DeepGEMM/FlashInfer kernels and DeepGEMM refuses nvcc < 12.9; the
+AutoDL image ships CUDA 12.8, so both run with `CUDA_HOME` pointing at a pip-built
+CUDA 13.0 toolchain (`envs/cuda13.0-toolkit/`), matching their torch cu130 builds. Rationale: we measure what an informed user gets out of
 the box; the KV-cache capacity each framework chooses is recorded and reported.
 
 Sampling: greedy (`temperature = 0`), `max_tokens` = target output length,

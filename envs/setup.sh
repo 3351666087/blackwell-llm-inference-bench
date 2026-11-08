@@ -13,6 +13,7 @@ lock="$here/$name/requirements.lock"
 command -v uv >/dev/null || pip install -q uv
 export UV_DEFAULT_INDEX=${UV_DEFAULT_INDEX:-http://mirrors.aliyun.com/pypi/simple}
 export UV_INSECURE_HOST=${UV_INSECURE_HOST:-mirrors.aliyun.com}
+export UV_LINK_MODE=${UV_LINK_MODE:-hardlink}  # uv silently copied on AutoDL overlayfs otherwise
 export UV_HTTP_TIMEOUT=${UV_HTTP_TIMEOUT:-1800} UV_HTTP_RETRIES=${UV_HTTP_RETRIES:-8} UV_CONCURRENT_DOWNLOADS=${UV_CONCURRENT_DOWNLOADS:-6}
 if [ "$name" = trtllm ]; then
   # TensorRT-LLM wheels and TensorRT libs live on NVIDIA's index; torch cu130 on the PyTorch index (Aliyun mirror)

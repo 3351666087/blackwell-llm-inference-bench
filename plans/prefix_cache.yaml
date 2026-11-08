@@ -25,6 +25,6 @@ workloads:
     knee_gain: 0.05
     warmup_min: 8
 servers:
-  - {id: vllm-q8b-bf16-nocache,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-8B, model_id: Qwen3-8B, precision: bf16, max_model_len: 40960, prefix_cache: false, quality: false}
-  - {id: sglang-q8b-bf16-nocache, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-8B, model_id: Qwen3-8B, precision: bf16, max_model_len: 40960, prefix_cache: false, quality: false}
+  - {id: vllm-q8b-bf16-nocache,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-8B, model_id: Qwen3-8B, precision: bf16, max_model_len: 40960, prefix_cache: false, quality: false, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: sglang-q8b-bf16-nocache, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-8B, model_id: Qwen3-8B, precision: bf16, max_model_len: 40960, prefix_cache: false, quality: false, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
   - {id: trtllm-q8b-bf16-nocache, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-8B, model_id: Qwen3-8B, precision: bf16, max_model_len: 40960, prefix_cache: false, quality: false}

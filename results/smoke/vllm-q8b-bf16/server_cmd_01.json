@@ -1,0 +1,23 @@
+{
+ "cmd": [
+  "/root/envs/vllm/bin/vllm",
+  "serve",
+  "/root/autodl-tmp/models/Qwen3-8B",
+  "--served-model-name",
+  "bench",
+  "--host",
+  "127.0.0.1",
+  "--port",
+  "8000",
+  "--max-model-len",
+  "40960",
+  "--seed",
+  "0"
+ ],
+ "shell": "/root/envs/vllm/bin/vllm serve /root/autodl-tmp/models/Qwen3-8B --served-model-name bench --host 127.0.0.1 --port 8000 --max-model-len 40960 --seed 0",
+ "env_overrides": {
+  "HF_HUB_OFFLINE": "1",
+  "TRANSFORMERS_OFFLINE": "1",
+  "VLLM_SERVER_DEV_MODE": "1"
+ }
+}

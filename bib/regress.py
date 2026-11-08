@@ -1,7 +1,7 @@
 """Performance regression detection between two result sets (task 5.3).
 
-  python -m bib.regress BASE/points.json NEW/points.json [--md out.md] [--json out.json]
-         [--fail-on-regression]
+  python -m bib.regress BASE/points.json NEW/points.json [--base-server ID --new-server ID]
+         [--md out.md] [--json out.json] [--fail-on-regression]
 
 Configs are matched on (framework, model_id, precision, prefix_cache, workload,
 concurrency). For each matched config and metric, the per-repetition values
@@ -36,8 +36,12 @@ METRICS = {  # metric: higher_is_better
 KEY = ("framework", "model_id", "precision", "prefix_cache", "workload", "concurrency")
 
 
-def load(path: str) -> dict:
+def load(path: str, server: str | None = None) -> dict:
+    """points.json -> {config key: point}. `server` selects one server config when a
+    file holds both versions (e.g. results/regression)."""
     pts = json.load(open(path))
+    if server:
+        pts = [p for p in pts if p["server_id"] == server]
     return {tuple(p[k] for k in KEY): p for p in pts}
 
 
@@ -99,9 +103,11 @@ def main(argv=None):
     ap.add_argument("--json")
     ap.add_argument("--base-label", default="base")
     ap.add_argument("--new-label", default="new")
+    ap.add_argument("--base-server", help="server_id to select from BASE file")
+    ap.add_argument("--new-server", help="server_id to select from NEW file")
     ap.add_argument("--fail-on-regression", action="store_true")
     a = ap.parse_args(argv)
-    tests = compare(load(a.base), load(a.new))
+    tests = compare(load(a.base, a.base_server), load(a.new, a.new_server))
     md = to_markdown(tests, a.base_label, a.new_label)
     if a.md:
         open(a.md, "w").write(md)

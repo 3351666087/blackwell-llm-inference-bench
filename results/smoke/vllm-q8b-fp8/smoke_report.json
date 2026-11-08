@@ -1,0 +1,71 @@
+{
+ "framework": "vllm",
+ "model": "/root/autodl-tmp/models/Qwen3-8B-FP8",
+ "time": "2026-11-08 12:12:21",
+ "checks": {
+  "chat_template_identical": true,
+  "server_up": true,
+  "paris_in_answer": true,
+  "speed_80_in_answer": true,
+  "def_in_code_answer": true,
+  "stream_usage_present": true,
+  "ignore_eos_exact_len": true,
+  "prompt_tokens_match": true,
+  "one_chunk_per_token": false,
+  "cache_reset": "endpoint:/reset_prefix_cache"
+ },
+ "server_env_vars": {
+  "CUDA_HOME": "/root/cuda13.0/nvidia/cu13"
+ },
+ "load_s": 100.07151017989963,
+ "greedy_outputs": [
+  {
+   "prompt": "What is the capital of France? Answer in one sentence.",
+   "text": "The capital of France is Paris.",
+   "usage": {
+    "prompt_tokens": 24,
+    "total_tokens": 32,
+    "completion_tokens": 8,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": null
+   },
+   "finish": "stop"
+  },
+  {
+   "prompt": "A train travels 120 km in 1.5 hours. What is its average speed in km/h? Show the calculation briefly.",
+   "text": "To find the **average speed**, use the formula:\n\n$$\n\\text{Average speed} = \\frac{\\text{Total distance}}{\\text{Total time}}\n$$\n\nGiven:\n- Distance = 120 km  \n- Time = 1.5 hours  \n\n$$\n\\text{Average speed} = \\frac{120 \\text{ km}}{1.5 \\text{ hours}} = 80 \\text{ km/h}\n$$\n\n**Answer:** 80 km/h",
+   "usage": {
+    "prompt_tokens": 41,
+    "total_tokens": 147,
+    "completion_tokens": 106,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": null
+   },
+   "finish": "stop"
+  },
+  {
+   "prompt": "Write a Python function that returns the n-th Fibonacci number iteratively.",
+   "text": "Here's a Python function that returns the **n-th Fibonacci number iteratively**:\n\n```python\ndef fibonacci(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n\n    a, b = 0, 1\n    for _ in range(2, n + 1):\n        a, b = b, a + b\n    return b\n```\n\n### Explanation:\n- The function uses **two variables** `a` and `b` to keep track of the last two Fibonacci numbers.\n- It iterates from 2 to `n`, updating `a` and `b` in each step.\n- This approach is **efficient** with a time complexity of **O(n)** and a space complexity of **O(1)**.\n\n### Example usage:\n```python\nprint(fibonacci(10))  # Output: 55\n```\n\nLet me know if you want a version",
+   "usage": {
+    "prompt_tokens": 26,
+    "total_tokens": 226,
+    "completion_tokens": 200,
+    "prompt_tokens_details": null,
+    "completion_tokens_details": null
+   },
+   "finish": "length"
+  }
+ ],
+ "stream_record": {
+  "usage_in": 15,
+  "usage_out": 64,
+  "exp_in": 15,
+  "exp_out": 64,
+  "n_chunks": 61,
+  "finish": "length",
+  "error": null,
+  "ttft": 0.1027812510728836,
+  "e2e": 0.549898250028491,
+  "text_head": "Hello! How can I assist you today? 😊\n\n**Note:** The response above is in English, but the user's query was in Chinese. If you'd like a response in Chinese, I ca"
+ }
+}

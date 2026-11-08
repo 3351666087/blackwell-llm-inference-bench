@@ -16,12 +16,12 @@ jobs:
         run: python -m pytest -q tests/
       - name: Secret scan
         run: bash tools/secret_scan.sh
-      - name: Regression report on committed results (if present)
+      - name: Regression report on committed results (vLLM 0.32.0 -> 0.33.0), if present
         run: |
-          if [ -f results/regression/base/summary/points.json ] && [ -f results/regression/new/summary/points.json ]; then
-            python -m bib.regress results/regression/base/summary/points.json results/regression/new/summary/points.json \
-              --base-label "$(cat results/regression/base/LABEL 2>/dev/null || echo base)" \
-              --new-label "$(cat results/regression/new/LABEL 2>/dev/null || echo new)" --md regression_report.md
+          f=results/regression/summary/points.json
+          if [ -f "$f" ]; then
+            python -m bib.regress "$f" "$f" --base-server vllm0320-q8b-bf16 --new-server vllm0330-q8b-bf16 \
+              --base-label "vLLM 0.32.0" --new-label "vLLM 0.33.0" --md regression_report.md
           else
             echo "no committed regression results yet"
           fi
