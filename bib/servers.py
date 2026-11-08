@@ -121,8 +121,30 @@ class Server:
         self.log_path = None
         self.model_name = SERVED_NAME
         self.start_count = 0
+        self.start_failures: list[dict] = []
 
-    def start(self, timeout_s: float = 3600.0) -> float:
+    def start(self, timeout_s: float = 3600.0, attempts: int | None = None) -> float:
+        """Start the server; on a crash before it becomes ready, retry (default 4 attempts
+        for TensorRT-LLM, whose worker intermittently segfaults during init on this box,
+        1 otherwise). A crash before readiness cannot bias measurements; every failed
+        attempt is recorded in self.start_failures and start_failures.jsonl."""
+        if attempts is None:
+            attempts = int(self.cfg.get("start_attempts", 4 if self.fw == "trtllm" else 1))
+        last = None
+        for k in range(attempts):
+            try:
+                return self._start_once(timeout_s)
+            except (RuntimeError, TimeoutError) as e:
+                last = e
+                self.start_failures.append({"time": time.strftime("%Y-%m-%d %H:%M:%S"), "attempt": k + 1,
+                                            "log": self.log_path, "error": str(e)[:300]})
+                with open(os.path.join(self.workdir, "start_failures.jsonl"), "a") as f:
+                    f.write(json.dumps(self.start_failures[-1]) + "\n")
+                self.stop()
+                time.sleep(5)
+        raise last
+
+    def _start_once(self, timeout_s: float) -> float:
         self.workdir = os.path.abspath(self.workdir)
         os.makedirs(self.workdir, exist_ok=True)
         cmd, env = build_command(self.cfg, self.port, self.workdir)
