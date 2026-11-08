@@ -281,3 +281,15 @@ of each start. Hours are counted from the console's start/stop timestamps.
   same `/dev/shm` usage now as then), which also rules out shared-memory pressure as a
   deterministic cause. Each agent repetition restarts this server (pre-registered), so the
   crash may recur; the fail-fast start makes that cost ≤ 1 min and the run resumable.
+- **21:20 · 3.4 / 4.3** · TensorRT-LLM BF16 chat runs at c ≥ 64 are being marked **invalid** by
+  the bandwidth-floor check (vLLM/SGLang: 0 violations in 358 runs). Inspection of the
+  violating requests: (a) `chat-00109` (31 tokens): all 31 chunks arrived within 2 ms at
+  t = 0.81 s (typical TTFT at this level ≈ 66 ms) → the server delivered a finished
+  response in one burst, so the client-side TPOT (0.063 ms) does not measure decoding;
+  (b) `chat-00360` (4 tokens, 3 chunks): the first two tokens arrived 0.15 ms apart, so
+  (E2E−TTFT)/(n−1) under-counts one decode step and the request sits 4 % below the floor
+  (slack 3 %). Neither is a client bug; both are server streaming behaviour that the
+  pre-registered check cannot distinguish from a timing error. **Decision:** keep the
+  pre-registered rule (these runs stay invalid in the primary tables). After the TRT runs
+  finish I will add a clearly labelled post-hoc amendment (A2) with a burst-tolerant
+  validity rule and report both versions side by side. Runs continue unchanged.
