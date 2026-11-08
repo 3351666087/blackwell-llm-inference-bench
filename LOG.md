@@ -304,3 +304,15 @@ of each start. Hours are counted from the console's start/stop timestamps.
   results moved to `results/_superseded/A2_trt_cache_contaminated/` (kept for the record).
   21:35 queue restarted: TRT 8B BF16+FP8 (restart per rep) → prefix_cache → regression → 32B.
   Expected extra cost ≈ 1 h of restarts per TensorRT-LLM config.
+- **21:36–21:45 · 4.3** · With restart-per-rep (A2) the TensorRT-LLM init segfault came back
+  quickly: BF16 crashed on its 3rd start (`server_03.log`), FP8 on its 2nd. Fail-fast worked
+  (no hang); the queue moved on to the prefix-cache plan. Interpretation: an intermittent
+  crash during worker init (C stack in `nvmlSystemGetConfComputeSettings`, reached from
+  `confidential_compute_enabled()` while creating the sampler) — consistent with a race in
+  NVML init/shutdown inside the worker; standalone calls never crash. It happens **before**
+  the server is ready, so it cannot bias a measurement. **Fix in the harness:** up to 4 start
+  attempts for TensorRT-LLM, every failed attempt logged to `start_failures.jsonl` (the crash
+  rate will be reported). I did not patch TensorRT-LLM itself.
+  Queue: prefix_cache (vLLM/SGLang/TRT no-cache) → regression → 32B (new code with retries);
+  then `chain2`: TRT 8B BF16+FP8 and TRT no-cache reruns.
+- **21:47 · 1 (费用)** · Instance on since 10:55 → ≈10.9 h × ¥6.98 ≈ ¥76.
