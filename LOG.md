@@ -341,3 +341,12 @@ of each start. Hours are counted from the console's start/stop timestamps.
   `password=` rule only for text files); CI switched to it. (3) The files are still in
   earlier commits; I will purge them from history after the last GPU run (the instance
   checkout records commit hashes in every `meta.json`), and publish an old→new commit map.
+- **03:20–03:55 · infra (agent mistake)** · `tools/sync.sh` rsynced the working tree *including
+  `.git`*; after committing 44 MB of regression results the upload over the Mac→instance
+  link (~30 KB/s) ran for 30+ min. I killed it, which left the instance's `.git` with
+  missing objects; a recovery command then moved the broken `.git` aside although the
+  replacement clone had failed (a `cmd; echo rc && mv` chain that did not check the
+  clone's exit status). The working tree, `results/` and the running benchmark were never
+  affected. Recovered with a shallow `git clone --no-checkout` from GitHub + `git reset`
+  (tree verified identical to HEAD `07297b2`). `tools/sync.sh push` now makes the instance
+  `git fetch` the pushed commit from GitHub instead of uploading `.git`.
