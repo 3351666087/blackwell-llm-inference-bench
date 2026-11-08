@@ -144,7 +144,30 @@ class Server:
                 time.sleep(5)
         raise last
 
+    def _port_free(self) -> bool:
+        import socket
+        s = socket.socket()
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        try:
+            s.bind(("127.0.0.1", self.port))
+            return True
+        except OSError:
+            return False
+        finally:
+            s.close()
+
+    def _wait_port(self, timeout_s: float = 120.0):
+        """A previous server's helper process can hold the port for a while after the
+        GPU is free (seen with SGLang -> TensorRT-LLM); wait, then kill the holder."""
+        t0 = time.monotonic()
+        while not self._port_free() and time.monotonic() - t0 < timeout_s:
+            time.sleep(2)
+        if not self._port_free():
+            subprocess.run(["fuser", "-k", f"{self.port}/tcp"], capture_output=True)
+            time.sleep(3)
+
     def _start_once(self, timeout_s: float) -> float:
+        self._wait_port()
         self.workdir = os.path.abspath(self.workdir)
         os.makedirs(self.workdir, exist_ok=True)
         cmd, env = build_command(self.cfg, self.port, self.workdir)
