@@ -1,0 +1,82 @@
+[
+ {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "prefix_cache": true,
+  "workload": "chat",
+  "concurrency": 1,
+  "reps": {
+   "output_throughput": [
+    95.1,
+    95.0,
+    95.3
+   ],
+   "ttft_p50_ms": [
+    24.0,
+    24.1,
+    23.9
+   ]
+  }
+ },
+ {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "prefix_cache": true,
+  "workload": "chat",
+  "concurrency": 4,
+  "reps": {
+   "output_throughput": [
+    300,
+    420,
+    340
+   ],
+   "ttft_p50_ms": [
+    40,
+    41,
+    40
+   ]
+  }
+ },
+ {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "prefix_cache": true,
+  "workload": "chat",
+  "concurrency": 16,
+  "reps": {
+   "output_throughput": [
+    1201,
+    1199,
+    1203
+   ],
+   "ttft_p50_ms": [
+    60,
+    60,
+    61
+   ]
+  }
+ },
+ {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "prefix_cache": true,
+  "workload": "chat",
+  "concurrency": 64,
+  "reps": {
+   "output_throughput": [
+    3400,
+    3405,
+    3398
+   ],
+   "ttft_p50_ms": [
+    121,
+    120,
+    122
+   ]
+  }
+ }
+]

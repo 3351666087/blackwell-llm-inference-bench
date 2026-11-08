@@ -1,0 +1,27 @@
+name: offline-checks
+# CPU-only: unit tests, regression detection on committed results, secret scan.
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install numpy scipy pyyaml aiohttp pytest
+      - name: Unit tests (stats, regression detector, client vs mock server)
+        run: python -m pytest -q tests/
+      - name: Secret scan
+        run: bash tools/secret_scan.sh
+      - name: Regression report on committed results (if present)
+        run: |
+          if [ -f results/regression/base/summary/points.json ] && [ -f results/regression/new/summary/points.json ]; then
+            python -m bib.regress results/regression/base/summary/points.json results/regression/new/summary/points.json \
+              --base-label "$(cat results/regression/base/LABEL 2>/dev/null || echo base)" \
+              --new-label "$(cat results/regression/new/LABEL 2>/dev/null || echo new)" --md regression_report.md
+          else
+            echo "no committed regression results yet"
+          fi

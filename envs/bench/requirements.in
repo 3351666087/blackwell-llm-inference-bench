@@ -1,0 +1,11 @@
+# Load generator / analysis environment. Deliberately separate from every
+# framework environment so the client is identical for all frameworks.
+aiohttp
+uvloop
+numpy
+scipy
+pyyaml
+tokenizers
+pyarrow
+nvidia-ml-py
+pytest
