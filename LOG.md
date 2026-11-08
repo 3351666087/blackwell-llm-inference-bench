@@ -273,3 +273,11 @@ of each start. Hours are counted from the console's start/stop timestamps.
   (segfault, MPI abort, engine init failure, CUDA OOM) instead of waiting for the 1 h
   timeout, and kills leftover `orted`; (2) the queue retries the TensorRT-LLM 8B configs
   after the vLLM/SGLang 8B runs. Root-cause test planned for when the GPU is free.
+- **18:04–21:06 · 4.1/4.2** · vLLM FP8 (18:04–19:16) and SGLang FP8 (19:17–21:06) complete. The
+  SGLang agent cliff reproduces with FP8 (c=64 860 tok/s → c=128 522 tok/s, TTFT p50 6.6 s)
+  even though FP8 weights leave a larger KV pool (524 533 tokens).
+- **21:07 · 4.3** · Queue retried TensorRT-LLM BF16: **server started normally** (44 s, KV
+  ≈ 504k tokens, smoke "Paris"). The 17:41 segfault is therefore intermittent (same env,
+  same `/dev/shm` usage now as then), which also rules out shared-memory pressure as a
+  deterministic cause. Each agent repetition restarts this server (pre-registered), so the
+  crash may recur; the fail-fast start makes that cost ≤ 1 min and the run resumable.
