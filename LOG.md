@@ -350,3 +350,10 @@ of each start. Hours are counted from the console's start/stop timestamps.
   affected. Recovered with a shallow `git clone --no-checkout` from GitHub + `git reset`
   (tree verified identical to HEAD `07297b2`). `tools/sync.sh push` now makes the instance
   `git fetch` the pushed commit from GitHub instead of uploading `.git`.
+- **06:05 · 4.1** · vLLM 32B FP8 done (02:24–06:05). Agent workload: vLLM hits the same KV-capacity
+  cliff as SGLang did on 8B — c=32 243 tok/s → c=64 124 tok/s, TTFT p50 22 s (KV pool only
+  210 752 tokens for 32B). So the cliff is a capacity effect, not SGLang-specific.
+- **06:06 · 4.2** · SGLang 32B FP8 started (KV 199 857 tokens, GSM8K 0.960).
+- **06:12 · 1 (费用)** · Instance on since 10:55 yesterday → ≈19.3 h × ¥6.98 ≈ ¥135. Console shows an
+  available balance of ¥695.95 (¥359.92 when I started) — a top-up that I did not make; I have not
+  touched payment settings. I keep to Rui's ¥350 cap; remaining plan ≈ 22 GPU-hours ≈ ¥155.
