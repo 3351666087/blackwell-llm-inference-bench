@@ -37,6 +37,6 @@ workloads:
     knee_gain: 0.05
     warmup_min: 4
 servers:
-  - {id: vllm-q32b-nvfp4,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "auto"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
-  - {id: sglang-q32b-nvfp4, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
-  - {id: trtllm-q32b-nvfp4, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960}
+  - {id: vllm-q32b-nvfp4,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "bfloat16"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: sglang-q32b-nvfp4, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "bfloat16"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: trtllm-q32b-nvfp4, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, llm_api_options: {kv_cache_config: {dtype: bfloat16}}}

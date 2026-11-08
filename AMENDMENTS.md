@@ -44,3 +44,13 @@ Also observed (not an amendment yet): some TensorRT-LLM chat runs at c ≥ 64 fa
 pre-registered bandwidth-floor check because the server sometimes delivers a finished
 response in one burst (see LOG.md 21:20). Under the pre-registered rule those runs are
 invalid. A burst-tolerant variant will be reported separately and labelled post hoc (A3).
+
+## A3 — exact KV-cache flags for the NVFP4 study (2026-11-08 ~22:35)
+
+(a) `plans/nvfp4.yaml` stated the intent "KV cache forced to BF16" but passed
+`--kv-cache-dtype auto` to vLLM, which — as the vLLM 0.33 source shows
+(`attention.py`: `if kv_cache_scheme is not None and kv_cache_dtype == "auto": kv_cache_dtype = "fp8"`)
+— would have used the checkpoint's FP8 KV cache. Now: vLLM and SGLang
+`--kv-cache-dtype bfloat16`, TensorRT-LLM `kv_cache_config.dtype: bfloat16`.
+(b) Implements the pre-registered intent; no change of design.
+(c) No NVFP4 result existed. 32B FP8 results did not exist yet either.
