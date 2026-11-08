@@ -316,3 +316,9 @@ of each start. Hours are counted from the console's start/stop timestamps.
   Queue: prefix_cache (vLLM/SGLang/TRT no-cache) → regression → 32B (new code with retries);
   then `chain2`: TRT 8B BF16+FP8 and TRT no-cache reruns.
 - **21:47 · 1 (费用)** · Instance on since 10:55 → ≈10.9 h × ¥6.98 ≈ ¥76.
+- **21:45–01:14 · 4.5** · Prefix-cache plan: vLLM no-cache (21:45–23:02) and SGLang no-cache
+  (23:02–01:14) complete, all valid. TensorRT-LLM no-cache failed to start at 01:14 with
+  `Failed to bind socket to 127.0.0.1:8000: Address already in use` — a helper process of the
+  just-stopped SGLang server still held the port although the GPU was already free. Fix:
+  `Server` now waits for the port (≤ 2 min) and then `fuser -k`s the holder (psmisc installed).
+  TRT no-cache is re-run by `chain2`. Regression plan started 01:14 (vLLM 0.32.0 first).
