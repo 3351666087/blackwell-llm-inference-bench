@@ -137,7 +137,7 @@ class Server:
         self.proc = subprocess.Popen(cmd, env=env, stdout=logf, stderr=subprocess.STDOUT,
                                      cwd=self.workdir, start_new_session=True)
         fatal = ("Segfault encountered", "job has been aborted", "Engine core initialization failed",
-                 "Scheduler hit an exception", "CUDA out of memory", "Traceback (most recent call last)")
+                 "Scheduler hit an exception", "CUDA out of memory")
         last_scan = 0.0
         while True:
             if self.proc.poll() is not None:
