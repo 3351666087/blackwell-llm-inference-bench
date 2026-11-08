@@ -79,6 +79,9 @@ def run_metrics(recs: list[dict], power: list[dict] | None, meta: dict, slo: dic
             m[f"{name}_p{p}_ms"] = _pct(arr, p)
     m["itl_max_ms"] = float(max(itl) * 1000) if itl else None
     m["chunks_per_token"] = sum(r["n_chunks"] for r in ok) / max(1, o_tok)
+    cached = [r.get("usage_cached") for r in ok]
+    if cached and all(c is not None for c in cached):
+        m["prefix_cache_hit_rate"] = sum(cached) / max(1, i_tok)  # fraction of prompt tokens served from cache
 
     # steady-state window
     first_done = min(r["t_end"] for r in ok)

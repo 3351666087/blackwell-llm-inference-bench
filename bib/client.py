@@ -154,6 +154,7 @@ async def _one_request(http: aiohttp.ClientSession, cfg: ClientConfig, req: dict
         "n_chars": len(text),
         "usage_in": (usage or {}).get("prompt_tokens"),
         "usage_out": (usage or {}).get("completion_tokens"),
+        "usage_cached": ((usage or {}).get("prompt_tokens_details") or {}).get("cached_tokens"),
         "finish": finish,
         "error": err,
         "text_head": text[: cfg.text_prefix_chars],

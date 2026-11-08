@@ -26,7 +26,7 @@ KEY_METRICS = ["output_throughput", "steady_output_throughput", "total_token_thr
                "ttft_p50_ms", "ttft_p90_ms", "ttft_p99_ms", "tpot_p50_ms", "tpot_p90_ms", "tpot_p99_ms",
                "itl_p50_ms", "itl_p99_ms", "e2e_p50_ms", "e2e_p99_ms", "goodput_rps", "goodput_tok_s",
                "slo_attainment", "energy_j", "j_per_output_token", "j_per_total_token", "avg_power_w",
-               "power_max_w", "peak_mem_mib", "sm_mhz_mean", "temp_max_c", "chunks_per_token"]
+               "power_max_w", "peak_mem_mib", "sm_mhz_mean", "temp_max_c", "chunks_per_token", "prefix_cache_hit_rate"]
 
 
 def load_quality(root: str) -> dict:

@@ -47,13 +47,15 @@ def build_command(cfg: dict, port: int, workdir: str) -> tuple[list[str], dict]:
         env["VLLM_SERVER_DEV_MODE"] = "1"
         cmd = [os.path.join(env_dir, "bin", "vllm"), "serve", model,
                "--served-model-name", SERVED_NAME, "--host", "127.0.0.1", "--port", str(port),
-               "--max-model-len", str(max_len), "--seed", "0"]
+               "--max-model-len", str(max_len), "--seed", "0",
+               "--enable-prompt-tokens-details"]  # reporting only: cached_tokens in usage (AMENDMENTS A1)
         if not pc:
             cmd.append("--no-enable-prefix-caching")
     elif fw == "sglang":
         cmd = [py, "-m", "sglang.launch_server", "--model-path", model,
                "--served-model-name", SERVED_NAME, "--host", "127.0.0.1", "--port", str(port),
-               "--context-length", str(max_len), "--random-seed", "0"]
+               "--context-length", str(max_len), "--random-seed", "0",
+               "--enable-cache-report"]  # reporting only: cached_tokens in usage (AMENDMENTS A1)
         if not pc:
             cmd.append("--disable-radix-cache")
     elif fw == "trtllm":
