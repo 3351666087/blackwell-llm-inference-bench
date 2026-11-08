@@ -76,9 +76,15 @@ def _sampler(path: str, interval: float, stop: mp.Event, ready: mp.Event, index:
             nxt += interval
             sl = nxt - time.monotonic()
             if sl > 0:
-                time.sleep(sl)
+                stop.wait(sl)
             else:
                 nxt = time.monotonic()
+        # final row after stop, so the series always covers the end of the load window
+        try:
+            w.writerow([round(time.monotonic(), 4), inst_power(), nv.nvmlDeviceGetPowerUsage(h) / 1000.0,
+                        nv.nvmlDeviceGetTotalEnergyConsumption(h), None, None, None, None, None, None, None])
+        except Exception:
+            pass
     nv.nvmlShutdown()
 
 

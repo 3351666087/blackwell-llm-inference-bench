@@ -113,11 +113,20 @@ def run_metrics(recs: list[dict], power: list[dict] | None, meta: dict, slo: dic
     if power:
         ce = [(p["t_mono"], p["energy_mj"]) for p in power
               if p.get("t_mono") is not None and p.get("energy_mj") is not None]
-        if len(ce) >= 2 and ce[0][0] <= t0 and ce[-1][0] >= t1:
+        # the sampler's last row can precede the last stream end by < 1 sample period;
+        # extrapolate linearly from the last two counter readings if the gap is <= 0.5 s
+        if len(ce) >= 2 and ce[0][0] <= t0 and ce[-1][0] >= t1 - 0.5:
             ts = np.array([c[0] for c in ce])
-            es = np.array([c[1] for c in ce])
-            ej = float(np.interp(t1, ts, es) - np.interp(t0, ts, es)) / 1000.0
-            m["energy_source"] = "nvml_counter_interpolated"
+            es = np.array([c[1] for c in ce], dtype=float)
+
+            def at(t):
+                if t <= ts[-1]:
+                    return float(np.interp(t, ts, es))
+                slope = (es[-1] - es[-2]) / (ts[-1] - ts[-2])
+                return float(es[-1] + slope * (t - ts[-1]))
+
+            ej = (at(t1) - at(t0)) / 1000.0
+            m["energy_source"] = "nvml_counter_interpolated" if t1 <= ts[-1] else "nvml_counter_extrapolated_tail"
     e0, e1 = meta.get("energy_mj_start"), meta.get("energy_mj_end")
     if e0 is not None and e1 is not None and e1 > e0:
         m["energy_j_outer_window"] = (e1 - e0) / 1000.0
