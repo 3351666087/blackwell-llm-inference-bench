@@ -1,0 +1,25 @@
+{
+ "cmd": [
+  "/root/envs/vllm-0.32.0/bin/vllm",
+  "serve",
+  "/root/autodl-tmp/models/Qwen3-8B",
+  "--served-model-name",
+  "bench",
+  "--host",
+  "127.0.0.1",
+  "--port",
+  "8000",
+  "--max-model-len",
+  "40960",
+  "--seed",
+  "0",
+  "--enable-prompt-tokens-details"
+ ],
+ "shell": "/root/envs/vllm-0.32.0/bin/vllm serve /root/autodl-tmp/models/Qwen3-8B --served-model-name bench --host 127.0.0.1 --port 8000 --max-model-len 40960 --seed 0 --enable-prompt-tokens-details",
+ "env_overrides": {
+  "HF_HUB_OFFLINE": "1",
+  "TRANSFORMERS_OFFLINE": "1",
+  "CUDA_HOME": "/root/cuda13.0/nvidia/cu13",
+  "VLLM_SERVER_DEV_MODE": "1"
+ }
+}

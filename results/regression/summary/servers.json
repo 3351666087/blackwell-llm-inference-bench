@@ -1,0 +1,32 @@
+{
+ "vllm0320-q8b-bf16": {
+  "status": "ok",
+  "fingerprint": "e2a8a723726a",
+  "load_s": 294.19511452596635,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "506,320",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "12.36"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ },
+ "vllm0330-q8b-bf16": {
+  "status": "ok",
+  "fingerprint": "21da858b52b0",
+  "load_s": 48.02261493448168,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "501,296",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "12.24"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ }
+}
