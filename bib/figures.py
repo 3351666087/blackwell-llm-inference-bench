@@ -32,6 +32,8 @@ plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.righ
 def load(results):
     pts = []
     for plan in sorted(os.listdir(results)):
+        if plan.startswith("_"):
+            continue
         f = os.path.join(results, plan, "summary", "points.json")
         if os.path.exists(f):
             for p in json.load(open(f)):

@@ -19,6 +19,8 @@ from .stats import prediction_verdict, ratio_ci, verdict
 def load_points(results: str) -> dict:
     pts = {}
     for plan in os.listdir(results):
+        if plan.startswith("_"):
+            continue
         f = os.path.join(results, plan, "summary", "points.json")
         if os.path.exists(f):
             for p in json.load(open(f)):

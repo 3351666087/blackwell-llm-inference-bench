@@ -84,7 +84,7 @@ const uniq = a => [...new Set(a)];
 const st = {fws:new Set(FW)};
 function opts(sel, vals, all){ sel.innerHTML=''; (all?['all']:[]).concat(vals).forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);}); }
 opts($('f-model'), uniq(D.map(p=>p.model_id)).sort());
-opts($('f-wl'), uniq(D.map(p=>p.workload)).sort());
+opts($('f-wl'), uniq(D.map(p=>p.workload)).sort()); if(D.some(p=>p.workload==='chat'))$('f-wl').value='chat';
 opts($('f-prec'), uniq(D.map(p=>p.precision)).sort(), true);
 opts($('f-plan'), uniq(D.map(p=>p.plan)).sort(), true);
 $('f-plan').value = D.some(p=>p.plan==='main') ? 'main' : 'all';
@@ -104,7 +104,7 @@ function legend(el, ss){ el.innerHTML=''; ss.forEach(s=>{const sp=document.creat
  if(DASH[s.prec])ln.setAttribute('stroke-dasharray',DASH[s.prec]);sv.appendChild(ln);sp.append(sv,document.createTextNode(lab(s)));el.appendChild(sp);});}
 const NS='http://www.w3.org/2000/svg';
 function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e;}
-function fmt(v){ if(v==null)return '–'; const a=Math.abs(v); return a>=1000? v.toFixed(0) : a>=100? v.toFixed(1): a>=1? v.toFixed(2): v.toPrecision(3);}
+function fmt(v){ if(v==null)return '–'; const a=Math.abs(v); if(Number.isInteger(v)) return String(v); return a>=100? v.toFixed(0) : a>=10? v.toFixed(1): a>=1? v.toFixed(2): v.toPrecision(3);}
 const tip=$('tip');
 function showTip(ev, title, rows){ tip.innerHTML=''; const t=document.createElement('div');t.style.color='var(--ink2)';t.textContent=title;tip.appendChild(t);
  rows.forEach(r=>{const d=document.createElement('div');const b=document.createElement('b');b.textContent=r[0];const sw=document.createElement('span');
@@ -153,7 +153,7 @@ function ecdf(svg, ss, key, conc){
  if(!data.length){const t=el('text',{x:W/2,y:H/2,'text-anchor':'middle',class:'axt'},svg);t.textContent='no samples at this concurrency';return;}
  const all=data.flatMap(d=>d.v);const x0=Math.log10(Math.min(...all))-0.02,x1=Math.log10(Math.max(...all))+0.02;
  const X=v=>L+(Math.log10(v)-x0)/(x1-x0)*(W-L-R),Y=q=>T+(1-q)*(H-T-B);
- [0,.25,.5,.75,.9,.99,1].forEach(q=>{el('line',{x1:L,x2:W-R,y1:Y(q),y2:Y(q),stroke:'var(--grid)'},svg);const t=el('text',{x:L-6,y:Y(q)+4,'text-anchor':'end',class:'tick'},svg);t.textContent=q;});
+ [0,.25,.5,.75,.9,1].forEach(q=>{el('line',{x1:L,x2:W-R,y1:Y(q),y2:Y(q),stroke:'var(--grid)'},svg);const t=el('text',{x:L-6,y:Y(q)+4,'text-anchor':'end',class:'tick'},svg);t.textContent=q;});
  for(let e=Math.floor(x0);e<=Math.ceil(x1);e++)[1,2,5].forEach(m=>{const v=m*10**e;if(Math.log10(v)>=x0&&Math.log10(v)<=x1){const t=el('text',{x:X(v),y:H-B+16,'text-anchor':'middle',class:'tick'},svg);t.textContent=fmt(v);}});
  el('line',{x1:L,x2:W-R,y1:H-B,y2:H-B,stroke:'var(--axis)'},svg);const xl=el('text',{x:(L+W-R)/2,y:H-4,'text-anchor':'middle',class:'axt'},svg);xl.textContent=key.replace('_ms','')+' (ms, log)';
  data.forEach(d=>{const n=d.v.length;el('path',{d:d.v.map((v,i)=>(i?'L':'M')+X(v).toFixed(1)+','+Y((i+1)/n).toFixed(1)).join(''),fill:'none',stroke:COL[d.s.fw],'stroke-width':2,'stroke-dasharray':DASH[d.s.prec]||''},svg);});
@@ -186,6 +186,8 @@ render();
 def build(results: str, out: str):
     pts = []
     for f in sorted(glob.glob(os.path.join(results, "*", "summary", "points.json"))):
+        if os.path.basename(os.path.dirname(os.path.dirname(f))).startswith("_"):
+            continue  # test plans (e.g. results/_mock)
         for p in json.load(open(f)):
             p.pop("fingerprint", None)
             pts.append(p)
