@@ -72,6 +72,16 @@ cd data/requests && sha256sum -c SHA256SUMS && cd -        # must print OK for e
 /root/envs/bench/bin/python -m bib report results     # summaries, comparisons, dashboard
 ```
 
+A clone already contains the published results, and the runner skips repetitions that exist. To
+re-measure and check against them, run the representative subset in `plans/repro.yaml` (vLLM 8B BF16,
+chat c=1/16/64, prefill8k c=1/4; its own `results/repro/`, ≈ 15 min) and compare:
+
+```bash
+/root/envs/bench/bin/python -m bib run plans/repro.yaml
+/root/envs/bench/bin/python -m bib summarize results/repro
+/root/envs/bench/bin/python tools/repro_check.py results/main results/repro --server vllm-q8b-bf16 --md results/repro/REPRO_CHECK.md
+```
+
 The container image digest is not exposed by AutoDL, so each fingerprint records the AutoDL image
 label, `/etc/os-release`, a SHA-256 of `dpkg -l`, the CUDA toolkit version, the full `nvidia-smi -q`
 and `pip freeze` of the framework env instead.
