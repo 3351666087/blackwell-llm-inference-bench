@@ -114,3 +114,18 @@ verdict is reported as `inconclusive (A7)`; the strict verdict is kept in `compa
 a result into "confirmed", and no invalid run's number is used.
 (c) Seen at the time: all comparisons up to TensorRT-LLM 8B BF16 (P8a was the only one affected).
 Defined after seeing that result, hence post hoc.
+
+## A8 — NVFP4: JIT-build fixes for vLLM and SGLang (2026-11-10 ~00:45)
+
+(a) Both servers failed to start on the NVFP4 checkpoint while FlashInfer JIT-compiled its sm_120 FP4
+kernels (`results/nvfp4/*/server_01.log`): vLLM — 18 CUTLASS FP4 GEMM translation units compiled in
+parallel by ninja with its default `-j` (nproc + 2 = 210 on this host) were OOM-killed (`code=137`,
+`Killed`) at the container's 120 GiB memory limit; SGLang — `fp4_quantization_120f` failed with
+`fatal error: cublasLt.h: No such file or directory`, because the pip-built CUDA 13.0 toolchain used as
+`CUDA_HOME` had no cuBLAS headers.
+(b) Fixes (build environment only, no serving or measurement setting changes): `nvidia-cublas==13.1.1.3`
+(the version already in the torch cu130 environments) added to `envs/cuda13.0-toolkit/requirements.lock`,
+plus `libcublas*.so` symlinks; `MAX_JOBS: "8"` in the vLLM and SGLang server `env_vars` of
+`plans/nvfp4.yaml`. Both servers are then retried by the resumable runner.
+(c) Seen at the time: every main/prefix-cache result (unaffected: those configs never built these
+kernels) and the two failed NVFP4 starts. TensorRT-LLM NVFP4 uses prebuilt kernels.

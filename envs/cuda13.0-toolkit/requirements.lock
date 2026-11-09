@@ -7,3 +7,6 @@ nvidia-cuda-runtime==13.0.96
 nvidia-nvvm==13.0.88
 nvidia-cuda-crt==13.0.88
 nvidia-curand==10.4.0.35
+# cuBLAS headers/libs: FlashInfer's NVFP4 JIT kernels include cublasLt.h (added 2026-11-10, same
+# version as the torch cu130 environments).
+nvidia-cublas==13.1.1.3

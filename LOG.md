@@ -450,3 +450,9 @@ of each start. Hours are counted from the console's start/stop timestamps.
   239 tok/s at 128 sessions (knee). P10a[trtllm] TTFT on/off at 16 sessions 0.294 [0.256, 0.337],
   P10b[trtllm] peak 3.016 [3.005, 3.028] → P10 confirmed for all three frameworks. NVFP4 plan started
   00:30:40.
+- **00:34–00:45 · 5.2** · NVFP4: vLLM start failed after 2.5 min — FlashInfer JIT build of
+  `fp4_gemm_cutlass_sm120`, 18 nvcc jobs `Killed` (code 137; ninja default -j = 210 on a 208-CPU host,
+  container memory limit 120 GiB). SGLang start failed — FlashInfer `fp4_quantization_120f`:
+  `cublasLt.h: No such file or directory` (my minimal CUDA 13.0 toolchain had no cuBLAS headers).
+  The runner moved on to TensorRT-LLM NVFP4. Fixes in AMENDMENTS A8 (cuBLAS 13.1.1.3 in the toolchain
+  lock, `MAX_JOBS=8`); vLLM and SGLang NVFP4 to be retried after TensorRT-LLM, before the nsys chain.

@@ -3,6 +3,8 @@
 # KV cache is forced to BF16 for the FP4 checkpoint (its ModelOpt config asks for an
 # FP8 KV cache), so the comparison isolates weight/activation quantization.
 # Exact KV-dtype flags per framework are recorded in AMENDMENTS.md if they had to change.
+# MAX_JOBS caps FlashInfer's JIT build parallelism (ninja defaults to nproc+2 = 210 jobs here and the
+# CUTLASS FP4 compiles were OOM-killed at the 120 GiB container limit; AMENDMENTS A8).
 name: nvfp4
 results_dir: results/nvfp4
 request_sums: data/requests/SHA256SUMS
@@ -37,6 +39,6 @@ workloads:
     knee_gain: 0.05
     warmup_min: 4
 servers:
-  - {id: vllm-q32b-nvfp4,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "bfloat16"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
-  - {id: sglang-q32b-nvfp4, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "bfloat16"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13}}
+  - {id: vllm-q32b-nvfp4,   framework: vllm,   env: /root/envs/vllm,   model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "bfloat16"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13, MAX_JOBS: "8"}}
+  - {id: sglang-q32b-nvfp4, framework: sglang, env: /root/envs/sglang, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, extra_args: ["--kv-cache-dtype", "bfloat16"], env_vars: {CUDA_HOME: /root/cuda13.0/nvidia/cu13, MAX_JOBS: "8"}}
   - {id: trtllm-q32b-nvfp4, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-32B-NVFP4, model_id: Qwen3-32B, precision: nvfp4, max_model_len: 40960, llm_api_options: {kv_cache_config: {dtype: bfloat16}}}
