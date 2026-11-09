@@ -412,3 +412,12 @@ of each start. Hours are counted from the console's start/stop timestamps.
   generation-only CUDA graphs for batch sizes 1–32, 64 and 128 only. Candidate explanations: eager
   (non-graph) steps for batch sizes 33–63 / mixed steps, or a different FP8 block-scale GEMM kernel
   above M=32. Picked as the Nsight Systems target for 5.1 (c=32 vs c=64).
+- **19:45–19:58 · 5.1 / 7.3 (prep)** · `tools/nsys_profile.py` can now capture several load phases
+  in one server start (fewer TensorRT-LLM starts → fewer start-up segfaults). **Agent mistake:** the
+  tool had never run end to end: `nsys launch` rejects `--sample/--cpuctxsw` since Nsight Systems
+  2021.5 (they belong to `nsys start`). Found with a mock-server test on port 8011 while the GPU run
+  continued on 8000; fixed. Queued `chain6` (instance tmux): waits for chain5 to finish, then captures
+  TRT-LLM 8B FP8 (chat c=32, c=64, 8k prefill c=1), TRT-LLM 8B BF16 (chat c=64, 8k c=1), vLLM 8B FP8
+  (same three) and vLLM/SGLang 32B FP8 chat c=256. Added `plans/repro.yaml` + `tools/repro_check.py`
+  for 7.3 (a clone contains `results/main`, so re-running `main.yaml` would skip every finished rep)
+  and the request-file regeneration step to the skill.

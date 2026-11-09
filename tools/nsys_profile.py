@@ -53,6 +53,7 @@ def main():
     ap.add_argument("--out", default="results/nsys")
     ap.add_argument("--env-var", action="append", default=[])
     ap.add_argument("--extra", default="")
+    ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--no-prefix-cache", action="store_true",
                     help="disable prefix caching (TensorRT-LLM: enable_block_reuse=false, as in AMENDMENTS A4)")
     ap.add_argument("--capture-delay", type=float, default=0.0,
@@ -64,12 +65,12 @@ def main():
     os.makedirs(out, exist_ok=True)
     session = f"bib_{a.name}_{int(time.time())}"
     prefix = [NSYS, "launch", f"--session-new={session}", "--trace=cuda,nvtx,osrt",
-              "--cuda-graph-trace=node", "--trace-fork-before-exec=true", "--sample=none",
-              "--cpuctxsw=none"]
+              "--cuda-graph-trace=node", "--trace-fork-before-exec=true"]
+    # sampling switches belong to `nsys start` (launch rejects them since Nsight Systems 2021.5)
     cfg = {"framework": a.framework, "env": a.env, "model": a.model, "max_model_len": 40960,
            "launcher_prefix": prefix, "env_vars": dict(kv.split("=", 1) for kv in a.env_var),
            "extra_args": a.extra.split() if a.extra else [], "prefix_cache": not a.no_prefix_cache}
-    srv = Server(cfg, os.path.join(out, a.name + "_server"), port=8000)
+    srv = Server(cfg, os.path.join(out, a.name + "_server"), port=a.port)
     phases = []
     for ph in a.phase:
         lab, wl, c, n, d, sec = ph.split(":")
@@ -116,7 +117,8 @@ def run_phase(a, srv, session, out, ph, load_s):
     t_load = time.time()
     th.start()
     time.sleep(ph["capture_delay"])
-    r = sh([NSYS, "start", f"--session={session}", "-o", os.path.join(out, name), "--force-overwrite=true"])
+    r = sh([NSYS, "start", f"--session={session}", "--sample=none", "--cpuctxsw=none",
+            "-o", os.path.join(out, name), "--force-overwrite=true"])
     info["nsys_start"] = r.stdout[-500:] + r.stderr[-500:]
     info["capture_start_s_after_load"] = time.time() - t_load
     if ph["capture_seconds"] > 0:

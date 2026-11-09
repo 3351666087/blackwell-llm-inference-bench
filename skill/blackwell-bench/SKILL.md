@@ -32,6 +32,10 @@ long jobs in `tmux` so they survive disconnects.
    - `nvidia-smi --query-gpu=name,driver_version,memory.total --format=csv` - record it.
    - `python3 -c "import yaml"` or use `/root/envs/bench/bin/python`; disk space
      `df -h / /root/autodl-tmp` must cover the models in the plan.
+   - Request files (`data/requests/*.jsonl.gz`) are **not committed** (they contain third-party
+     ShareGPT text). If they are missing, regenerate them exactly as in the README section
+     "Reproduce" (download ShareGPT V3 at the pinned revision and GSM8K, then
+     `python -m bib workloads ...`). Never edit them by hand.
    - `cd R/data/requests && sha256sum -c SHA256SUMS` must print all `OK`.
 2. **Environments**: for every distinct `env:` in the plan that does not exist yet,
    `bash envs/setup.sh <name>` where `<name>` is the env directory's basename
