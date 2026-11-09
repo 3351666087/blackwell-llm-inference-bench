@@ -421,3 +421,12 @@ of each start. Hours are counted from the console's start/stop timestamps.
   (same three) and vLLM/SGLang 32B FP8 chat c=256. Added `plans/repro.yaml` + `tools/repro_check.py`
   for 7.3 (a clone contains `results/main`, so re-running `main.yaml` would skip every finished rep)
   and the request-file regeneration step to the skill.
+- **20:00 · 7.5** · History purge. `python3 tools/secret_scan.py --all-history` (new: scans every blob
+  in every ref, gz contents included) found third-party private keys inside 3 request-file blobs from
+  the early commit that still tracked `data/requests/*.jsonl.gz` (ShareGPT text) and one false positive
+  (`password = "password"`, a quoted placeholder in an old LOG line; the pattern now skips that literal).
+  Local backup bundle first (outside the repo), then `git filter-branch` removing the request files from
+  all 50 commits (`--tag-name-filter cat`), refs/original deleted, reflog expired, `gc --prune=now`.
+  Trees otherwise identical, dates preserved, `prereg-v1` now at `7406dff`. Old → new id map:
+  `HISTORY_REWRITE.md` (commit ids quoted earlier in this log are old ids). History rescan: clean
+  (2658 blobs). Force-pushed `main` and `prereg-v1`.
