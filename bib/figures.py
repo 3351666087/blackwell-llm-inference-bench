@@ -37,7 +37,7 @@ def load(results):
         f = os.path.join(results, plan, "summary", "points.json")
         if os.path.exists(f):
             for p in json.load(open(f)):
-                if p["n_valid"] >= 1:
+                if p["n_valid"] >= 2:  # same rule as tables/comparisons: a point needs >= 2 valid reps
                     pts.append(p)
     return pts
 
@@ -149,11 +149,14 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     pts = load(a.results)
     made = []
-    for model in sorted({p["model_id"] for p in pts}):
-        for wl in sorted({p["workload"] for p in pts}):
-            made.append(fig_workload(pts, model, wl, a.out))
+    # workload figures show the pre-registered main matrix and the NVFP4 study only; the regression,
+    # prefix-cache and exploratory plans have their own outputs
+    wpts = [p for p in pts if p["plan"] in ("main", "nvfp4")]
+    for model in sorted({p["model_id"] for p in wpts}):
+        for wl in sorted({p["workload"] for p in wpts if p["model_id"] == model}):
+            made.append(fig_workload(wpts, model, wl, a.out))
             if wl in ("chat", "agent"):
-                made.append(fig_tradeoff(pts, model, wl, a.out))
+                made.append(fig_tradeoff(wpts, model, wl, a.out))
     made.append(fig_prefix(pts, a.out))
     for m in made:
         if m:
