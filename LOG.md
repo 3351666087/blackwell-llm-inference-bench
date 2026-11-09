@@ -362,3 +362,10 @@ of each start. Hours are counted from the console's start/stop timestamps.
   restarts per TRT config and far fewer exposures to the init segfault). Queue rebuilt as
   `chain4`: it stops the old 32B runner the moment SGLang 32B finishes, then runs TRT 32B →
   TRT 8B BF16/FP8 → TRT no-cache → NVFP4 with commit `d29c7cd`.
+- **09:34–10:40 · 4.3** · TensorRT-LLM 32B FP8 under A4: start attempt 1 segfaulted, attempt 2 up
+  (84 s; KV 207k tokens; GSM8K 0.968); the A4 restart (reuse off) segfaulted once more and
+  succeeded on retry. Chat c=1 TTFT p50 68–70 ms in all three reps (no cache carry-over) →
+  A4 behaves as intended. Chat c=256 rep1 invalid under the strict rule because one 4-token
+  request (`chat-00360`) arrived as a single burst after 0.92 s → added the post-hoc A5 variant
+  (≤ 1 % violators and p10 TPOT/floor ≥ 0.97; burst fraction reported). On that run: strict
+  invalid, A5 valid (1/2048 bursts, p10 ratio 4.0). Primary tables stay strict.
