@@ -529,3 +529,9 @@ of each start. Hours are counted from the console's start/stop timestamps.
   transcript `/root/autodl-tmp/repro_transcript.log`); existing bench/vllm envs and the CUDA 13.0 toolkit
   moved aside first so the README commands rebuild them; only the two envs and the one model the
   representative config needs.
+- **05:20 · 4.3 (correction)** · My 22:10 entry said TensorRT-LLM 8B FP8 had "0 start failures"; I had only
+  looked at the first server start. Its `start_failures.jsonl` has 7 segfaulted starts (20:18–21:39, during
+  the restart before every agent repetition), each retried successfully. Totals over the whole study (all
+  `results/*/trtllm-*/start_failures.jsonl`): 23 segfaulted TensorRT-LLM starts (32B FP8 6, 8B BF16 5,
+  8B FP8 7, 8B BF16 no-cache 1, NVFP4 4), 4 deterministic NVFP4 config errors (A9) and 1 "address already
+  in use" (exploratory run, port still held by the previous nsys server); REPORT §6 updated.

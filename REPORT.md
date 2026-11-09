@@ -458,8 +458,9 @@ results on every push (`.github/workflows/ci.yml`), CPU-only.
   carry-over (A2) and the failed attempts without chunked prefill (A6).
 * **TensorRT-LLM on sm_120 (task 4.3)** worked, but needed: `HWLOC_COMPONENTS=-gl` (OpenMPI's hwloc
   probed an X display and hung at import); retries for an intermittent segfault during start-up in
-  `nvmlSystemGetConfComputeSettings` (11 failed starts in total, each followed by a successful retry;
-  `results/main/trtllm-*/start_failures.jsonl`); A4 and A6 above.
+  `nvmlSystemGetConfComputeSettings` (23 segfaulted starts across all TensorRT-LLM configs — most during
+  the restart before every agent repetition (A2) — each followed by a successful retry;
+  `results/*/trtllm-*/start_failures.jsonl`); A4, A6 and A9 above.
 
 ## 7. Where the agent got it wrong
 
