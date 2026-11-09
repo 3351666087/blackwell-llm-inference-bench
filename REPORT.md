@@ -523,6 +523,20 @@ results on every push (`.github/workflows/ci.yml`), CPU-only.
   the restart before every agent repetition (A2) — each followed by a successful retry;
   `results/*/trtllm-*/start_failures.jsonl`); A4, A6 and A9 above.
 
+### Reproduction check (task 7.3)
+
+A fresh clone followed the README on the same GPU (environments rebuilt from the locks, request files
+regenerated — 11/11 checksums OK) and re-ran a representative subset, `plans/repro.yaml` (vLLM 8B BF16,
+chat c=1/16/64, prefill8k c=1/4, 3 repetitions; 15 runs, 0 invalid). `results/repro/REPRO_CHECK.md`:
+
+* **22 of 25** metric × point ratios have a 95 % CI inside ±5 % of the original — every throughput, TPOT,
+  E2E and energy value (e.g. c=1 TPOT 11.55 vs 11.57 ms, c=64 3147 vs 3144 tok/s, 8k TTFT 465.5 vs 466.4 ms);
+  the three exceptions are chat TTFT p50, 4–6 % lower in the reproduction with ratio CIs ≈ [0.90, 1.02].
+* Only **12 of 25** reproduction medians lie inside the original 95 % CI of the mean. Those CIs come from
+  three repetitions inside one server session and are very narrow (±0.1 % for TPOT), so they do not cover
+  the 0.1–2 % differences between server sessions. **The repeatability claim of this report is therefore
+  "within ±5 % across sessions" (and ±2 % for throughput/TPOT), not "within the per-session CI".**
+
 ## 7. Where the agent got it wrong
 
 Every item is a mistake by the coding agent (Claude) that wrote this project, with how it was
@@ -559,7 +573,9 @@ caught. A benchmark is only as credible as its error-correction loop.
   TensorRT-LLM CUDA-graph batch sizes or a larger `max_num_tokens`) could change several rankings.
 * **Synthetic agent workload**, pre-rendered prompts (servers' chat-template code is not exercised),
   `ignore_eos` lengths, closed-loop load only (no open-loop arrival process).
-* **Three repetitions** per point; CIs are not adjusted across comparisons except in §5.3.
+* **Three repetitions** per point, all inside one server session; CIs are not adjusted across comparisons
+  except in §5.3, and they understate session-to-session variation (reproduction check: differences of
+  0.1–2 % for throughput/TPOT, up to 6 % for TTFT).
 * **Who did what.** The code, the runs and this report were produced mainly by a coding agent
   (Claude, Anthropic). Rui Huang defined the project, made the decisions (budget, scope, instance
   policy) and is responsible for accepting the results.

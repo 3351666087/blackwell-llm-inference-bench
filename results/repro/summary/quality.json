@@ -1,0 +1,16 @@
+{
+ "vllm-q8b-bf16": {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "accuracy": 0.94,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 288.148,
+  "verdict": {
+   "pass": true,
+   "acc": 0.94,
+   "vs": null
+  }
+ }
+}

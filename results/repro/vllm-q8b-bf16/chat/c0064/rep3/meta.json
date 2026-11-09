@@ -1,0 +1,171 @@
+{
+ "status": "ok",
+ "server_id": "vllm-q8b-bf16",
+ "framework": "vllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "chat",
+ "concurrency": 64,
+ "n_requests": 512,
+ "fingerprint": "21da858b52b0",
+ "commit": "a9d5723f733ad48cef36e77eb79071c35bafd1cc",
+ "wall_start": 1794260352.6308231,
+ "client": {
+  "procs": 2,
+  "per_proc": [
+   {
+    "cpu_s": 5.260588414,
+    "wall_s": 38.414570114575326,
+    "cpu_frac": 0.13694252983463734
+   },
+   {
+    "cpu_s": 5.201120777000001,
+    "wall_s": 42.81807462219149,
+    "cpu_frac": 0.1214702160919771
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794260352.752472,
+   "mono0": 8173047.046278634
+  }
+ },
+ "energy_mj_start": 2330240829054,
+ "energy_mj_end": 2330258700408,
+ "window_s": 44.02763244416565,
+ "request_window_s": 42.808957242406905,
+ "gpu_before": {
+  "temp_c": 61,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 223.566,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90053,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 63,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 336.173,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90053,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 512,
+  "n_ok": 512,
+  "n_err": 0,
+  "makespan_s": 42.808957242406905,
+  "output_tokens": 134699,
+  "input_tokens": 57232,
+  "output_throughput": 3146.5143903707626,
+  "total_token_throughput": 4483.430860349748,
+  "request_throughput": 11.960113793493868,
+  "ttft_mean_ms": 91.48107398141292,
+  "ttft_p50_ms": 67.91481329128146,
+  "ttft_p90_ms": 170.78751483932137,
+  "ttft_p99_ms": 321.39723455533385,
+  "tpot_mean_ms": 15.841658562004577,
+  "tpot_p50_ms": 15.903835402788214,
+  "tpot_p90_ms": 16.22308585009677,
+  "tpot_p99_ms": 18.108056492305224,
+  "e2e_mean_ms": 4209.054787708737,
+  "e2e_p50_ms": 3740.2830556966364,
+  "e2e_p90_ms": 7997.198871336877,
+  "e2e_p99_ms": 12465.21828982979,
+  "itl_mean_ms": 15.808219290680148,
+  "itl_p50_ms": 14.889999999999848,
+  "itl_p90_ms": 22.321999999999964,
+  "itl_p99_ms": 37.25099999999992,
+  "itl_max_ms": 134.60700000000003,
+  "chunks_per_token": 0.9937044818447056,
+  "prefix_cache_hit_rate": 0.0002795638803466592,
+  "steady_output_throughput": 3972.526426208023,
+  "steady_window_s": 31.244931724853814,
+  "slo_attainment": 1.0,
+  "goodput_rps": 11.960113793493868,
+  "goodput_tok_s": 3146.5143903707626,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 17871.354,
+  "energy_j": 17730.560147949218,
+  "avg_power_w": 414.17874412472673,
+  "j_per_output_token": 0.13163097089027548,
+  "j_per_total_token": 0.09237986645174161,
+  "power_mean_w_series": 414.2794252336448,
+  "power_max_w": 633.544,
+  "energy_j_series": 17707.499081923816,
+  "peak_mem_mib": 90053.0,
+  "sm_mhz_mean": 2408.0560747663553,
+  "sm_mhz_min": 2340.0,
+  "temp_max_c": 74.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0002795638803466592,
+   "top": [
+    [
+     16,
+     "chat-00304"
+    ],
+    [
+     0,
+     "chat-00511"
+    ],
+    [
+     0,
+     "chat-00510"
+    ],
+    [
+     0,
+     "chat-00509"
+    ],
+    [
+     0,
+     "chat-00508"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.4078734764896559,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.13694252983463734
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.59556130496315,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "endpoint:/reset_prefix_cache"
+}

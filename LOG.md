@@ -535,3 +535,19 @@ of each start. Hours are counted from the console's start/stop timestamps.
   `results/*/trtllm-*/start_failures.jsonl`): 23 segfaulted TensorRT-LLM starts (32B FP8 6, 8B BF16 5,
   8B FP8 7, 8B BF16 no-cache 1, NVFP4 4), 4 deterministic NVFP4 config errors (A9) and 1 "address already
   in use" (exploratory run, port still held by the previous nsys server); REPORT §6 updated.
+- **04:59–05:43 · 7.3** · Reproduction from a fresh clone (`a9d5723`) following README "Reproduce":
+  bench/vllm envs and the CUDA 13.0 toolkit rebuilt from the lock files (the previous ones moved to
+  `/root/envs_prev`, `/root/cuda13.0_prev`), Qwen3-8B re-verified by `fetch_model.py`, request files
+  regenerated from the pinned ShareGPT/GSM8K downloads — `sha256sum -c SHA256SUMS` 11/11 OK, `git status`
+  clean (README fix from 6.1 confirmed) — then `plans/repro.yaml` (vLLM 8B BF16, chat c=1/16/64, prefill8k
+  c=1/4, 3 reps): 15 runs, 0 invalid, GSM8K 0.940 (main 0.928). **Agent mistake:** my script sourced the
+  AutoDL proxy before `git clone` and it stayed active, so `uv pip sync` for vLLM stalled for 12 min on
+  the proxy; killed it and restarted from the env step in the same clone without the proxy (the README
+  sources it only for the HuggingFace download). `tools/repro_check.py` → `results/repro/REPRO_CHECK.md`:
+  **12/25** reproduction medians lie inside the original 95 % CI of the mean; **22/25** ratio CIs lie
+  inside ±5 % (all throughput, TPOT, E2E and J/token values; the 3 exceptions are chat TTFT p50, 4–6 %
+  lower in the reproduction, ratio CIs ≈ [0.90, 1.02]). The original CIs come from 3 repetitions inside
+  one server session and are very narrow (TPOT c=1 11.57 [11.56, 11.58] ms vs 11.55 ms reproduced), so
+  session-to-session differences of 0.1–2 % fall outside them. By the task book's literal criterion the
+  reproduction is **not fully within the CI**; I record it as such and do not tick 7.3 — Rui decides.
+  Transcript (proxy addresses redacted): `results/repro/REPRO_TRANSCRIPT.log`.
