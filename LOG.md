@@ -369,3 +369,12 @@ of each start. Hours are counted from the console's start/stop timestamps.
   request (`chat-00360`) arrived as a single burst after 0.92 s → added the post-hoc A5 variant
   (≤ 1 % violators and p10 TPOT/floor ≥ 0.97; burst fraction reported). On that run: strict
   invalid, A5 valid (1/2048 bursts, p10 ratio 4.0). Primary tables stay strict.
+- **11:16–11:23 · 4.3 (A6)** · TensorRT-LLM 32B prefill16k: all requests `HTTP 400 … prompt length
+  (16000) should not exceed max_num_tokens (8192)`; agent warm-up 7/8 failed the same way.
+  Default TRT has chunked prefill off. Paused the queue, added A6 (chunked prefill on for
+  workloads with prompts > 8192), moved the failed attempts to
+  `results/_superseded/A6_trt_no_chunked_prefill/`, restarted as `chain5` at 11:23.
+  **Agent mistake:** on resume the runner restarted server-log numbering at 01 and overwrote
+  `trtllm-q32b-fp8/server_01.log` (the 09:37 segfault log; its error line survives in
+  `start_failures.jsonl`). Logs 02–06 were copied to `prior_server_logs_0934/` before they could
+  be overwritten; numbering now continues from the highest existing file.
