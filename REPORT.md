@@ -29,7 +29,7 @@ Day-by-day record: [`LOG.md`](LOG.md).*
    `trtllm-serve` defaults only batch sizes 1–32, 64 and 128 have CUDA graphs and padding is off, so at
    c=64 more than half of all steps run eagerly, and an eager FP8 step is host-bound (≈ 37 ms to issue
    ≈ 600 launches while the GPU works ≈ 13 ms). Turning padding on (exploratory) lifts FP8 throughput to
-   ≥ 2.2× its default peak. Its FP8 prefill GEMM on sm_120 is only ≈ 3 % faster than its BF16 GEMM.
+   ≥ 2.2× its default peak (strict-valid runs only). Its FP8 prefill GEMM on sm_120 is only ≈ 3 % faster than its BF16 GEMM.
 4. **At high concurrency the frameworks differ much more than at c=1.** On 32B FP8 chat SGLang reaches
    3581 tok/s against vLLM 2629 and TensorRT-LLM 2646 (+36 %; my "within ±10 %" prediction P11 is refuted).
    At equal concurrency 256, SGLang's decode step is 19 % shorter (TPOT p50 74 vs 91 ms); Nsight Systems
@@ -363,6 +363,33 @@ Full table with sources: [`results/comparisons/comparisons.md`](results/comparis
 | P12 | FP8/BF16 J/token at peak 0.784 / 0.713 / 1.411 | confirmed ×2, **refuted** (TRT) | fewer bytes per token at similar power; TRT's FP8 peak is at c=32 | power series |
 | P13 | NVFP4/FP8 32B c=1 TPOT 0.684 / 0.638 / 0.617; GSM8K Δ −0.8 / −0.4 / 0.0 points | confirmed ×3 | 0.58× bytes + fixed per-layer cost; FP4 near-lossless here | §5.2 |
 
+**One conclusion per comparison** (numbers and CIs in the table above and in `results/comparisons/comparisons.md`):
+
+* **P1 (confirmed ×3).** Single-stream decode reaches 81–84 % of the bandwidth floor in every framework;
+  the rest is a fixed per-layer cost (§3.1). Evidence: the same 1.8–2.5 ms gap with BF16 and FP8 weights.
+* **P2 (confirmed ×3).** FP8 decode is 0.61–0.65× BF16, not the 0.54 byte ratio, for the same reason.
+* **P3 (confirmed vLLM/SGLang, refuted TensorRT-LLM).** FP8 GEMMs speed up 8k prefill ×0.73–0.74 in vLLM and
+  SGLang; TensorRT-LLM's sm_120 block-scale FP8 GEMM runs at BF16 speed and the extra quantization makes it
+  5 % slower. Evidence: Nsight prefill breakdown (§5.1b).
+* **P4 (confirmed vLLM/SGLang, refuted TensorRT-LLM).** FP8 lifts peak chat throughput ×1.26–1.30 where the
+  framework keeps decode in CUDA graphs; TensorRT-LLM's defaults drop most c ≥ 33 steps to host-bound eager
+  mode. Evidence: Nsight step analysis plus the padding intervention (§5.1a).
+* **P5 (confirmed).** SGLang and vLLM are within 4 % at the 8B BF16 chat peak. No mechanism examined.
+* **P6 (confirmed).** Equivalent single-stream decode (−2.4 %), as expected for a bandwidth-bound loop.
+* **P7 (confirmed).** SGLang's 32k prefill is 5 % faster — inside the ±10 % prediction; not investigated.
+* **P8a (inconclusive, A7).** TensorRT-LLM's BF16 chat peak is unknown because its c=256/512 runs failed the
+  strict bandwidth check (bursty streaming). **P8b (confirmed):** single-stream decode equivalent to vLLM.
+* **P9 (confirmed).** SGLang's agent TTFT is 14 % lower at 16 sessions; attributed to its radix cache and
+  cache-aware scheduling, not isolated experimentally.
+* **P10 (confirmed ×3).** Prefix caching cuts agent TTFT 3.4–3.8× and raises peak throughput 2.7–3.0× in all
+  three frameworks, consistent with the measured 84–86 % hit rate.
+* **P11 (refuted).** SGLang beats vLLM by 36 % on 32B FP8 chat: at equal load its FlashInfer decode attention
+  needs 74 vs 174 µs of GPU time per output token (Nsight, §5.1c); at the KV limit vLLM admits and slows,
+  SGLang queues (§3.2).
+* **P12 (confirmed vLLM/SGLang, refuted TensorRT-LLM).** FP8 cuts energy per token 22–29 % where it raises
+  throughput; TensorRT-LLM's FP8 peak is at c=32, so its J/token is 1.41× BF16's.
+* **P13 (confirmed ×3).** NVFP4 decode is 0.62–0.68× FP8 with GSM8K within 0.8 points (§5.2).
+
 ## 5. Deep dives
 
 ### 5.1 Nsight Systems: what limits TensorRT-LLM FP8, and why SGLang decodes 32B faster than vLLM
@@ -404,11 +431,12 @@ each step can be classified (`tools/nsys_trt_steps.py` → `results/nsys/analysi
   graph gaps, but its eager steps cost 25–27 ms, which is why BF16 still scales to c=128.
 * **Intervention (exploratory, post hoc, `plans/explore_trt_cudagraph.yaml`)**: same server with
   `cuda_graph_config.enable_padding: true` (batches rounded up to the next captured size — the setting
-  NVIDIA's own `trtllm-bench` uses). Chat c=64 TPOT 21.9 → 12.3 ms and throughput 2440 → 4095 tok/s
-  (strict-valid repetition; A5 median 4008); c=256 reaches 5553 tok/s with two strict-valid repetitions
-  (A5: c=128 6787 tok/s), i.e. ≥ 2.2× the default FP8 peak; GSM8K unchanged (0.924)
-  (`results/explore_trt_cudagraph/summary*/points.csv`). The padded runs trip the burst check more often
-  (7 of 12 strict-invalid, all A5-valid), so these numbers are reported only here, labelled exploratory.
+  NVIDIA's own `trtllm-bench` uses). Chat c=64: TPOT 21.9 → 12.3 ms and throughput 2440 → 4095 tok/s (its
+  one strict-valid repetition, `results/explore_trt_cudagraph/trtllm-q8b-fp8-padded/chat/c0064/rep1`);
+  c=256: 5553 tok/s from two strict-valid repetitions (`results/explore_trt_cudagraph/summary/points.csv`),
+  i.e. ≥ 2.2× the default FP8 peak; GSM8K unchanged (0.924). The padded runs trip the burst check more often
+  (7 of 12 strict-invalid, among them all of c=128); invalid runs are not quoted. Exploratory, not part of
+  any pre-registered verdict.
   **Conclusion: the collapse is a default-configuration effect (graph coverage × host cost of eager FP8
   steps), not a GPU-kernel limit.**
 * Contrast (`results/nsys/analysis/decode_8b_fp8_c32_c64.md`): vLLM FP8, which pads decode batches up to

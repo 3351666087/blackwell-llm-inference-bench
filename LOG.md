@@ -551,3 +551,18 @@ of each start. Hours are counted from the console's start/stop timestamps.
   session-to-session differences of 0.1–2 % fall outside them. By the task book's literal criterion the
   reproduction is **not fully within the CI**; I record it as such and do not tick 7.3 — Rui decides.
   Transcript (proxy addresses redacted): `results/repro/REPRO_TRANSCRIPT.log`.
+- **05:50 · 7.5** · Security self-check before the final push (commands run on the Mac in the repo root):
+  1. `python3 tools/secret_scan.py` → `SECRET SCAN: clean (4213 files scanned, gz contents included)`
+     (private keys, GitHub/HF/OpenAI/AWS tokens, AutoDL/SeetaCloud hosts, `ssh -p`, `root@host`, Jupyter
+     tokens/passwords, the owner's e-mail, `password=`; .gz contents included).
+  2. `python3 tools/secret_scan.py --all-history` → `clean (4152 blobs in all refs)` (after the 20:00 purge).
+  3. `git grep -nIE "10\.37\.[0-9]+\.[0-9]+|seetacloud|connect\.[a-z]+\.|autodl\.(com|pro)|ssh -p|Port [0-9]{4,5}|:12798|172\.17\."`
+     → only a placeholder (`ssh -p <port> root@<cloud host>` in this log) and "Port 8000 free" (the local
+     server port). The AutoDL proxy address appears nowhere (the reproduction transcript is redacted).
+  4. `git ls-files | grep -iE "\.ssh|id_rsa|id_ed25519|\.pem$|autodl_bench\.conf|\.env$|credentials"` → nothing.
+  5. `git grep` for e-mail addresses / phone numbers → only `noreply@anthropic.com`; numeric false positives.
+  6. `git log --format=%ae | sort -u` → only the GitHub noreply address.
+  Accepted, not secret: the container hostname `autodl-container-<instance id>` in fingerprints (the
+  instance id is required in this log by the task book); Rui's name (authorship/honesty statement).
+  Kept off the repo on purpose: Nsight `.nsys-rep`/`.sqlite` (embed full process environments),
+  raw ShareGPT/GSM8K downloads and request files (third-party text), SSH config (local only).
