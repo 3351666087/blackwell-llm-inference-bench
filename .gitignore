@@ -241,3 +241,14 @@ data/requests/*.jsonl.gz
 
 # pipeline test artefacts (mock server)
 results/_mock/
+
+# raw dataset downloads used to regenerate the request files (third-party text)
+data/raw/
+sharegpt*.json
+*.parquet
+
+# result logs ARE evidence (server start-up, KV capacity, failures): keep them despite *.log above
+!results/**/*.log
+# Nsight Systems captures are large; kept on the GPU instance, summaries/CSVs are committed
+results/nsys/*.nsys-rep
+results/nsys/*.sqlite

@@ -1,0 +1,89 @@
+2026-11-09 01:14:14 plan regression commit=1a9c03444626c52f512e9137c9ebdd9390288fe4 servers=['vllm0320-q8b-bf16', 'vllm0330-q8b-bf16']
+2026-11-09 01:19:12 server vllm0320-q8b-bf16 up in 294s fp=e2a8a723726a kv={'GPU KV cache size:\\s*([\\d,]+)\\s*tokens': '506,320', 'Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x': ('40,960', '12.36')} smoke='Paris'
+2026-11-09 01:20:08   warmup vllm0320-q8b-bf16 chat c=1 n=16 err=0
+2026-11-09 01:20:52   vllm0320-q8b-bf16 chat c=1 rep1 n=16 err=0 thr=85.8 tok/s ttft50=36ms tpot50=11.53ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:21:35   vllm0320-q8b-bf16 chat c=1 rep2 n=16 err=0 thr=85.9 tok/s ttft50=34ms tpot50=11.53ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:22:18   vllm0320-q8b-bf16 chat c=1 rep3 n=16 err=0 thr=85.9 tok/s ttft50=36ms tpot50=11.53ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:23:01   vllm0320-q8b-bf16 chat c=1 rep4 n=16 err=0 thr=85.8 tok/s ttft50=36ms tpot50=11.53ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:23:44   vllm0320-q8b-bf16 chat c=1 rep5 n=16 err=0 thr=85.9 tok/s ttft50=35ms tpot50=11.53ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:23:54   warmup vllm0320-q8b-bf16 chat c=16 n=16 err=0
+2026-11-09 01:24:27   vllm0320-q8b-bf16 chat c=16 rep1 n=128 err=0 thr=1189.7 tok/s ttft50=39ms tpot50=12.07ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:25:00   vllm0320-q8b-bf16 chat c=16 rep2 n=128 err=0 thr=1189.8 tok/s ttft50=40ms tpot50=12.08ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:25:32   vllm0320-q8b-bf16 chat c=16 rep3 n=128 err=0 thr=1188.3 tok/s ttft50=40ms tpot50=12.09ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:26:05   vllm0320-q8b-bf16 chat c=16 rep4 n=128 err=0 thr=1189.2 tok/s ttft50=40ms tpot50=12.07ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:26:38   vllm0320-q8b-bf16 chat c=16 rep5 n=128 err=0 thr=1189.6 tok/s ttft50=40ms tpot50=12.08ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:26:50   warmup vllm0320-q8b-bf16 chat c=64 n=64 err=0
+2026-11-09 01:27:34   vllm0320-q8b-bf16 chat c=64 rep1 n=512 err=0 thr=3137.3 tok/s ttft50=70ms tpot50=15.95ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:28:19   vllm0320-q8b-bf16 chat c=64 rep2 n=512 err=0 thr=3134.5 tok/s ttft50=69ms tpot50=15.96ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:29:04   vllm0320-q8b-bf16 chat c=64 rep3 n=512 err=0 thr=3136.3 tok/s ttft50=70ms tpot50=15.96ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:29:48   vllm0320-q8b-bf16 chat c=64 rep4 n=512 err=0 thr=3138.6 tok/s ttft50=69ms tpot50=15.97ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:30:33   vllm0320-q8b-bf16 chat c=64 rep5 n=512 err=0 thr=3142.6 tok/s ttft50=71ms tpot50=15.96ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:30:49   warmup vllm0320-q8b-bf16 chat c=256 n=256 err=0
+2026-11-09 01:32:16   vllm0320-q8b-bf16 chat c=256 rep1 n=2048 err=0 thr=6779.3 tok/s ttft50=136ms tpot50=34.36ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:33:42   vllm0320-q8b-bf16 chat c=256 rep2 n=2048 err=0 thr=6800.7 tok/s ttft50=137ms tpot50=34.15ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:35:08   vllm0320-q8b-bf16 chat c=256 rep3 n=2048 err=0 thr=6782.9 tok/s ttft50=136ms tpot50=34.38ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:36:34   vllm0320-q8b-bf16 chat c=256 rep4 n=2048 err=0 thr=6803.8 tok/s ttft50=138ms tpot50=34.12ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:38:00   vllm0320-q8b-bf16 chat c=256 rep5 n=2048 err=0 thr=6838.7 tok/s ttft50=140ms tpot50=33.85ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:38:09   warmup vllm0320-q8b-bf16 prefill8k c=1 n=4 err=0
+2026-11-09 01:38:43   vllm0320-q8b-bf16 prefill8k c=1 rep1 n=16 err=0 thr=63.3 tok/s ttft50=471ms tpot50=12.22ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:39:17   vllm0320-q8b-bf16 prefill8k c=1 rep2 n=16 err=0 thr=63.3 tok/s ttft50=470ms tpot50=12.23ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:39:51   vllm0320-q8b-bf16 prefill8k c=1 rep3 n=16 err=0 thr=63.4 tok/s ttft50=469ms tpot50=12.23ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:40:24   vllm0320-q8b-bf16 prefill8k c=1 rep4 n=16 err=0 thr=63.4 tok/s ttft50=470ms tpot50=12.23ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:40:58   vllm0320-q8b-bf16 prefill8k c=1 rep5 n=16 err=0 thr=63.2 tok/s ttft50=473ms tpot50=12.21ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:41:04   warmup vllm0320-q8b-bf16 prefill8k c=8 n=8 err=0
+2026-11-09 01:41:28   vllm0320-q8b-bf16 prefill8k c=8 rep1 n=32 err=0 thr=190.4 tok/s ttft50=1815ms tpot50=27.93ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:41:51   vllm0320-q8b-bf16 prefill8k c=8 rep2 n=32 err=0 thr=189.9 tok/s ttft50=1278ms tpot50=32.40ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:42:14   vllm0320-q8b-bf16 prefill8k c=8 rep3 n=32 err=0 thr=189.8 tok/s ttft50=1597ms tpot50=29.55ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:42:36   vllm0320-q8b-bf16 prefill8k c=8 rep4 n=32 err=0 thr=189.9 tok/s ttft50=1600ms tpot50=29.58ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:42:59   vllm0320-q8b-bf16 prefill8k c=8 rep5 n=32 err=0 thr=189.4 tok/s ttft50=1620ms tpot50=29.48ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:43:40   warmup vllm0320-q8b-bf16 agent c=16 n=16 err=0
+2026-11-09 01:44:53   vllm0320-q8b-bf16 agent c=16 rep1 n=239 err=0 thr=433.8 tok/s ttft50=191ms tpot50=27.12ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:46:06   vllm0320-q8b-bf16 agent c=16 rep2 n=239 err=0 thr=433.8 tok/s ttft50=194ms tpot50=27.16ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:47:19   vllm0320-q8b-bf16 agent c=16 rep3 n=239 err=0 thr=433.6 tok/s ttft50=204ms tpot50=26.97ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:48:32   vllm0320-q8b-bf16 agent c=16 rep4 n=239 err=0 thr=434.0 tok/s ttft50=185ms tpot50=27.09ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:49:45   vllm0320-q8b-bf16 agent c=16 rep5 n=239 err=0 thr=433.5 tok/s ttft50=186ms tpot50=27.24ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:49:46 server vllm0320-q8b-bf16 stopped
+2026-11-09 01:50:36 server vllm0330-q8b-bf16 up in 48s fp=21da858b52b0 kv={'GPU KV cache size:\\s*([\\d,]+)\\s*tokens': '501,296', 'Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x': ('40,960', '12.24')} smoke='Paris'
+2026-11-09 01:51:32   warmup vllm0330-q8b-bf16 chat c=1 n=16 err=0
+2026-11-09 01:52:15   vllm0330-q8b-bf16 chat c=1 rep1 n=16 err=0 thr=85.5 tok/s ttft50=36ms tpot50=11.57ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:52:59   vllm0330-q8b-bf16 chat c=1 rep2 n=16 err=0 thr=85.5 tok/s ttft50=38ms tpot50=11.57ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:53:42   vllm0330-q8b-bf16 chat c=1 rep3 n=16 err=0 thr=85.5 tok/s ttft50=39ms tpot50=11.57ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:54:26   vllm0330-q8b-bf16 chat c=1 rep4 n=16 err=0 thr=85.5 tok/s ttft50=38ms tpot50=11.57ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:55:09   vllm0330-q8b-bf16 chat c=1 rep5 n=16 err=0 thr=85.5 tok/s ttft50=38ms tpot50=11.57ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:55:19   warmup vllm0330-q8b-bf16 chat c=16 n=16 err=0
+2026-11-09 01:55:52   vllm0330-q8b-bf16 chat c=16 rep1 n=128 err=0 thr=1181.7 tok/s ttft50=43ms tpot50=12.13ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:56:25   vllm0330-q8b-bf16 chat c=16 rep2 n=128 err=0 thr=1182.7 tok/s ttft50=42ms tpot50=12.16ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:56:58   vllm0330-q8b-bf16 chat c=16 rep3 n=128 err=0 thr=1183.7 tok/s ttft50=41ms tpot50=12.13ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:57:31   vllm0330-q8b-bf16 chat c=16 rep4 n=128 err=0 thr=1185.0 tok/s ttft50=40ms tpot50=12.11ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:58:04   vllm0330-q8b-bf16 chat c=16 rep5 n=128 err=0 thr=1185.3 tok/s ttft50=40ms tpot50=12.11ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:58:15   warmup vllm0330-q8b-bf16 chat c=64 n=64 err=0
+2026-11-09 01:59:00   vllm0330-q8b-bf16 chat c=64 rep1 n=512 err=0 thr=3123.3 tok/s ttft50=71ms tpot50=16.08ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 01:59:45   vllm0330-q8b-bf16 chat c=64 rep2 n=512 err=0 thr=3131.7 tok/s ttft50=69ms tpot50=16.06ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:00:30   vllm0330-q8b-bf16 chat c=64 rep3 n=512 err=0 thr=3121.5 tok/s ttft50=71ms tpot50=16.05ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:01:15   vllm0330-q8b-bf16 chat c=64 rep4 n=512 err=0 thr=3121.0 tok/s ttft50=69ms tpot50=16.07ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:02:00   vllm0330-q8b-bf16 chat c=64 rep5 n=512 err=0 thr=3126.8 tok/s ttft50=68ms tpot50=16.01ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:02:16   warmup vllm0330-q8b-bf16 chat c=256 n=256 err=0
+2026-11-09 02:03:42   vllm0330-q8b-bf16 chat c=256 rep1 n=2048 err=0 thr=6822.1 tok/s ttft50=137ms tpot50=34.01ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:05:08   vllm0330-q8b-bf16 chat c=256 rep2 n=2048 err=0 thr=6799.5 tok/s ttft50=135ms tpot50=34.14ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:06:34   vllm0330-q8b-bf16 chat c=256 rep3 n=2048 err=0 thr=6779.0 tok/s ttft50=136ms tpot50=34.17ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:08:01   vllm0330-q8b-bf16 chat c=256 rep4 n=2048 err=0 thr=6785.1 tok/s ttft50=139ms tpot50=33.99ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:09:27   vllm0330-q8b-bf16 chat c=256 rep5 n=2048 err=0 thr=6798.3 tok/s ttft50=135ms tpot50=34.17ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:09:36   warmup vllm0330-q8b-bf16 prefill8k c=1 n=4 err=0
+2026-11-09 02:10:10   vllm0330-q8b-bf16 prefill8k c=1 rep1 n=16 err=0 thr=63.3 tok/s ttft50=464ms tpot50=12.30ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:10:44   vllm0330-q8b-bf16 prefill8k c=1 rep2 n=16 err=0 thr=63.1 tok/s ttft50=467ms tpot50=12.30ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:11:17   vllm0330-q8b-bf16 prefill8k c=1 rep3 n=16 err=0 thr=63.2 tok/s ttft50=467ms tpot50=12.30ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:11:51   vllm0330-q8b-bf16 prefill8k c=1 rep4 n=16 err=0 thr=63.2 tok/s ttft50=464ms tpot50=12.30ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:12:25   vllm0330-q8b-bf16 prefill8k c=1 rep5 n=16 err=0 thr=63.1 tok/s ttft50=466ms tpot50=12.30ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:12:31   warmup vllm0330-q8b-bf16 prefill8k c=8 n=8 err=0
+2026-11-09 02:12:54   vllm0330-q8b-bf16 prefill8k c=8 rep1 n=32 err=0 thr=191.3 tok/s ttft50=1598ms tpot50=29.28ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:13:17   vllm0330-q8b-bf16 prefill8k c=8 rep2 n=32 err=0 thr=191.0 tok/s ttft50=1597ms tpot50=29.31ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:13:40   vllm0330-q8b-bf16 prefill8k c=8 rep3 n=32 err=0 thr=190.5 tok/s ttft50=1656ms tpot50=29.32ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:14:03   vllm0330-q8b-bf16 prefill8k c=8 rep4 n=32 err=0 thr=191.0 tok/s ttft50=1608ms tpot50=29.36ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:14:26   vllm0330-q8b-bf16 prefill8k c=8 rep5 n=32 err=0 thr=190.5 tok/s ttft50=1816ms tpot50=27.98ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:15:06   warmup vllm0330-q8b-bf16 agent c=16 n=16 err=0
+2026-11-09 02:16:19   vllm0330-q8b-bf16 agent c=16 rep1 n=239 err=0 thr=433.3 tok/s ttft50=187ms tpot50=27.26ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:17:32   vllm0330-q8b-bf16 agent c=16 rep2 n=239 err=0 thr=433.5 tok/s ttft50=193ms tpot50=27.18ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:18:45   vllm0330-q8b-bf16 agent c=16 rep3 n=239 err=0 thr=433.3 tok/s ttft50=192ms tpot50=27.11ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:19:58   vllm0330-q8b-bf16 agent c=16 rep4 n=239 err=0 thr=433.5 tok/s ttft50=189ms tpot50=26.97ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:21:11   vllm0330-q8b-bf16 agent c=16 rep5 n=239 err=0 thr=433.4 tok/s ttft50=194ms tpot50=27.29ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-09 02:21:12 server vllm0330-q8b-bf16 stopped

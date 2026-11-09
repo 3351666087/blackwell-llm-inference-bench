@@ -56,7 +56,8 @@ All locks were resolved with uv 0.13.7 against `mirrors.aliyun.com` (PyPI), `pyp
 Everything heavy runs on the GPU instance. The laptop only edits code.
 
 ```bash
-# on the GPU machine (Ubuntu 22.04, NVIDIA driver >= 580)
+# on the GPU machine (Ubuntu 22.04, NVIDIA driver >= 580; python3, uv and aria2c on PATH —
+# on AutoDL: export PATH=/root/miniconda3/bin:$PATH)
 git clone https://github.com/3351666087/blackwell-llm-inference-bench && cd blackwell-llm-inference-bench
 for e in bench vllm sglang trtllm; do bash envs/setup.sh $e; done
 bash envs/cuda13.0-toolkit/setup.sh /root/cuda13.0
@@ -64,12 +65,13 @@ python3 tools/fetch_model.py Qwen/Qwen3-8B      /root/autodl-tmp/models/Qwen3-8B
 python3 tools/fetch_model.py Qwen/Qwen3-8B-FP8  /root/autodl-tmp/models/Qwen3-8B-FP8
 python3 tools/fetch_model.py Qwen/Qwen3-32B-FP8 /root/autodl-tmp/models/Qwen3-32B-FP8
 # request files are NOT committed (they contain third-party ShareGPT text, including credentials
-# that users once pasted into chats). Regenerate them byte-identically:
+# that users once pasted into chats). Regenerate them byte-identically (needs the Qwen3-8B tokenizer
+# fetched above; data/raw/ is git-ignored; file names must match data/requests/MANIFEST.json):
 source /etc/network_turbo   # AutoDL only: proxy for huggingface.co
-aria2c -x16 -o sharegpt.json https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/192ab2185289094fc556ec8ce5ce1e8e587154ca/ShareGPT_V3_unfiltered_cleaned_split.json
-aria2c -x4 -o gsm8k_test.parquet "https://modelscope.cn/api/v1/datasets/AI-ModelScope/gsm8k/repo?Revision=master&FilePath=main/test-00000-of-00001.parquet"
-/root/envs/bench/bin/python -m bib workloads --sharegpt sharegpt.json --gsm8k gsm8k_test.parquet \
-    --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json --out data/requests
+aria2c -x16 -d data/raw -o sharegpt_v3_unfiltered_cleaned_split.json https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered/resolve/192ab2185289094fc556ec8ce5ce1e8e587154ca/ShareGPT_V3_unfiltered_cleaned_split.json
+aria2c -x4 -d data/raw -o gsm8k_main_test.parquet "https://modelscope.cn/api/v1/datasets/AI-ModelScope/gsm8k/repo?Revision=master&FilePath=main/test-00000-of-00001.parquet"
+/root/envs/bench/bin/python -m bib workloads --sharegpt data/raw/sharegpt_v3_unfiltered_cleaned_split.json \
+    --gsm8k data/raw/gsm8k_main_test.parquet --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json --out data/requests
 cd data/requests && sha256sum -c SHA256SUMS && cd -        # must print OK for every file
 # run (resumable; completed repetitions are skipped)
 /root/envs/bench/bin/python -m bib run plans/main.yaml

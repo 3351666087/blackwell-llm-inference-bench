@@ -1,0 +1,90 @@
+2026-11-08 21:45:04 plan prefix_cache commit=3395103d644cfa1dffd147e6375bbd13f75ec304 servers=['vllm-q8b-bf16-nocache', 'sglang-q8b-bf16-nocache', 'trtllm-q8b-bf16-nocache']
+2026-11-08 21:45:48 server vllm-q8b-bf16-nocache up in 42s fp=52cfe45f523f kv={'GPU KV cache size:\\s*([\\d,]+)\\s*tokens': '501,296', 'Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x': ('40,960', '12.24')} smoke='Paris'
+2026-11-08 21:48:27   warmup vllm-q8b-bf16-nocache agent c=1 n=8 err=0
+2026-11-08 21:50:18   vllm-q8b-bf16-nocache agent c=1 rep1 n=55 err=0 thr=66.7 tok/s ttft50=387ms tpot50=12.20ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 21:52:08   vllm-q8b-bf16-nocache agent c=1 rep2 n=55 err=0 thr=66.7 tok/s ttft50=379ms tpot50=12.18ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 21:53:58   vllm-q8b-bf16-nocache agent c=1 rep3 n=55 err=0 thr=66.8 tok/s ttft50=369ms tpot50=12.20ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 21:55:11   warmup vllm-q8b-bf16-nocache agent c=4 n=8 err=0
+2026-11-08 21:56:00   vllm-q8b-bf16-nocache agent c=4 rep1 n=55 err=0 thr=154.7 tok/s ttft50=448ms tpot50=19.10ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 21:56:48   vllm-q8b-bf16-nocache agent c=4 rep2 n=55 err=0 thr=154.9 tok/s ttft50=441ms tpot50=19.20ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 21:57:36   vllm-q8b-bf16-nocache agent c=4 rep3 n=55 err=0 thr=154.7 tok/s ttft50=445ms tpot50=19.30ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 21:59:07   warmup vllm-q8b-bf16-nocache agent c=16 n=16 err=0
+2026-11-08 22:01:45   vllm-q8b-bf16-nocache agent c=16 rep1 n=239 err=0 thr=198.1 tok/s ttft50=629ms tpot50=62.77ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:04:23   vllm-q8b-bf16-nocache agent c=16 rep2 n=239 err=0 thr=197.8 tok/s ttft50=652ms tpot50=63.15ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:07:02   vllm-q8b-bf16-nocache agent c=16 rep3 n=239 err=0 thr=198.0 tok/s ttft50=647ms tpot50=63.64ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:09:40   warmup vllm-q8b-bf16-nocache agent c=32 n=32 err=0
+2026-11-08 22:14:35   vllm-q8b-bf16-nocache agent c=32 rep1 n=493 err=0 thr=221.2 tok/s ttft50=863ms tpot50=113.56ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:19:29   vllm-q8b-bf16-nocache agent c=32 rep2 n=493 err=0 thr=222.1 tok/s ttft50=869ms tpot50=114.75ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:24:23   vllm-q8b-bf16-nocache agent c=32 rep3 n=493 err=0 thr=222.0 tok/s ttft50=849ms tpot50=114.63ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:29:51   warmup vllm-q8b-bf16-nocache agent c=64 n=64 err=0
+2026-11-08 22:40:29   vllm-q8b-bf16-nocache agent c=64 rep1 n=1005 err=0 thr=213.6 tok/s ttft50=1851ms tpot50=262.86ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 22:51:07   vllm-q8b-bf16-nocache agent c=64 rep2 n=1005 err=0 thr=213.5 tok/s ttft50=1790ms tpot50=263.08ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 23:01:47   vllm-q8b-bf16-nocache agent c=64 rep3 n=1005 err=0 thr=213.0 tok/s ttft50=1785ms tpot50=265.25ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-08 23:01:47   knee agent: c=64 median thr 213.5 < 1.05 x 222.0
+2026-11-08 23:01:48 server vllm-q8b-bf16-nocache stopped
+2026-11-08 23:02:36 server sglang-q8b-bf16-nocache up in 45s fp=2b5e316a398a kv={'max_total_num_tokens=(\\d+)': '477443'} smoke='Paris'
+2026-11-08 23:05:11   warmup sglang-q8b-bf16-nocache agent c=1 n=8 err=0
+2026-11-08 23:06:59   sglang-q8b-bf16-nocache agent c=1 rep1 n=55 err=0 thr=68.2 tok/s ttft50=371ms tpot50=11.94ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:08:47   sglang-q8b-bf16-nocache agent c=1 rep2 n=55 err=0 thr=68.2 tok/s ttft50=375ms tpot50=11.94ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:10:35   sglang-q8b-bf16-nocache agent c=1 rep3 n=55 err=0 thr=68.2 tok/s ttft50=373ms tpot50=11.94ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:11:48   warmup sglang-q8b-bf16-nocache agent c=4 n=8 err=0
+2026-11-08 23:12:36   sglang-q8b-bf16-nocache agent c=4 rep1 n=55 err=0 thr=154.4 tok/s ttft50=435ms tpot50=19.15ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:13:25   sglang-q8b-bf16-nocache agent c=4 rep2 n=55 err=0 thr=154.4 tok/s ttft50=436ms tpot50=19.15ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:14:13   sglang-q8b-bf16-nocache agent c=4 rep3 n=55 err=0 thr=154.5 tok/s ttft50=434ms tpot50=19.18ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:15:43   warmup sglang-q8b-bf16-nocache agent c=16 n=16 err=0
+2026-11-08 23:18:20   sglang-q8b-bf16-nocache agent c=16 rep1 n=239 err=0 thr=199.9 tok/s ttft50=630ms tpot50=63.18ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:20:56   sglang-q8b-bf16-nocache agent c=16 rep2 n=239 err=0 thr=200.1 tok/s ttft50=611ms tpot50=62.65ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:23:32   sglang-q8b-bf16-nocache agent c=16 rep3 n=239 err=0 thr=200.5 tok/s ttft50=654ms tpot50=62.85ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:26:07   warmup sglang-q8b-bf16-nocache agent c=32 n=32 err=0
+2026-11-08 23:30:52   sglang-q8b-bf16-nocache agent c=32 rep1 n=493 err=0 thr=228.6 tok/s ttft50=721ms tpot50=112.10ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:35:39   sglang-q8b-bf16-nocache agent c=32 rep2 n=493 err=0 thr=228.1 tok/s ttft50=762ms tpot50=111.67ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:40:25   sglang-q8b-bf16-nocache agent c=32 rep3 n=493 err=0 thr=228.3 tok/s ttft50=710ms tpot50=112.39ms valid=True reset=endpoint:/flush_cache
+2026-11-08 23:45:18   warmup sglang-q8b-bf16-nocache agent c=64 n=64 err=0
+2026-11-08 23:54:41   sglang-q8b-bf16-nocache agent c=64 rep1 n=1005 err=0 thr=242.2 tok/s ttft50=1915ms tpot50=216.23ms valid=True reset=endpoint:/flush_cache
+2026-11-09 00:04:03   sglang-q8b-bf16-nocache agent c=64 rep2 n=1005 err=0 thr=242.5 tok/s ttft50=1909ms tpot50=215.65ms valid=True reset=endpoint:/flush_cache
+2026-11-09 00:13:26   sglang-q8b-bf16-nocache agent c=64 rep3 n=1005 err=0 thr=242.1 tok/s ttft50=1853ms tpot50=217.66ms valid=True reset=endpoint:/flush_cache
+2026-11-09 00:18:20   warmup sglang-q8b-bf16-nocache agent c=128 n=64 err=0
+2026-11-09 00:36:51   sglang-q8b-bf16-nocache agent c=128 rep1 n=2007 err=0 thr=246.2 tok/s ttft50=32687ms tpot50=223.11ms valid=True reset=endpoint:/flush_cache
+2026-11-09 00:55:25   sglang-q8b-bf16-nocache agent c=128 rep2 n=2007 err=0 thr=245.8 tok/s ttft50=32543ms tpot50=223.42ms valid=True reset=endpoint:/flush_cache
+2026-11-09 01:13:55   sglang-q8b-bf16-nocache agent c=128 rep3 n=2007 err=0 thr=246.4 tok/s ttft50=32748ms tpot50=223.56ms valid=True reset=endpoint:/flush_cache
+2026-11-09 01:13:55   knee agent: c=128 median thr 246.2 < 1.05 x 242.2
+2026-11-09 01:13:57 server sglang-q8b-bf16-nocache stopped
+2026-11-09 01:14:13 SERVER START FAILED trtllm-q8b-bf16-nocache: trtllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/prefix_cache/trtllm-q8b-bf16-nocache/server_01.log
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/09/2026-01:14:10] [TRT-LLM] [W] Overriding kv_cache_config 
+Traceback (most recent call last):
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 193, in launch_server
+    s.bind((host, port))
+OSError: [Errno 98] Address already in use
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/root/envs/trtllm/bin/trtllm-serve", line 10, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1653, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1560, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 2054, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1414, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 911, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 568, in serve
+    launch_server(host, port, llm_args, tool_parser, chat_template,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 197, in launch_server
+    raise RuntimeError(f"Failed to bind socket to {host}:{port}: {e}")
+RuntimeError: Failed to bind socket to 127.0.0.1:8000: [Errno 98] Address already in use
+
