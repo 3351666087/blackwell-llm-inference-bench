@@ -54,6 +54,8 @@ def main():
     ap.add_argument("--env-var", action="append", default=[])
     ap.add_argument("--extra", default="")
     ap.add_argument("--port", type=int, default=8000)
+    ap.add_argument("--join-timeout", type=float, default=120.0,
+                    help="seconds to wait for the load to finish after the capture stopped")
     ap.add_argument("--no-prefix-cache", action="store_true",
                     help="disable prefix caching (TensorRT-LLM: enable_block_reuse=false, as in AMENDMENTS A4)")
     ap.add_argument("--capture-delay", type=float, default=0.0,
@@ -84,6 +86,10 @@ def main():
         load_s = srv.start(3600, attempts=4 if a.framework == "trtllm" else 1)
         for ph in phases:
             infos.append(run_phase(a, srv, session, out, ph, load_s))
+            if infos[-1].get("load_incomplete"):
+                print(f"load did not finish after the capture of {infos[-1]['name']}; stopping server, skipping later phases",
+                      flush=True)
+                break
     finally:
         srv.stop()
         sh([NSYS, "shutdown", f"--session={session}"])
@@ -113,7 +119,7 @@ def run_phase(a, srv, session, out, ph, load_s):
     box = {}
     cfgc = ClientConfig(srv.base, srv.model_name, ph["concurrency"], keep_text=0,
                         procs=max(1, min(6, (ph["concurrency"] + 31) // 32)))
-    th = threading.Thread(target=lambda: box.update(res=run_load(cfgc, meas)))
+    th = threading.Thread(target=lambda: box.update(res=run_load(cfgc, meas)), daemon=True)
     t_load = time.time()
     th.start()
     time.sleep(ph["capture_delay"])
@@ -128,7 +134,12 @@ def run_phase(a, srv, session, out, ph, load_s):
     r = sh([NSYS, "stop", f"--session={session}"], timeout=3600)
     info["capture_stop_s_after_load"] = time.time() - t_load
     info["nsys_stop"] = r.stdout[-800:] + r.stderr[-800:]
-    th.join()
+    # vLLM's engine core can hang after `nsys stop` (seen 2026-11-10); never wait more than --join-timeout
+    th.join(timeout=a.join_timeout)
+    if th.is_alive():
+        info["load_incomplete"] = True
+        info["errors"] = None
+        return info
     rec = box["res"]["records"]
     write_records(os.path.join(out, name + "_requests.jsonl.gz"), rec)
     ok = [x for x in rec if x.get("ttft") and not x.get("error")]

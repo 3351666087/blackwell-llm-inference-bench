@@ -474,3 +474,27 @@ of each start. Hours are counted from the console's start/stop timestamps.
   (`tools/quality_pair.py` → `results/nvfp4/QUALITY_FP8_vs_NVFP4.md`). TRT NVFP4 8k prefill 862 ms vs
   its FP8 1900 ms — localises the TRT FP8 slowness to the FP8 block-scale GEMM path.
 - **03:41 · 5.1** · Nsight captures started (chain7).
+- **03:41–04:05 · 5.1** · nsys captures: TRT-LLM 8B FP8 (chat c=32, c=64, 8k c=1) and BF16 (chat c=64,
+  8k c=1) fine; under nsys the anomaly reproduces (FP8 TPOT 10.9 ms at c=32 vs 24.3 ms at c=64).
+  vLLM 8B FP8: the engine core **hung right after the first `nsys stop`** (03:49:15, generation 0 tok/s,
+  32 running) until the client timed out at 04:04; the remaining two phases failed
+  (`reset_prefix_cache … Connection refused`). TRT-LLM survived repeated start/stop in one session,
+  vLLM does not. Fix: `nsys_profile.py` waits ≤ 120 s for the load after a capture and skips later
+  phases if it hangs; vLLM phases to be re-captured one per server start. Analysis tools added:
+  `tools/nsys_trt_steps.py` (per-step NVTX analysis: CUDA-graph vs eager steps) and
+  `tools/nsys_prefill.py` (framework-neutral prefill breakdown; matches the NVTX attribution exactly
+  on both TRT captures).
+- **04:00 · 5.1 (finding)** · TRT-LLM 8B FP8 chat: at c=32, 90 % of steps are decode-only with batch ≤ 32
+  → captured CUDA graph, 8.3 ms; at c=64 only 45 % of steps have batch exactly 64 (graph, 8.75 ms); 29 %
+  are decode with batch 33–63 and 26 % are mixed (a new prompt) → eager, 41–43 ms per step, of which
+  36–38 ms is host time issuing 520–630 kernel launches while the GPU is busy 12–15 ms. Mean step 26.8 ms,
+  GPU busy 41 %. Same structure for BF16, but its eager steps cost 25 ms (host 20 ms) — the FP8 path adds
+  per-token activation-quant launches and a host-side TMA descriptor encode per GEMM launch
+  (`cuTensorMapEncodeTiled` 75 k calls in 5 s). Source: TRT-LLM 1.2.1 `CudaGraphConfig` defaults
+  `enable_padding=False`, sizes 1–31, 32, 64, 128 — whereas NVIDIA's `trtllm-bench` sets
+  `enable_padding: True`. Queued an exploratory, post-hoc intervention run
+  (`plans/explore_trt_cudagraph.yaml`, padding on) to test the explanation.
+- **04:00 · 5.1 (finding)** · TRT-LLM 8B 8k prefill (c=1): FP8 438 ms GPU = 282 ms FP8 block-scale GEMM
+  + 36 ms activation quant + 97 ms attention + 21 ms other; BF16 410 ms = 291 ms BF16 GEMM + 97 ms
+  attention + 21 ms other. The sm_120 block-scale FP8 GEMM is only 3 % faster than the BF16 GEMM, so
+  the extra quant pass makes FP8 prefill slower.
