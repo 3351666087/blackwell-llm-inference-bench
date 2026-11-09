@@ -355,7 +355,19 @@ each step can be classified (`tools/nsys_trt_steps.py` → `results/nsys/analysi
 faster than the BF16 GEMM.** Single 8k prefill at c=1, GPU time by category (`tools/nsys_prefill.py` →
 `results/nsys/analysis/prefill_breakdown.md`; cross-checked against the NVTX attribution, identical):
 
-«PREFILL_TABLE»
+| 8B, one 8k prefill (c=1) | GPU time | linear-layer GEMMs | activation quant | attention | other | GEMM throughput (111 TFLOP of linear work) |
+|---|---|---|---|---|---|---|
+| TensorRT-LLM BF16 | 410 ms | 291 ms (BF16, CUTLASS/cuBLAS) | – | 97 ms (`fmha_v2`) | 21 ms | ≈ 382 TFLOPS |
+| TensorRT-LLM FP8 | 438 ms | 282 ms (`sm120_blockscaled_gemm`) | 36 ms | 97 ms | 21 ms | ≈ 395 TFLOPS |
+| vLLM FP8 | 267 ms | 158 ms (DeepGEMM `sm120_fp8_fp4_gemm`) | 34 ms | 70 ms (FlashAttention-2) | 4 ms | ≈ 705 TFLOPS |
+
+TensorRT-LLM's sm_120 block-scale FP8 GEMM runs at the speed of its BF16 GEMM (395 vs 382 TFLOPS), so FP8
+saves nothing on the GEMMs and adds 36 ms of activation quantization: FP8 prefill ends up 7 % slower on the
+GPU (5 % in TTFT). vLLM's DeepGEMM kernel reaches ≈ 705 TFLOPS on the same shapes — 1.8× TensorRT-LLM's —
+which is where vLLM's FP8 prefill gain (×0.74, P3) comes from. With the NVFP4 checkpoint TensorRT-LLM's
+prefill is as fast as the others (§5.2), so its prefill path is fine; the slow piece is specifically the
+FP8 block-scale GEMM kernel on sm_120 in this release. (TFLOPS = 2 × 6.95 B linear parameters × 8000
+tokens ÷ GEMM time; lm_head runs on the last token only.)
 
 **(c) SGLang decodes 32B FP8 faster than vLLM at c=256 because of decode attention, not GEMMs.** Both GPUs
 are ~99 % busy, so GPU time per generated token = 1/throughput, split by each category's share of kernel

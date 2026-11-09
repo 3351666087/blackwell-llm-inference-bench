@@ -512,3 +512,6 @@ of each start. Hours are counted from the console's start/stop timestamps.
   `cuda_graph_config.enable_padding: true`: c=64 TPOT 12.3 ms / 4095 tok/s (1 strict-valid rep; A5 median
   4008) vs default 21.9 ms / 2440; c=256 5553 tok/s with 2 strict-valid reps; A5 c=128 6787 tok/s. 7 of 12
   runs strict-invalid (bursts), all A5-valid. GSM8K 0.924 (same). Confirms the step analysis causally.
+- **04:28 · 5.1** · vLLM FP8 8k prefill re-captured (single phase): GPU 267 ms = DeepGEMM 158 ms + act
+  quant 34 + attention 70 + other 4 vs TRT-LLM FP8 438 ms (GEMM 282) and TRT-LLM BF16 410 ms (GEMM 291).
+  TRT-LLM's sm_120 block-scale FP8 GEMM ≈ 395 TFLOPS ≈ its BF16 GEMM (382); DeepGEMM ≈ 705 TFLOPS.
