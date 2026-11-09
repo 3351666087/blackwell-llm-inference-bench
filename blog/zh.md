@@ -35,13 +35,22 @@ agent 负载回放多轮工具调用会话，每一轮的 prompt 有 86% 和上�
 的池子，128 个放不进——三个框架恰好都在这里掉下悬崖：命中率 0.85 → 0.45，吞吐减半，首 token 延迟到 12 秒。32B 模型的池子只有约 20 万，
 悬崖提前到 64 个会话。这个上限用纸笔就能算出来。
 
-## 发现四：«TensorRT-LLM 在 sm_120 上的 FP8»
+## 发现四：TensorRT-LLM 的 FP8 掉速是配置问题，Nsight Systems 找到的
 
-«Nsight Systems 结果：为什么 TensorRT-LLM 的 FP8 在 32 并发后不再扩展，为什么它的 8k 预填充没有比 BF16 快。»
+TensorRT-LLM 能正确运行 FP8 检查点，但聊天吞吐在 32 并发后就不再增长：从 32 到 64 个用户，每 token 时间从 10.7 ms 翻倍到 21.9 ms。
+用 Nsight Systems 加上 TensorRT-LLM 自己的 NVTX 标记（每个调度步都标了批次组成），答案很清楚：`trtllm-serve` 默认只为批量 1–32、64、128
+捕获 CUDA graph，而且不把批次补齐到这些大小。32 个用户时每个解码步都命中 graph（8 ms）；64 个用户时只有 45% 的步恰好是 64 个请求，
+其余走 eager 模式——一个 eager 的 FP8 步要在 CPU 上花约 37 ms 发出约 600 个 kernel，而 GPU 只干了约 13 ms。GPU 有 59% 的时间在空等，
+kernel 本身没问题。打开 graph padding（NVIDIA 自己的 `trtllm-bench` 默认就开）后，64 用户时每 token 时间降到 12.3 ms，峰值吞吐翻了一倍多。
+另一个独立的发现：它在这张卡上的 FP8 预填充 GEMM 并不比 BF16 GEMM 快，而 vLLM 的 DeepGEMM 在同样的矩阵形状上快 1.8 倍。
 
-## 发现五：«NVFP4»
+同样的方法也解释了 SGLang 为什么在 32B FP8 上比 vLLM 快 36%：每生成一个 token，vLLM 在解码注意力上花 174 µs 的 GPU 时间，SGLang 只花 74 µs；
+GEMM 两者相差不到 12%。
 
-«…»
+## 发现五：在这张卡上，NVFP4 是 32B 的最佳格式
+
+Blackwell 的 FP4 路径在三个框架里都跑通了（修了三处工具链问题）。在 32B 模型上和 FP8 相比，NVFP4 把单用户每 token 时间降到 0.62–0.68 倍，
+8k 长 prompt 的首 token 时间降到 0.45–0.69 倍，峰值聊天吞吐提高 1.23–1.37 倍，KV cache 多出四分之一的空间——GSM8K 准确率相差不到 0.8 个百分点。
 
 ## 哪里出了错，又是怎么被抓到的
 

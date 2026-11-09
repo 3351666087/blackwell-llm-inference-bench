@@ -127,7 +127,11 @@ FP8 权重省下约 7 GB，KV 池随之变大（vLLM 548,064、SGLang 524,533 to
 - 但 8k 预填充单并发 TTFT 是 512 ms，BF16 是 490 ms（FP8/BF16 = 1.049 [1.031, 1.068]，比较 P3 被推翻）——FP8 不但没加速，反而慢了 5%（vLLM/SGLang 是 ×0.73）；
 - 聊天负载并发 32 → 64 时 TPOT 从 10.7 ms 翻倍到 21.9 ms，吞吐不升反降（2525 → 2440 tok/s），预注册拐点规则停在 c=64，
   FP8 峰值只有它自己 BF16 峰值的一半（2525 vs 5002 tok/s）。
-- 日志里 TRT-LLM 只为批量 1–32、64、128 捕获了生成阶段的 CUDA graph。«nsys 结论：……（报告 §5.1）»
+- 日志里 TRT-LLM 只为批量 1–32、64、128 捕获了生成阶段的 CUDA graph。nsys 按步分析（报告 §5.1）：c=64 时 55% 的步没有对应的 graph，
+  走 eager，每步主机要花 36–38 ms 发 500–600 个 kernel（FP8 每个 GEMM 还要一次激活量化和一次主机端 TMA 描述符编码），GPU 只忙 12–15 ms，
+  整体 GPU 忙碌率从 75% 掉到 41%。打开 `cuda_graph_config.enable_padding`（探索性实验）后 c=64 TPOT 21.9 → 12.3 ms。
+- 预填充慢的原因也查到了：TRT-LLM 在 sm_120 上的分块 FP8 GEMM 只有约 395 TFLOPS，和它的 BF16 GEMM（382）差不多，再加 36 ms 激活量化，
+  所以 FP8 反而慢；vLLM 的 DeepGEMM 同形状约 705 TFLOPS。换成 NVFP4 后 TRT-LLM 的 8k 预填充 862 ms，和别家持平——问题只在 FP8 kernel。
 - 面试要点：**"支持某精度"≠"该精度在这个架构上有优化过的 kernel"**。先看单并发（带宽项）、再看预填充（GEMM 项）、再看扩展性（调度/graph），
   三个维度分别定位。
 

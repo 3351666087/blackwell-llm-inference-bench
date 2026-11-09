@@ -48,14 +48,27 @@ and that is exactly where all three frameworks fall off a cliff: hit rate 0.85 �
 halves, first-token latency goes to 12 s. For the 32B model (≈ 0.2M-token pool) the cliff is at 64
 sessions. The limit is a capacity budget you can compute on a napkin.
 
-## Finding 4: «TensorRT-LLM FP8 on sm_120»
+## Finding 4: TensorRT-LLM's FP8 collapse is a configuration story, found with Nsight Systems
 
-«Nsight Systems result: why TensorRT-LLM's FP8 path stops scaling at 32 concurrent requests and why
-its 8k prefill is no faster than BF16.»
+TensorRT-LLM ran the FP8 checkpoint correctly, but its chat throughput stopped growing at 32 concurrent
+requests: the time per token doubled from 10.7 to 21.9 ms between 32 and 64 users. Nsight Systems plus
+TensorRT-LLM's own NVTX ranges (each scheduler step is labelled with its batch composition) gave a clean
+answer. With `trtllm-serve` defaults, CUDA graphs exist only for batch sizes 1–32, 64 and 128, and batches
+are not padded up to them. At 32 users every decode step hits a graph (8 ms). At 64 users only 45 % of steps
+have exactly 64 requests; the rest run eagerly, and an eager FP8 step spends ~37 ms on the CPU issuing
+~600 kernel launches while the GPU works for ~13 ms. The GPU was idle 59 % of the time — its kernels were
+fine. Turning on graph padding (which NVIDIA's own `trtllm-bench` does) cut the time per token at 64 users
+to 12.3 ms and lifted peak throughput more than 2×. A second, separate finding: its FP8 prefill GEMM on
+this GPU runs no faster than its BF16 GEMM, while vLLM's DeepGEMM is 1.8× faster on the same shapes.
 
-## Finding 5: «NVFP4»
+The same method explained why SGLang beats vLLM by 36 % on 32B FP8: per generated token, vLLM spends 174 µs
+of GPU time in decode attention and SGLang 74 µs; the GEMMs are within 12 %.
 
-«…»
+## Finding 5: NVFP4 is the best 32B format on this card
+
+Blackwell's FP4 path worked in all three frameworks (after three toolchain fixes). Against FP8 on the 32B
+model, NVFP4 cut the single-user time per token to 0.62–0.68×, 8k-prompt latency to 0.45–0.69×, raised peak
+chat throughput 1.23–1.37× and freed a quarter more KV-cache space — with GSM8K accuracy within 0.8 points.
 
 ## What went wrong (and how it was caught)
 

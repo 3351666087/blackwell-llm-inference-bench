@@ -102,7 +102,7 @@ NVML 的累计能量计数器（mJ），按负载开始/结束时间插值相减
 **16. 客户端会不会成为瓶颈？你怎么证明？**
 
 每次运行记录每个负载生成进程的 CPU 占用，> 90% 就判无效（`client_not_saturated`）；并发高时用多进程（最多 6 个进程、
-每个 32 路流）。全部 690 次主运行里单进程 CPU 占用最高只有 0.23（vLLM 8B FP8 聊天 c=32，单进程、流最密的一档；
+每个 32 路流）。全部 985 次预注册运行（main、prefix_cache、nvfp4、regression）里单进程 CPU 占用最高只有 0.23（vLLM 8B FP8 聊天 c=32，单进程、流最密的一档；
 各 `meta.json` 的 `client.per_proc[].cpu_frac`）。另外用已知延迟的 mock 服务器（TTFT 80 ms、TPOT 10 ms）做端到端测试，
 客户端测得值误差在 15 ms / 2 ms 以内（`tests/test_client.py`，CI 每次推送都跑）。
 
@@ -115,14 +115,24 @@ vLLM 和 SGLang 用 HTTP 接口清前缀缓存。TRT-LLM 没有这个接口：�
 
 **18. TRT-LLM 的 FP8 在并发 64 时 TPOT 翻倍，你怎么查？**
 
-现象：8B FP8 聊天 TPOT 10.7 ms（c=32）→ 21.9 ms（c=64），吞吐 2525 → 2440，拐点规则停在 c=64；同框架 BF16 能扩展到
-c=128。日志显示只为批量 1–32、64、128 捕获了生成阶段的 CUDA graph。假设：（a）33–63 和混合步走 eager 模式，FP8 的
-量化 kernel 多、CPU 发射成为瓶颈；（b）M > 32 时换了 FP8 分块 GEMM kernel。nsys 对比 c=32 和 c=64 的 GPU 忙碌比例和 GEMM
-kernel 名称/时长就能区分（报告 §5.1）。«用实测结果更新»
+现象：8B FP8 聊天 TPOT 10.7 ms（c=32）→ 21.9 ms（c=64），吞吐 2525 → 2440，拐点规则停在 c=64；同框架 BF16 能扩展到 c=128。
+步骤：（1）nsys 抓 c=32 和 c=64 的稳态 5 秒；（2）TRT 给每个调度步打了 NVTX 名字（`_forward_step N: c ctx reqs, g gen reqs`），
+按"是否命中已捕获的 CUDA graph"把步分类（`tools/nsys_trt_steps.py`）；（3）看主机时间和 GPU 忙碌时间。
+结论：默认只为批量 1–32、64、128 捕获 CUDA graph 且不 padding。c=32 时 90% 的步走 graph（8.3 ms）；c=64 时只有 45% 的步批量恰好是 64，
+其余 55%（批量 33–63 的纯解码步、含新请求的混合步）走 eager，每步 41–43 ms，其中 36–38 ms 是主机在发 520–630 个 kernel，GPU 只忙
+12–15 ms，整体 GPU 忙碌率 41%（vLLM 同负载 88–89%）。FP8 的 eager 步比 BF16 的贵（41 vs 25 ms），因为每个 GEMM 多一个激活量化 kernel 和一次
+主机端 TMA 描述符编码（`cuTensorMapEncodeTiled` 5 秒 7.5 万次）。因果验证：打开 `cuda_graph_config.enable_padding`（NVIDIA 自己的
+`trtllm-bench` 默认就开）后 c=64 TPOT 21.9 → 12.3 ms，c=256 达到 5553 tok/s（≥ 默认峰值的 2.2 倍；探索性实验，`results/explore_trt_cudagraph/`）。
+面试要点：先看 GPU 忙碌率，区分"kernel 慢"和"GPU 在等 CPU"——这里 TRT 每个 token 的 GPU 时间其实比 vLLM 还少（169 vs 197 µs）。
 
 **19. NVFP4 比 FP8 快多少？质量掉了多少？KV 用的什么精度？**
 
-«待 NVFP4 结果»。KV cache 强制 BF16（ModelOpt 配置里要求 FP8 KV，这里统一成 BF16，只比较权重/激活量化，A3）。
+32B 单并发 TPOT：vLLM 25.11 → 17.18 ms（×0.684）、SGLang 25.55 → 16.30（×0.638）、TRT-LLM 26.03 → 16.06（×0.617），每步读取字节 32.8 → 19.1 GB
+（×0.58），差的那部分还是固定开销（比较 P13，三家都成立）。8k 预填充 TTFT ×0.45–0.69；峰值聊天吞吐 vLLM ×1.37、SGLang ×1.23；KV 池大 25–32%。
+GSM8K 配对比较 FP8 → NVFP4：−0.8 / −0.4 / 0.0 个百分点，McNemar p ≥ 0.63（`results/nvfp4/QUALITY_FP8_vs_NVFP4.md`）。KV cache 三家都强制 BF16：
+vLLM/SGLang 用 `--kv-cache-dtype bfloat16`；TRT-LLM 1.2.1 不接受这个值（只接受 fp8/nvfp4/auto），所以做了一个"配置覆盖层"目录——权重文件全是
+同一份（符号链接），只把量化配置里的 KV 量化去掉（A9），日志里 KV 池 264k token 和 vLLM 的 BF16 池一致，证明确实是 BF16。
+追问"有什么代价"：三个框架里两个需要修 JIT 构建（FlashInfer 并行编译 OOM、缺 cuBLAS 头文件，A8），工具链更脆弱。
 
 **20. 这台卡是 Server Edition，带宽 1597 GB/s；如果误用 Workstation Edition 的 1792 GB/s，会怎样？**
 
