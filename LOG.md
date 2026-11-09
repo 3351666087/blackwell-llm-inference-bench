@@ -498,3 +498,17 @@ of each start. Hours are counted from the console's start/stop timestamps.
   + 36 ms activation quant + 97 ms attention + 21 ms other; BF16 410 ms = 291 ms BF16 GEMM + 97 ms
   attention + 21 ms other. The sm_120 block-scale FP8 GEMM is only 3 % faster than the BF16 GEMM, so
   the extra quant pass makes FP8 prefill slower.
+- **04:10 · 6.1** · Skill validation started: a fresh agent (Claude subagent, no prior context) given
+  only `skill/blackwell-bench/SKILL.md` + `small_plan.yaml` and the GPU access helper, working in a
+  fresh clone `/root/autodl-tmp/skilltest`. A lock file `/root/autodl-tmp/GPU_BUSY` keeps it off the GPU
+  until the nsys/exploratory queue (chain7–9) is done (removed by chain10); it may prepare meanwhile.
+- **04:11–04:26 · 5.1** · 32B FP8 chat c=256 captures (vLLM, SGLang) fine — vLLM did *not* hang after
+  `nsys stop` this time (intermittent). Per output token (both GPUs ~99 % busy; `tools/nsys_decode_compare.py`):
+  vLLM 378 µs = attention 174 + FP8 GEMMs 191 + other; SGLang 313 µs = attention 74 + GEMMs 214 + other.
+  P11's gap is decode attention (FlashAttention-2 split-KV vs FlashInfer paged). Note: an earlier version of
+  the tool normalised per *step*, which is wrong for SGLang (prefill runs as separate steps; 86.7 steps vs
+  vLLM's 40.7 in the window) — switched to per-output-token before using any number.
+- **04:12–04:26 · 5.1 (exploratory)** · `plans/explore_trt_cudagraph.yaml` — TRT-LLM 8B FP8 with
+  `cuda_graph_config.enable_padding: true`: c=64 TPOT 12.3 ms / 4095 tok/s (1 strict-valid rep; A5 median
+  4008) vs default 21.9 ms / 2440; c=256 5553 tok/s with 2 strict-valid reps; A5 c=128 6787 tok/s. 7 of 12
+  runs strict-invalid (bursts), all A5-valid. GSM8K 0.924 (same). Confirms the step analysis causally.

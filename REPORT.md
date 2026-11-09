@@ -27,11 +27,16 @@ Day-by-day record: [`LOG.md`](LOG.md).*
    decode gains as much as the others (×0.65), but 8k prefill is 5 % *slower* than BF16 (512 vs 490 ms; P3
    refuted), and chat throughput stops scaling at 32 concurrent requests: TPOT doubles from 10.7 ms (c=32)
    to 21.9 ms (c=64), so its FP8 chat peak is half of its own BF16 peak (2525 vs 5002 tok/s; P4 refuted) and
-   it spends 1.41× the energy per token (P12 refuted). «Nsight Systems (§5.1)
-   attributes this to …»
+   it spends 1.41× the energy per token (P12 refuted). Nsight Systems shows why (§5.1): with the
+   `trtllm-serve` defaults only batch sizes 1–32, 64 and 128 have CUDA graphs and padding is off, so at
+   c=64 more than half of all steps run eagerly, and an eager FP8 step is host-bound (≈ 37 ms to issue
+   ≈ 600 launches while the GPU works ≈ 13 ms). Turning padding on (exploratory) lifts FP8 throughput to
+   ≥ 2.2× its default peak. Its FP8 prefill GEMM on sm_120 is only ≈ 3 % faster than its BF16 GEMM.
 4. **At high concurrency the frameworks differ much more than at c=1.** On 32B FP8 chat SGLang reaches
    3581 tok/s against vLLM 2629 and TensorRT-LLM 2646 (+36 %; my "within ±10 %" prediction P11 is refuted).
-   At equal concurrency 256, SGLang's decode step is 19 % shorter (TPOT p50 74 vs 91 ms). When the KV pool
+   At equal concurrency 256, SGLang's decode step is 19 % shorter (TPOT p50 74 vs 91 ms); Nsight Systems
+   puts the difference in decode attention (174 vs 74 µs of GPU time per output token; GEMMs 191 vs 214 µs,
+   §5.1). When the KV pool
    fills (c=512), vLLM keeps admitting requests and its TPOT doubles, SGLang queues them and its TTFT goes
    to 9.7 s — an admission policy choice, not a speed difference (§3.2).
 5. **KV capacity, not compute, sets the ceiling for agent traffic — in every framework.** When
@@ -158,8 +163,9 @@ doubles (33.9 → 65.4 ms) — the knee (`S(vllm-q8b-bf16, chat, *)`).
 
 * **SGLang vs vLLM**, 8B BF16: +4 % at peak (P5, CI [+2 %, +6 %]; prediction "within ±10 %" confirmed).
   32B FP8: +36 % (P11 refuted). At c=256, where neither KV pool is full (256 × ≈ 400 tokens ≈ 100k of
-  ≈ 200k), SGLang's TPOT is 74.2 ms against vLLM's 91.4 ms (`S(*-q32b-fp8, chat, 256)`).
-  «Nsight Systems: … (§5.1)».
+  ≈ 200k), SGLang's TPOT is 74.2 ms against vLLM's 91.4 ms (`S(*-q32b-fp8, chat, 256)`). Nsight Systems
+  attributes this to decode attention: vLLM's FlashAttention-2 split-KV kernel takes 174 µs of GPU time per
+  output token, SGLang's FlashInfer kernel 74 µs, while the FP8 GEMMs take 191 vs 214 µs (§5.1c).
 * **At c=512 on 32B the KV pool is the limit** and the frameworks handle it differently: vLLM admits all
   requests (TTFT p50 0.69 s) and its TPOT doubles to 187 ms, so throughput falls slightly
   (2629 → 2602 tok/s); SGLang holds requests in its queue (TTFT p50 9.7 s, TPOT 97 ms) and still gains
@@ -292,16 +298,82 @@ Full table with sources: [`results/comparisons/comparisons.md`](results/comparis
 | P9 | SGLang/vLLM agent TTFT c=16 0.863 [0.843, 0.884] | confirmed | radix cache + cache-aware scheduling | not isolated |
 | P10a | cache on/off TTFT c=16: 0.296 / 0.260 / 0.294 | confirmed ×3 | 84–86 % of tokens cached | hit rate measured |
 | P10b | cache on/off peak: 2.687 / 2.838 / 3.016 | confirmed ×3 | prefill work ÷ 6 | hit rate measured |
-| P11 | SGLang/vLLM peak chat 32B FP8 1.362 [1.356, 1.369] | **refuted** | shorter decode step at equal batch + queueing at KV limit | «§5.1» |
+| P11 | SGLang/vLLM peak chat 32B FP8 1.362 [1.356, 1.369] | **refuted** | faster decode attention (FlashInfer vs FlashAttention-2 split-KV) + queueing at the KV limit | nsys: attention 74 vs 174 µs/token (§5.1c) |
 | P12 | FP8/BF16 J/token at peak 0.784 / 0.713 / 1.411 | confirmed ×2, **refuted** (TRT) | fewer bytes per token at similar power; TRT's FP8 peak is at c=32 | power series |
 | P13 | NVFP4/FP8 32B c=1 TPOT 0.684 / 0.638 / 0.617; GSM8K Δ −0.8 / −0.4 / 0.0 points | confirmed ×3 | 0.58× bytes + fixed per-layer cost; FP4 near-lossless here | §5.2 |
 
 ## 5. Deep dives
 
-### 5.1 Nsight Systems: «title»
+### 5.1 Nsight Systems: what limits TensorRT-LLM FP8, and why SGLang decodes 32B faster than vLLM
 
-«Captures in `results/nsys/`: TensorRT-LLM 8B FP8 chat c=32 vs c=64, BF16 c=64, 8k prefill c=1, and vLLM
-FP8 as a reference. Kernel breakdown `results/nsys/analysis/kernel_breakdown.md`, timeline PNGs.»
+**How.** `tools/nsys_profile.py` starts the server under `nsys launch` (CUDA + NVTX + OS-runtime trace,
+CUDA-graph nodes traced), applies the same warm-up and load as the benchmark, and captures only a
+steady-state window (`nsys start/stop`). Captures, kernel summaries, request records and the analysis
+outputs are in `results/nsys/` (large `.nsys-rep`/`.sqlite` files stay on the instance, see
+`results/nsys/README.md`). Under the profiler the anomalies reproduce: TensorRT-LLM 8B FP8 TPOT 10.9 ms at
+c=32 vs 24.3 ms at c=64 (21.9 ms without the profiler); 32B FP8 c=256 TPOT vLLM 87.8 ms vs SGLang 73.0 ms
+(`*_info.json`).
+
+**(a) TensorRT-LLM FP8 stops scaling at 32 concurrent requests because most steps fall off its CUDA graphs.**
+TensorRT-LLM names every executor iteration in an NVTX range (`_forward_step N: c ctx reqs, g gen reqs`), so
+each step can be classified (`tools/nsys_trt_steps.py` → `results/nsys/analysis/trt_steps.md`):
+
+| TRT-LLM 8B, chat | step class | share of steps | step time | host time in step | GPU busy in step | launches / step |
+|---|---|---|---|---|---|---|
+| FP8, c=32 | decode, batch ≤ 32 (CUDA graph) | 90 % | 8.3 ms | 0.9 ms | 8.0 ms | 2 |
+| FP8, c=32 | mixed (a new prompt in the batch) | 10 % | 42.2 ms | 38.4 ms | 15.0 ms | 631 |
+| FP8, c=64 | decode, batch = 64 (CUDA graph) | 45 % | 8.8 ms | 1.0 ms | 8.3 ms | 2 |
+| FP8, c=64 | decode, batch 33–63 (no graph) | 29 % | 41.1 ms | 36.1 ms | 11.9 ms | 523 |
+| FP8, c=64 | mixed | 26 % | 42.5 ms | 37.9 ms | 14.9 ms | 631 |
+| BF16, c=64 | decode, batch = 64 (CUDA graph) | 47 % | 13.2 ms | 1.0 ms | 12.8 ms | 2 |
+| BF16, c=64 | decode, batch 33–63 (no graph) | 31 % | 24.9 ms | 20.3 ms | 18.0 ms | 451 |
+| BF16, c=64 | mixed | 22 % | 26.7 ms | 22.0 ms | 17.1 ms | 562 |
+
+![TensorRT-LLM step timeline](results/nsys/analysis/trt_steps_timeline.png)
+
+* With the `trtllm-serve` defaults, TensorRT-LLM 1.2.1 captures generation-only CUDA graphs for batch sizes
+  1–31, 32, 64 and 128 with `cuda_graph_config.enable_padding = false` (server log; `CudaGraphConfig` in
+  `tensorrt_llm/llmapi/llm_args.py`). At c=32 every decode-only step has a graph. At c=64 the decode batch is
+  exactly 64 only 45 % of the time; batches of 33–63 and every step that contains a new prompt run eagerly.
+* An eager FP8 step spends ≈ 36–38 ms on the host issuing 520–630 kernel launches — per-token
+  activation-quantization kernels plus a host-side TMA descriptor encode for every block-scale GEMM launch
+  (`cuTensorMapEncodeTiled`, 75 k calls in the 5 s c=64 window, `*_cuda_api_sum.csv`) — while the GPU works
+  12–15 ms. The mean step becomes 26.8 ms with the GPU busy 41 % of the time, so throughput falls even
+  though a batch-64 graph step (8.8 ms) costs barely more than a batch-32 one (8.3 ms). BF16 has the same
+  graph gaps, but its eager steps cost 25–27 ms, which is why BF16 still scales to c=128.
+* **Intervention (exploratory, post hoc, `plans/explore_trt_cudagraph.yaml`)**: same server with
+  `cuda_graph_config.enable_padding: true` (batches rounded up to the next captured size — the setting
+  NVIDIA's own `trtllm-bench` uses). Chat c=64 TPOT 21.9 → 12.3 ms and throughput 2440 → 4095 tok/s
+  (strict-valid repetition; A5 median 4008); c=256 reaches 5553 tok/s with two strict-valid repetitions
+  (A5: c=128 6787 tok/s), i.e. ≥ 2.2× the default FP8 peak; GSM8K unchanged (0.924)
+  (`results/explore_trt_cudagraph/summary*/points.csv`). The padded runs trip the burst check more often
+  (7 of 12 strict-invalid, all A5-valid), so these numbers are reported only here, labelled exploratory.
+  **Conclusion: the collapse is a default-configuration effect (graph coverage × host cost of eager FP8
+  steps), not a GPU-kernel limit.**
+
+**(b) TensorRT-LLM FP8 prefill is not faster than BF16 because its sm_120 block-scale GEMM is barely
+faster than the BF16 GEMM.** Single 8k prefill at c=1, GPU time by category (`tools/nsys_prefill.py` →
+`results/nsys/analysis/prefill_breakdown.md`; cross-checked against the NVTX attribution, identical):
+
+«PREFILL_TABLE»
+
+**(c) SGLang decodes 32B FP8 faster than vLLM at c=256 because of decode attention, not GEMMs.** Both GPUs
+are ~99 % busy, so GPU time per generated token = 1/throughput, split by each category's share of kernel
+time (`tools/nsys_decode_compare.py` → `results/nsys/analysis/decode_32b_c256.md`; per-step times are not
+comparable because SGLang runs prefill as separate steps):
+
+| 32B FP8, chat c=256 | output tok/s (benchmark) | GPU µs / output token | attention | FP8 GEMMs (+split-K reduce) | lm_head (BF16) | other |
+|---|---|---|---|---|---|---|
+| vLLM (FlashAttention-2 split-KV, DeepGEMM) | 2629 | 378 | **174** (46 %) | 191 (51 %) | 5 | 7 |
+| SGLang (FlashInfer paged, CUTLASS FP8) | 3149 | 313 | **74** (24 %) | 214 (68 %) | 7 | 18 |
+
+SGLang spends 100 µs less per token in attention and 23 µs more in GEMMs; the net 65 µs (−17 %) matches its
+19 % shorter TPOT and 20 % higher throughput at this load. At c=256 the KV cache read per decode step is of
+the same order as the 32.8 GB of weights (≈ 256 sequences × a few hundred tokens × 256 KiB), so the
+attention kernel's efficiency matters as much as the GEMMs'. Why vLLM's FlashAttention-2 split-KV kernel
+is 2.4× slower per token on sm_120 (e.g. how it handles 8 query heads per KV head) was not examined at the
+kernel level (no Nsight Compute); a FlashInfer attention backend for vLLM is the obvious untested
+experiment.
 
 ### 5.2 NVFP4 vs FP8 (32B, task 5.2)
 
