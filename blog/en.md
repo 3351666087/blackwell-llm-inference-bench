@@ -42,7 +42,7 @@ throughput and goodput choose different operating points.
 
 The agent workload replays multi-turn tool-calling sessions whose prompts are 86 % identical to the
 previous turn. Prefix caching works: time to first token drops 3.4–3.8× and throughput rises
-2.7–2.8×. But every session's history has to stay in the KV cache until its next turn. With ~5.3k
+2.7–3.0×. But every session's history has to stay in the KV cache until its next turn. With ~5.3k
 private tokens per session, 64 sessions fit in the ~0.5M-token pool of the 8B model and 128 don't —
 and that is exactly where all three frameworks fall off a cliff: hit rate 0.85 → 0.45, throughput
 halves, first-token latency goes to 12 s. For the 32B model (≈ 0.2M-token pool) the cliff is at 64

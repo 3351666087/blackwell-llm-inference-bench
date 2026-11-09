@@ -26,12 +26,15 @@
   "error": null
  },
  "trtllm-q8b-bf16-nocache": {
-  "status": "start_failed",
-  "fingerprint": null,
-  "load_s": null,
-  "kv_capacity": null,
-  "smoke_text": null,
-  "model_manifest_revision": null,
-  "error": "trtllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/prefix_cache/trtllm-q8b-bf16-nocache/server_01.log"
+  "status": "ok",
+  "fingerprint": "6d9d79ae4414",
+  "load_s": 40.09169299155474,
+  "kv_capacity": {
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "504576",
+   "max_tokens[=:\\s]+(\\d+)": "504581"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
  }
 }

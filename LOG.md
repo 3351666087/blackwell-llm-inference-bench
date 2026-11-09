@@ -446,3 +446,7 @@ of each start. Hours are counted from the console's start/stop timestamps.
   `trtllm-q8b-bf16-nocache`). The `start_failed` entry left from the 01:14 attempt (first prefix-cache run, previous night) was
   `Failed to bind socket to 127.0.0.1:8000` (a stale server still held the port then; port-wait fix
   came later); this attempt started normally (up in 40 s, KV 504 576 tokens).
+- **00:30 (Nov 10) · 4.5** · TensorRT-LLM cache-off finished (22:10–00:30): 18 runs, all valid; peak
+  239 tok/s at 128 sessions (knee). P10a[trtllm] TTFT on/off at 16 sessions 0.294 [0.256, 0.337],
+  P10b[trtllm] peak 3.016 [3.005, 3.028] → P10 confirmed for all three frameworks. NVFP4 plan started
+  00:30:40.

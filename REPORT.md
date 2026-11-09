@@ -38,7 +38,7 @@ Day-by-day record: [`LOG.md`](LOG.md).*
    sessions × context exceed the KV pool, prefix-cache hits fall from 0.85 to 0.42–0.47, history is
    recomputed and throughput halves: 8B BF16 at 64 → 128 sessions SGLang 699 → 391 and TensorRT-LLM
    720 → 378 tok/s; 32B FP8 at 32 → 64 sessions vLLM 243 → 124, SGLang 276 → 136, TensorRT-LLM 223 → 92 tok/s.
-   Below that point prefix caching cuts agent TTFT 3.4–3.8× and raises throughput 2.7–2.8× (P10, §3.6).
+   Below that point prefix caching cuts agent TTFT 3.4–3.8× and raises throughput 2.7–3.0× (P10, §3.6).
 6. **Long-prompt scheduling differs by design.** With 32 concurrent 8k prompts all three deliver the same
    throughput (223–235 tok/s), but vLLM and TensorRT-LLM start new prompts first (TTFT p50 1.8 s, TPOT 129 ms)
    while SGLang protects running decodes (TTFT 6.6 s, TPOT 85 ms) (§3.5).
@@ -234,11 +234,11 @@ framework while the pool is large enough (`prefix_cache_hit_rate` in `S(*, agent
 | SGLang, cache on | 110 ms | 164 ms | 699 (64) |
 | SGLang, cache off | 373 ms | 630 ms | 246 (128) |
 | TensorRT-LLM, cache on | 117 ms | 183 ms | 720 (64) |
-| TensorRT-LLM, cache off | «…» | «…» | «…» |
+| TensorRT-LLM, cache off | 398 ms | 629 ms | 239 (128) |
 
 Sources: `S(*-q8b-bf16, agent, *)` and `results/prefix_cache/summary/points.csv`.
-Cache on vs off at 16 sessions: TTFT ×0.30 (vLLM) / ×0.26 (SGLang); peak throughput ×2.69 / ×2.84
-(P10a/b confirmed). The 3.4–3.8× TTFT gain is below the ≈ 7× a pure token count would give (only
+Cache on vs off at 16 sessions: TTFT ×0.30 (vLLM) / ×0.26 (SGLang) / ×0.29 (TensorRT-LLM); peak
+throughput ×2.69 / ×2.84 / ×3.02 (P10a/b confirmed for all three). The 3.4–3.8× TTFT gain is below the ≈ 7× a pure token count would give (only
 14–16 % of tokens are computed with the cache), because the remaining TTFT includes the decode steps of
 other sessions that the new prefill chunk shares the GPU with.
 
@@ -287,8 +287,8 @@ Full table with sources: [`results/comparisons/comparisons.md`](results/comparis
 | P8a | TRT/vLLM peak chat 8B BF16: censored | inconclusive (A7) | TRT c ≥ 256 invalid (bursts) | §6 |
 | P8b | TRT/vLLM c=1 TPOT 1.007 [1.007, 1.008] | confirmed (equivalent) | bandwidth-bound | – |
 | P9 | SGLang/vLLM agent TTFT c=16 0.863 [0.843, 0.884] | confirmed | radix cache + cache-aware scheduling | not isolated |
-| P10a | cache on/off TTFT c=16: 0.296 / 0.260 / «…» | confirmed ×2 | 84–86 % of tokens cached | hit rate measured |
-| P10b | cache on/off peak: 2.687 / 2.838 / «…» | confirmed ×2 | prefill work ÷ 6 | hit rate measured |
+| P10a | cache on/off TTFT c=16: 0.296 / 0.260 / 0.294 | confirmed ×3 | 84–86 % of tokens cached | hit rate measured |
+| P10b | cache on/off peak: 2.687 / 2.838 / 3.016 | confirmed ×3 | prefill work ÷ 6 | hit rate measured |
 | P11 | SGLang/vLLM peak chat 32B FP8 1.362 [1.356, 1.369] | **refuted** | shorter decode step at equal batch + queueing at KV limit | «§5.1» |
 | P12 | FP8/BF16 J/token at peak 0.784 / 0.713 / 1.411 | confirmed ×2, **refuted** (TRT) | fewer bytes per token at similar power; TRT's FP8 peak is at c=32 | power series |
 | P13 | NVFP4/FP8 32B c=1 TPOT «…» | «…» | «…» | §5.2 |

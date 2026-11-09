@@ -20,7 +20,7 @@ agent"); keep it if you shorten the sentences.
    36 % (SGLang vs vLLM, Qwen3-32B FP8), and that under a latency SLO the best operating point
    (128 concurrent requests) is a quarter of the throughput-maximising one (512).
 4. **Key result (agents / KV cache).** Quantified prefix caching on agent traffic (3.4–3.8× lower TTFT,
-   2.7–2.8× throughput) and a KV-capacity cliff that halves throughput in all three frameworks at a
+   2.7–3.0× throughput) and a KV-capacity cliff that halves throughput in all three frameworks at a
    session count predictable from the KV pool size.
 5. **Profiling + automation.** «Used Nsight Systems to attribute TensorRT-LLM's FP8 scaling collapse
    on sm_120 to …»; added a GitHub Actions regression detector (Welch-t CIs + Benjamini–Hochberg) that
@@ -36,7 +36,7 @@ agent"); keep it if you shorten the sentences.
 | within 3 %, 81–84 % of 1597 GB/s | `results/comparisons/comparisons.md` P1, P6, P8b; `results/main/summary/points.csv` (chat, c=1) |
 | up to 36 % | `results/comparisons/comparisons.md` P11 (SGLang/vLLM 1.362, CI [1.356, 1.369]) |
 | goodput peak at c=128 vs throughput peak at c=512 | `results/main/summary/points.csv`, `sglang-q32b-fp8` chat rows (`goodput_tok_s`, `output_throughput`) |
-| 3.4–3.8× TTFT, 2.7–2.8× throughput | `results/comparisons/comparisons.md` P10a/P10b |
+| 3.4–3.8× TTFT, 2.7–3.0× throughput | `results/comparisons/comparisons.md` P10a/P10b |
 | KV cliff, all three frameworks | `results/main/summary/points.csv` agent rows (`output_throughput`, `prefix_cache_hit_rate`); `REPORT.md` §3.6 |
 | «nsys result» | `results/nsys/analysis/kernel_breakdown.md` |
 | +6.4 %, confidence 0.986 | `results/regression/REGRESSION_REPORT.md` |
