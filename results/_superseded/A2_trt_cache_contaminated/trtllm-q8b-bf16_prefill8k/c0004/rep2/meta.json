@@ -1,0 +1,132 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill8k",
+ "concurrency": 4,
+ "n_requests": 16,
+ "fingerprint": "1ec6f338297c",
+ "commit": "edbc23efca01ffcec8dda4400ffeb70cf99dff95",
+ "wall_start": 1794144827.4627683,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.18888709500000544,
+    "wall_s": 8.513035614043474,
+    "cpu_frac": 0.02218798364809012
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794144827.5841823,
+   "mono0": 8057521.877989039
+  }
+ },
+ "energy_mj_start": 2279449052697,
+ "energy_mj_end": 2279451990048,
+ "window_s": 9.675468985922635,
+ "request_window_s": 8.51133838109672,
+ "gpu_before": {
+  "temp_c": 59,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 304.297,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91254,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 61,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 325.985,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91254,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 8.51133838109672,
+  "output_tokens": 2048,
+  "input_tokens": 127999,
+  "output_throughput": 240.62020663501184,
+  "total_token_throughput": 15279.26563098798,
+  "request_throughput": 1.87984536433603,
+  "ttft_mean_ms": 154.1209303541109,
+  "ttft_p50_ms": 139.34732740744948,
+  "ttft_p90_ms": 205.05803357809782,
+  "ttft_p99_ms": 211.96818095631897,
+  "tpot_mean_ms": 15.50406543858804,
+  "tpot_p50_ms": 14.806231692814686,
+  "tpot_p90_ms": 17.67132734865185,
+  "tpot_p99_ms": 17.92560486694959,
+  "e2e_mean_ms": 2123.137241054792,
+  "e2e_p50_ms": 2059.4889535568655,
+  "e2e_p90_ms": 2380.802806932479,
+  "e2e_p99_ms": 2390.9908537287265,
+  "itl_mean_ms": 15.625151785714285,
+  "itl_p50_ms": 14.68999999999998,
+  "itl_p90_ms": 15.340000000000074,
+  "itl_p99_ms": 29.443350000000088,
+  "itl_max_ms": 398.71500000000003,
+  "chunks_per_token": 0.9921875,
+  "prefix_cache_hit_rate": 0.9998749990234299,
+  "steady_output_throughput": 233.23804288177962,
+  "steady_window_s": 4.43357664719224,
+  "slo_attainment": 1.0,
+  "goodput_rps": 1.87984536433603,
+  "goodput_tok_s": 240.62020663501184,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 2937.351,
+  "energy_j": 2831.9478002929686,
+  "avg_power_w": 332.7264965263971,
+  "j_per_output_token": 1.382787011861801,
+  "j_per_total_token": 0.021776340863633677,
+  "power_mean_w_series": 331.09543529411764,
+  "power_max_w": 358.864,
+  "energy_j_series": 2791.7950851125756,
+  "peak_mem_mib": 91254.0,
+  "sm_mhz_mean": 2422.0,
+  "sm_mhz_min": 2422.0,
+  "temp_max_c": 63.0
+ },
+ "sanity": {
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.4262990947099259,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.02218798364809012
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true
+ },
+ "cache_reset": "none"
+}

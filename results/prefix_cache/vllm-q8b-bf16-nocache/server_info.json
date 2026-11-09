@@ -1,0 +1,39 @@
+{
+ "status": "ok",
+ "fingerprint": "52cfe45f523f",
+ "load_s": 42.046033401973546,
+ "server_cfg": {
+  "id": "vllm-q8b-bf16-nocache",
+  "framework": "vllm",
+  "env": "/root/envs/vllm",
+  "model": "/root/autodl-tmp/models/Qwen3-8B",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "max_model_len": 40960,
+  "prefix_cache": false,
+  "quality": false,
+  "env_vars": {
+   "CUDA_HOME": "/root/cuda13.0/nvidia/cu13"
+  }
+ },
+ "kv_capacity": {
+  "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "501,296",
+  "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+   "40,960",
+   "12.24"
+  ]
+ },
+ "model_bytes": {
+  "total_bytes": 16381470720,
+  "embed_bytes": 1244659712,
+  "read_bytes_per_step": 15136811008,
+  "kv_bytes_per_token": 147456.0
+ },
+ "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+ "smoke_text": "Paris",
+ "commit": "3395103d644cfa1dffd147e6375bbd13f75ec304",
+ "request_files": {
+  "data/requests/agent.jsonl.gz": "6e69d59606767889565db6994a0227dd0b19ca54614fbbe6d3ebbbe26d96c35a",
+  "data/requests/agent_warmup.jsonl.gz": "a1316f432e83fa2fa29e74e7e850521d5f3fde4f8352053770040c4cd2cec824"
+ }
+}

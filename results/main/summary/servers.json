@@ -1,0 +1,116 @@
+{
+ "vllm-q8b-bf16": {
+  "status": "ok",
+  "fingerprint": "0d0039692b36",
+  "load_s": 40.09190616570413,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "501,296",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "12.24"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ },
+ "sglang-q8b-bf16": {
+  "status": "ok",
+  "fingerprint": "aabd47ed2678",
+  "load_s": 51.037519520148635,
+  "kv_capacity": {
+   "max_total_num_tokens=(\\d+)": "477443"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ },
+ "trtllm-q8b-bf16": {
+  "status": "ok",
+  "fingerprint": "1ec6f338297c",
+  "load_s": 42.043700131587684,
+  "kv_capacity": {
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "504160",
+   "max_tokens[=:\\s]+(\\d+)": "504171"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ },
+ "vllm-q8b-fp8": {
+  "status": "ok",
+  "fingerprint": "52cfe45f523f",
+  "load_s": 42.08966948650777,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "548,064",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "13.38"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+  "error": null
+ },
+ "sglang-q8b-fp8": {
+  "status": "ok",
+  "fingerprint": "2b5e316a398a",
+  "load_s": 43.031934884376824,
+  "kv_capacity": {
+   "max_total_num_tokens=(\\d+)": "524533"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+  "error": null
+ },
+ "trtllm-q8b-fp8": {
+  "status": "ok",
+  "fingerprint": "1ec6f338297c",
+  "load_s": 44.02283978741616,
+  "kv_capacity": {
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "539904",
+   "max_tokens[=:\\s]+(\\d+)": "539905"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+  "error": null
+ },
+ "vllm-q32b-fp8": {
+  "status": "ok",
+  "fingerprint": "21da858b52b0",
+  "load_s": 182.1303552556783,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "210,752",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "5.15"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "109733d862d035c0b5c622bcb9cc14b0112cceb8",
+  "error": null
+ },
+ "sglang-q32b-fp8": {
+  "status": "ok",
+  "fingerprint": "a9d6719adc17",
+  "load_s": 77.09366067312658,
+  "kv_capacity": {
+   "max_total_num_tokens=(\\d+)": "199857"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "109733d862d035c0b5c622bcb9cc14b0112cceb8",
+  "error": null
+ },
+ "trtllm-q32b-fp8": {
+  "status": "ok",
+  "fingerprint": "6d9d79ae4414",
+  "load_s": 82.06234342884272,
+  "kv_capacity": {
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "199936",
+   "max_tokens[=:\\s]+(\\d+)": "199954"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "109733d862d035c0b5c622bcb9cc14b0112cceb8",
+  "error": null
+ }
+}

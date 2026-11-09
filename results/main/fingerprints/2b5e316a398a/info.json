@@ -1,0 +1,60 @@
+{
+ "static": {
+  "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+  "gpu_uuid": "GPU-443cb70a-0c2d-960d-5bb4-6d8bd15b31a7",
+  "gpu_serial": "1794225639515",
+  "vbios": "98.02.67.00.0A",
+  "board_part_number": "900-2G153-0000-000",
+  "driver_version": "595.71.05",
+  "cuda_driver_api": "13.2",
+  "memory_total": "97887 MiB",
+  "max_sm_clock": "2430 MHz",
+  "max_mem_clock": "12481 MHz",
+  "power_limit_current": "600.00 W",
+  "power_limit_default": "600.00 W",
+  "power_limit_max": "600.00 W",
+  "ecc_mode_current": "Disabled",
+  "persistence_mode": "Enabled",
+  "cpu_model": "Intel(R) Xeon(R) Platinum 8470Q",
+  "cpu_quota": "2500000 100000",
+  "mem_limit_bytes": "128849018880",
+  "os_release": "PRETTY_NAME=\"Ubuntu 22.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.5 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy",
+  "kernel": "5.15.0-78-generic",
+  "image_label": "AutoDL base image PyTorch 2.8.0 / Python 3.12 (ubuntu22.04) / CUDA 12.8",
+  "dpkg_sha256": "b3c169041da45ee7ec3309addc92ffbcee28842e31723cb9692411e7811d9865",
+  "cuda_toolkit": "Build cuda_12.8.r12.8/compiler.35583870_0",
+  "env_python": "/root/envs/sglang/bin/python",
+  "versions": {
+   "vllm": null,
+   "sglang": "0.5.23",
+   "sglang-kernel": "0.4.10",
+   "tensorrt_llm": null,
+   "tensorrt-llm": null,
+   "torch": "2.14.1",
+   "flashinfer-python": "0.7.2",
+   "transformers": "5.19.0",
+   "triton": "3.8.0",
+   "xgrammar": "0.2.7",
+   "nvidia-cuda-runtime": "13.0.96",
+   "nvidia-cublas": "13.1.1.3",
+   "nvidia-nccl-cu13": "2.30.7",
+   "torch.version.cuda": "13.0",
+   "torch.cuda.get_device_capability": [
+    12,
+    0
+   ]
+  },
+  "pip_freeze_sha256": "78c295777eef53f2859bc971f83b8a150e5ab7f781ad5a96687bff1f3b051f9d",
+  "bench_python": "3.12.3"
+ },
+ "volatile": {
+  "captured_at": "2026-11-08T19:16:15+0800",
+  "sm_clock": "2422 MHz",
+  "mem_clock": "12481 MHz",
+  "power_draw": "103.29 W",
+  "temperature": "68 C",
+  "performance_state": "P0",
+  "smi_csv": "NVIDIA RTX PRO 6000 Blackwell Server Edition, GPU-443cb70a-0c2d-960d-5bb4-6d8bd15b31a7, 1794225639515, 98.02.67.00.0A, 595.71.05, 97887 MiB, 600.00 W, 600.00 W, 600.00 W, 2430 MHz, 12481 MHz, 2422 MHz, 12481 MHz, 68, Disabled, P0, Enabled, 5, 16",
+  "hostname": "autodl-container-fnrr36bcry-d3ca6404"
+ }
+}

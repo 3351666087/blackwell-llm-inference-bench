@@ -238,3 +238,6 @@ dashboard/_preview.html
 # request files contain third-party ShareGPT text (incl. credentials users pasted into chats);
 # regenerate them deterministically with `python -m bib workloads` (checksums in SHA256SUMS)
 data/requests/*.jsonl.gz
+
+# pipeline test artefacts (mock server)
+results/_mock/

@@ -1,0 +1,94 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q32b-fp8",
+ "framework": "trtllm",
+ "model_id": "Qwen3-32B",
+ "precision": "fp8",
+ "workload": "prefill16k",
+ "concurrency": 1,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "d29c7cdd14486540dfc367fd284338c036e09180",
+ "wall_start": 1794194184.295963,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.027916743000005795,
+    "wall_s": 1.99093471840024,
+    "cpu_frac": 0.014021927862324644
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794194184.4200919,
+   "mono0": 8106878.713898658
+  }
+ },
+ "energy_mj_start": 2303276504284,
+ "energy_mj_end": 2303276815627,
+ "window_s": 3.1365375109016895,
+ "request_window_s": 1.9896003473550081,
+ "gpu_before": {
+  "temp_c": 66,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 97.758,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 93260,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 64,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 97.22,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 93260,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 0,
+  "n_err": 16
+ },
+ "sanity": {
+  "no_errors": {
+   "pass": false,
+   "n_err": 16,
+   "examples": [
+    "HTTP 400: {\"object\":\"error\",\"message\":\"The sum of prompt length (16000.0), query length (0) should not exceed max_num_tokens (8192)\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}",
+    "HTTP 400: {\"object\":\"error\",\"message\":\"The sum of prompt length (16000.0), query length (0) should not exceed max_num_tokens (8192)\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}",
+    "HTTP 400: {\"object\":\"error\",\"message\":\"The sum of prompt length (16000.0), query length (0) should not exceed max_num_tokens (8192)\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}"
+   ]
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": null,
+   "max_single_stream_tok_s": 48.73864061168596,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.014021927862324644
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": false
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false
+}
