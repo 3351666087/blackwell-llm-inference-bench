@@ -129,11 +129,16 @@ function chart(svg, ss, getY, opt){
  xt.forEach(v=>{const t=el('text',{x:X(v),y:H-B+16,'text-anchor':'middle',class:'tick'},svg);t.textContent=fmt(v);});
  el('line',{x1:L,x2:W-R,y1:H-B,y2:H-B,stroke:'var(--axis)'},svg);
  const xl=el('text',{x:(L+W-R)/2,y:H-4,'text-anchor':'middle',class:'axt'},svg);xl.textContent=opt.xlabel;
+ const placed=[];
  ss.forEach(s=>{const d=pts.filter(q=>q.s===s).sort((a,b)=>a.x-b.x); if(!d.length)return;
   d.forEach(q=>{if(q.lo!=null&&q.hi!=null&&q.hi>q.lo)el('line',{x1:X(q.x),x2:X(q.x),y1:Y(q.lo),y2:Y(q.hi),stroke:COL[s.fw],'stroke-width':1.5,opacity:.6},svg);});
   el('path',{d:d.map((q,i)=>(i?'L':'M')+X(q.x).toFixed(1)+','+Y(q.v).toFixed(1)).join(''),fill:'none',stroke:COL[s.fw],'stroke-width':2,'stroke-dasharray':DASH[s.prec]||'','stroke-linejoin':'round'},svg);
   d.forEach(q=>{el('circle',{cx:X(q.x),cy:Y(q.v),r:4,fill:COL[s.fw],stroke:'var(--surface)','stroke-width':2},svg);});
-  const last=d[d.length-1]; if(ss.length<=4){const t=el('text',{x:Math.min(X(last.x)+6,W-R-2),y:Y(last.v)-6,'text-anchor':X(last.x)>W-90?'end':'start',class:'tick'},svg);t.textContent=lab(s).replace('TensorRT-LLM','TRT-LLM');}
+  const last=d[d.length-1]; if(ss.length<=4){let ly=Y(last.v)-6; const lx=Math.min(X(last.x)+6,W-R-2);
+   // nudge labels apart when two series end close together (no overlapping direct labels)
+   for(let k=0;k<8&&placed.some(p=>Math.abs(p.y-ly)<13&&Math.abs(p.x-lx)<120);k++) ly+=13;
+   placed.push({x:lx,y:ly});
+   const t=el('text',{x:lx,y:ly,'text-anchor':X(last.x)>W-90?'end':'start',class:'tick'},svg);t.textContent=lab(s).replace('TensorRT-LLM','TRT-LLM');}
  });
  // hover layer: nearest point (24px+ targets)
  const hit=el('rect',{x:L,y:T,width:W-L-R,height:H-T-B,fill:'transparent'},svg);
@@ -192,7 +197,7 @@ def build(results: str, out: str):
             p.pop("fingerprint", None)
             pts.append(p)
     data = json.dumps(pts, separators=(",", ":")).replace("</", "<\\/")
-    html = TEMPLATE.replace("__DATA__", data).replace("__GENERATED__", time.strftime("%Y-%m-%d %H:%M"))
+    html = TEMPLATE.replace("__DATA__", data).replace("__GENERATED__", time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime()))
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
     open(out, "w").write(html)
     print(f"wrote {out} ({len(pts)} points, {len(html) / 1e6:.2f} MB)")
