@@ -357,3 +357,8 @@ of each start. Hours are counted from the console's start/stop timestamps.
 - **06:12 · 1 (费用)** · Instance on since 10:55 yesterday → ≈19.3 h × ¥6.98 ≈ ¥135. Console shows an
   available balance of ¥695.95 (¥359.92 when I started) — a top-up that I did not make; I have not
   touched payment settings. I keep to Rui's ¥350 cap; remaining plan ≈ 22 GPU-hours ≈ ¥155.
+- **09:02 · 4.3 (A4)** · Before TensorRT-LLM 32B starts: switched TensorRT-LLM chat/prefill to
+  KV-block reuse off without per-rep restarts (AMENDMENTS A4; estimated saving ≈ 2 h of
+  restarts per TRT config and far fewer exposures to the init segfault). Queue rebuilt as
+  `chain4`: it stops the old 32B runner the moment SGLang 32B finishes, then runs TRT 32B →
+  TRT 8B BF16/FP8 → TRT no-cache → NVFP4 with commit `d29c7cd`.
