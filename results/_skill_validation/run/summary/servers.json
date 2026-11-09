@@ -1,0 +1,17 @@
+{
+ "vllm-q8b-fp8": {
+  "status": "ok",
+  "fingerprint": "21da858b52b0",
+  "load_s": 42.09218970499933,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "548,064",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "13.38"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+  "error": null
+ }
+}

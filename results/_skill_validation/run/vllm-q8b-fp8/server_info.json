@@ -1,0 +1,39 @@
+{
+ "status": "ok",
+ "fingerprint": "21da858b52b0",
+ "load_s": 42.09218970499933,
+ "server_cfg": {
+  "id": "vllm-q8b-fp8",
+  "framework": "vllm",
+  "env": "/root/envs/vllm",
+  "model": "/root/autodl-tmp/models/Qwen3-8B-FP8",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "max_model_len": 40960,
+  "env_vars": {
+   "CUDA_HOME": "/root/cuda13.0/nvidia/cu13"
+  }
+ },
+ "kv_capacity": {
+  "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "548,064",
+  "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+   "40,960",
+   "13.38"
+  ]
+ },
+ "model_bytes": {
+  "total_bytes": 9436551168,
+  "embed_bytes": 1244659712,
+  "read_bytes_per_step": 8191891456,
+  "kv_bytes_per_token": 147456.0
+ },
+ "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+ "smoke_text": "Paris",
+ "commit": "022aa799d6627aae04b184b4c755efd2275346d8",
+ "request_files": {
+  "data/requests/chat.jsonl.gz": "4bc983fe622b317cf03e8b21b2faf4befe389decba7bb598cec7f03b510b5e1c",
+  "data/requests/chat_warmup.jsonl.gz": "4e30cc8128a14f23a16df4b50c38bc0584e3795b2539d873fd5721adf2402b37",
+  "data/requests/prefill8k.jsonl.gz": "94c3bb9ff034f54f83dd8a0ca94cf2d235787d6dea0bc36a87f1180add797d6d",
+  "data/requests/prefill8k_warmup.jsonl.gz": "453219184c711c9227ce0e6e9ed4aa41d948eff8fc6d705741b0e447e19acce6"
+ }
+}

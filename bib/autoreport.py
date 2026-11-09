@@ -16,6 +16,18 @@ import os
 import numpy as np
 
 
+def _kv_tokens(kv):
+    """First numeric capture of the KV-capacity log patterns (tokens), formatted; '–' if none."""
+    for v in (kv or {}).values():
+        if isinstance(v, (list, tuple)):
+            continue
+        try:
+            return f"{int(str(v).replace(',', '')):,} tokens"
+        except ValueError:
+            pass
+    return "–"
+
+
 def _f(v, nd=1):
     if v is None or v == "":
         return "–"
@@ -31,7 +43,8 @@ def build(root: str) -> str:
     plan = __import__("yaml").safe_load(open(os.path.join(root, "plan.yaml")))
     n_inv = sum(1 for r in runs if r["valid"] != "True")
     L = [f"# Benchmark report: plan `{plan['name']}`", "",
-         f"Results directory: `{root}`. {len(runs)} measured repetitions, **{n_inv} invalid** "
+         f"Results directory: `{os.path.relpath(os.path.abspath(root), os.path.dirname(os.path.dirname(os.path.abspath(__file__))))}`. "
+         f"{len(runs)} measured repetitions, **{n_inv} invalid** "
          f"(excluded below). GPU bandwidth used for the roofline check: {plan['gpu_bandwidth_gbps']} GB/s.", ""]
 
     L += ["## Headline", ""]
@@ -48,7 +61,8 @@ def build(root: str) -> str:
         ranked = sorted(best.items(), key=lambda kv: -kv[1][0])
         top = ranked[0]
         L.append(f"- **{wl}**: highest peak output throughput = {_f(top[1][0])} tok/s by `{top[0]}` "
-                 f"at concurrency {top[1][1]['concurrency']} (source `{top[1][1]['sources'].split(';')[0]}`).")
+                 f"at concurrency {top[1][1]['concurrency']} (median of {top[1][1]['n_valid']} valid reps; source "
+                 f"`{top[1][1]['sources'].split(';')[0].rsplit('/', 1)[0]}/rep*`).")
     L.append("")
 
     L += ["## Validity", ""]
@@ -85,7 +99,7 @@ def build(root: str) -> str:
 
     L += ["## Servers and environment", "", "| server | status | load s | KV capacity (from log) | fingerprint |", "|---|---|---|---|---|"]
     for sid, s in sorted(servers.items()):
-        L.append(f"| {sid} | {s.get('status')} | {_f(s.get('load_s'), 0)} | {json.dumps(s.get('kv_capacity'))[:80]} | "
+        L.append(f"| {sid} | {s.get('status')} | {_f(s.get('load_s'), 0)} | {_kv_tokens(s.get('kv_capacity'))} | "
                  f"`fingerprints/{s.get('fingerprint')}` |")
     L.append("")
     return "\n".join(L)

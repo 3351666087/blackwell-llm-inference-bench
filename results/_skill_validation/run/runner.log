@@ -1,0 +1,19 @@
+2026-11-10 04:42:43 plan skill_validation commit=022aa799d6627aae04b184b4c755efd2275346d8 servers=['vllm-q8b-fp8']
+2026-11-10 04:43:28 server vllm-q8b-fp8 up in 42s fp=21da858b52b0 kv={'GPU KV cache size:\\s*([\\d,]+)\\s*tokens': '548,064', 'Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x': ('40,960', '13.38')} smoke='Paris'
+2026-11-10 04:43:52 quality vllm-q8b-fp8: acc=0.944 err=0
+2026-11-10 04:44:26   warmup vllm-q8b-fp8 chat c=1 n=16 err=0
+2026-11-10 04:44:54   vllm-q8b-fp8 chat c=1 rep1 n=16 err=0 thr=139.7 tok/s ttft50=33ms tpot50=7.03ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:45:21   vllm-q8b-fp8 chat c=1 rep2 n=16 err=0 thr=139.9 tok/s ttft50=30ms tpot50=7.03ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:45:27   warmup vllm-q8b-fp8 chat c=16 n=16 err=0
+2026-11-10 04:45:49   vllm-q8b-fp8 chat c=16 rep1 n=128 err=0 thr=1813.5 tok/s ttft50=40ms tpot50=7.87ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:46:11   vllm-q8b-fp8 chat c=16 rep2 n=128 err=0 thr=1815.1 tok/s ttft50=39ms tpot50=7.87ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:46:19   warmup vllm-q8b-fp8 chat c=64 n=64 err=0
+2026-11-10 04:46:50   vllm-q8b-fp8 chat c=64 rep1 n=512 err=0 thr=4565.4 tok/s ttft50=60ms tpot50=11.22ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:47:22   vllm-q8b-fp8 chat c=64 rep2 n=512 err=0 thr=4544.0 tok/s ttft50=62ms tpot50=11.26ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:47:28   warmup vllm-q8b-fp8 prefill8k c=1 n=4 err=0
+2026-11-10 04:47:51   vllm-q8b-fp8 prefill8k c=1 rep1 n=16 err=0 thr=96.5 tok/s ttft50=342ms tpot50=7.74ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:48:13   vllm-q8b-fp8 prefill8k c=1 rep2 n=16 err=0 thr=96.5 tok/s ttft50=344ms tpot50=7.75ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:48:17   warmup vllm-q8b-fp8 prefill8k c=4 n=4 err=0
+2026-11-10 04:48:28   vllm-q8b-fp8 prefill8k c=4 rep1 n=16 err=0 thr=213.3 tok/s ttft50=733ms tpot50=13.14ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:48:39   vllm-q8b-fp8 prefill8k c=4 rep2 n=16 err=0 thr=213.4 tok/s ttft50=726ms tpot50=13.12ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 04:48:40 server vllm-q8b-fp8 stopped

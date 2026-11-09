@@ -1,7 +1,8 @@
 # Small plan used to validate the skill in a fresh agent session (task 6.1).
-# ~15 minutes of GPU time: one framework, one checkpoint, two workloads, 2 reps.
+# ~6 minutes of GPU time (+ ~20 min preparation on a fresh clone): one framework, one checkpoint,
+# two workloads, 2 reps. Scratch results go to results/_skill_small (excluded from shared tables).
 name: skill_validation
-results_dir: results/skill_validation
+results_dir: results/_skill_small
 request_sums: data/requests/SHA256SUMS
 image_label: "AutoDL base image PyTorch 2.8.0 / Python 3.12 (ubuntu22.04) / CUDA 12.8"
 gpu_bandwidth_gbps: 1597

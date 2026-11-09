@@ -515,3 +515,17 @@ of each start. Hours are counted from the console's start/stop timestamps.
 - **04:28 · 5.1** · vLLM FP8 8k prefill re-captured (single phase): GPU 267 ms = DeepGEMM 158 ms + act
   quant 34 + attention 70 + other 4 vs TRT-LLM FP8 438 ms (GEMM 282) and TRT-LLM BF16 410 ms (GEMM 291).
   TRT-LLM's sm_120 block-scale FP8 GEMM ≈ 395 TFLOPS ≈ its BF16 GEMM (382); DeepGEMM ≈ 705 TFLOPS.
+- **04:57 · 6.1** · Skill validation passed: the fresh agent ran `small_plan.yaml` end to end from only
+  SKILL.md + plan (10 runs, 0 invalid, report generated; prep ≈ 20 min, GPU ≈ 6 min) and its numbers match
+  the main study (vLLM 8B FP8 c=1 TPOT 7.03 vs 7.06 ms; c=64 4555 vs 4531 tok/s). It listed 12 problems in
+  the skill/README and two autoreport bugs; all fixed (SKILL.md rewritten, README request downloads to
+  `data/raw/` under the MANIFEST names, autoreport source/KV/relative-path fixes, small plan writes to
+  `results/_skill_small`). Record: `results/_skill_validation/VALIDATION_RECORD.md` (+ transcript, its LOG
+  diff, its results directory).
+- **04:58 · 7.5 (agent mistake)** · Found while archiving: `.gitignore` (GitHub's Python template) contains
+  `*.log`, so none of the 50 `results/**/*.log` files (runner logs, server logs cited as sources) had ever
+  been committed. Added `!results/**/*.log`; logs are added with the final results after a secret scan.
+- **04:58 · 7.3** · Reproduction started from a fresh clone strictly per README (`/root/locks/repro.sh`,
+  transcript `/root/autodl-tmp/repro_transcript.log`); existing bench/vllm envs and the CUDA 13.0 toolkit
+  moved aside first so the README commands rebuild them; only the two envs and the one model the
+  representative config needs.

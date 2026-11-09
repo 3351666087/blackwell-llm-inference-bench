@@ -1,0 +1,49 @@
+ LOG.md | 38 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+022aa79 nsys_profile: bounded wait after capture (vLLM hangs after nsys stop); prefill/step analysis tools; LOG findings
+diff --git a/LOG.md b/LOG.md
+index 78165a2..003d2ec 100644
+--- a/LOG.md
++++ b/LOG.md
+@@ -498,3 +498,41 @@ of each start. Hours are counted from the console's start/stop timestamps.
+   + 36 ms activation quant + 97 ms attention + 21 ms other; BF16 410 ms = 291 ms BF16 GEMM + 97 ms
+   attention + 21 ms other. The sm_120 block-scale FP8 GEMM is only 3 % faster than the BF16 GEMM, so
+   the extra quant pass makes FP8 prefill slower.
++
++## 2026-11-10 · 6.1 skill validation (fresh agent, checkout /root/autodl-tmp/skilltest)
++
++- **04:08 · 6.1** · Fresh clone of the public repo (HEAD 022aa79) into `/root/autodl-tmp/skilltest` to run
++  `skill/blackwell-bench/small_plan.yaml` by following `skill/blackwell-bench/SKILL.md` only. Clone took
++  ~11 min (~330 MB pack at ~0.5 MB/s through `/etc/network_turbo`). Another job held the GPU
++  (`/root/autodl-tmp/GPU_BUSY` present, 89 GB in use) · prep only until the flag is removed.
++- **04:23 · 6.1 (preflight)** · GPU: RTX PRO 6000 Blackwell Server Edition, driver 595.71.05, 97887 MiB.
++  No `python3` on PATH (SKILL step 1 offers `/root/envs/bench/bin/python`; yaml 6.0.3 OK). Disk: `/` 4.0 GB
++  free, `/root/autodl-tmp` 9.6 GB free; the plan's model is already on disk, so no extra space needed.
++- **04:21–04:27 · 6.1 (preflight)** · Request files missing (not committed) · regenerated exactly as README
++  "Reproduce": aria2c ShareGPT V3 @192ab218 (672837942 B) + GSM8K test parquet (419088 B), then
++  `python -m bib workloads ... --tokenizer /root/autodl-tmp/models/Qwen3-8B/tokenizer.json`. `sha256sum -c
++  SHA256SUMS`: all 11 OK. Side effect: the generator rewrote the tracked `data/requests/MANIFEST.json`
++  (only `sources.*.file` names differ, because README downloads to `sharegpt.json`/`gsm8k_test.parquet`
++  rather than the original file names) → the run would be recorded as `+dirty`; restored the file with
++  `git checkout` (hashes unaffected) so the run records a clean commit.
++- **04:28 · 6.1 (envs/models)** · `/root/envs/bench` and `/root/envs/vllm` (vLLM 0.33.0, torch 2.14.0+cu130)
++  exist → no `envs/setup.sh`. `models/Qwen3-8B-FP8/MODEL_MANIFEST.json` exists (rev f82078df, 13 files, sizes
++  match, all verified) → no fetch. Plan's `CUDA_HOME=/root/cuda13.0/nvidia/cu13` exists. Port 8000 free.
++- **04:42 · 6.1 (run)** · `GPU_BUSY` removed between 04:39:53 and 04:42:33 (GPU 0 MiB, no compute apps).
++  Started `tmux new -d -s skv_bench "cd R && /root/envs/bench/bin/python -m bib run skill/blackwell-bench/small_plan.yaml > run_small_plan.log 2>&1"`
++  (SKILL's `run_PLAN.log` and session name `bench` adapted: PLAN contains `/`). runner.log: commit=022aa799 (clean).
++- **04:48 · 6.1 (run)** · Run finished 04:48:40, `RUN_EXIT=0`: vLLM up in 42 s, smoke 'Paris', GSM8K acc 0.944
++  (`results/skill_validation/summary/quality.json`), 10/10 reps err=0 (`results/skill_validation/runner.log`).
++- **04:49 · 6.1 (summarize)** · `python -m bib summarize R/results/skill_validation` → "10 runs (0 invalid), 5 points";
++  `python -m bib.autoreport R/results/skill_validation` → `results/skill_validation/REPORT.md`. Validity: 0 invalid
++  (`summary/runs.csv`, `failed_checks` empty, `min_tpot_over_bw_bound` 1.31–1.75). Step 6 (dashboard/comparisons)
++  skipped: SKILL says "main plans only". Step 7 copy to laptop (`tools/sync.sh pull`) not done (validation rules forbid
++  writing on the laptop).
++- **04:49 · 6.1 (finding)** · `REPORT.md` Headline attributes the cross-rep **median** (chat c=64 4,554.7 tok/s,
++  `summary/points.csv`) to `.../c0064/rep1` alone, whose own value is 4,565.4 tok/s (`summary/runs.csv`);
++  `bib/autoreport.py` uses `sources.split(';')[0]`. The "KV capacity" column prints the raw regex keys from
++  `summary/servers.json`. Quality verdict "pass" has `vs: null` (only one framework, nothing to compare) but the
++  report does not say so · reported, results not edited.
++- **04:56 · 6.1 (secret scan)** · `tools/secret_scan.py` (with bench python; no `python3`) exit 1 with 200 findings, all in
++  the untracked `sharegpt.json` that README "Reproduce" downloads into the repo root (not in `.gitignore`); none in
++  LOG.md, results or the transcript. Nothing committed or pushed (validation run).

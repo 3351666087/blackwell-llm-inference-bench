@@ -1,0 +1,16 @@
+{
+ "vllm-q8b-fp8": {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "accuracy": 0.944,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 283.168,
+  "verdict": {
+   "pass": true,
+   "acc": 0.944,
+   "vs": null
+  }
+ }
+}
