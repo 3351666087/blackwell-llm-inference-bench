@@ -12,9 +12,10 @@
 **定义**：从发出请求到收到第一个带文本的流式分块。由四部分组成：
 排队时间 + 预填充计算 + 第一个解码步 + 调度/网络开销。
 
-- **预填充计算**：线性层约 2·N 次浮点/每 token（Qwen3-8B 去掉 embedding 约 7.6B 参数 →
-  15.2 GFLOP/token），注意力约 4·(L/2)·d·层数（因果注意力平均看一半上下文）。
-  8k 输入时注意力约占总计算量的 13%（2.4 vs 15.2 GFLOP/token），32k 时约 38%（9.4 vs 15.2）。所以 TTFT 随输入长度**超线性**增长。
+- **预填充计算**：线性层约 2·N 次浮点/每 token。N 只算 Transformer 块里的参数：输入 embedding 只是查表，
+  lm_head 在预填充时只对最后一个 token 算一次。Qwen3-8B 的块参数约 6.95B（每层 q/k/v/o 41.9M + MLP 151M，×36 层）
+  → 13.9 GFLOP/token；注意力约 4·(L/2)·d·层数（因果注意力平均看一半上下文）。
+  8k 输入时注意力约占总计算量的 15%（2.4 vs 13.9 GFLOP/token），32k 时约 40%（9.4 vs 13.9）。所以 TTFT 随输入长度**超线性**增长。
 - **排队**：并发上来后，新请求要等别人的预填充块和解码步；chunked prefill 让一个长 prompt
   被切成 8192 token 一块，与别人的解码交错执行。
 - **前缀缓存**：命中的部分不需要重算，TTFT 近似只与未命中的 token 数有关。
@@ -23,8 +24,8 @@
 - 单并发、无排队时，TTFT 基本就是纯预填充：Qwen3-8B BF16，8k 输入 vLLM 466 ms、16k 1009 ms、
   32k 2498 ms（`S(vllm-q8b-bf16, prefill8k/16k/32k, c=1)`）。输入翻 4 倍，TTFT 翻 5.4 倍，
   多出来的就是注意力的二次项。
-- 8k 预填充 466 ms ≈ 17.2k token/s ≈ 300 TFLOPS（15.2+2.4 GFLOP/token），约为官方 BF16
-  稠密峰值（1 PFLOP 按含稀疏计、稠密约 500 TFLOPS）的 60%。
+- 8k 预填充 466 ms ≈ 17.2k token/s × 16.3 GFLOP/token ≈ 280 TFLOPS，约为 BF16 稠密峰值的 55%
+  （官方页面写 1 PFLOP，没说明是否含稀疏；我按含稀疏、稠密约 500 TFLOPS 估算——这是假设，不是实测）。
 - 前缀缓存：同一个 agent 负载、单会话，vLLM 开缓存 TTFT p50 133 ms，关缓存 387 ms
   （`results/main/vllm-q8b-bf16/agent/c0001`，`results/prefix_cache/vllm-q8b-bf16-nocache/agent/c0001`）；
   该负载 84% 的 prompt token 命中缓存。
@@ -118,3 +119,36 @@ FP8 权重省下约 7 GB，KV 池随之变大（vLLM 548,064、SGLang 524,533 to
 | SGLang agent c=128 吞吐腰斩 | KV 池满（使用率 0.97），前缀缓存被挤出，命中率 0.85→0.45，重算历史 | `results/main/sglang-q8b-bf16/server_*.log`；`S(sglang-q8b-bf16, agent)` |
 | 前缀缓存把 agent TTFT 从 387 ms 降到 133 ms（单会话） | 84% 的 prompt token 命中 | `S(vllm-q8b-bf16, agent, c=1)` vs `results/prefix_cache/...` |
 | 每 token 能耗 FP8 比 BF16 低 22–29%（峰值吞吐处） | 每 token 搬运字节更少，功率差不多 | 比较 P12 |
+
+## 8. TensorRT-LLM、32B 与"峰值不等于可用"（补充例子）
+
+**TensorRT-LLM 的 FP8 在 sm_120 上"能跑但慢"**
+- 单并发解码 FP8 收益和别家一样（11.65 → 7.61 ms，×0.65，比较 P2），说明权重读取那部分没问题；
+- 但 8k 预填充单并发 TTFT 是 507 ms，BF16 是 490 ms——FP8 完全没带来预填充加速（vLLM/SGLang 是 ×0.73）；
+- 聊天负载并发 32 → 64 时 TPOT 从 10.7 ms 翻倍到 21.9 ms，吞吐不升反降（2525 → 2440 tok/s），预注册拐点规则停在 c=64，
+  FP8 峰值只有它自己 BF16 峰值的一半（2525 vs 5002 tok/s）。
+- 日志里 TRT-LLM 只为批量 1–32、64、128 捕获了生成阶段的 CUDA graph。«nsys 结论：……（报告 §5.1）»
+- 面试要点：**"支持某精度"≠"该精度在这个架构上有优化过的 kernel"**。先看单并发（带宽项）、再看预填充（GEMM 项）、再看扩展性（调度/graph），
+  三个维度分别定位。
+
+**32B FP8：同样的 kernel 家族，负载下差 36%**
+- 单并发 TPOT：vLLM 25.11、SGLang 25.55、TRT-LLM 26.03 ms，下限 20.52 ms（32.8 GB/步），都是 79–82% 带宽；
+- 峰值吞吐：SGLang 3581（c=512）、TRT-LLM 2646（c=512）、vLLM 2629（c=256）tok/s；
+- 同为 c=256：SGLang TPOT 74.2 ms，vLLM 91.4 ms——单步就短 19%；
+- c=512 时 KV 池（≈20 万 token）满：vLLM 全部接纳、TPOT 翻倍到 187 ms；SGLang 让请求排队、TTFT 9.7 s。
+  （`S(*-q32b-fp8, chat, 256/512)`）
+
+**峰值吞吐 ≠ 有效吞吐**
+- 预注册聊天 SLO：TTFT ≤ 1 s 且 TPOT ≤ 50 ms。32B 上 c=256/512 的 SLO 达成率只有 0–3%，有效吞吐（goodput）最高点在 c=128：
+  SGLang 1338、vLLM 1011 tok/s（`goodput_tok_s`、`slo_attainment`）。面试被问"哪个框架更快"，先反问"SLO 是什么"。
+
+**KV 悬崖可以用纸笔算出来**
+- agent 请求平均 8187 token，其中 2839 是所有会话共享的系统提示 → 每个会话平均 ≈5.3k 私有 token；
+- 闭环下所有会话同时活跃，缓存需求 ≈5.3k × 会话数：32 个 ≈17 万、64 个 ≈34 万、128 个 ≈69 万；
+- 8B 的池子 ≈48–50 万 → 悬崖在 64 和 128 之间；32B 的池子 ≈20 万 → 悬崖在 32 和 64 之间。三个框架实测都在这里，
+  命中率 0.85 → 0.42–0.47，吞吐减半（`S(*, agent, *)` 的 `prefix_cache_hit_rate`）。
+
+**流式输出的"突发"会骗过客户端计时**
+- TRT-LLM 偶尔停顿几百毫秒后把几十个 token 一次性推出来（例如 8B FP8 32k 预填充 c=1 的 `prefill32k-0008`：首 token 晚了 ≈500 ms，
+  随后约 45 个 token 间隔 0.3 ms）。这样算出来的 TPOT 低于物理下限，按预注册的严格规则整次运行作废。主运行里 TRT-LLM 有这类无效运行，
+  vLLM/SGLang 一次都没有。面试要点：**用物理下限做 sanity check，既能抓自己的 bug，也能抓到服务器的行为问题。**

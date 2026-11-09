@@ -430,3 +430,9 @@ of each start. Hours are counted from the console's start/stop timestamps.
   Trees otherwise identical, dates preserved, `prereg-v1` now at `7406dff`. Old → new id map:
   `HISTORY_REWRITE.md` (commit ids quoted earlier in this log are old ids). History rescan: clean
   (2658 blobs). Force-pushed `main` and `prereg-v1`.
+- **20:00 · 4.3** · TensorRT-LLM 8B FP8 prefill32k c=1 rep1 **invalid** (strict and A5): request
+  `prefill32k-0008` got its first token ≈ 500 ms later than the others (TTFT 3528 vs ≈ 3000 ms), then
+  ≈ 45 tokens 0.3 ms apart — the server stalled and flushed; client TPOT 6.54 ms < floor 8.09 ms
+  (weights + 32k-token BF16 KV). A server-side streaming stall at concurrency 1, not GPU work; rep2/rep3
+  valid. Also: TRT-LLM FP8 prefill is not faster than its BF16 (8k c=1 TTFT 507 vs 490 ms; 32k ≈ 3020 vs
+  2883 ms) while vLLM/SGLang gain ×0.73–0.82 → included in the nsys targets (8k prefill c=1 phases).
