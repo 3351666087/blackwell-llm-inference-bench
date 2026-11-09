@@ -129,3 +129,17 @@ plus `libcublas*.so` symlinks; `MAX_JOBS: "8"` in the vLLM and SGLang server `en
 `plans/nvfp4.yaml`. Both servers are then retried by the resumable runner.
 (c) Seen at the time: every main/prefix-cache result (unaffected: those configs never built these
 kernels) and the two failed NVFP4 starts. TensorRT-LLM NVFP4 uses prebuilt kernels.
+
+## A9 — NVFP4 on TensorRT-LLM: BF16 KV cache via a config overlay (2026-11-10 ~00:50)
+
+(a) TensorRT-LLM 1.2.1 refuses the A3 flag: `ValueError: Overriding KV cache quantization with an
+invalid type "llm_args.KvCacheConfig.dtype="bfloat16" Accepted types are "('fp8', 'nvfp4', 'auto')"`
+(`results/nvfp4/trtllm-q32b-nvfp4/server_0[1-4].log`; four identical failed starts — the retry logic
+meant for the intermittent segfault does not distinguish deterministic errors). With `auto` it would
+use the checkpoint's FP8 KV cache, which breaks the like-for-like design (A3).
+(b) Change: TensorRT-LLM loads `/root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16`, made by
+`tools/kv_overlay.py` — symlinks to the same SHA-verified weight files, with only the KV-cache
+quantization removed from `hf_quant_config.json` and `config.json` (`OVERLAY.json` records the diff);
+no `kv_cache_config.dtype` override. vLLM/SGLang keep `--kv-cache-dtype bfloat16` on the original
+directory. Weight/activation quantization is identical in all three.
+(c) Seen at the time: as in A8.
