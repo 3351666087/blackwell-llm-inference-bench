@@ -120,7 +120,12 @@ class Server:
         self.proc: subprocess.Popen | None = None
         self.log_path = None
         self.model_name = SERVED_NAME
-        self.start_count = 0
+        # continue numbering on resume so earlier server logs are never overwritten
+        import glob as _g
+        import re as _re
+        nums = [int(m.group(1)) for f in _g.glob(os.path.join(workdir, "server_*.log"))
+                if (m := _re.search(r"server_(\d+)\.log$", f))]
+        self.start_count = max(nums, default=0)
         self.start_failures: list[dict] = []
 
     def start(self, timeout_s: float = 3600.0, attempts: int | None = None) -> float:
