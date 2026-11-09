@@ -566,3 +566,17 @@ of each start. Hours are counted from the console's start/stop timestamps.
   instance id is required in this log by the task book); Rui's name (authorship/honesty statement).
   Kept off the repo on purpose: Nsight `.nsys-rep`/`.sqlite` (embed full process environments),
   raw ShareGPT/GSM8K downloads and request files (third-party text), SSH config (local only).
+- **05:49 · 8.4 (关机)** · Instance `fnrr36bcry-d3ca6404` (西北B区 / D69机) shut down in the AutoDL console
+  (关机 → 确定; **not released**). Console status re-read afterwards: **已关机** ("14天23小时59分后释放" — AutoDL
+  releases an instance that stays off for 15 days; the instance's data disk still holds the Nsight
+  `.nsys-rep`/`.sqlite` captures and a copy of all results). Before shutdown: all results committed and
+  pushed, my scratch clones and the moved-aside duplicate envs removed, no process left running.
+  **GPU cost** (console 费用 → 账单明细, every entry of this instance's order 7941065230091296368): 44 hourly
+  charges from 2026-11-08 10:59:59 to the final partial hour 2026-11-10 05:49:13, **¥299.40** paid (list
+  price ¥7.35/h, discounted ¥6.98/h), i.e. ≈ 42.9 h; within Rui's ¥350 cap. No other instance was started
+  by this project (other orders on 2026-11-08, ¥30.82 in total, are not in this log and not mine).
+  Payment settings and the other 8 instances (all 已关机) were not touched.
+- **05:55 · 任务书** · Ticked (only `[ ]` → `[x]`, verified: 21 characters changed, nothing else): 3.1–3.4,
+  4.1–4.5, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.4, 7.5, 8.1–8.4. **Not ticked: 7.3** — the reproduction ran
+  cleanly from a fresh clone, but only 12/25 reproduced values fall inside the original per-session 95 % CIs
+  (22/25 within ±5 %); see the 04:59–05:43 entry and REPORT §6. Left for Rui to judge.
