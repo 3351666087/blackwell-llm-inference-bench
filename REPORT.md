@@ -350,6 +350,10 @@ each step can be classified (`tools/nsys_trt_steps.py` → `results/nsys/analysi
   (7 of 12 strict-invalid, all A5-valid), so these numbers are reported only here, labelled exploratory.
   **Conclusion: the collapse is a default-configuration effect (graph coverage × host cost of eager FP8
   steps), not a GPU-kernel limit.**
+* Contrast (`results/nsys/analysis/decode_8b_fp8_c32_c64.md`): vLLM FP8, which pads decode batches up to
+  its captured CUDA-graph sizes, keeps the GPU 88–89 % busy at both c=32 and c=64, while TensorRT-LLM drops
+  from 75 % to 41 %. Per output token TensorRT-LLM's kernels need *less* GPU time than vLLM's at c=64
+  (169 vs 197 µs) — the GPU work is efficient; it is the idle time between eager steps that costs.
 
 **(b) TensorRT-LLM FP8 prefill is not faster than BF16 because its sm_120 block-scale GEMM is barely
 faster than the BF16 GEMM.** Single 8k prefill at c=1, GPU time by category (`tools/nsys_prefill.py` →
