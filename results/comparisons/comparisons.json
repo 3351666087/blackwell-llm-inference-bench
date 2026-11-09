@@ -174,9 +174,19 @@
    0.6,
    1.0
   ],
-  "status": "missing data",
-  "a_source": "trtllm-q8b-fp8",
-  "b_source": "trtllm-q8b-bf16"
+  "ratio": 1.0490734949111946,
+  "lo": 1.030841360856288,
+  "hi": 1.0676280944053222,
+  "p": 0.001960322236824088,
+  "a_value": 512.418155092746,
+  "b_value": 489.519523922354,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "trtllm-q8b-fp8/prefill8k/c0001/rep1;trtllm-q8b-fp8/prefill8k/c0001/rep2;trtllm-q8b-fp8/prefill8k/c0001/rep3",
+  "b_source": "trtllm-q8b-bf16/prefill8k/c0001/rep1;trtllm-q8b-bf16/prefill8k/c0001/rep2;trtllm-q8b-bf16/prefill8k/c0001/rep3",
+  "verdict": "inconclusive",
+  "prediction": "refuted",
+  "status": "ok"
  },
  {
   "id": "P4[vllm]",
@@ -241,10 +251,8 @@
   "a_source": "trtllm-q8b-fp8/chat/c0032/rep1;trtllm-q8b-fp8/chat/c0032/rep2;trtllm-q8b-fp8/chat/c0032/rep3",
   "b_source": "trtllm-q8b-bf16/chat/c0128/rep1;trtllm-q8b-bf16/chat/c0128/rep2;trtllm-q8b-bf16/chat/c0128/rep3",
   "verdict": "A worse",
-  "prediction": "inconclusive (A7)",
-  "status": "ok",
-  "prediction_strict": "refuted",
-  "note": "A's peak is censored: concurrency [64] measured but invalid (strict checks), so its true peak is unknown (AMENDMENTS A7)"
+  "prediction": "refuted",
+  "status": "ok"
  },
  {
   "id": "P5",
@@ -577,10 +585,8 @@
   "a_source": "trtllm-q8b-fp8/chat/c0032/rep1;trtllm-q8b-fp8/chat/c0032/rep2;trtllm-q8b-fp8/chat/c0032/rep3",
   "b_source": "trtllm-q8b-bf16/chat/c0128/rep1;trtllm-q8b-bf16/chat/c0128/rep2;trtllm-q8b-bf16/chat/c0128/rep3",
   "verdict": "A worse",
-  "prediction": "inconclusive (A7)",
-  "status": "ok",
-  "prediction_strict": "refuted",
-  "note": "A's peak is censored: concurrency [64] measured but invalid (strict checks), so its true peak is unknown (AMENDMENTS A7)"
+  "prediction": "refuted",
+  "status": "ok"
  },
  {
   "id": "P13[vllm]",

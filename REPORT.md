@@ -23,10 +23,11 @@ Day-by-day record: [`LOG.md`](LOG.md).*
    8B decode TPOT ×0.61 (vLLM) / ×0.65 (SGLang) against a 0.54 byte ratio; 8k prefill TTFT ×0.73–0.74;
    peak chat throughput ×1.26–1.30; energy per output token ×0.71–0.78 (P2, P3, P4, P12). Quality on
    GSM8K is unchanged within noise (§3.8).
-3. **TensorRT-LLM 1.2.1 runs the same FP8 checkpoint correctly but slowly on sm_120.** Its c=1 decode gains
-   as much as the others (×0.65), but 8k prefill is no faster than BF16 «…», and chat throughput stops
-   scaling at 32 concurrent requests: TPOT doubles from 10.7 ms (c=32) to 21.9 ms (c=64) and peak chat
-   throughput is half of its own BF16 peak (2525 vs 5002 tok/s; P4[trtllm]). «Nsight Systems (§5.1)
+3. **TensorRT-LLM 1.2.1 runs the same FP8 checkpoint correctly (GSM8K 0.924) but slowly on sm_120.** Its c=1
+   decode gains as much as the others (×0.65), but 8k prefill is 5 % *slower* than BF16 (512 vs 490 ms; P3
+   refuted), and chat throughput stops scaling at 32 concurrent requests: TPOT doubles from 10.7 ms (c=32)
+   to 21.9 ms (c=64), so its FP8 chat peak is half of its own BF16 peak (2525 vs 5002 tok/s; P4 refuted) and
+   it spends 1.41× the energy per token (P12 refuted). «Nsight Systems (§5.1)
    attributes this to …»
 4. **At high concurrency the frameworks differ much more than at c=1.** On 32B FP8 chat SGLang reaches
    3581 tok/s against vLLM 2629 and TensorRT-LLM 2646 (+36 %; my "within ±10 %" prediction P11 is refuted).
@@ -43,7 +44,7 @@ Day-by-day record: [`LOG.md`](LOG.md).*
    while SGLang protects running decodes (TTFT 6.6 s, TPOT 85 ms) (§3.5).
 7. **Measurement hygiene mattered.** The pre-registered checks exposed one protocol error of mine
    (TensorRT-LLM cache carry-over between repetitions, A2) and several measurement-code bugs (§7).
-   Nine of 673 main runs are invalid, all TensorRT-LLM (bursty streaming, §6); none is used.
+   Ten of 738 main runs are invalid, all TensorRT-LLM (bursty streaming, §6); none is used.
 
 ## 1. Question and setup
 
@@ -185,14 +186,16 @@ agent cliff at the same session count (§3.6).
 | | vLLM | SGLang | TensorRT-LLM |
 |---|---|---|---|
 | c=1 TPOT ratio (P2) | 0.609 [0.606, 0.612] | 0.652 [0.652, 0.652] | 0.653 [0.652, 0.653] |
-| 8k c=1 TTFT ratio (P3) | 0.737 [0.734, 0.740] | 0.727 [0.719, 0.734] | «…» |
-| peak chat throughput (P4) | 1.255 [1.234, 1.277] | 1.297 [1.288, 1.306] | 0.505 (FP8 c=32 vs BF16 c=128) «final» |
-| J/output token at peak (P12) | 0.784 [0.776, 0.792] | 0.713 [0.709, 0.717] | «…» |
+| 8k c=1 TTFT ratio (P3) | 0.737 [0.734, 0.740] | 0.727 [0.719, 0.734] | **1.049 [1.031, 1.068]** |
+| peak chat throughput (P4) | 1.255 [1.234, 1.277] | 1.297 [1.288, 1.306] | **0.508 [0.491, 0.525]** (FP8 c=32 vs BF16 c=128) |
+| J/output token at peak (P12) | 0.784 [0.776, 0.792] | 0.713 [0.709, 0.717] | **1.411 [1.395, 1.426]** |
+| peak agent throughput (sessions) | 596 (64) → 727 (32) | 699 (64) → 860 (64) | 720 (64) → 732 (64) |
 | GSM8K (BF16 → FP8) | 0.928 → 0.936 | 0.936 → 0.936 | 0.940 → 0.924 |
 
 Prefill speeds up less than the GEMM peak ratio (2×) because attention stays BF16 and block scaling
 adds work; at 32k, where attention is a larger share, the gain shrinks further (vLLM 2498 → 2039 ms,
-×0.82; SGLang 2361 → 1870 ms, ×0.79; `S(*-q8b-*, prefill32k, 1)`).
+×0.82; SGLang 2361 → 1870 ms, ×0.79; `S(*-q8b-*, prefill32k, 1)`). TensorRT-LLM gets no prefill gain at
+any length (8k 490 → 512, 16k 1093 → 1150, 32k 2883 → 3022 ms) — its FP8 path is examined in §5.1.
 
 ### 3.5 Long-context prefill and scheduling policy
 
@@ -276,8 +279,8 @@ Full table with sources: [`results/comparisons/comparisons.md`](results/comparis
 |---|---|---|---|---|
 | P1 | TPOT/floor 1.221 (vLLM), 1.191 (SGLang), 1.229 (TRT) | confirmed ×3 | bandwidth-bound weight streaming + fixed per-layer cost | three-checkpoint pattern (§3.1) |
 | P2 | FP8/BF16 c=1 TPOT 0.609 / 0.652 / 0.653 | confirmed ×3 | bytes 0.54× + unchanged fixed cost | consistent with §3.1 model |
-| P3 | FP8/BF16 8k TTFT 0.737 / 0.727 / «…» | confirmed ×2, «TRT» | GEMMs faster, attention BF16 | 32k shrinks the gain (§3.4) |
-| P4 | FP8/BF16 peak chat 1.255 / 1.297 / «…» | confirmed ×2, «TRT» | less weight traffic, more KV | TRT: §5.1 |
+| P3 | FP8/BF16 8k TTFT 0.737 / 0.727 / 1.049 | confirmed ×2, **refuted** (TRT) | GEMMs faster, attention BF16; TRT's FP8 GEMM path is slow on sm_120 | 32k shrinks the gain (§3.4); TRT: §5.1 |
+| P4 | FP8/BF16 peak chat 1.255 / 1.297 / 0.508 | confirmed ×2, **refuted** (TRT) | less weight traffic, more KV; TRT stops scaling at c=32 | TRT: §5.1 |
 | P5 | SGLang/vLLM peak chat 8B BF16 1.042 [1.021, 1.063] | confirmed | same kernel families | – |
 | P6 | SGLang/vLLM c=1 TPOT 0.976 [0.975, 0.976] | confirmed (equivalent) | both bandwidth-bound | – |
 | P7 | SGLang/vLLM 32k TTFT 0.946 [0.941, 0.952] | confirmed | compute-bound, similar attention kernels | – |
@@ -287,7 +290,7 @@ Full table with sources: [`results/comparisons/comparisons.md`](results/comparis
 | P10a | cache on/off TTFT c=16: 0.296 / 0.260 / «…» | confirmed ×2 | 84–86 % of tokens cached | hit rate measured |
 | P10b | cache on/off peak: 2.687 / 2.838 / «…» | confirmed ×2 | prefill work ÷ 6 | hit rate measured |
 | P11 | SGLang/vLLM peak chat 32B FP8 1.362 [1.356, 1.369] | **refuted** | shorter decode step at equal batch + queueing at KV limit | «§5.1» |
-| P12 | FP8/BF16 J/token at peak 0.784 / 0.713 / «…» | confirmed ×2 | fewer bytes per token, similar power | power series |
+| P12 | FP8/BF16 J/token at peak 0.784 / 0.713 / 1.411 | confirmed ×2, **refuted** (TRT) | fewer bytes per token at similar power; TRT's FP8 peak is at c=32 | power series |
 | P13 | NVFP4/FP8 32B c=1 TPOT «…» | «…» | «…» | §5.2 |
 
 ## 5. Deep dives
@@ -313,13 +316,15 @@ results on every push (`.github/workflows/ci.yml`), CPU-only.
 
 ## 6. Validity, amendments and what was excluded
 
-* **Invalid runs (strict rule)**: 9 of 673 in `results/main`, all TensorRT-LLM, all `bandwidth_bound`:
-  8B BF16 chat c=64 (2 of 3 reps), c=256 (3), c=512 (3); 32B FP8 chat c=256 (1 of 3). In each, a few
-  requests (0.05–0.6 %) received several tokens in one SSE chunk after a stall, so their client-side
-  TPOT is below the physical floor. A client timing error would shift all requests, and vLLM/SGLang at
-  the same load never trip the check. They are excluded from every number in this report. The
-  post-hoc A5 variant (≤ 1 % violators and p10 TPOT/floor ≥ 0.97) would accept all nine; it is
-  reported in `results/main/summary_a5/` only for transparency.
+* **Invalid runs (strict rule)**: 10 of 738 in `results/main`, all TensorRT-LLM, all `bandwidth_bound`:
+  8B BF16 chat c=64 (2 of 3 reps), c=256 (3), c=512 (3); 32B FP8 chat c=256 (1 of 3); 8B FP8
+  prefill32k c=1 (1 of 3). In each, a few requests (0.05–6 %) received many tokens in one burst after a
+  stall, so their client-side TPOT is below the physical floor — e.g. `prefill32k-0008`: first token
+  ≈ 500 ms later than its neighbours, then ≈ 45 tokens 0.3 ms apart, at concurrency 1. A client timing
+  error would shift all requests, and vLLM/SGLang at the same load never trip the check. They are
+  excluded from every number in this report. The post-hoc A5 variant (≤ 1 % violators and p10
+  TPOT/floor ≥ 0.97) would accept nine of the ten; it is reported in `results/main/summary_a5/` only for
+  transparency.
 * **Amendments** (AMENDMENTS.md): A1 report cached prompt tokens; A2 TensorRT-LLM restart per
   repetition + new "no unexpected cache hits" check (after my protocol error, §7); A3 KV-cache dtype
   flags for NVFP4; A4 TensorRT-LLM KV-block reuse off on chat/prefill instead of restarts; A5

@@ -436,3 +436,13 @@ of each start. Hours are counted from the console's start/stop timestamps.
   (weights + 32k-token BF16 KV). A server-side streaming stall at concurrency 1, not GPU work; rep2/rep3
   valid. Also: TRT-LLM FP8 prefill is not faster than its BF16 (8k c=1 TTFT 507 vs 490 ms; 32k ≈ 3020 vs
   2883 ms) while vLLM/SGLang gain ×0.73–0.82 → included in the nsys targets (8k prefill c=1 phases).
+- **22:10 · 4.3** · TensorRT-LLM 8B FP8 finished (19:24–22:10, 0 start failures). results/main now
+  738 runs, 10 invalid under the strict rule (all TensorRT-LLM `bandwidth_bound`; 1 also fails A5:
+  the prefill32k stall above). Pre-registered TRT FP8 predictions: P2 confirmed (c=1 TPOT ×0.653);
+  **P3 refuted** (8k c=1 TTFT FP8/BF16 1.049 [1.031, 1.068] — FP8 prefill is *slower*); **P4 refuted**
+  (peak chat 2525 @c=32 vs 5002 @c=128, ×0.508); **P12 refuted** (J/token at peak ×1.41). Agent: FP8
+  peak 732 tok/s @64 sessions (BF16 720), KV cliff at 128 sessions (372 tok/s, TTFT p50 9.6–10 s).
+- **22:10 · 4.5** · TensorRT-LLM prefix-cache-off run started (`plans/prefix_cache.yaml`, server
+  `trtllm-q8b-bf16-nocache`). The `start_failed` entry left from the 01:14 attempt (first prefix-cache run, previous night) was
+  `Failed to bind socket to 127.0.0.1:8000` (a stale server still held the port then; port-wait fix
+  came later); this attempt started normally (up in 40 s, KV 504 576 tokens).

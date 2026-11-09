@@ -8,7 +8,7 @@
 | P2[trtllm] | FP8 vs BF16 decode latency at c=1 (8B) | tpot_p50_ms | 7.606 (c=1) | 11.65 (c=1) | 0.653 [0.652, 0.653] | [0.55, 0.7] | A better | confirmed |
 | P3[vllm] | FP8 vs BF16 prefill TTFT, 8k, c=1 (8B) | ttft_p50_ms | 343.8 (c=1) | 466.4 (c=1) | 0.737 [0.734, 0.740] | [0.6, 1.0] | A better | confirmed |
 | P3[sglang] | FP8 vs BF16 prefill TTFT, 8k, c=1 (8B) | ttft_p50_ms | 325.8 (c=1) | 447.9 (c=1) | 0.727 [0.719, 0.734] | [0.6, 1.0] | A better | confirmed |
-| P3[trtllm] | FP8 vs BF16 prefill TTFT, 8k, c=1 (8B) | ttft_p50_ms | – | – | missing data | [0.6, 1.0] | – | not testable |
+| P3[trtllm] | FP8 vs BF16 prefill TTFT, 8k, c=1 (8B) | ttft_p50_ms | 512.4 (c=1) | 489.5 (c=1) | 1.049 [1.031, 1.068] | [0.6, 1.0] | inconclusive | refuted |
 | P4[vllm] | FP8 vs BF16 peak chat throughput (8B) | output_throughput | 8837 (c=512) | 7067 (c=512) | 1.255 [1.234, 1.277] | [1.1, 1.6] | A better | confirmed |
 | P4[sglang] | FP8 vs BF16 peak chat throughput (8B) | output_throughput | 9523 (c=512) | 7328 (c=512) | 1.297 [1.288, 1.306] | [1.1, 1.6] | A better | confirmed |
 | P4[trtllm] | FP8 vs BF16 peak chat throughput (8B) | output_throughput | 2525 (c=32) | 8299 (c=512) | 0.307 [0.297, 0.317] | [1.1, 1.6] | A worse | refuted |
