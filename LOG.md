@@ -580,3 +580,7 @@ of each start. Hours are counted from the console's start/stop timestamps.
   4.1–4.5, 5.1, 5.2, 6.1, 6.2, 7.1, 7.2, 7.4, 7.5, 8.1–8.4. **Not ticked: 7.3** — the reproduction ran
   cleanly from a fresh clone, but only 12/25 reproduced values fall inside the original per-session 95 % CIs
   (22/25 within ±5 %); see the 04:59–05:43 entry and REPORT §6. Left for Rui to judge.
+- **05:58 · 7.5** · Deleted the local pre-purge backup bundle (`~/bench_backups/bib_prepurge_*.bundle`, outside the
+  repo, made before the 20:00 history rewrite); it still contained the purged request files. The rewritten
+  history had been verified (scan clean, trees identical) and pushed. Closed the Chrome tab used for the
+  console and stopped the local dashboard preview server.
