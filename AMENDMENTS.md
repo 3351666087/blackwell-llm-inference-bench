@@ -101,3 +101,16 @@ exceeds 8192 tokens (prefill16k, prefill32k, agent) TensorRT-LLM runs with
 minimum deviation from defaults. The pre-registration did not anticipate it.
 (c) Seen at the time: as in A5, plus TensorRT-LLM 32B chat and prefill8k (valid, unaffected:
 prompts ≤ 8192), and the failed prefill16k/agent attempts.
+
+## A7 — censored peaks are "inconclusive", not "worse" (2026-11-09 ~19:30, post hoc)
+
+(a) Comparisons on `conc: peak` use the best *valid* concurrency level. When a framework's higher
+levels were measured but are invalid (strict rule), its true peak is unknown. Example: TensorRT-LLM
+8B BF16 chat — valid up to c=128, c=256/512 invalid under the strict bandwidth rule (bursts, A5) —
+so P8a compared TRT at c=128 with vLLM at c=512 and read "refuted".
+(b) Rule: if the side whose peak is censored is also the side that comes out lower, the prediction
+verdict is reported as `inconclusive (A7)`; the strict verdict is kept in `comparisons.json`
+(`prediction_strict`) and the censoring levels are printed under the table. Censoring never turns
+a result into "confirmed", and no invalid run's number is used.
+(c) Seen at the time: all comparisons up to TensorRT-LLM 8B BF16 (P8a was the only one affected).
+Defined after seeing that result, hence post hoc.

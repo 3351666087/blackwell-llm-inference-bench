@@ -85,9 +85,11 @@ and `pip freeze` of the framework env instead.
 3. Per workload, concurrency is swept **low → high**. At each level: warm-up with a
    separate warm-up request file (discarded) → **3 repetitions** over the same
    request subset. **Between repetitions the prefix cache is cleared** (vLLM
-   `/reset_prefix_cache`, SGLang `/flush_cache`); TensorRT-LLM has no reset endpoint,
-   so its server is **restarted** before each repetition of the prefix-sensitive
-   agent workload (chat/prefill requests all have unique prefixes).
+   `/reset_prefix_cache`, SGLang `/flush_cache`). TensorRT-LLM has no reset endpoint:
+   on chat/prefill it runs with KV-block reuse **off** (AMENDMENTS A4), and its server is
+   **restarted** before each repetition of the prefix-sensitive agent workload (A2).
+   Prompts longer than 8192 tokens run with TensorRT-LLM chunked prefill on (A6).
+   `meta.json` of every repetition records which reset was used.
 4. The sweep stops at the **knee** (first level ≥ `knee_min_conc` whose median
    throughput gain is < 5 %) or at the first failed request.
 5. Every repetition stores raw per-request records (`requests.jsonl.gz`), the 10 Hz

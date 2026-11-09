@@ -389,3 +389,26 @@ of each start. Hours are counted from the console's start/stop timestamps.
 - **16:14–16:16 · infra** · Pulled 380 MB of finished results to the Mac (rsync, instance side ~1
   core) while TRT 8B BF16 chat c=1–4 was running; noted for completeness. Committed and pushed
   (`96fb38a`, 41 s). Secret scan over 2 649 files incl. gz contents: clean.
+- **19:23 · 4.3** · TensorRT-LLM 8B BF16 finished (16:13–19:23). 90 runs; 8 invalid under the
+  strict rule, all chat c = 64 / 256 / 512 with failed check `bandwidth_bound` (bursty streaming:
+  a handful of requests deliver several tokens in one SSE chunk after a stall); all 8 pass the
+  post-hoc A5 rule (burst fraction 0.0005–0.006). c=1 TPOT 11.65 ms (P1: 1.229 × floor,
+  P8b: TRT/vLLM 1.007). Pre-registered P8a (peak chat throughput, TRT vs vLLM) came out
+  "refuted" only because TRT's best *valid* point is c=128 while its c=256/512 points are
+  strict-invalid → added A7 (post hoc analysis rule): a "worse" verdict on a peak whose higher
+  concurrency levels were measured but excluded is reported as *inconclusive*, with the strict
+  verdict kept alongside. No invalid run is used for any number in the report.
+- **19:24 · 4.3** · TensorRT-LLM 8B FP8 started (GSM8K 0.924, KV 540 000 tokens). Chat c=1: TPOT
+  7.60 / 7.61 / 7.61 ms.
+- **19:35 · infra (agent mistake, caught before damage)** · `tools/sync.sh push` used
+  `git reset --hard <commit>` on the instance. Since `96fb38a` the results are tracked in git, so a
+  hard reset would have replaced the instance's live `results/main/runner.log` (newer than the
+  commit) with the committed copy. Noticed while reading the script before use; changed it to
+  `reset --mixed` + check out everything except `results/`, and backed up the live runner log
+  first (`/root/autodl-tmp/runner_main_backup_*.log`, instance only).
+- **19:35 · 4.3 (finding)** · TensorRT-LLM 8B FP8 chat: TPOT p50 10.7 ms at c=32 → 21.9 ms at c=64,
+  throughput 2525 → 2440 tok/s, so the pre-registered knee rule ended the chat sweep at c=64 (all
+  reps valid). BF16 on the same framework scales to c=128 (5002 tok/s). The server log shows
+  generation-only CUDA graphs for batch sizes 1–32, 64 and 128 only. Candidate explanations: eager
+  (non-graph) steps for batch sizes 33–63 / mixed steps, or a different FP8 block-scale GEMM kernel
+  above M=32. Picked as the Nsight Systems target for 5.1 (c=32 vs c=64).

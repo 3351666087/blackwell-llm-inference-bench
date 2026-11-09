@@ -74,6 +74,8 @@ def servers_table(results):
         tok = next(iter(kv.values()), None)
         if isinstance(tok, list):
             tok = None
+        if tok:
+            tok = f"{int(str(tok).replace(',', '')):,}"
         sf = os.path.join(os.path.dirname(f), "start_failures.jsonl")
         nfail = sum(1 for _ in open(sf)) if os.path.exists(sf) else 0
         rows.append(f"| {plan}/{sid} | {si.get('status')} | {fmt(si.get('load_s'), 0)} | {tok or '–'} | {nfail} | "

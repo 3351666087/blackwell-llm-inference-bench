@@ -1,0 +1,164 @@
+{
+ "vllm-q8b-bf16": {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "accuracy": 0.928,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 286.772,
+  "verdict": {
+   "pass": true,
+   "acc": 0.928,
+   "vs": "trtllm",
+   "delta": -0.0119999999999999,
+   "mcnemar_p": 0.25,
+   "discordant": [
+    3,
+    0
+   ]
+  }
+ },
+ "sglang-q8b-bf16": {
+  "framework": "sglang",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "accuracy": 0.936,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 284.204,
+  "verdict": {
+   "pass": true,
+   "acc": 0.936,
+   "vs": "trtllm",
+   "delta": -0.0039999999999998925,
+   "mcnemar_p": 1.0,
+   "discordant": [
+    2,
+    1
+   ]
+  }
+ },
+ "trtllm-q8b-bf16": {
+  "framework": "trtllm",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "accuracy": 0.94,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 288.588,
+  "verdict": {
+   "pass": true,
+   "acc": 0.94,
+   "vs": null
+  }
+ },
+ "vllm-q8b-fp8": {
+  "framework": "vllm",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "accuracy": 0.936,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 284.196,
+  "verdict": {
+   "pass": true,
+   "acc": 0.936,
+   "vs": null
+  }
+ },
+ "sglang-q8b-fp8": {
+  "framework": "sglang",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "accuracy": 0.936,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 279.832,
+  "verdict": {
+   "pass": true,
+   "acc": 0.936,
+   "vs": "vllm",
+   "delta": 0.0,
+   "mcnemar_p": 1.0,
+   "discordant": [
+    3,
+    3
+   ]
+  }
+ },
+ "trtllm-q8b-fp8": {
+  "framework": "trtllm",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "accuracy": 0.924,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 281.284,
+  "verdict": {
+   "pass": true,
+   "acc": 0.924,
+   "vs": "vllm",
+   "delta": -0.01200000000000001,
+   "mcnemar_p": 0.5078125,
+   "discordant": [
+    6,
+    3
+   ]
+  }
+ },
+ "vllm-q32b-fp8": {
+  "framework": "vllm",
+  "model_id": "Qwen3-32B",
+  "precision": "fp8",
+  "accuracy": 0.968,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 261.784,
+  "verdict": {
+   "pass": true,
+   "acc": 0.968,
+   "vs": null
+  }
+ },
+ "sglang-q32b-fp8": {
+  "framework": "sglang",
+  "model_id": "Qwen3-32B",
+  "precision": "fp8",
+  "accuracy": 0.96,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 263.024,
+  "verdict": {
+   "pass": true,
+   "acc": 0.96,
+   "vs": "vllm",
+   "delta": -0.008000000000000007,
+   "mcnemar_p": 0.625,
+   "discordant": [
+    3,
+    1
+   ]
+  }
+ },
+ "trtllm-q32b-fp8": {
+  "framework": "trtllm",
+  "model_id": "Qwen3-32B",
+  "precision": "fp8",
+  "accuracy": 0.968,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 263.996,
+  "verdict": {
+   "pass": true,
+   "acc": 0.968,
+   "vs": "vllm",
+   "delta": 0.0,
+   "mcnemar_p": 1.0,
+   "discordant": [
+    2,
+    2
+   ]
+  }
+ }
+}

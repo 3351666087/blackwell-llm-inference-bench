@@ -27,8 +27,8 @@
  },
  "trtllm-q8b-bf16": {
   "status": "ok",
-  "fingerprint": "1ec6f338297c",
-  "load_s": 42.043700131587684,
+  "fingerprint": "6d9d79ae4414",
+  "load_s": 42.09007426444441,
   "kv_capacity": {
    "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "504160",
    "max_tokens[=:\\s]+(\\d+)": "504171"
@@ -65,11 +65,11 @@
  },
  "trtllm-q8b-fp8": {
   "status": "ok",
-  "fingerprint": "1ec6f338297c",
-  "load_s": 44.02283978741616,
+  "fingerprint": "6d9d79ae4414",
+  "load_s": 44.01784794218838,
   "kv_capacity": {
-   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "539904",
-   "max_tokens[=:\\s]+(\\d+)": "539905"
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "540000",
+   "max_tokens[=:\\s]+(\\d+)": "540007"
   },
   "smoke_text": "Paris",
   "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",

@@ -1,0 +1,575 @@
+[
+ {
+  "id": "P1[vllm]",
+  "title": "Decode efficiency at c=1 vs bandwidth floor (8B BF16)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   1.05,
+   1.25
+  ],
+  "ratio": 1.2206948244654792,
+  "lo": 1.2204493517641042,
+  "hi": 1.2209323570666033,
+  "floor_ms": 9.478278652473387,
+  "a_value": 11.570161407633965,
+  "a_conc": 1,
+  "a_source": "vllm-q8b-bf16/chat/c0001/rep1;vllm-q8b-bf16/chat/c0001/rep2;vllm-q8b-bf16/chat/c0001/rep3",
+  "prediction": "confirmed",
+  "status": "ok",
+  "note": "interval = min..max over reps (denominator is a constant)"
+ },
+ {
+  "id": "P1[sglang]",
+  "title": "Decode efficiency at c=1 vs bandwidth floor (8B BF16)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   1.05,
+   1.25
+  ],
+  "ratio": 1.1910962333728385,
+  "lo": 1.1910433543284813,
+  "hi": 1.1911599024479649,
+  "floor_ms": 9.478278652473387,
+  "a_value": 11.289439758618265,
+  "a_conc": 1,
+  "a_source": "sglang-q8b-bf16/chat/c0001/rep1;sglang-q8b-bf16/chat/c0001/rep2;sglang-q8b-bf16/chat/c0001/rep3",
+  "prediction": "confirmed",
+  "status": "ok",
+  "note": "interval = min..max over reps (denominator is a constant)"
+ },
+ {
+  "id": "P1[trtllm]",
+  "title": "Decode efficiency at c=1 vs bandwidth floor (8B BF16)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   1.05,
+   1.25
+  ],
+  "ratio": 1.2294124378663658,
+  "lo": 1.2290809443620796,
+  "hi": 1.2297607581592198,
+  "floor_ms": 9.478278652473387,
+  "a_value": 11.652555068277806,
+  "a_conc": 1,
+  "a_source": "trtllm-q8b-bf16/chat/c0001/rep1;trtllm-q8b-bf16/chat/c0001/rep2;trtllm-q8b-bf16/chat/c0001/rep3",
+  "prediction": "confirmed",
+  "status": "ok",
+  "note": "interval = min..max over reps (denominator is a constant)"
+ },
+ {
+  "id": "P2[vllm]",
+  "title": "FP8 vs BF16 decode latency at c=1 (8B)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.55,
+   0.7
+  ],
+  "ratio": 0.6093104099718241,
+  "lo": 0.6063063452389174,
+  "hi": 0.6123293589377432,
+  "p": 4.528263086394647e-06,
+  "a_value": 7.057231960911908,
+  "b_value": 11.570161407633965,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "vllm-q8b-fp8/chat/c0001/rep1;vllm-q8b-fp8/chat/c0001/rep2;vllm-q8b-fp8/chat/c0001/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0001/rep1;vllm-q8b-bf16/chat/c0001/rep2;vllm-q8b-bf16/chat/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P2[sglang]",
+  "title": "FP8 vs BF16 decode latency at c=1 (8B)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.55,
+   0.7
+  ],
+  "ratio": 0.6521355436201718,
+  "lo": 0.6519678870551495,
+  "hi": 0.652303243298857,
+  "p": 1.673070808301837e-10,
+  "a_value": 7.362493620915195,
+  "b_value": 11.289439758618265,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "sglang-q8b-fp8/chat/c0001/rep1;sglang-q8b-fp8/chat/c0001/rep2;sglang-q8b-fp8/chat/c0001/rep3",
+  "b_source": "sglang-q8b-bf16/chat/c0001/rep1;sglang-q8b-bf16/chat/c0001/rep2;sglang-q8b-bf16/chat/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P2[trtllm]",
+  "title": "FP8 vs BF16 decode latency at c=1 (8B)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.55,
+   0.7
+  ],
+  "ratio": 0.6526929527506041,
+  "lo": 0.6523223307092492,
+  "hi": 0.6530637853637747,
+  "p": 3.72680889380746e-12,
+  "a_value": 7.605792670578074,
+  "b_value": 11.652555068277806,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "trtllm-q8b-fp8/chat/c0001/rep1;trtllm-q8b-fp8/chat/c0001/rep2;trtllm-q8b-fp8/chat/c0001/rep3",
+  "b_source": "trtllm-q8b-bf16/chat/c0001/rep1;trtllm-q8b-bf16/chat/c0001/rep2;trtllm-q8b-bf16/chat/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P3[vllm]",
+  "title": "FP8 vs BF16 prefill TTFT, 8k, c=1 (8B)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.6,
+   1.0
+  ],
+  "ratio": 0.7366731437519906,
+  "lo": 0.7337127646095156,
+  "hi": 0.7396454674115708,
+  "p": 2.0723966040796776e-08,
+  "a_value": 343.76733284443617,
+  "b_value": 466.40601847320795,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "vllm-q8b-fp8/prefill8k/c0001/rep1;vllm-q8b-fp8/prefill8k/c0001/rep2;vllm-q8b-fp8/prefill8k/c0001/rep3",
+  "b_source": "vllm-q8b-bf16/prefill8k/c0001/rep1;vllm-q8b-bf16/prefill8k/c0001/rep2;vllm-q8b-bf16/prefill8k/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P3[sglang]",
+  "title": "FP8 vs BF16 prefill TTFT, 8k, c=1 (8B)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.6,
+   1.0
+  ],
+  "ratio": 0.7266080947783435,
+  "lo": 0.7189745845355819,
+  "hi": 0.7343226516670919,
+  "p": 4.955911970562601e-06,
+  "a_value": 325.8308726362884,
+  "b_value": 447.9087092913687,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "sglang-q8b-fp8/prefill8k/c0001/rep1;sglang-q8b-fp8/prefill8k/c0001/rep2;sglang-q8b-fp8/prefill8k/c0001/rep3",
+  "b_source": "sglang-q8b-bf16/prefill8k/c0001/rep1;sglang-q8b-bf16/prefill8k/c0001/rep2;sglang-q8b-bf16/prefill8k/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P3[trtllm]",
+  "title": "FP8 vs BF16 prefill TTFT, 8k, c=1 (8B)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.6,
+   1.0
+  ],
+  "status": "missing data",
+  "a_source": "trtllm-q8b-fp8",
+  "b_source": "trtllm-q8b-bf16"
+ },
+ {
+  "id": "P4[vllm]",
+  "title": "FP8 vs BF16 peak chat throughput (8B)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.1,
+   1.6
+  ],
+  "ratio": 1.2549449480205224,
+  "lo": 1.2335512080640325,
+  "hi": 1.2767097241418135,
+  "p": 2.3136657423606158e-05,
+  "a_value": 8836.719512695898,
+  "b_value": 7067.292120789544,
+  "a_conc": 512,
+  "b_conc": 512,
+  "a_source": "vllm-q8b-fp8/chat/c0512/rep1;vllm-q8b-fp8/chat/c0512/rep2;vllm-q8b-fp8/chat/c0512/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0512/rep1;vllm-q8b-bf16/chat/c0512/rep2;vllm-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P4[sglang]",
+  "title": "FP8 vs BF16 peak chat throughput (8B)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.1,
+   1.6
+  ],
+  "ratio": 1.29710541914714,
+  "lo": 1.2879628819161189,
+  "hi": 1.3063128542010676,
+  "p": 8.360626734711759e-06,
+  "a_value": 9523.123661055548,
+  "b_value": 7327.8062852456205,
+  "a_conc": 512,
+  "b_conc": 512,
+  "a_source": "sglang-q8b-fp8/chat/c0512/rep1;sglang-q8b-fp8/chat/c0512/rep2;sglang-q8b-fp8/chat/c0512/rep3",
+  "b_source": "sglang-q8b-bf16/chat/c0512/rep1;sglang-q8b-bf16/chat/c0512/rep2;sglang-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P4[trtllm]",
+  "title": "FP8 vs BF16 peak chat throughput (8B)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.1,
+   1.6
+  ],
+  "ratio": 0.306511664091606,
+  "lo": 0.29682598008936906,
+  "hi": 0.3165134001946831,
+  "p": 2.3794161087724684e-07,
+  "a_value": 2525.1167712679694,
+  "b_value": 8298.697965781652,
+  "a_conc": 32,
+  "b_conc": 512,
+  "a_source": "trtllm-q8b-fp8/chat/c0032/rep1;trtllm-q8b-fp8/chat/c0032/rep2;trtllm-q8b-fp8/chat/c0032/rep3",
+  "b_source": "trtllm-q8b-bf16/chat/c0512/rep1;trtllm-q8b-bf16/chat/c0512/rep2;trtllm-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A worse",
+  "prediction": "refuted",
+  "status": "ok"
+ },
+ {
+  "id": "P5",
+  "title": "SGLang vs vLLM peak chat throughput (8B BF16)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   0.9,
+   1.1
+  ],
+  "ratio": 1.0417301880364682,
+  "lo": 1.0207929080455327,
+  "hi": 1.0630969084065087,
+  "p": 0.0125526974846839,
+  "a_value": 7327.8062852456205,
+  "b_value": 7067.292120789544,
+  "a_conc": 512,
+  "b_conc": 512,
+  "a_source": "sglang-q8b-bf16/chat/c0512/rep1;sglang-q8b-bf16/chat/c0512/rep2;sglang-q8b-bf16/chat/c0512/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0512/rep1;vllm-q8b-bf16/chat/c0512/rep2;vllm-q8b-bf16/chat/c0512/rep3",
+  "verdict": "inconclusive",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P6",
+  "title": "SGLang vs vLLM decode latency at c=1 (8B BF16)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.95,
+   1.05
+  ],
+  "ratio": 0.9757526692999606,
+  "lo": 0.9753072744699856,
+  "hi": 0.9761982675289668,
+  "p": 7.215639442432548e-06,
+  "a_value": 11.289439758618265,
+  "b_value": 11.570161407633965,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "sglang-q8b-bf16/chat/c0001/rep1;sglang-q8b-bf16/chat/c0001/rep2;sglang-q8b-bf16/chat/c0001/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0001/rep1;vllm-q8b-bf16/chat/c0001/rep2;vllm-q8b-bf16/chat/c0001/rep3",
+  "verdict": "equivalent (\u00b15%)",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P7",
+  "title": "SGLang vs vLLM 32k prefill TTFT at c=1 (8B BF16)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.9,
+   1.1
+  ],
+  "ratio": 0.9464057971672015,
+  "lo": 0.9405449362898773,
+  "hi": 0.9523031790962034,
+  "p": 0.00010055204158996712,
+  "a_value": 2360.674791969359,
+  "b_value": 2498.351803049445,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "sglang-q8b-bf16/prefill32k/c0001/rep1;sglang-q8b-bf16/prefill32k/c0001/rep2;sglang-q8b-bf16/prefill32k/c0001/rep3",
+  "b_source": "vllm-q8b-bf16/prefill32k/c0001/rep1;vllm-q8b-bf16/prefill32k/c0001/rep2;vllm-q8b-bf16/prefill32k/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P8a",
+  "title": "TensorRT-LLM vs vLLM peak chat throughput (8B BF16)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.0,
+   1.15
+  ],
+  "ratio": 1.176287325647405,
+  "lo": 1.1502813456232963,
+  "hi": 1.2028812583489934,
+  "p": 5.083335155735588e-05,
+  "a_value": 8298.697965781652,
+  "b_value": 7067.292120789544,
+  "a_conc": 512,
+  "b_conc": 512,
+  "a_source": "trtllm-q8b-bf16/chat/c0512/rep1;trtllm-q8b-bf16/chat/c0512/rep2;trtllm-q8b-bf16/chat/c0512/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0512/rep1;vllm-q8b-bf16/chat/c0512/rep2;vllm-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A better",
+  "prediction": "refuted",
+  "status": "ok"
+ },
+ {
+  "id": "P8b",
+  "title": "TensorRT-LLM vs vLLM decode latency at c=1 (8B BF16)",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.95,
+   1.05
+  ],
+  "ratio": 1.0071415174588814,
+  "lo": 1.0065690364962225,
+  "hi": 1.0077143240171436,
+  "p": 9.051203804106638e-06,
+  "a_value": 11.652555068277806,
+  "b_value": 11.570161407633965,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "trtllm-q8b-bf16/chat/c0001/rep1;trtllm-q8b-bf16/chat/c0001/rep2;trtllm-q8b-bf16/chat/c0001/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0001/rep1;vllm-q8b-bf16/chat/c0001/rep2;vllm-q8b-bf16/chat/c0001/rep3",
+  "verdict": "equivalent (\u00b15%)",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P9",
+  "title": "SGLang vs vLLM agent TTFT at 16 sessions, cache on (8B BF16)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.7,
+   1.0
+  ],
+  "ratio": 0.8632983722489974,
+  "lo": 0.8432763428839501,
+  "hi": 0.8837957874863956,
+  "p": 0.0008644701109766106,
+  "a_value": 164.22260273247957,
+  "b_value": 189.61089104413986,
+  "a_conc": 16,
+  "b_conc": 16,
+  "a_source": "sglang-q8b-bf16/agent/c0016/rep1;sglang-q8b-bf16/agent/c0016/rep2;sglang-q8b-bf16/agent/c0016/rep3",
+  "b_source": "vllm-q8b-bf16/agent/c0016/rep1;vllm-q8b-bf16/agent/c0016/rep2;vllm-q8b-bf16/agent/c0016/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P10a[vllm]",
+  "title": "Prefix cache on vs off: agent TTFT at 16 sessions (8B BF16)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.0,
+   0.3334
+  ],
+  "status": "missing data",
+  "a_source": "vllm-q8b-bf16",
+  "b_source": "vllm-q8b-bf16-nocache"
+ },
+ {
+  "id": "P10a[sglang]",
+  "title": "Prefix cache on vs off: agent TTFT at 16 sessions (8B BF16)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.0,
+   0.3334
+  ],
+  "status": "missing data",
+  "a_source": "sglang-q8b-bf16",
+  "b_source": "sglang-q8b-bf16-nocache"
+ },
+ {
+  "id": "P10a[trtllm]",
+  "title": "Prefix cache on vs off: agent TTFT at 16 sessions (8B BF16)",
+  "metric": "ttft_p50_ms",
+  "predicted_range": [
+   0.0,
+   0.3334
+  ],
+  "status": "missing data",
+  "a_source": "trtllm-q8b-bf16",
+  "b_source": "trtllm-q8b-bf16-nocache"
+ },
+ {
+  "id": "P10b[vllm]",
+  "title": "Prefix cache on vs off: agent peak throughput (8B BF16)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.3,
+   100.0
+  ],
+  "status": "missing data",
+  "a_source": "vllm-q8b-bf16",
+  "b_source": "vllm-q8b-bf16-nocache"
+ },
+ {
+  "id": "P10b[sglang]",
+  "title": "Prefix cache on vs off: agent peak throughput (8B BF16)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.3,
+   100.0
+  ],
+  "status": "missing data",
+  "a_source": "sglang-q8b-bf16",
+  "b_source": "sglang-q8b-bf16-nocache"
+ },
+ {
+  "id": "P10b[trtllm]",
+  "title": "Prefix cache on vs off: agent peak throughput (8B BF16)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   1.3,
+   100.0
+  ],
+  "status": "missing data",
+  "a_source": "trtllm-q8b-bf16",
+  "b_source": "trtllm-q8b-bf16-nocache"
+ },
+ {
+  "id": "P11",
+  "title": "SGLang vs vLLM peak chat throughput (32B FP8)",
+  "metric": "output_throughput",
+  "predicted_range": [
+   0.9,
+   1.1
+  ],
+  "ratio": 1.3623785689817176,
+  "lo": 1.3558222755719431,
+  "hi": 1.3689665663869564,
+  "p": 1.3894607742937843e-06,
+  "a_value": 3581.053833595367,
+  "b_value": 2629.377873113594,
+  "a_conc": 512,
+  "b_conc": 256,
+  "a_source": "sglang-q32b-fp8/chat/c0512/rep1;sglang-q32b-fp8/chat/c0512/rep2;sglang-q32b-fp8/chat/c0512/rep3",
+  "b_source": "vllm-q32b-fp8/chat/c0256/rep1;vllm-q32b-fp8/chat/c0256/rep2;vllm-q32b-fp8/chat/c0256/rep3",
+  "verdict": "A better",
+  "prediction": "refuted",
+  "status": "ok"
+ },
+ {
+  "id": "P12[vllm]",
+  "title": "FP8 vs BF16 energy per output token at peak throughput (8B, chat)",
+  "metric": "j_per_output_token",
+  "predicted_range": [
+   0.6,
+   0.9
+  ],
+  "ratio": 0.7841842165136762,
+  "lo": 0.7759664974077028,
+  "hi": 0.7924889637420366,
+  "p": 3.679633190713226e-07,
+  "a_value": 0.06151196114236923,
+  "b_value": 0.07831656230238382,
+  "a_conc": 512,
+  "b_conc": 512,
+  "a_source": "vllm-q8b-fp8/chat/c0512/rep1;vllm-q8b-fp8/chat/c0512/rep2;vllm-q8b-fp8/chat/c0512/rep3",
+  "b_source": "vllm-q8b-bf16/chat/c0512/rep1;vllm-q8b-bf16/chat/c0512/rep2;vllm-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P12[sglang]",
+  "title": "FP8 vs BF16 energy per output token at peak throughput (8B, chat)",
+  "metric": "j_per_output_token",
+  "predicted_range": [
+   0.6,
+   0.9
+  ],
+  "ratio": 0.7129561563943405,
+  "lo": 0.7094185467014428,
+  "hi": 0.7165114068472628,
+  "p": 4.829991848552254e-09,
+  "a_value": 0.047216559270638815,
+  "b_value": 0.06617383710003971,
+  "a_conc": 512,
+  "b_conc": 512,
+  "a_source": "sglang-q8b-fp8/chat/c0512/rep1;sglang-q8b-fp8/chat/c0512/rep2;sglang-q8b-fp8/chat/c0512/rep3",
+  "b_source": "sglang-q8b-bf16/chat/c0512/rep1;sglang-q8b-bf16/chat/c0512/rep2;sglang-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
+ },
+ {
+  "id": "P12[trtllm]",
+  "title": "FP8 vs BF16 energy per output token at peak throughput (8B, chat)",
+  "metric": "j_per_output_token",
+  "predicted_range": [
+   0.6,
+   0.9
+  ],
+  "ratio": 1.895131912139495,
+  "lo": 1.8710805379616244,
+  "hi": 1.9194924491717205,
+  "p": 2.1348202842443437e-08,
+  "a_value": 0.12106159909096202,
+  "b_value": 0.06369270225813377,
+  "a_conc": 32,
+  "b_conc": 512,
+  "a_source": "trtllm-q8b-fp8/chat/c0032/rep1;trtllm-q8b-fp8/chat/c0032/rep2;trtllm-q8b-fp8/chat/c0032/rep3",
+  "b_source": "trtllm-q8b-bf16/chat/c0512/rep1;trtllm-q8b-bf16/chat/c0512/rep2;trtllm-q8b-bf16/chat/c0512/rep3",
+  "verdict": "A worse",
+  "prediction": "refuted",
+  "status": "ok"
+ },
+ {
+  "id": "P13[vllm]",
+  "title": "NVFP4 vs FP8 decode latency at c=1 (32B) \u2014 task 5.2",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.55,
+   0.8
+  ],
+  "status": "missing data",
+  "a_source": "vllm-q32b-nvfp4",
+  "b_source": "vllm-q32b-fp8"
+ },
+ {
+  "id": "P13[sglang]",
+  "title": "NVFP4 vs FP8 decode latency at c=1 (32B) \u2014 task 5.2",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.55,
+   0.8
+  ],
+  "status": "missing data",
+  "a_source": "sglang-q32b-nvfp4",
+  "b_source": "sglang-q32b-fp8"
+ },
+ {
+  "id": "P13[trtllm]",
+  "title": "NVFP4 vs FP8 decode latency at c=1 (32B) \u2014 task 5.2",
+  "metric": "tpot_p50_ms",
+  "predicted_range": [
+   0.55,
+   0.8
+  ],
+  "status": "missing data",
+  "a_source": "trtllm-q32b-nvfp4",
+  "b_source": "trtllm-q32b-fp8"
+ }
+]
