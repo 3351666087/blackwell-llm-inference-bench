@@ -54,3 +54,21 @@ invalid. A burst-tolerant variant will be reported separately and labelled post 
 `--kv-cache-dtype bfloat16`, TensorRT-LLM `kv_cache_config.dtype: bfloat16`.
 (b) Implements the pre-registered intent; no change of design.
 (c) No NVFP4 result existed. 32B FP8 results did not exist yet either.
+
+## A4 — TensorRT-LLM: KV-block reuse off on chat/prefill instead of restarting every repetition (2026-11-09 ~09:15)
+
+(a) Under A2, TensorRT-LLM was restarted before every repetition of every workload. On 32B
+that means ~70 restarts of ~2 min each per config, and every start carries the intermittent
+init segfault risk (LOG 21:45). New rule: on workloads without cross-request prefix sharing
+(chat, prefill*) TensorRT-LLM runs with `kv_cache_config.enable_block_reuse = false` and is
+**not** restarted between repetitions; on the prefix-sensitive agent workload reuse stays on
+and the server is restarted before every repetition (A2 unchanged). `meta.json` records
+`trt_enable_block_reuse` and `cache_reset: block_reuse_off`.
+(b) Equivalence argument: within one repetition no two chat/prefill requests share a prefix
+longer than the chat-template header, so a run with reuse off sees exactly the cold cache that
+a reset (vLLM/SGLang) or restart (A2) produces. The `no_unexpected_cache_hits` check still runs.
+Empirical check: TensorRT-LLM BF16 chat/prefill c=1 **rep1** of the superseded A2 runs had a
+cold cache (warm-up used different requests); those numbers are compared with the reuse-off
+runs in REPORT §6 (A4 validation).
+(c) Seen at the time: everything up to SGLang 32B FP8 (complete), TensorRT-LLM 8B BF16 quality
+and the superseded runs. Not yet run: TensorRT-LLM 32B, TensorRT-LLM 8B (re-run), NVFP4.

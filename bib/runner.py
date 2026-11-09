@@ -266,6 +266,18 @@ def run_workload(server, scfg, wl, plan, plan_dir, sdir, root, fid, minfo, commi
     total = n_sessions(reqs)
     reps = int(wl.get("reps", plan.get("reps", 3)))
     prev_thr = None
+    trt_reuse = None
+    if scfg["framework"] == "trtllm":
+        # AMENDMENTS A4: TensorRT-LLM has no cache-reset endpoint. On workloads without
+        # cross-request prefix sharing (chat, prefill) KV-block reuse is switched OFF, which
+        # gives every repetition the same cold-cache state as a reset; on prefix-sensitive
+        # workloads (agent) reuse stays ON and the server is restarted before every rep (A2).
+        trt_reuse = bool(wl.get("prefix_sensitive")) and scfg.get("prefix_cache", True)
+        if server.cfg.get("_block_reuse_active") != trt_reuse:
+            server.stop()
+            server.cfg = dict(server.cfg, prefix_cache=trt_reuse, _block_reuse_active=trt_reuse)
+            server.start(plan.get("server_timeout_s", 3600))
+            log(root, f"  {scfg['id']} restarted with enable_block_reuse={trt_reuse} for {wl['name']} (A4)")
     for conc in wl["concurrency"]:
         cdir = os.path.join(sdir, wl["name"], f"c{conc:04d}")
         os.makedirs(cdir, exist_ok=True)
@@ -291,9 +303,10 @@ def run_workload(server, scfg, wl, plan, plan_dir, sdir, root, fid, minfo, commi
                 rep_metas.append(json.load(open(mp)))
                 continue
             how = server.reset_cache()
-            # AMENDMENTS A2: TensorRT-LLM has no cache-reset endpoint and the same request
-            # subset is reused across reps/levels, so it is restarted before EVERY rep.
-            if how == "none" and (wl.get("prefix_sensitive") or scfg["framework"] == "trtllm"):
+            if trt_reuse is False:
+                how = "block_reuse_off"
+            # A2/A4: restart TensorRT-LLM before every rep whenever its prefix cache is on
+            if how == "none" and (wl.get("prefix_sensitive") or trt_reuse):
                 server.stop()
                 server.start(plan.get("server_timeout_s", 3600))
                 how = "restart"
@@ -302,6 +315,8 @@ def run_workload(server, scfg, wl, plan, plan_dir, sdir, root, fid, minfo, commi
                     run_load(wcfg, subset(warm, max(conc, wl.get("warmup_min", 16)), by_session))
             meta = _measure(server, scfg, wl, plan, sub, conc, rdir, fid, commit, minfo)
             meta["cache_reset"] = how
+            if trt_reuse is not None:
+                meta["trt_enable_block_reuse"] = trt_reuse
             json.dump(meta, open(mp, "w"), indent=1, default=str)
             m = meta["metrics"]
             log(root, f"  {scfg['id']} {wl['name']} c={conc} rep{r} n={m['n_requests']} err={m['n_err']} "
