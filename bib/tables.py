@@ -32,7 +32,7 @@ def fmt(v, nd=1):
 
 def load_points(results):
     pts = []
-    for f in sorted(glob.glob(os.path.join(results, "*", "summary", "points.json"))):
+    for f in sorted(glob.glob(os.path.join(results, "*", os.environ.get("BIB_SUMMARY", "summary"), "points.json"))):
         plan = f.split(os.sep)[-3]
         if plan.startswith("_"):
             continue

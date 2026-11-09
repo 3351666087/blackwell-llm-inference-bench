@@ -30,8 +30,9 @@ def main():
         m()
     elif cmd == "summarize":
         from .summarize import summarize
-        for r in rest:
-            summarize(r)
+        variant = "a5" if "--a5" in rest else "strict"
+        for r in [x for x in rest if not x.startswith("--")]:
+            summarize(r, variant=variant)
     elif cmd == "compare":
         from .compare import main as m
         m()
@@ -49,7 +50,10 @@ def main():
         from .dashboard import build
         res = rest[0] if rest else "results"
         for d in sorted(glob.glob(os.path.join(res, "*", "plan.yaml"))):
+            if os.path.basename(os.path.dirname(d)).startswith("_"):
+                continue
             summarize(os.path.dirname(d))
+            summarize(os.path.dirname(d), variant="a5")
         sys.argv = ["bib compare", "--results", res, "--out", os.path.join(res, "comparisons")]
         cmp_main()
         build(res, "dashboard/index.html")

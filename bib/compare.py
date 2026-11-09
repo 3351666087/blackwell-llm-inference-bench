@@ -16,12 +16,15 @@ import yaml
 from .stats import prediction_verdict, ratio_ci, verdict
 
 
+SUMMARY_DIR = os.environ.get("BIB_SUMMARY", "summary")  # "summary_a5" for the A5 variant
+
+
 def load_points(results: str) -> dict:
     pts = {}
     for plan in os.listdir(results):
         if plan.startswith("_"):
             continue
-        f = os.path.join(results, plan, "summary", "points.json")
+        f = os.path.join(results, plan, SUMMARY_DIR, "points.json")
         if os.path.exists(f):
             for p in json.load(open(f)):
                 pts[(plan, p["server_id"], p["workload"], p["concurrency"])] = p
