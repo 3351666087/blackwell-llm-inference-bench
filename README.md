@@ -8,6 +8,10 @@ Reproducible, pre-registered LLM serving benchmark of **vLLM**, **SGLang** and
 - **Pre-registration:** [`PREREGISTRATION.md`](PREREGISTRATION.md) (git tag `prereg-v1`), later changes in [`AMENDMENTS.md`](AMENDMENTS.md).
 - **Execution log:** [`LOG.md`](LOG.md) — every deviation, failure, decision and GPU start/stop with cost.
 - **Dashboard:** open [`dashboard/index.html`](dashboard/index.html) directly in a browser (no server needed).
+- **Agent skill:** [`skill/blackwell-bench/SKILL.md`](skill/blackwell-bench/SKILL.md) — plan file in, checked results and report out.
+- **Hand-off (for Rui):** [`INTERVIEW_PREP.md`](INTERVIEW_PREP.md) (中文), [`SELF_TEST.md`](SELF_TEST.md) (20 questions),
+  [`RESUME_MATERIAL.md`](RESUME_MATERIAL.md), blog drafts in [`blog/`](blog/) (not published).
+- **History note:** request files were purged from git history; old → new commit ids in [`HISTORY_REWRITE.md`](HISTORY_REWRITE.md).
 
 > **Honesty statement.** Single GPU, one rented cloud instance (AutoDL): results
 > depend on that instance's state (clocks cannot be locked inside the container;
