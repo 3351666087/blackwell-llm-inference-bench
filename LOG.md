@@ -378,3 +378,14 @@ of each start. Hours are counted from the console's start/stop timestamps.
   `trtllm-q32b-fp8/server_01.log` (the 09:37 segfault log; its error line survives in
   `start_failures.jsonl`). Logs 02–06 were copied to `prior_server_logs_0934/` before they could
   be overwritten; numbering now continues from the highest existing file.
+- **12:14–16:13 · 4.3** · TensorRT-LLM 32B FP8 finished (A4/A6): agent hits the KV cliff like the
+  others (c=32 223 tok/s → c=64 91 tok/s, TTFT p50 34 s). Start segfaults so far on this config:
+  see `start_failures.jsonl` (each followed by a successful retry).
+- **16:13 · 4.3** · TensorRT-LLM 8B BF16 re-run started (A4/A6, commit `27c0623`). **A4 check:** the
+  c=1 chat point now holds rep1 from the 21:36 A2 run (restart before the rep) and rep2–3 from the
+  A4 run (reuse off, no restart): TTFT p50 28 / 30 / 28 ms, TPOT p50 11.66 / 11.65 / 11.65 ms —
+  identical within noise; the superseded cold-cache rep1s agree too (c=4 TTFT 36.2 vs 37 ms,
+  c=16 40.6 vs 41 ms).
+- **16:14–16:16 · infra** · Pulled 380 MB of finished results to the Mac (rsync, instance side ~1
+  core) while TRT 8B BF16 chat c=1–4 was running; noted for completeness. Committed and pushed
+  (`96fb38a`, 41 s). Secret scan over 2 649 files incl. gz contents: clean.
