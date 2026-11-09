@@ -19,7 +19,7 @@ log entries. Work on the GPU machine; the local machine only edits and syncs cod
 3. **Log everything** in `LOG.md` (time, task, what happened, what you did), including
    failures. Negative results are results.
 4. **No secrets in the repo.** Host names, ports, passwords and tokens stay out of
-   every committed file. Run `bash tools/secret_scan.sh` before every commit.
+   every committed file. Run `python3 tools/secret_scan.py` before every commit.
 5. Do not change a plan after results exist; write a new plan or an amendment.
 
 ## Procedure

@@ -37,7 +37,13 @@ def select(pts: dict, sel: dict, fw: str | None):
         cands = [p for (pl, s, w, c), p in pts.items() if pl == plan and s == server and w == wl and p["n_valid"] >= 2]
         if not cands:
             return None
-        return max(cands, key=lambda p: np.median(p["reps"]["output_throughput"]))
+        best = dict(max(cands, key=lambda p: np.median(p["reps"]["output_throughput"])))
+        # A7: the peak is "censored" when a higher concurrency level was measured but excluded
+        # as invalid - the true peak may lie there, so a "worse" verdict cannot be trusted.
+        hidden = sorted(c for (pl, s, w, c), p in pts.items() if pl == plan and s == server and w == wl
+                        and c > best["concurrency"] and p["n_valid"] < 2)
+        best["censored_at"] = hidden
+        return best
     p = pts.get((plan, server, wl, int(conc)))
     if p is None or p["n_valid"] < 2:
         return None
@@ -92,6 +98,14 @@ def evaluate(results: str, spec_path: str) -> list[dict]:
                         "a_source": a["sources"], "b_source": b["sources"],
                         "verdict": verdict(ci, c.get("higher_is_better", True)),
                         "prediction": prediction_verdict(ci, *c["range"]), "status": "ok"})
+            hib = c.get("higher_is_better", True)
+            for side, other, lower in (("a", b, ci["ratio"] < 1), ("b", a, ci["ratio"] > 1)):
+                cen = (a if side == "a" else b).get("censored_at")
+                if cen and (lower if hib else not lower):
+                    row["prediction_strict"] = row["prediction"]
+                    row["prediction"] = "inconclusive (A7)"
+                    row["note"] = (f"{side.upper()}'s peak is censored: concurrency {cen} measured but invalid "
+                                   f"(strict checks), so its true peak is unknown (AMENDMENTS A7)")
             out.append(row)
     return out
 
@@ -109,7 +123,8 @@ def to_md(rows: list[dict]) -> str:
         b = f"{r['b_value']:.4g} (c={r['b_conc']})" if "b_value" in r else f"floor {r['floor_ms']:.2f} ms"
         L.append(f"| {r['id']} | {r['title']} | {r['metric']} | {a} | {b} | {ci} | {r['predicted_range']} | "
                  f"{r.get('verdict', '–')} | {r['prediction']} |")
-    return "\n".join(L)
+    notes = [f"* **{r["id"]}**: {r["note"]}" for r in rows if "A7" in r.get("note", "")]
+    return "\n".join(L) + ("\n\nNotes:\n\n" + "\n".join(notes) if notes else "")
 
 
 def main():
