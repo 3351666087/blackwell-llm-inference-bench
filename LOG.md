@@ -456,3 +456,13 @@ of each start. Hours are counted from the console's start/stop timestamps.
   `cublasLt.h: No such file or directory` (my minimal CUDA 13.0 toolchain had no cuBLAS headers).
   The runner moved on to TensorRT-LLM NVFP4. Fixes in AMENDMENTS A8 (cuBLAS 13.1.1.3 in the toolchain
   lock, `MAX_JOBS=8`); vLLM and SGLang NVFP4 to be retried after TensorRT-LLM, before the nsys chain.
+- **00:35–00:39 · 5.2 (agent mistakes)** · TensorRT-LLM NVFP4 failed 4 starts in 2 min:
+  `kv_cache_config.dtype="bfloat16"` is rejected by TRT-LLM 1.2.1 (accepts fp8|nvfp4|auto). Two of my
+  mistakes: (1) A3 wrote that flag without checking which values TRT-LLM accepts; (2) the start-retry
+  logic (meant for the intermittent segfault) also retried a deterministic ValueError. Fix: A9 config
+  overlay (`tools/kv_overlay.py` → `/root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16`, instance only).
+  Also: adding `nvidia-cublas` to the CUDA 13.0 toolchain pulled `nvidia-cuda-nvrtc 13.5.37` as a
+  dependency; removed it via its RECORD and pinned 13.0.88 (the version in the vLLM/SGLang envs) in the
+  toolchain lock before anything ran with it. Killed the waiting `chain6` (it would have started nsys
+  as soon as chain5 ended); `chain7` (00:39) = NVFP4 retry for all three servers, then the same nsys
+  captures. GPU idle ≈ 2 min.

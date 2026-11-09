@@ -356,6 +356,8 @@ caught. A benchmark is only as credible as its error-correction loop.
 | 10 | Smoke-request exception path did not stop the server | orphaned server; next start "succeeded" against it | mock pipeline test | try/finally |
 | 11 | uv copied instead of hard-linking on overlayfs | system disk 86 % full, ENOSPC during TRT env build | disk check, link count 1 | `UV_LINK_MODE=hardlink` |
 | 12 | ModelScope `/resolve/` URLs returned LFS pointer files | 0.1 KB "weights" | SHA-256 verification in the fetcher | API download URL |
+| 13 | NVFP4 KV-dtype flag for TensorRT-LLM (A3) written without checking accepted values; start retries did not distinguish a deterministic error from the intermittent segfault | 4 wasted starts; with `auto` an FP8 KV cache would have broken the like-for-like design | server log `ValueError … Accepted types are ('fp8', 'nvfp4', 'auto')` | A9 config overlay |
+| 14 | Minimal CUDA 13.0 toolchain lacked cuBLAS headers; adding cuBLAS silently pulled a mismatched NVRTC 13.5 | SGLang NVFP4 could not build its FP4 kernels | build error `cublasLt.h: No such file`; reading the install output | cuBLAS + NVRTC 13.0.88 pinned in the lock (A8) |
 
 ## 8. Limitations and honesty statement
 
