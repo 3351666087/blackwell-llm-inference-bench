@@ -30,7 +30,8 @@ STRICT = {
 }
 TEXT_ONLY = {
     "ssh_config_port": r"^\s*Port [0-9]{4,5}\s*$",
-    "password_assignment": r"(?i)\bpassword\s*[:=]\s*['\"]?[^\s'\"$<{]{6,}",
+    # the literal placeholder value "password" (quoted model output in LOG.md) is not a secret
+    "password_assignment": r"(?i)\bpassword\s*[:=]\s*['\"]?(?!password\b)[^\s'\"$<{]{6,}",
 }
 SKIP = {"tools/secret_scan.py", "tools/secret_scan.sh"}
 
@@ -49,7 +50,50 @@ def scan_text(name, text, pats):
     return hits
 
 
+def scan_history():
+    """Every blob reachable from any ref (all branches, tags, stashes), once per blob."""
+    objs = subprocess.run(["git", "rev-list", "--objects", "--all"], capture_output=True, text=True).stdout
+    paths = {}
+    for line in objs.splitlines():
+        sha, _, path = line.partition(" ")
+        if path and path not in SKIP and not path.endswith((".png", ".jpg", ".parquet", ".nsys-rep", ".sqlite", ".pdf")):
+            paths.setdefault(sha, path)
+    import gzip as _gz
+    proc = subprocess.Popen(["git", "cat-file", "--batch"], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    hits, n = [], 0
+    for sha, path in paths.items():
+        proc.stdin.write((sha + "\n").encode())
+        proc.stdin.flush()
+        header = proc.stdout.readline().split()
+        if len(header) < 3 or header[1] != b"blob":
+            if len(header) >= 3:
+                proc.stdout.read(int(header[2]) + 1)
+            continue
+        data = proc.stdout.read(int(header[2]))
+        proc.stdout.read(1)
+        try:
+            if path.endswith(".gz"):
+                text, pats = _gz.decompress(data).decode("utf-8", "replace"), STRICT
+            else:
+                text, pats = data.decode("utf-8", "replace"), {**STRICT, **TEXT_ONLY}
+        except (OSError, EOFError):
+            continue
+        n += 1
+        hits += scan_text(f"{path}@{sha[:10]}", text, pats)
+    proc.stdin.close()
+    proc.wait()
+    return hits, n
+
+
 def main():
+    if "--all-history" in sys.argv:
+        hits, n = scan_history()
+        if hits:
+            print(f"SECRET SCAN (history): FINDINGS in {len({h.split(':')[0] for h in hits})} blobs")
+            print("\n".join(hits[:200]))
+            sys.exit(1)
+        print(f"SECRET SCAN (history): clean ({n} blobs in all refs, gz contents included)")
+        return
     hits, n = [], 0
     for f in files():
         if f.endswith((".png", ".jpg", ".parquet", ".nsys-rep", ".sqlite", ".pdf")):
