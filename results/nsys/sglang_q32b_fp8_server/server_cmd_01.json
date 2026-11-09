@@ -1,0 +1,32 @@
+{
+ "cmd": [
+  "nsys",
+  "launch",
+  "--session-new=bib_sglang_q32b_fp8_1794254881",
+  "--trace=cuda,nvtx,osrt",
+  "--cuda-graph-trace=node",
+  "--trace-fork-before-exec=true",
+  "/root/envs/sglang/bin/python",
+  "-m",
+  "sglang.launch_server",
+  "--model-path",
+  "/root/autodl-tmp/models/Qwen3-32B-FP8",
+  "--served-model-name",
+  "bench",
+  "--host",
+  "127.0.0.1",
+  "--port",
+  "8000",
+  "--context-length",
+  "40960",
+  "--random-seed",
+  "0",
+  "--enable-cache-report"
+ ],
+ "shell": "nsys launch --session-new=bib_sglang_q32b_fp8_1794254881 --trace=cuda,nvtx,osrt --cuda-graph-trace=node --trace-fork-before-exec=true /root/envs/sglang/bin/python -m sglang.launch_server --model-path /root/autodl-tmp/models/Qwen3-32B-FP8 --served-model-name bench --host 127.0.0.1 --port 8000 --context-length 40960 --random-seed 0 --enable-cache-report",
+ "env_overrides": {
+  "HF_HUB_OFFLINE": "1",
+  "TRANSFORMERS_OFFLINE": "1",
+  "CUDA_HOME": "/root/cuda13.0/nvidia/cu13"
+ }
+}

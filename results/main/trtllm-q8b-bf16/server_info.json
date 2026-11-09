@@ -1,0 +1,39 @@
+{
+ "status": "ok",
+ "fingerprint": "6d9d79ae4414",
+ "load_s": 42.09007426444441,
+ "server_cfg": {
+  "id": "trtllm-q8b-bf16",
+  "framework": "trtllm",
+  "env": "/root/envs/trtllm",
+  "model": "/root/autodl-tmp/models/Qwen3-8B",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "max_model_len": 40960
+ },
+ "kv_capacity": {
+  "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "504160",
+  "max_tokens[=:\\s]+(\\d+)": "504171"
+ },
+ "model_bytes": {
+  "total_bytes": 16381470720,
+  "embed_bytes": 1244659712,
+  "read_bytes_per_step": 15136811008,
+  "kv_bytes_per_token": 147456.0
+ },
+ "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+ "smoke_text": "Paris",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "request_files": {
+  "data/requests/chat.jsonl.gz": "4bc983fe622b317cf03e8b21b2faf4befe389decba7bb598cec7f03b510b5e1c",
+  "data/requests/chat_warmup.jsonl.gz": "4e30cc8128a14f23a16df4b50c38bc0584e3795b2539d873fd5721adf2402b37",
+  "data/requests/prefill8k.jsonl.gz": "94c3bb9ff034f54f83dd8a0ca94cf2d235787d6dea0bc36a87f1180add797d6d",
+  "data/requests/prefill8k_warmup.jsonl.gz": "453219184c711c9227ce0e6e9ed4aa41d948eff8fc6d705741b0e447e19acce6",
+  "data/requests/prefill16k.jsonl.gz": "0ec35ceac3497eff5f0108c8e0d37b86fafde0c6c41a517eefd0e4cd0a57bfc0",
+  "data/requests/prefill16k_warmup.jsonl.gz": "45cd3f553e9b0f31d6c12ab4954a85e57f5f6511e53cb3f8893b4e62b03d73b5",
+  "data/requests/prefill32k.jsonl.gz": "ac1827012c4097242c71186587ef8a2bad4a9d1ad255cb120bd66c1c2c4e3a3d",
+  "data/requests/prefill32k_warmup.jsonl.gz": "b4733b1c6e27153f8500f8911c9f34399d90a5505d44df52b5076114cb73a1c3",
+  "data/requests/agent.jsonl.gz": "6e69d59606767889565db6994a0227dd0b19ca54614fbbe6d3ebbbe26d96c35a",
+  "data/requests/agent_warmup.jsonl.gz": "a1316f432e83fa2fa29e74e7e850521d5f3fde4f8352053770040c4cd2cec824"
+ }
+}

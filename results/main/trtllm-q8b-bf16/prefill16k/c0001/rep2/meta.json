@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill16k",
+ "concurrency": 1,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794214208.9760385,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.23962992300000252,
+    "wall_s": 44.262573852203786,
+    "cpu_frac": 0.005413827126279318
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794214209.0948753,
+   "mono0": 8126903.388682402
+  }
+ },
+ "energy_mj_start": 2312157961274,
+ "energy_mj_end": 2312178074331,
+ "window_s": 45.46323132049292,
+ "request_window_s": 44.26078531797975,
+ "gpu_before": {
+  "temp_c": 66,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 321.785,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90060,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 68,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 325.124,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90060,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 44.26078531797975,
+  "output_tokens": 2048,
+  "input_tokens": 255998,
+  "output_throughput": 46.271207916594626,
+  "total_token_throughput": 5830.127010764442,
+  "request_throughput": 0.3614938118483955,
+  "ttft_mean_ms": 1098.0116260470822,
+  "ttft_p50_ms": 1097.384141292423,
+  "ttft_p90_ms": 1107.9711597412825,
+  "ttft_p99_ms": 1119.4358078297228,
+  "tpot_mean_ms": 13.134099225014976,
+  "tpot_p50_ms": 13.135253195100884,
+  "tpot_p90_ms": 13.153394049869512,
+  "tpot_p99_ms": 13.163420778706552,
+  "e2e_mean_ms": 2766.042227623984,
+  "e2e_p50_ms": 2767.514835111797,
+  "e2e_p90_ms": 2775.57719592005,
+  "e2e_p99_ms": 2785.0929071661085,
+  "itl_mean_ms": 13.236280753968254,
+  "itl_p50_ms": 13.158000000000003,
+  "itl_p90_ms": 13.608999999999982,
+  "itl_p99_ms": 17.156499999999966,
+  "itl_max_ms": 26.99600000000002,
+  "chunks_per_token": 0.9921875,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 46.24709654158474,
+  "steady_window_s": 38.74837847147137,
+  "slo_attainment": 1.0,
+  "goodput_rps": 0.3614938118483955,
+  "goodput_tok_s": 46.271207916594626,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 20113.057,
+  "energy_j": 19986.508965332032,
+  "avg_power_w": 451.5624569637505,
+  "j_per_output_token": 9.759037580728531,
+  "j_per_total_token": 0.07745327951346671,
+  "power_mean_w_series": 450.339036199095,
+  "power_max_w": 679.589,
+  "energy_j_series": 19880.979708527353,
+  "peak_mem_mib": 90060.0,
+  "sm_mhz_mean": 2372.3371040723982,
+  "sm_mhz_min": 2257.0,
+  "temp_max_c": 80.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill16k-0015"
+    ],
+    [
+     0,
+     "prefill16k-0014"
+    ],
+    [
+     0,
+     "prefill16k-0013"
+    ],
+    [
+     0,
+     "prefill16k-0012"
+    ],
+    [
+     0,
+     "prefill16k-0011"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.1954893560846251,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.005413827126279318
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.1962994353803655,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

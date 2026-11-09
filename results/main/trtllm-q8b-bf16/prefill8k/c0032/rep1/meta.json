@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill8k",
+ "concurrency": 32,
+ "n_requests": 96,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794213939.282161,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 1.2020219549999993,
+    "wall_s": 54.14997208118439,
+    "cpu_frac": 0.02219801615405945
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794213939.3795981,
+   "mono0": 8126633.673404895
+  }
+ },
+ "energy_mj_start": 2312041427177,
+ "energy_mj_end": 2312070742059,
+ "window_s": 55.31387294083834,
+ "request_window_s": 54.148136395961046,
+ "gpu_before": {
+  "temp_c": 70,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 368.161,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90728,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 73,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 358.799,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90728,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 96,
+  "n_ok": 96,
+  "n_err": 0,
+  "makespan_s": 54.148136395961046,
+  "output_tokens": 12288,
+  "input_tokens": 767990,
+  "output_throughput": 226.93301778926175,
+  "total_token_throughput": 14410.061951055468,
+  "request_throughput": 1.7729142014786075,
+  "ttft_mean_ms": 3518.890150327934,
+  "ttft_p50_ms": 1802.4710938334465,
+  "ttft_p90_ms": 9681.876696180552,
+  "ttft_p99_ms": 13407.24030844867,
+  "tpot_mean_ms": 113.58054863026835,
+  "tpot_p50_ms": 125.54084215914523,
+  "tpot_p90_ms": 128.38876808399525,
+  "tpot_p99_ms": 136.31644265168882,
+  "e2e_mean_ms": 17943.619826372014,
+  "e2e_p50_ms": 17936.869918368757,
+  "e2e_p90_ms": 25601.8460621126,
+  "e2e_p99_ms": 29427.2561381571,
+  "itl_mean_ms": 114.48961083092186,
+  "itl_p50_ms": 37.392000000000536,
+  "itl_p90_ms": 442.5477999999998,
+  "itl_p99_ms": 461.15106000000094,
+  "itl_max_ms": 895.3989999999994,
+  "chunks_per_token": 0.9921061197916666,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 164.1436654712975,
+  "steady_window_s": 30.57581757567823,
+  "slo_attainment": 0.20833333333333334,
+  "goodput_rps": 0.3693571253080432,
+  "goodput_tok_s": 47.27771203942953,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 29314.882,
+  "energy_j": 29190.18421972656,
+  "avg_power_w": 539.0801265305205,
+  "j_per_output_token": 2.3755032730897265,
+  "j_per_total_token": 0.03740997980172011,
+  "power_mean_w_series": 538.221484288355,
+  "power_max_w": 682.562,
+  "energy_j_series": 29093.469015714687,
+  "peak_mem_mib": 90728.0,
+  "sm_mhz_mean": 2262.347504621072,
+  "sm_mhz_min": 2107.0,
+  "temp_max_c": 86.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill8k-0095"
+    ],
+    [
+     0,
+     "prefill8k-0094"
+    ],
+    [
+     0,
+     "prefill8k-0093"
+    ],
+    [
+     0,
+     "prefill8k-0092"
+    ],
+    [
+     0,
+     "prefill8k-0091"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 3.3282456115648134,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.02219801615405945
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 6.408640145617461,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": false
+}

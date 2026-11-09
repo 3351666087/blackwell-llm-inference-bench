@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill16k",
+ "concurrency": 16,
+ "n_requests": 64,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794214842.1756904,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.7850128470000044,
+    "wall_s": 83.51779023464769,
+    "cpu_frac": 0.009399348866803934
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794214842.2481632,
+   "mono0": 8127536.541970167
+  }
+ },
+ "energy_mj_start": 2312468597415,
+ "energy_mj_end": 2312513655160,
+ "window_s": 84.65867636911571,
+ "request_window_s": 83.51574657484889,
+ "gpu_before": {
+  "temp_c": 73,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 334.22,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90252,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 72,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 362.841,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90252,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 64,
+  "n_ok": 64,
+  "n_err": 0,
+  "makespan_s": 83.51574657484889,
+  "output_tokens": 8192,
+  "input_tokens": 1023991,
+  "output_throughput": 98.08928658331666,
+  "total_token_throughput": 12359.142345389104,
+  "request_throughput": 0.7663225514321614,
+  "ttft_mean_ms": 4683.834520707023,
+  "ttft_p50_ms": 3363.41205611825,
+  "ttft_p90_ms": 10430.809090752158,
+  "ttft_p99_ms": 16630.12179116718,
+  "tpot_mean_ms": 126.9054781547225,
+  "tpot_p50_ms": 137.21600885128998,
+  "tpot_p90_ms": 143.66660200895404,
+  "tpot_p99_ms": 155.4653103981079,
+  "e2e_mean_ms": 20800.83024635678,
+  "e2e_p50_ms": 20487.809486687183,
+  "e2e_p90_ms": 28224.815778713677,
+  "e2e_p99_ms": 34604.1574275773,
+  "itl_mean_ms": 128.14947670518077,
+  "itl_p50_ms": 36.546999999998775,
+  "itl_p90_ms": 539.3104000000008,
+  "itl_p99_ms": 610.7510800000005,
+  "itl_max_ms": 1066.751,
+  "chunks_per_token": 0.9903564453125,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 81.60715055056262,
+  "steady_window_s": 55.033415634185076,
+  "slo_attainment": 0.140625,
+  "goodput_rps": 0.10776410879514771,
+  "goodput_tok_s": 13.793805925778907,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 45057.745,
+  "energy_j": 44927.23607958984,
+  "avg_power_w": 537.9492840829116,
+  "j_per_output_token": 5.484281747996807,
+  "j_per_total_token": 0.04352642513933076,
+  "power_mean_w_series": 538.0865149700599,
+  "power_max_w": 675.06,
+  "energy_j_series": 44905.879934183446,
+  "peak_mem_mib": 90252.0,
+  "sm_mhz_mean": 2258.9221556886228,
+  "sm_mhz_min": 2100.0,
+  "temp_max_c": 86.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill16k-0063"
+    ],
+    [
+     0,
+     "prefill16k-0062"
+    ],
+    [
+     0,
+     "prefill16k-0061"
+    ],
+    [
+     0,
+     "prefill16k-0060"
+    ],
+    [
+     0,
+     "prefill16k-0059"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 3.0522064534504705,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.009399348866803934
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 7.338618226605046,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

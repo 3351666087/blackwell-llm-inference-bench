@@ -1,0 +1,16 @@
+{
+ "trtllm-q8b-fp8-padded": {
+  "framework": "trtllm",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "accuracy": 0.924,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 281.284,
+  "verdict": {
+   "pass": true,
+   "acc": 0.924,
+   "vs": null
+  }
+ }
+}

@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q32b-nvfp4",
+ "framework": "trtllm",
+ "model_id": "Qwen3-32B",
+ "precision": "nvfp4",
+ "workload": "prefill8k",
+ "concurrency": 1,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "124d30e1bdea8b2473b07c9cdb7942570fd0fe0a+dirty",
+ "wall_start": 1794252229.8010323,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.24420815600001333,
+    "wall_s": 48.75721774250269,
+    "cpu_frac": 0.005008656508862522
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794252229.9277968,
+   "mono0": 8164924.221603349
+  }
+ },
+ "energy_mj_start": 2328583613187,
+ "energy_mj_end": 2328606848319,
+ "window_s": 49.94880962185562,
+ "request_window_s": 48.75572270061821,
+ "gpu_before": {
+  "temp_c": 66,
+  "sm_mhz": 2407,
+  "mem_mhz": 12481,
+  "power_w": 420.842,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 93010,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 68,
+  "sm_mhz": 2407,
+  "mem_mhz": 12481,
+  "power_w": 381.176,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 93010,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 48.75572270061821,
+  "output_tokens": 2048,
+  "input_tokens": 127999,
+  "output_throughput": 42.00532545842115,
+  "total_token_throughput": 2667.3176561969217,
+  "request_throughput": 0.3281666051439152,
+  "ttft_mean_ms": 859.9279868067242,
+  "ttft_p50_ms": 862.8708049654961,
+  "ttft_p90_ms": 869.6996504440904,
+  "ttft_p99_ms": 870.7543457392603,
+  "tpot_mean_ms": 17.220843083309525,
+  "tpot_p50_ms": 17.22200202762963,
+  "tpot_p90_ms": 17.243755431332456,
+  "tpot_p99_ms": 17.291205316254004,
+  "e2e_mean_ms": 3046.9750583870336,
+  "e2e_p50_ms": 3050.2714649774134,
+  "e2e_p90_ms": 3053.567147348076,
+  "e2e_p99_ms": 3056.2445773743093,
+  "itl_mean_ms": 17.564636546184737,
+  "itl_p50_ms": 17.24300000000012,
+  "itl_p90_ms": 17.842600000000065,
+  "itl_p99_ms": 34.542169999999935,
+  "itl_max_ms": 35.07000000000016,
+  "chunks_per_token": 0.98046875,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 41.978640234418165,
+  "steady_window_s": 42.68837651703507,
+  "slo_attainment": 1.0,
+  "goodput_rps": 0.3281666051439152,
+  "goodput_tok_s": 42.00532545842115,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 23235.132,
+  "energy_j": 23081.731384765626,
+  "avg_power_w": 473.41583933639356,
+  "j_per_output_token": 11.27037665271759,
+  "j_per_total_token": 0.17748761128488644,
+  "power_mean_w_series": 473.4714702258727,
+  "power_max_w": 671.282,
+  "energy_j_series": 23031.27327838327,
+  "peak_mem_mib": 93010.0,
+  "sm_mhz_mean": 2382.5667351129364,
+  "sm_mhz_min": 2287.0,
+  "temp_max_c": 78.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill8k-0015"
+    ],
+    [
+     0,
+     "prefill8k-0014"
+    ],
+    [
+     0,
+     "prefill8k-0013"
+    ],
+    [
+     0,
+     "prefill8k-0012"
+    ],
+    [
+     0,
+     "prefill8k-0011"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.290675067907295,
+   "max_single_stream_tok_s": 83.56730476273046,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.005008656508862522
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.2913782932474243,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": false
+}

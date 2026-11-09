@@ -1,0 +1,31 @@
+{
+ "name": "trt_q8b_fp8_prefill8k_c1",
+ "framework": "trtllm",
+ "model": "/root/autodl-tmp/models/Qwen3-8B-FP8",
+ "workload": "data/requests/prefill8k.jsonl.gz",
+ "concurrency": 1,
+ "requests": 4,
+ "load_s": 52.04669308103621,
+ "capture_delay_s": 0.0,
+ "capture_seconds": 0.0,
+ "cache_reset": "none",
+ "nsys_start": "",
+ "capture_start_s_after_load": 0.3783237934112549,
+ "capture_stop_s_after_load": 19.986558198928833,
+ "nsys_stop": "ep\n[1/1] [=17%                        ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [==18%                       ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [==19%                       ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [==20%                       ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [=====================89%    ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [======================90%   ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [=======================96%  ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [========================98% ] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [========================100%] trt_q8b_fp8_prefill8k_c1.nsys-rep\n[1/1] [========================100%] trt_q8b_fp8_prefill8k_c1.nsys-rep\nGenerated:\n\t/root/autodl-tmp/bench-repo/results/nsys/trt_q8b_fp8_prefill8k_c1.nsys-rep\n",
+ "errors": 0,
+ "ttft_ms": [
+  515.5,
+  525.64,
+  519.19,
+  517.26
+ ],
+ "e2e_ms": [
+  1560.0,
+  1574.3,
+  1788.7,
+  1568.4
+ ],
+ "tpot_p50_ms_under_nsys": 8.276969979069834,
+ "ttft_p50_ms_under_nsys": 519.19
+}

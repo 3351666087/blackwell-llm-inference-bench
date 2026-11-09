@@ -1,0 +1,173 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16-nocache",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "agent",
+ "concurrency": 64,
+ "n_requests": 1005,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "e13ae7bcdb1a8cfc37083d8b031c8c4fa9b601d0+dirty",
+ "wall_start": 1794236913.8882816,
+ "client": {
+  "procs": 2,
+  "per_proc": [
+   {
+    "cpu_s": 7.021056166,
+    "wall_s": 587.3385252747685,
+    "cpu_frac": 0.011954019468951764
+   },
+   {
+    "cpu_s": 7.099551304999999,
+    "wall_s": 586.9826545370743,
+    "cpu_frac": 0.012094993353081418
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794236913.9886787,
+   "mono0": 8149608.282485507
+  }
+ },
+ "energy_mj_start": 2321830724561,
+ "energy_mj_end": 2322153860944,
+ "window_s": 588.5606307778507,
+ "request_window_s": 587.3334508091211,
+ "gpu_before": {
+  "temp_c": 70,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 217.858,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91018,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 71,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 328.199,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91018,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": false,
+ "metrics": {
+  "n_requests": 1005,
+  "n_ok": 1005,
+  "n_err": 0,
+  "makespan_s": 587.3334508091211,
+  "output_tokens": 135883,
+  "input_tokens": 8090524,
+  "output_throughput": 231.35579935521318,
+  "total_token_throughput": 14006.365529950923,
+  "request_throughput": 1.7111233807907482,
+  "ttft_mean_ms": 2502.772772366839,
+  "ttft_p50_ms": 1668.770307675004,
+  "ttft_p90_ms": 5924.1973435506225,
+  "ttft_p99_ms": 8252.516871131957,
+  "tpot_mean_ms": 212.44539315013114,
+  "tpot_p50_ms": 232.82538841248314,
+  "tpot_p90_ms": 274.30044283741347,
+  "tpot_p99_ms": 321.21457541695025,
+  "e2e_mean_ms": 30909.196929177688,
+  "e2e_p50_ms": 27430.30341807753,
+  "e2e_p90_ms": 53392.39350054413,
+  "e2e_p99_ms": 90071.37193206712,
+  "itl_mean_ms": 214.03594527635514,
+  "itl_p50_ms": 62.36099999999567,
+  "itl_p90_ms": 489.1110000000012,
+  "itl_p99_ms": 660.2227999999994,
+  "itl_max_ms": 1299.9480000000005,
+  "chunks_per_token": 0.9888359838979122,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 232.53138214802362,
+  "steady_window_s": 574.9333571456373,
+  "slo_attainment": 0.0029850746268656717,
+  "goodput_rps": 0.005107830987435069,
+  "goodput_tok_s": 0.6146423288213534,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 323136.383,
+  "energy_j": 322996.6949428711,
+  "avg_power_w": 549.9375090894364,
+  "j_per_output_token": 2.3770206349791447,
+  "j_per_total_token": 0.03926339833938086,
+  "power_mean_w_series": 550.261311425166,
+  "power_max_w": 674.636,
+  "energy_j_series": 323144.1939111595,
+  "peak_mem_mib": 91018.0,
+  "sm_mhz_mean": 2268.680061297463,
+  "sm_mhz_min": 2017.0,
+  "temp_max_c": 89.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "ag-0127-t04"
+    ],
+    [
+     0,
+     "ag-0127-t03"
+    ],
+    [
+     0,
+     "ag-0127-t02"
+    ],
+    [
+     0,
+     "ag-0127-t01"
+    ],
+    [
+     0,
+     "ag-0127-t00"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.363191931890726,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.012094993353081418
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 12.208690838077372,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

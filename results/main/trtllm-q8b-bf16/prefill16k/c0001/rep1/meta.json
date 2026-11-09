@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill16k",
+ "concurrency": 1,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794214163.4383993,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.26484922699999913,
+    "wall_s": 44.17926280479878,
+    "cpu_frac": 0.0059948765593986104
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794214163.5633016,
+   "mono0": 8126857.857108634
+  }
+ },
+ "energy_mj_start": 2312138031740,
+ "energy_mj_end": 2312157935894,
+ "window_s": 45.332416468299925,
+ "request_window_s": 44.17745803762227,
+ "gpu_before": {
+  "temp_c": 62,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 367.57,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90060,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 66,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 352.082,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90060,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 44.17745803762227,
+  "output_tokens": 2048,
+  "input_tokens": 255998,
+  "output_throughput": 46.35848441655218,
+  "total_token_throughput": 5841.123764528136,
+  "request_throughput": 0.3621756595043139,
+  "ttft_mean_ms": 1093.3480018284172,
+  "ttft_p50_ms": 1092.1787051483989,
+  "ttft_p90_ms": 1103.3996888436377,
+  "ttft_p99_ms": 1107.7095915097743,
+  "tpot_mean_ms": 13.129724125473166,
+  "tpot_p50_ms": 13.134994683420564,
+  "tpot_p90_ms": 13.144344960405366,
+  "tpot_p99_ms": 13.149455933296306,
+  "e2e_mean_ms": 2760.8229657635093,
+  "e2e_p50_ms": 2760.8583783730865,
+  "e2e_p90_ms": 2770.5271965824068,
+  "e2e_p99_ms": 2777.0292043685913,
+  "itl_mean_ms": 13.231748015873015,
+  "itl_p50_ms": 13.160999999999978,
+  "itl_p90_ms": 13.556500000000081,
+  "itl_p99_ms": 16.579499999999946,
+  "itl_max_ms": 26.812000000000058,
+  "chunks_per_token": 0.9921875,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 46.33844198420474,
+  "steady_window_s": 38.67199507076293,
+  "slo_attainment": 1.0,
+  "goodput_rps": 0.3621756595043139,
+  "goodput_tok_s": 46.35848441655218,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 19904.154,
+  "energy_j": 19802.256455078124,
+  "avg_power_w": 448.2434557057173,
+  "j_per_output_token": 9.669070534706115,
+  "j_per_total_token": 0.07673924980460121,
+  "power_mean_w_series": 447.4993764172336,
+  "power_max_w": 673.244,
+  "energy_j_series": 19711.267591885146,
+  "peak_mem_mib": 90060.0,
+  "sm_mhz_mean": 2376.0226757369614,
+  "sm_mhz_min": 2257.0,
+  "temp_max_c": 78.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill16k-0015"
+    ],
+    [
+     0,
+     "prefill16k-0014"
+    ],
+    [
+     0,
+     "prefill16k-0013"
+    ],
+    [
+     0,
+     "prefill16k-0012"
+    ],
+    [
+     0,
+     "prefill16k-0011"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.1948042344983032,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.0059948765593986104
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.1953909349042364,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

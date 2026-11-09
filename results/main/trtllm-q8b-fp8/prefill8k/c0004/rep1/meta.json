@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-fp8",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "fp8",
+ "workload": "prefill8k",
+ "concurrency": 4,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794224255.514076,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.18491706400001817,
+    "wall_s": 12.730914583429694,
+    "cpu_frac": 0.014525041605471342
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794224255.6358917,
+   "mono0": 8136949.929698819
+  }
+ },
+ "energy_mj_start": 2316348433557,
+ "energy_mj_end": 2316354655616,
+ "window_s": 13.901271506212652,
+ "request_window_s": 12.729703264310956,
+ "gpu_before": {
+  "temp_c": 68,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 315.382,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90168,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 66,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 316.161,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90168,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 12.729703264310956,
+  "output_tokens": 2048,
+  "input_tokens": 127999,
+  "output_throughput": 160.88356165707182,
+  "total_token_throughput": 10216.027608797469,
+  "request_throughput": 1.2569028254458736,
+  "ttft_mean_ms": 1178.292342927307,
+  "ttft_p50_ms": 1171.3183806277812,
+  "ttft_p90_ms": 1831.7772699519992,
+  "ttft_p99_ms": 1870.5250272061676,
+  "tpot_mean_ms": 15.751650351591,
+  "tpot_p50_ms": 15.774220294194429,
+  "tpot_p90_ms": 20.816999271248037,
+  "tpot_p99_ms": 20.822096921826205,
+  "e2e_mean_ms": 3178.7519375793636,
+  "e2e_p50_ms": 3193.8202381134033,
+  "e2e_p90_ms": 3216.6143781505525,
+  "e2e_p99_ms": 3227.2617555223405,
+  "itl_mean_ms": 16.001852500000002,
+  "itl_p50_ms": 10.715999999999948,
+  "itl_p90_ms": 11.077099999999819,
+  "itl_p99_ms": 434.88421000000005,
+  "itl_max_ms": 448.41200000000003,
+  "chunks_per_token": 0.984375,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 160.77463239067163,
+  "steady_window_s": 6.406777168624103,
+  "slo_attainment": 1.0,
+  "goodput_rps": 1.2569028254458736,
+  "goodput_tok_s": 160.88356165707182,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 6222.059,
+  "energy_j": 6098.343586425781,
+  "avg_power_w": 479.0640802698928,
+  "j_per_output_token": 2.9777068293094633,
+  "j_per_total_token": 0.04689338151918753,
+  "power_mean_w_series": 477.8409448818898,
+  "power_max_w": 622.305,
+  "energy_j_series": 6046.597699929031,
+  "peak_mem_mib": 90168.0,
+  "sm_mhz_mean": 2405.181102362205,
+  "sm_mhz_min": 2385.0,
+  "temp_max_c": 78.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill8k-0015"
+    ],
+    [
+     0,
+     "prefill8k-0014"
+    ],
+    [
+     0,
+     "prefill8k-0013"
+    ],
+    [
+     0,
+     "prefill8k-0012"
+    ],
+    [
+     0,
+     "prefill8k-0011"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.8141771520269792,
+   "max_single_stream_tok_s": 194.94887213505578,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.014525041605471342
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.8145728769035905,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": false
+}

@@ -1,0 +1,173 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-fp8",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "fp8",
+ "workload": "chat",
+ "concurrency": 64,
+ "n_requests": 512,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794224048.5682745,
+ "client": {
+  "procs": 2,
+  "per_proc": [
+   {
+    "cpu_s": 5.150142387,
+    "wall_s": 52.281414459459484,
+    "cpu_frac": 0.09850809202940691
+   },
+   {
+    "cpu_s": 5.500430455,
+    "wall_s": 55.20797639340162,
+    "cpu_frac": 0.09963108257772338
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794224048.6922832,
+   "mono0": 8136742.986089733
+  }
+ },
+ "energy_mj_start": 2316277046236,
+ "energy_mj_end": 2316290730245,
+ "window_s": 56.41828786209226,
+ "request_window_s": 55.20157203730196,
+ "gpu_before": {
+  "temp_c": 51,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 208.915,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89792,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 52,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 268.279,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89792,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 512,
+  "n_ok": 512,
+  "n_err": 0,
+  "makespan_s": 55.20157203730196,
+  "output_tokens": 134699,
+  "input_tokens": 57232,
+  "output_throughput": 2440.1297830608587,
+  "total_token_throughput": 3476.9118508129513,
+  "request_throughput": 9.275098173907452,
+  "ttft_mean_ms": 146.6245054580213,
+  "ttft_p50_ms": 105.35993054509163,
+  "ttft_p90_ms": 404.52630752697587,
+  "ttft_p99_ms": 441.988818179816,
+  "tpot_mean_ms": 22.58000423340699,
+  "tpot_p50_ms": 21.894226079345287,
+  "tpot_p90_ms": 27.12065873147133,
+  "tpot_p99_ms": 35.87851753851859,
+  "e2e_mean_ms": 6036.079935369344,
+  "e2e_p50_ms": 5442.084154579788,
+  "e2e_p90_ms": 11845.05812339485,
+  "e2e_p99_ms": 18585.069979205728,
+  "itl_mean_ms": 22.64403520735389,
+  "itl_p50_ms": 27.301000000000244,
+  "itl_p90_ms": 39.26940000000005,
+  "itl_p99_ms": 76.70947000000021,
+  "itl_max_ms": 1849.5739999999998,
+  "chunks_per_token": 0.9923310492282793,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 2768.7752220845036,
+  "steady_window_s": 44.67157265357673,
+  "slo_attainment": 0.998046875,
+  "goodput_rps": 9.256982747786537,
+  "goodput_tok_s": 2439.242127180934,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 13684.009,
+  "energy_j": 13567.253300292969,
+  "avg_power_w": 245.77657482517023,
+  "j_per_output_token": 0.10072274701588704,
+  "j_per_total_token": 0.0706881811708008,
+  "power_mean_w_series": 245.50585869565217,
+  "power_max_w": 583.71,
+  "energy_j_series": 13533.285578481144,
+  "peak_mem_mib": 89792.0,
+  "sm_mhz_mean": 2403.679347826087,
+  "sm_mhz_min": 2385.0,
+  "temp_max_c": 61.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "chat-00511"
+    ],
+    [
+     0,
+     "chat-00510"
+    ],
+    [
+     0,
+     "chat-00509"
+    ],
+    [
+     0,
+     "chat-00508"
+    ],
+    [
+     0,
+     "chat-00507"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 2.0155165455416966,
+   "max_single_stream_tok_s": 194.94887213505578,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.09963108257772338
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 3.576470955243933,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": false
+}

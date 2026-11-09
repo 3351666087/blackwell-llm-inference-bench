@@ -11,9 +11,15 @@ Medians over valid repetitions. Peak = concurrency level with the highest median
 | chat | SGLang FP8 | 3,581.1 (512) | 37.1 | 25.55 | 0.157 | 24/24 | `results/main/sglang-q32b-fp8/chat/` |
 | chat | TensorRT-LLM FP8 | 2,646.4 (512) | 69.9 | 26.03 | 0.211 | 23/24 | `results/main/trtllm-q32b-fp8/chat/` |
 | chat | vLLM FP8 | 2,629.4 (256) | 46.0 | 25.11 | 0.216 | 24/24 | `results/main/vllm-q32b-fp8/chat/` |
+| chat | SGLang NVFP4 | 4,398.1 (256) | 28.3 | 16.30 | 0.111 | 24/24 | `results/nvfp4/sglang-q32b-nvfp4/chat/` |
+| chat | TensorRT-LLM NVFP4 | 2,341.8 (128) | 61.4 | 16.06 | 0.137 | 18/18 | `results/nvfp4/trtllm-q32b-nvfp4/chat/` |
+| chat | vLLM NVFP4 | 3,610.6 (256) | 47.1 | 17.18 | 0.149 | 24/24 | `results/nvfp4/vllm-q32b-nvfp4/chat/` |
 | prefill8k | SGLang FP8 | 89.7 (32) | 1,180.0 | 26.96 | 6.105 | 18/18 | `results/main/sglang-q32b-fp8/prefill8k/` |
 | prefill8k | TensorRT-LLM FP8 | 59.2 (32) | 1,900.2 | 27.23 | 9.521 | 18/18 | `results/main/trtllm-q32b-fp8/prefill8k/` |
 | prefill8k | vLLM FP8 | 85.8 (32) | 1,172.6 | 26.61 | 6.623 | 18/18 | `results/main/vllm-q32b-fp8/prefill8k/` |
+| prefill8k | SGLang NVFP4 | 125.9 (32) | 812.1 | 17.67 | 4.256 | 18/18 | `results/nvfp4/sglang-q32b-nvfp4/prefill8k/` |
+| prefill8k | TensorRT-LLM NVFP4 | 122.6 (32) | 862.4 | 17.23 | 4.480 | 18/18 | `results/nvfp4/trtllm-q32b-nvfp4/prefill8k/` |
+| prefill8k | vLLM NVFP4 | 125.2 (32) | 747.1 | 18.58 | 4.383 | 18/18 | `results/nvfp4/vllm-q32b-nvfp4/prefill8k/` |
 | prefill16k | SGLang FP8 | 39.0 (16) | 2,718.5 | 28.34 | 14.034 | 15/15 | `results/main/sglang-q32b-fp8/prefill16k/` |
 | prefill16k | TensorRT-LLM FP8 | 25.4 (16) | 4,396.8 | 28.60 | 21.672 | 15/15 | `results/main/trtllm-q32b-fp8/prefill16k/` |
 | prefill16k | vLLM FP8 | 37.2 (16) | 2,734.4 | 27.94 | 15.069 | 15/15 | `results/main/vllm-q32b-fp8/prefill16k/` |
@@ -60,6 +66,7 @@ Medians over valid repetitions. Peak = concurrency level with the highest median
 
 | server | status | load s | KV pool (tokens) | start failures | fingerprint |
 |---|---|---|---|---|---|
+| explore_trt_cudagraph/trtllm-q8b-fp8-padded | ok | 40 | 541,312 | 1 | `6d9d79ae4414` |
 | main/sglang-q32b-fp8 | ok | 77 | 199,857 | 0 | `a9d6719adc17` |
 | main/sglang-q8b-bf16 | ok | 51 | 477,443 | 0 | `aabd47ed2678` |
 | main/sglang-q8b-fp8 | ok | 43 | 524,533 | 0 | `2b5e316a398a` |
@@ -69,8 +76,11 @@ Medians over valid repetitions. Peak = concurrency level with the highest median
 | main/vllm-q32b-fp8 | ok | 182 | 210,752 | 0 | `21da858b52b0` |
 | main/vllm-q8b-bf16 | ok | 40 | 501,296 | 0 | `0d0039692b36` |
 | main/vllm-q8b-fp8 | ok | 42 | 548,064 | 0 | `52cfe45f523f` |
+| nvfp4/sglang-q32b-nvfp4 | ok | 305 | 250,849 | 1 | `a9d6719adc17` |
+| nvfp4/trtllm-q32b-nvfp4 | ok | 66 | 264,224 | 8 | `6d9d79ae4414` |
+| nvfp4/vllm-q32b-nvfp4 | ok | 164 | 262,512 | 1 | `21da858b52b0` |
 | prefix_cache/sglang-q8b-bf16-nocache | ok | 45 | 477,443 | 0 | `2b5e316a398a` |
-| prefix_cache/trtllm-q8b-bf16-nocache | ok | 40 | 504,576 | 0 | `6d9d79ae4414` |
+| prefix_cache/trtllm-q8b-bf16-nocache | ok | 40 | 504,576 | 1 | `6d9d79ae4414` |
 | prefix_cache/vllm-q8b-bf16-nocache | ok | 42 | 501,296 | 0 | `52cfe45f523f` |
 | regression/vllm0320-q8b-bf16 | ok | 294 | 506,320 | 0 | `e2a8a723726a` |
 | regression/vllm0330-q8b-bf16 | ok | 48 | 501,296 | 0 | `21da858b52b0` |
@@ -79,6 +89,7 @@ Medians over valid repetitions. Peak = concurrency level with the highest median
 
 | server | GSM8K accuracy (250) | verdict |
 |---|---|---|
+| trtllm-q8b-fp8-padded | 0.924 | pass (best on checkpoint) |
 | sglang-q32b-fp8 | 0.960 | pass (vs vllm: Δ=-0.008, McNemar p=0.625) |
 | sglang-q8b-bf16 | 0.936 | pass (vs trtllm: Δ=-0.004, McNemar p=1) |
 | sglang-q8b-fp8 | 0.936 | pass (vs vllm: Δ=+0.000, McNemar p=1) |
@@ -88,11 +99,16 @@ Medians over valid repetitions. Peak = concurrency level with the highest median
 | vllm-q32b-fp8 | 0.968 | pass (best on checkpoint) |
 | vllm-q8b-bf16 | 0.928 | pass (vs trtllm: Δ=-0.012, McNemar p=0.25) |
 | vllm-q8b-fp8 | 0.936 | pass (best on checkpoint) |
+| sglang-q32b-nvfp4 | 0.956 | pass (vs trtllm: Δ=-0.012, McNemar p=0.375) |
+| trtllm-q32b-nvfp4 | 0.968 | pass (best on checkpoint) |
+| vllm-q32b-nvfp4 | 0.960 | pass (vs trtllm: Δ=-0.008, McNemar p=0.688) |
 
 ## Validity
 
 | plan | runs | invalid | failed checks (count) |
 |---|---|---|---|
+| explore_trt_cudagraph | 12 | 7 | trtllm:bandwidth_bound=7 |
 | main | 738 | 10 | trtllm:bandwidth_bound=10, trtllm:bandwidth_bound_a5=1 |
-| prefix_cache | 33 | 0 | – |
+| nvfp4 | 126 | 6 | trtllm:bandwidth_bound=6 |
+| prefix_cache | 51 | 0 | – |
 | regression | 70 | 0 | – |

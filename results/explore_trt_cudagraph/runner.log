@@ -1,0 +1,21 @@
+2026-11-10 04:11:52 plan explore_trt_cudagraph commit=1f898202eabef9db6811fadfa7befc8e7b46839c+dirty servers=['trtllm-q8b-fp8-padded']
+2026-11-10 04:12:54 server trtllm-q8b-fp8-padded up in 40s fp=6d9d79ae4414 kv={'[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)': '541312', 'max_tokens[=:\\s]+(\\d+)': '541338'} smoke='Paris'
+2026-11-10 04:13:23 quality trtllm-q8b-fp8-padded: acc=0.924 err=0
+2026-11-10 04:14:36   trtllm-q8b-fp8-padded restarted with enable_block_reuse=False enable_chunked_prefill=False for chat (A4/A6)
+2026-11-10 04:14:43   warmup trtllm-q8b-fp8-padded chat c=32 n=32 err=0
+2026-11-10 04:15:11   trtllm-q8b-fp8-padded chat c=32 rep1 n=256 err=0 thr=2563.1 tok/s ttft50=94ms tpot50=10.63ms valid=False reset=block_reuse_off
+2026-11-10 04:15:38   trtllm-q8b-fp8-padded chat c=32 rep2 n=256 err=0 thr=2592.8 tok/s ttft50=101ms tpot50=10.71ms valid=True reset=block_reuse_off
+2026-11-10 04:16:06   trtllm-q8b-fp8-padded chat c=32 rep3 n=256 err=0 thr=2524.2 tok/s ttft50=104ms tpot50=10.67ms valid=True reset=block_reuse_off
+2026-11-10 04:16:14   warmup trtllm-q8b-fp8-padded chat c=64 n=64 err=0
+2026-11-10 04:16:49   trtllm-q8b-fp8-padded chat c=64 rep1 n=512 err=0 thr=4094.7 tok/s ttft50=174ms tpot50=12.32ms valid=True reset=block_reuse_off
+2026-11-10 04:17:25   trtllm-q8b-fp8-padded chat c=64 rep2 n=512 err=0 thr=3937.3 tok/s ttft50=176ms tpot50=12.63ms valid=False reset=block_reuse_off
+2026-11-10 04:18:00   trtllm-q8b-fp8-padded chat c=64 rep3 n=512 err=0 thr=4008.2 tok/s ttft50=165ms tpot50=12.81ms valid=False reset=block_reuse_off
+2026-11-10 04:18:10   warmup trtllm-q8b-fp8-padded chat c=128 n=128 err=0
+2026-11-10 04:18:55   trtllm-q8b-fp8-padded chat c=128 rep1 n=1024 err=0 thr=6567.0 tok/s ttft50=454ms tpot50=15.40ms valid=False reset=block_reuse_off
+2026-11-10 04:19:38   trtllm-q8b-fp8-padded chat c=128 rep2 n=1024 err=0 thr=6858.3 tok/s ttft50=473ms tpot50=14.90ms valid=False reset=block_reuse_off
+2026-11-10 04:20:21   trtllm-q8b-fp8-padded chat c=128 rep3 n=1024 err=0 thr=6786.8 tok/s ttft50=489ms tpot50=15.01ms valid=False reset=block_reuse_off
+2026-11-10 04:20:41   warmup trtllm-q8b-fp8-padded chat c=256 n=256 err=0
+2026-11-10 04:22:25   trtllm-q8b-fp8-padded chat c=256 rep1 n=2048 err=0 thr=5586.1 tok/s ttft50=152ms tpot50=41.67ms valid=True reset=block_reuse_off
+2026-11-10 04:24:12   trtllm-q8b-fp8-padded chat c=256 rep2 n=2048 err=0 thr=5425.8 tok/s ttft50=160ms tpot50=42.56ms valid=False reset=block_reuse_off
+2026-11-10 04:25:58   trtllm-q8b-fp8-padded chat c=256 rep3 n=2048 err=0 thr=5520.8 tok/s ttft50=151ms tpot50=42.06ms valid=True reset=block_reuse_off
+2026-11-10 04:26:06 server trtllm-q8b-fp8-padded stopped

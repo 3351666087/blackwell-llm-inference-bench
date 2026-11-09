@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16-nocache",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "agent",
+ "concurrency": 16,
+ "n_requests": 239,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "e13ae7bcdb1a8cfc37083d8b031c8c4fa9b601d0+dirty",
+ "wall_start": 1794234641.829366,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 2.9990122120000002,
+    "wall_s": 161.77553688082844,
+    "cpu_frac": 0.018538106995801322
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794234641.9522846,
+   "mono0": 8147336.246091367
+  }
+ },
+ "energy_mj_start": 2320585681734,
+ "energy_mj_end": 2320671508850,
+ "window_s": 162.96813366375864,
+ "request_window_s": 161.77326291240752,
+ "gpu_before": {
+  "temp_c": 65,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 273.895,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91018,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 71,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 335.162,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91018,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": false,
+ "metrics": {
+  "n_requests": 239,
+  "n_ok": 239,
+  "n_err": 0,
+  "makespan_s": 161.77326291240752,
+  "output_tokens": 31020,
+  "input_tokens": 1878005,
+  "output_throughput": 191.74985681531223,
+  "total_token_throughput": 11800.62122523699,
+  "request_throughput": 1.477376395192122,
+  "ttft_mean_ms": 797.3370574313415,
+  "ttft_p50_ms": 662.3710291460156,
+  "ttft_p90_ms": 1621.1508546024563,
+  "ttft_p99_ms": 2100.4740569926803,
+  "tpot_mean_ms": 60.60341123024738,
+  "tpot_p50_ms": 64.6439672130695,
+  "tpot_p90_ms": 83.0620991506473,
+  "tpot_p99_ms": 96.48371921257437,
+  "e2e_mean_ms": 8549.09579995552,
+  "e2e_p50_ms": 7263.7960240244865,
+  "e2e_p90_ms": 14669.947736710312,
+  "e2e_p99_ms": 27798.665773924462,
+  "itl_mean_ms": 60.83454316404968,
+  "itl_p50_ms": 22.828999999999766,
+  "itl_p90_ms": 185.99040000000008,
+  "itl_p99_ms": 492.0489299999991,
+  "itl_max_ms": 1066.297,
+  "chunks_per_token": 0.9890715667311412,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 193.50062962482545,
+  "steady_window_s": 156.02611306216568,
+  "slo_attainment": 0.20502092050209206,
+  "goodput_rps": 0.30289306847035136,
+  "goodput_tok_s": 40.77929740201853,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 85827.116,
+  "energy_j": 85690.08172363281,
+  "avg_power_w": 529.692485525435,
+  "j_per_output_token": 2.762413982064243,
+  "j_per_total_token": 0.044886830567243914,
+  "power_mean_w_series": 529.8570964749536,
+  "power_max_w": 690.681,
+  "energy_j_series": 85653.6975951547,
+  "peak_mem_mib": 91018.0,
+  "sm_mhz_mean": 2324.1898577612865,
+  "sm_mhz_min": 2107.0,
+  "temp_max_c": 87.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "ag-0031-t04"
+    ],
+    [
+     0,
+     "ag-0031-t03"
+    ],
+    [
+     0,
+     "ag-0031-t02"
+    ],
+    [
+     0,
+     "ag-0031-t01"
+    ],
+    [
+     0,
+     "ag-0031-t00"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.1917432986935108,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.018538106995801322
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 3.2177562063177496,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

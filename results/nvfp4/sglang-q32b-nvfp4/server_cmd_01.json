@@ -1,0 +1,28 @@
+{
+ "cmd": [
+  "/root/envs/sglang/bin/python",
+  "-m",
+  "sglang.launch_server",
+  "--model-path",
+  "/root/autodl-tmp/models/Qwen3-32B-NVFP4",
+  "--served-model-name",
+  "bench",
+  "--host",
+  "127.0.0.1",
+  "--port",
+  "8000",
+  "--context-length",
+  "40960",
+  "--random-seed",
+  "0",
+  "--enable-cache-report",
+  "--kv-cache-dtype",
+  "bfloat16"
+ ],
+ "shell": "/root/envs/sglang/bin/python -m sglang.launch_server --model-path /root/autodl-tmp/models/Qwen3-32B-NVFP4 --served-model-name bench --host 127.0.0.1 --port 8000 --context-length 40960 --random-seed 0 --enable-cache-report --kv-cache-dtype bfloat16",
+ "env_overrides": {
+  "HF_HUB_OFFLINE": "1",
+  "TRANSFORMERS_OFFLINE": "1",
+  "CUDA_HOME": "/root/cuda13.0/nvidia/cu13"
+ }
+}

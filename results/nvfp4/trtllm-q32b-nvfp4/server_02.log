@@ -1,0 +1,148 @@
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/10/2026-00:35:48] [TRT-LLM] [W] Overriding kv_cache_config 
+[11/10/2026-00:35:48] [TRT-LLM] [I] Using LLM with PyTorch backend
+[11/10/2026-00:35:48] [TRT-LLM] [I] neither checkpoint_format nor checkpoint_loader were provided, checkpoint_format will be set to HF.
+[11/10/2026-00:35:48] [TRT-LLM] [W] Cannot sync quant_config.kv_cache_quant_algo with kv_cache_config.dtype of bfloat16, please update the validator
+[11/10/2026-00:35:48] [TRT-LLM] [I] Found /root/autodl-tmp/models/Qwen3-32B-NVFP4/hf_quant_config.json, pre-quantized checkpoint is used.
+[11/10/2026-00:35:48] [TRT-LLM] [I] Setting quant_algo=NVFP4 form HF quant config.
+[11/10/2026-00:35:48] [TRT-LLM] [I] Setting kv_cache_quant_algo=FP8 form HF quant config.
+[11/10/2026-00:35:48] [TRT-LLM] [I] Setting group_size=16 from HF quant config.
+[11/10/2026-00:35:48] [TRT-LLM] [I] Setting exclude_modules=['lm_head'] from HF quant config.
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+You are using a model of type qwen3 to instantiate a model of type . This is not supported for all configurations of models and can yield errors.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[11/10/2026-00:35:48] [TRT-LLM] [W] Orchestrator is creating IPC executor
+[33;20mrank 0 using MpiPoolSession to spawn MPI processes
+[0m[11/10/2026-00:35:48] [TRT-LLM] [I] Generating a new HMAC key for server proxy_request_queue
+[11/10/2026-00:35:48] [TRT-LLM] [I] Generating a new HMAC key for server worker_init_status_queue
+[11/10/2026-00:35:48] [TRT-LLM] [I] Generating a new HMAC key for server proxy_result_queue
+Multiple distributions found for package optimum. Picked distribution: optimum
+Multiple distributions found for package modelopt. Picked distribution: nvidia-modelopt
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/10/2026-00:35:58] [TRT-LLM] [W] cloudpickle is not installed. TransformersTokenizer will not be serializable across nodes in multi-node setups. Install cloudpickle to fix this: pip install cloudpickle
+[TensorRT-LLM][INFO] Refreshed the MPI local session
+[11/10/2026-00:35:59] [TRT-LLM] [W] Worker process 156121 is affined to run on the following CPUs: [2, 106] (subset of all logical CPUs). This may harm performance if set incorrectly.
+[11/10/2026-00:35:59] [TRT-LLM] [W] Worker process 156121 has constrained CPU affinity but `TLLM_NUMA_AWARE_WORKER_AFFINITY` is not set. Removing CPU affinity constraints.
+[11/10/2026-00:35:59] [TRT-LLM] [I] ATTENTION RUNTIME FEATURES:  AttentionRuntimeFeatures(chunked_prefill=False, cache_reuse=True, has_speculative_draft_tokens=False, chunk_size=8192, chunked_prefill_buffer_batch_size=4)
+`torch_dtype` is deprecated! Use `dtype` instead!
+[11/10/2026-00:35:59] [TRT-LLM] [I] Validating KV Cache config against kv_cache_dtype="bfloat16"
+[11/10/2026-00:35:59] [TRT-LLM] [E] Failed to initialize executor on rank 0: Overriding KV cache quantization with an invalid type "llm_args.KvCacheConfig.dtype="bfloat16" Accepted types are "('fp8', 'nvfp4', 'auto')".
+[11/10/2026-00:35:59] [TRT-LLM] [E] Traceback (most recent call last):
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/worker.py", line 281, in worker_main
+    worker: GenerationExecutorWorker = worker_cls(
+                                       ^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/worker.py", line 62, in __init__
+    self.setup_engine()
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/base_worker.py", line 257, in setup_engine
+    self.engine = _create_py_executor(
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/base_worker.py", line 228, in _create_py_executor
+    _executor = create_executor(**args)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/py_executor_creator.py", line 342, in create_py_executor
+    model_engine = PyTorchModelEngine(
+                   ^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_engine.py", line 204, in __init__
+    self.model, moe_load_balancer = self.model_loader.load(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_loader.py", line 230, in load
+    config = self._load_and_validate_config(checkpoint_dir,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_loader.py", line 370, in _load_and_validate_config
+    validate_and_set_kv_cache_quant(config,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_loader.py", line 67, in validate_and_set_kv_cache_quant
+    raise ValueError(
+ValueError: Overriding KV cache quantization with an invalid type "llm_args.KvCacheConfig.dtype="bfloat16" Accepted types are "('fp8', 'nvfp4', 'auto')".
+
+[11/10/2026-00:35:59] [TRT-LLM] [I] get signal from executor worker
+[11/10/2026-00:35:59] [TRT-LLM] [E] Executor worker initialization error: Traceback (most recent call last):
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/worker.py", line 281, in worker_main
+    worker: GenerationExecutorWorker = worker_cls(
+                                       ^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/worker.py", line 62, in __init__
+    self.setup_engine()
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/base_worker.py", line 257, in setup_engine
+    self.engine = _create_py_executor(
+                  ^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/base_worker.py", line 228, in _create_py_executor
+    _executor = create_executor(**args)
+                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/py_executor_creator.py", line 342, in create_py_executor
+    model_engine = PyTorchModelEngine(
+                   ^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_engine.py", line 204, in __init__
+    self.model, moe_load_balancer = self.model_loader.load(
+                                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_loader.py", line 230, in load
+    config = self._load_and_validate_config(checkpoint_dir,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_loader.py", line 370, in _load_and_validate_config
+    validate_and_set_kv_cache_quant(config,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_loader.py", line 67, in validate_and_set_kv_cache_quant
+    raise ValueError(
+ValueError: Overriding KV cache quantization with an invalid type "llm_args.KvCacheConfig.dtype="bfloat16" Accepted types are "('fp8', 'nvfp4', 'auto')".
+
+Exception ignored in: <function PyTorchModelEngine.__del__ at 0x7fa198b999e0>
+Traceback (most recent call last):
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_engine.py", line 1147, in __del__
+ValueError: Overriding KV cache quantization with an invalid type "llm_args.KvCacheConfig.dtype="bfloat16" Accepted types are "('fp8', 'nvfp4', 'auto')".
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/envs/trtllm/bin/trtllm-serve", line 10, in <module>
+    self._release_cuda_graphs()
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/_torch/pyexecutor/model_engine.py", line 1235, in _release_cuda_graphs
+    self.cuda_graph_runner.clear()
+    ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'PyTorchModelEngine' object has no attribute 'cuda_graph_runner'
+    sys.exit(main())
+             ^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1653, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1560, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 2054, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1414, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 911, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 568, in serve
+    launch_server(host, port, llm_args, tool_parser, chat_template,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 201, in launch_server
+    llm = PyTorchLLM(**llm_args)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 1202, in __init__
+    super().__init__(model, tokenizer, tokenizer_mode, skip_tokenizer_init,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 1088, in __init__
+    super().__init__(model,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 236, in __init__
+    self._build_model()
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 1149, in _build_model
+    self._executor = self._executor_cls.create(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/executor.py", line 546, in create
+    return GenerationExecutor._create_ipc_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/executor.py", line 417, in _create_ipc_executor
+    return GenerationExecutorProxy(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/proxy.py", line 111, in __init__
+    self._start_executor_workers(worker_kwargs)
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/proxy.py", line 268, in _start_executor_workers
+    raise RuntimeError(
+RuntimeError: Executor worker returned error

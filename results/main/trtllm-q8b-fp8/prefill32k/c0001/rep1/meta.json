@@ -1,0 +1,174 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-fp8",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "fp8",
+ "workload": "prefill32k",
+ "concurrency": 1,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794225500.7419972,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.24712253699999565,
+    "wall_s": 69.47995614260435,
+    "cpu_frac": 0.0035567457252389197
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794225500.8681836,
+   "mono0": 8138195.16199052
+  }
+ },
+ "energy_mj_start": 2316950121604,
+ "energy_mj_end": 2316985105032,
+ "window_s": 70.67216696310788,
+ "request_window_s": 69.47837235126644,
+ "gpu_before": {
+  "temp_c": 70,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 340.499,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89648,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 72,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 324.831,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89648,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 69.47837235126644,
+  "output_tokens": 2048,
+  "input_tokens": 511999,
+  "output_throughput": 29.476798760422735,
+  "total_token_throughput": 7398.662095897962,
+  "request_throughput": 0.23028749031580262,
+  "ttft_mean_ms": 3033.3309015259147,
+  "ttft_p50_ms": 3015.402728226036,
+  "ttft_p90_ms": 3026.668739039451,
+  "ttft_p99_ms": 3452.4638989474624,
+  "tpot_mean_ms": 10.305710109390729,
+  "tpot_p50_ms": 10.55575249437976,
+  "tpot_p90_ms": 10.569276002155044,
+  "tpot_p99_ms": 10.57657769323862,
+  "e2e_mean_ms": 4342.156085418537,
+  "e2e_p50_ms": 4355.907353572547,
+  "e2e_p90_ms": 4365.616205148399,
+  "e2e_p99_ms": 4369.929537270218,
+  "itl_mean_ms": 10.390654094292803,
+  "itl_p50_ms": 10.638999999999843,
+  "itl_p90_ms": 10.88819999999977,
+  "itl_p99_ms": 15.004660000000062,
+  "itl_max_ms": 21.9870000000002,
+  "chunks_per_token": 0.99169921875,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 29.451362435135362,
+  "steady_window_s": 60.84608153346926,
+  "slo_attainment": 1.0,
+  "goodput_rps": 0.23028749031580262,
+  "goodput_tok_s": 29.476798760422735,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 34983.428,
+  "energy_j": 34857.42170605469,
+  "avg_power_w": 501.7017602229323,
+  "j_per_output_token": 17.020225442409515,
+  "j_per_total_token": 0.0678097950305219,
+  "power_mean_w_series": 502.1586095100865,
+  "power_max_w": 635.815,
+  "energy_j_series": 34827.60445340249,
+  "peak_mem_mib": 89648.0,
+  "sm_mhz_mean": 2392.1325648414986,
+  "sm_mhz_min": 2332.0,
+  "temp_max_c": 85.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill32k-0015"
+    ],
+    [
+     0,
+     "prefill32k-0014"
+    ],
+    [
+     0,
+     "prefill32k-0013"
+    ],
+    [
+     0,
+     "prefill32k-0012"
+    ],
+    [
+     0,
+     "prefill32k-0011"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": false,
+   "min_tpot_over_bound": 0.808111583148589,
+   "max_single_stream_tok_s": 194.94887213505578,
+   "n_violations": 1,
+   "examples": [
+    [
+     "prefill32k-0008",
+     6.538,
+     8.09
+    ]
+   ]
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.0035567457252389197
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": false,
+  "bandwidth_bound_a5": {
+   "pass": false,
+   "violation_fraction": 0.0625,
+   "p10_tpot_over_bound": 1.3019215503072372,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": false
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

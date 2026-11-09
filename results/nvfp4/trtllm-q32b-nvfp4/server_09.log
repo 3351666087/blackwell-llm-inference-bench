@@ -1,0 +1,91 @@
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/10/2026-02:40:21] [TRT-LLM] [W] Overriding kv_cache_config 
+[11/10/2026-02:40:21] [TRT-LLM] [I] Using LLM with PyTorch backend
+[11/10/2026-02:40:21] [TRT-LLM] [I] neither checkpoint_format nor checkpoint_loader were provided, checkpoint_format will be set to HF.
+[11/10/2026-02:40:21] [TRT-LLM] [I] Found /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/hf_quant_config.json, pre-quantized checkpoint is used.
+[11/10/2026-02:40:21] [TRT-LLM] [I] Setting quant_algo=NVFP4 form HF quant config.
+[11/10/2026-02:40:21] [TRT-LLM] [I] Setting group_size=16 from HF quant config.
+[11/10/2026-02:40:21] [TRT-LLM] [I] Setting exclude_modules=['lm_head'] from HF quant config.
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+You are using a model of type qwen3 to instantiate a model of type . This is not supported for all configurations of models and can yield errors.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[11/10/2026-02:40:21] [TRT-LLM] [W] Orchestrator is creating IPC executor
+[33;20mrank 0 using MpiPoolSession to spawn MPI processes
+[0m[11/10/2026-02:40:21] [TRT-LLM] [I] Generating a new HMAC key for server proxy_request_queue
+[11/10/2026-02:40:21] [TRT-LLM] [I] Generating a new HMAC key for server worker_init_status_queue
+[11/10/2026-02:40:21] [TRT-LLM] [I] Generating a new HMAC key for server proxy_result_queue
+Multiple distributions found for package optimum. Picked distribution: optimum
+Multiple distributions found for package modelopt. Picked distribution: nvidia-modelopt
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/10/2026-02:40:31] [TRT-LLM] [W] cloudpickle is not installed. TransformersTokenizer will not be serializable across nodes in multi-node setups. Install cloudpickle to fix this: pip install cloudpickle
+[TensorRT-LLM][INFO] Refreshed the MPI local session
+[11/10/2026-02:40:32] [TRT-LLM] [W] Worker process 163763 is affined to run on the following CPUs: [2, 106] (subset of all logical CPUs). This may harm performance if set incorrectly.
+[11/10/2026-02:40:32] [TRT-LLM] [W] Worker process 163763 has constrained CPU affinity but `TLLM_NUMA_AWARE_WORKER_AFFINITY` is not set. Removing CPU affinity constraints.
+[11/10/2026-02:40:32] [TRT-LLM] [I] ATTENTION RUNTIME FEATURES:  AttentionRuntimeFeatures(chunked_prefill=False, cache_reuse=False, has_speculative_draft_tokens=False, chunk_size=8192, chunked_prefill_buffer_batch_size=4)
+`torch_dtype` is deprecated! Use `dtype` instead!
+[11/10/2026-02:40:32] [TRT-LLM] [I] Validating KV Cache config against kv_cache_dtype="auto"
+[11/10/2026-02:40:32] [TRT-LLM] [I] KV cache quantization set to "auto". Using checkpoint KV quantization.
+[11/10/2026-02:40:32] [TRT-LLM] [I] Use 19.25 GB for model weights.
+[11/10/2026-02:40:32] [TRT-LLM] [I] Prefetching 19.25GB checkpoint files.
+[11/10/2026-02:40:32] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00001-of-00005.safetensors to memory...
+[11/10/2026-02:40:32] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00002-of-00005.safetensors to memory...
+[11/10/2026-02:40:32] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00003-of-00005.safetensors to memory...
+[11/10/2026-02:40:32] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00004-of-00005.safetensors to memory...
+[11/10/2026-02:40:32] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00005-of-00005.safetensors to memory...
+[11/10/2026-02:40:33] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00005-of-00005.safetensors.
+[11/10/2026-02:40:35] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00004-of-00005.safetensors.
+[11/10/2026-02:40:36] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00003-of-00005.safetensors.
+[11/10/2026-02:40:36] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00001-of-00005.safetensors.
+[11/10/2026-02:40:36] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00002-of-00005.safetensors.
+Loading safetensors weights in parallel:   0%|          | 0/5 [00:00<?, ?it/s][11/10/2026-02:40:36] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00001-of-00005.safetensors
+[11/10/2026-02:40:36] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00002-of-00005.safetensors
+[11/10/2026-02:40:36] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00003-of-00005.safetensors
+[11/10/2026-02:40:36] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00004-of-00005.safetensors
+[11/10/2026-02:40:36] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16/model-00005-of-00005.safetensors
+Loading safetensors weights in parallel: 100%|██████████| 5/5 [00:00<00:00, 56.07it/s]
+Loading weights concurrently:   0%|          | 0/1480 [00:00<?, ?it/s]Loading weights concurrently:   4%|▍         | 65/1480 [00:00<00:15, 88.50it/s]Loading weights concurrently:   8%|▊         | 124/1480 [00:00<00:08, 154.39it/s]Loading weights concurrently:  10%|█         | 149/1480 [00:01<00:09, 145.95it/s]Loading weights concurrently:  11%|█▏        | 169/1480 [00:02<00:32, 40.84it/s] Loading weights concurrently:  14%|█▍        | 204/1480 [00:02<00:21, 58.55it/s]Loading weights concurrently:  15%|█▍        | 221/1480 [00:03<00:18, 66.68it/s]Loading weights concurrently:  16%|█▌        | 238/1480 [00:03<00:18, 67.43it/s]Loading weights concurrently:  17%|█▋        | 252/1480 [00:03<00:16, 72.97it/s]Loading weights concurrently:  18%|█▊        | 273/1480 [00:03<00:16, 71.81it/s]Loading weights concurrently:  19%|█▉        | 286/1480 [00:03<00:15, 77.81it/s]Loading weights concurrently:  20%|██        | 297/1480 [00:03<00:14, 79.32it/s]Loading weights concurrently:  21%|██        | 309/1480 [00:04<00:14, 78.90it/s]Loading weights concurrently:  22%|██▏       | 319/1480 [00:04<00:14, 80.20it/s]Loading weights concurrently:  22%|██▏       | 329/1480 [00:04<00:17, 67.03it/s]Loading weights concurrently:  23%|██▎       | 341/1480 [00:04<00:18, 61.50it/s]Loading weights concurrently:  24%|██▍       | 355/1480 [00:04<00:15, 71.43it/s]Loading weights concurrently:  25%|██▍       | 368/1480 [00:05<00:17, 63.06it/s]Loading weights concurrently:  27%|██▋       | 400/1480 [00:05<00:11, 97.73it/s]Loading weights concurrently:  28%|██▊       | 412/1480 [00:05<00:11, 94.67it/s]Loading weights concurrently:  29%|██▊       | 423/1480 [00:05<00:11, 88.59it/s]Loading weights concurrently:  29%|██▉       | 433/1480 [00:05<00:11, 87.32it/s]Loading weights concurrently:  30%|███       | 447/1480 [00:05<00:12, 81.46it/s]Loading weights concurrently:  32%|███▏      | 469/1480 [00:06<00:12, 82.73it/s]Loading weights concurrently:  32%|███▏      | 479/1480 [00:06<00:11, 83.82it/s]Loading weights concurrently:  33%|███▎      | 492/1480 [00:06<00:12, 82.19it/s]Loading weights concurrently:  34%|███▍      | 502/1480 [00:06<00:11, 83.52it/s]Loading weights concurrently:  35%|███▌      | 520/1480 [00:06<00:10, 92.30it/s]Loading weights concurrently:  36%|███▋      | 539/1480 [00:06<00:10, 89.97it/s]Loading weights concurrently:  37%|███▋      | 552/1480 [00:07<00:09, 95.60it/s]Loading weights concurrently:  38%|███▊      | 562/1480 [00:07<00:10, 86.63it/s]Loading weights concurrently:  39%|███▉      | 578/1480 [00:07<00:09, 97.32it/s]Loading weights concurrently:  40%|███▉      | 589/1480 [00:07<00:11, 78.05it/s]Loading weights concurrently:  41%|████      | 601/1480 [00:07<00:10, 83.35it/s]Loading weights concurrently:  42%|████▏     | 618/1480 [00:07<00:10, 85.31it/s]Loading weights concurrently:  42%|████▏     | 627/1480 [00:07<00:10, 77.82it/s]Loading weights concurrently:  44%|████▍     | 654/1480 [00:08<00:08, 102.75it/s]Loading weights concurrently:  46%|████▌     | 676/1480 [00:08<00:06, 117.87it/s]Loading weights concurrently:  47%|████▋     | 689/1480 [00:08<00:08, 98.35it/s] Loading weights concurrently:  47%|████▋     | 700/1480 [00:08<00:08, 87.01it/s]Loading weights concurrently:  48%|████▊     | 713/1480 [00:08<00:08, 86.00it/s]Loading weights concurrently:  49%|████▉     | 722/1480 [00:09<00:10, 74.90it/s]Loading weights concurrently:  50%|████▉     | 736/1480 [00:09<00:08, 86.88it/s]Loading weights concurrently:  50%|█████     | 746/1480 [00:09<00:09, 79.89it/s]Loading weights concurrently:  51%|█████     | 755/1480 [00:09<00:09, 77.18it/s]Loading weights concurrently:  52%|█████▏    | 764/1480 [00:09<00:09, 73.56it/s]Loading weights concurrently:  53%|█████▎    | 782/1480 [00:09<00:08, 87.19it/s]Loading weights concurrently:  54%|█████▎    | 792/1480 [00:09<00:08, 79.83it/s]Loading weights concurrently:  55%|█████▍    | 808/1480 [00:10<00:08, 81.97it/s]Loading weights concurrently:  55%|█████▌    | 819/1480 [00:10<00:08, 80.32it/s]Loading weights concurrently:  56%|█████▌    | 828/1480 [00:10<00:09, 66.17it/s]Loading weights concurrently:  58%|█████▊    | 854/1480 [00:10<00:07, 82.87it/s]Loading weights concurrently:  59%|█████▉    | 874/1480 [00:10<00:05, 102.89it/s]Loading weights concurrently:  60%|██████    | 888/1480 [00:10<00:06, 90.47it/s] Loading weights concurrently:  61%|██████    | 906/1480 [00:11<00:06, 84.61it/s]Loading weights concurrently:  62%|██████▏   | 920/1480 [00:11<00:06, 91.14it/s]Loading weights concurrently:  63%|██████▎   | 930/1480 [00:11<00:05, 92.61it/s]Loading weights concurrently:  64%|██████▎   | 943/1480 [00:11<00:05, 96.39it/s]Loading weights concurrently:  64%|██████▍   | 954/1480 [00:11<00:05, 95.19it/s]Loading weights concurrently:  65%|██████▌   | 964/1480 [00:11<00:05, 92.19it/s]Loading weights concurrently:  66%|██████▌   | 974/1480 [00:11<00:06, 80.26it/s]Loading weights concurrently:  67%|██████▋   | 986/1480 [00:12<00:05, 83.58it/s]Loading weights concurrently:  67%|██████▋   | 995/1480 [00:12<00:06, 78.75it/s]Loading weights concurrently:  68%|██████▊   | 1008/1480 [00:12<00:05, 90.84it/s]Loading weights concurrently:  69%|██████▉   | 1024/1480 [00:12<00:04, 91.40it/s]Loading weights concurrently:  70%|███████   | 1038/1480 [00:12<00:05, 86.85it/s]Loading weights concurrently:  71%|███████   | 1054/1480 [00:12<00:04, 96.63it/s]Loading weights concurrently:  72%|███████▏  | 1068/1480 [00:12<00:04, 96.62it/s]Loading weights concurrently:  73%|███████▎  | 1081/1480 [00:13<00:03, 100.48it/s]Loading weights concurrently:  74%|███████▍  | 1093/1480 [00:13<00:04, 83.56it/s] Loading weights concurrently:  75%|███████▌  | 1114/1480 [00:13<00:03, 91.78it/s]Loading weights concurrently:  76%|███████▌  | 1124/1480 [00:13<00:04, 86.10it/s]Loading weights concurrently:  77%|███████▋  | 1133/1480 [00:13<00:04, 71.86it/s]Loading weights concurrently:  77%|███████▋  | 1146/1480 [00:13<00:04, 78.24it/s]Loading weights concurrently:  78%|███████▊  | 1155/1480 [00:14<00:04, 69.22it/s]Loading weights concurrently:  79%|███████▉  | 1173/1480 [00:14<00:03, 91.35it/s]Loading weights concurrently:  80%|████████  | 1184/1480 [00:14<00:03, 86.65it/s]Loading weights concurrently:  81%|████████▏ | 1205/1480 [00:14<00:02, 113.16it/s]Loading weights concurrently:  82%|████████▏ | 1218/1480 [00:14<00:02, 93.24it/s] Loading weights concurrently:  83%|████████▎ | 1229/1480 [00:14<00:03, 78.70it/s]Loading weights concurrently:  84%|████████▍ | 1242/1480 [00:14<00:02, 87.10it/s]Loading weights concurrently:  85%|████████▍ | 1252/1480 [00:15<00:02, 80.90it/s]Loading weights concurrently:  86%|████████▌ | 1268/1480 [00:15<00:02, 71.63it/s]Loading weights concurrently:  87%|████████▋ | 1284/1480 [00:15<00:02, 81.88it/s]Loading weights concurrently:  87%|████████▋ | 1294/1480 [00:15<00:02, 82.69it/s]Loading weights concurrently:  89%|████████▉ | 1314/1480 [00:15<00:02, 78.30it/s]Loading weights concurrently:  90%|████████▉ | 1325/1480 [00:16<00:01, 83.31it/s]Loading weights concurrently:  92%|█████████▏| 1357/1480 [00:16<00:00, 130.06it/s]Loading weights concurrently:  93%|█████████▎| 1373/1480 [00:16<00:00, 111.43it/s]Loading weights concurrently:  94%|█████████▍| 1389/1480 [00:16<00:00, 93.67it/s] Loading weights concurrently:  95%|█████████▍| 1403/1480 [00:16<00:00, 100.63it/s]Loading weights concurrently:  96%|█████████▌| 1415/1480 [00:16<00:00, 101.36it/s]Loading weights concurrently:  96%|█████████▋| 1427/1480 [00:16<00:00, 95.57it/s] Loading weights concurrently:  97%|█████████▋| 1438/1480 [00:17<00:00, 91.56it/s]Loading weights concurrently:  98%|█████████▊| 1448/1480 [00:17<00:00, 88.24it/s]Loading weights concurrently:  99%|█████████▊| 1458/1480 [00:18<00:00, 29.79it/s]Loading weights concurrently: 100%|██████████| 1480/1480 [00:18<00:00, 81.14it/s]
+Model init total -- 22.17s
+!!!!!!! Segfault encountered !!!!!!!
+  File "<unknown>", line 0, in nvmlSystemGetConfComputeSettings
+  File "<unknown>", line 0, in ffi_call
+  File "/usr/local/src/conda/python-3.12.3/Modules/_ctypes/callproc.c", line 931, in _call_function_pointer
+  File "/usr/local/src/conda/python-3.12.3/Modules/_ctypes/callproc.c", line 1273, in _ctypes_callproc
+  File "/usr/local/src/conda/python-3.12.3/Modules/_ctypes/_ctypes.c", line 4167, in PyCFuncPtr_call
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 240, in _PyObject_MakeTpCall
+  File "Python/bytecodes.c", line 2706, in _PyEval_EvalFrameDefault
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 144, in _PyObject_FastCallDictTstate
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 508, in _PyObject_Call_Prepend
+  File "/usr/local/src/conda/python-3.12.3/Objects/typeobject.c", line 9014, in slot_tp_init
+  File "/usr/local/src/conda/python-3.12.3/Objects/typeobject.c", line 1673, in type_call
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 240, in _PyObject_MakeTpCall
+  File "Python/bytecodes.c", line 2706, in _PyEval_EvalFrameDefault
+  File "/usr/local/src/conda/python-3.12.3/Python/ceval.c", line 578, in PyEval_EvalCode
+  File "/usr/local/src/conda/python-3.12.3/Python/bltinmodule.c", line 1096, in builtin_exec_impl
+  File "/usr/local/src/conda/python-3.12.3/Python/clinic/bltinmodule.c.h", line 586, in builtin_exec
+  File "/usr/local/src/conda/python-3.12.3/Objects/methodobject.c", line 438, in cfunction_vectorcall_FASTCALL_KEYWORDS
+  File "/usr/local/src/conda/python-3.12.3/Include/internal/pycore_call.h", line 92, in _PyObject_VectorcallTstate
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 325, in PyObject_Vectorcall
+  File "Python/bytecodes.c", line 2706, in _PyEval_EvalFrameDefault
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 300, in pymain_run_module
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 623, in pymain_run_python
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 709, in Py_RunMain
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 763, in Py_BytesMain
+  File "<unknown>", line 0, in 0xffffffffffffffff
+
+--------------------------------------------------------------------------
+Child job 2 terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+
+Aborted!
+--------------------------------------------------------------------------
+(null) noticed that process rank 0 with PID 0 on node autodl-container-fnrr36bcry-d3ca6404 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------

@@ -1,0 +1,157 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-fp8",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "fp8",
+ "workload": "agent",
+ "concurrency": 128,
+ "n_requests": 2007,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794231739.8696852,
+ "client": {
+  "procs": 4,
+  "per_proc": [
+   {
+    "cpu_s": 6.624519541,
+    "wall_s": 731.0638094069436,
+    "cpu_frac": 0.009061479252233766
+   },
+   {
+    "cpu_s": 7.2314884809999995,
+    "wall_s": 729.7019905801862,
+    "cpu_frac": 0.009910194263346111
+   },
+   {
+    "cpu_s": 7.133751543000001,
+    "wall_s": 734.4764045570046,
+    "cpu_frac": 0.009712703496993458
+   },
+   {
+    "cpu_s": 7.29175775,
+    "wall_s": 732.0788757298142,
+    "cpu_frac": 0.009960344427000164
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794231739.9975243,
+   "mono0": 8144434.291331142
+  }
+ },
+ "energy_mj_start": 2319241338254,
+ "energy_mj_end": 2319657385908,
+ "window_s": 735.7122490778565,
+ "request_window_s": 734.4723953250796,
+ "gpu_before": {
+  "temp_c": 63,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 303.541,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89894,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 63,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 285.645,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91812,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 2007,
+  "n_ok": 2007,
+  "n_err": 0,
+  "makespan_s": 734.4723953250796,
+  "output_tokens": 273083,
+  "input_tokens": 16251561,
+  "output_throughput": 371.8083916266624,
+  "total_token_throughput": 22498.65904447797,
+  "request_throughput": 2.7325737669306087,
+  "ttft_mean_ms": 8851.862509151633,
+  "ttft_p50_ms": 9976.526107639074,
+  "ttft_p90_ms": 17731.460574641824,
+  "ttft_p99_ms": 22327.761199697863,
+  "tpot_mean_ms": 231.93844654276634,
+  "tpot_p50_ms": 275.5800052524506,
+  "tpot_p90_ms": 319.13895809987474,
+  "tpot_p99_ms": 358.3650429734148,
+  "e2e_mean_ms": 40610.726418716564,
+  "e2e_p50_ms": 39092.11195167154,
+  "e2e_p90_ms": 73737.64321990314,
+  "e2e_p99_ms": 119895.8922940679,
+  "itl_mean_ms": 237.8133767402117,
+  "itl_p50_ms": 128.48800000000438,
+  "itl_p90_ms": 565.4949999999992,
+  "itl_p99_ms": 723.9906200000012,
+  "itl_max_ms": 2365.1690000000017,
+  "chunks_per_token": 0.988732363420645,
+  "prefix_cache_hit_rate": 0.47007090580406397,
+  "steady_output_throughput": 369.7661252017245,
+  "steady_window_s": 729.2062324862927,
+  "slo_attainment": 0.026905829596412557,
+  "goodput_rps": 0.07352216413266212,
+  "goodput_tok_s": 8.09696870549892,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 416047.654,
+  "energy_j": 415921.6692944336,
+  "avg_power_w": 566.2863191888179,
+  "j_per_output_token": 1.5230595434151288,
+  "j_per_total_token": 0.025169780922023714,
+  "power_mean_w_series": 566.4079309640523,
+  "power_max_w": 646.033,
+  "energy_j_series": 415948.90973695455,
+  "peak_mem_mib": 91812.0,
+  "sm_mhz_mean": 2400.627314814815,
+  "sm_mhz_min": 2235.0,
+  "temp_max_c": 87.0
+ },
+ "sanity": {
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.480099638052678,
+   "max_single_stream_tok_s": 194.94887213505578,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.009960344427000164
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 13.366950593018933,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "restart",
+ "trt_enable_block_reuse": true,
+ "trt_enable_chunked_prefill": true
+}

@@ -1,0 +1,1 @@
+{"time": "2026-11-10 04:12:09", "attempt": 1, "log": "/root/autodl-tmp/bench-repo/results/explore_trt_cudagraph/trtllm-q8b-fp8-padded/server_01.log", "error": "trtllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/explore_trt_cudagraph/trtllm-q8b-fp8-padded/server_01.log"}

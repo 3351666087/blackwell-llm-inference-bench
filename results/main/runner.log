@@ -1041,3 +1041,245 @@ Aborted!
 2026-11-09 16:13:23   knee agent: c=64 median thr 91.9 < 1.05 x 223.2
 2026-11-09 16:13:31 server trtllm-q32b-fp8 stopped
 2026-11-09 16:13:32 plan main commit=27c0623267fe5e3afe24f0943c23ffb04b187bb9 servers=['vllm-q8b-bf16', 'sglang-q8b-bf16', 'trtllm-q8b-bf16', 'vllm-q8b-fp8', 'sglang-q8b-fp8', 'trtllm-q8b-fp8', 'vllm-q32b-fp8', 'sglang-q32b-fp8', 'trtllm-q32b-fp8']
+2026-11-09 16:14:16 server trtllm-q8b-bf16 up in 42s fp=6d9d79ae4414 kv={'[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)': '504160', 'max_tokens[=:\\s]+(\\d+)': '504171'} smoke='Paris'
+2026-11-09 16:14:16 quality trtllm-q8b-bf16: acc=0.940 err=0
+2026-11-09 16:15:57   trtllm-q8b-bf16 restarted with enable_block_reuse=False enable_chunked_prefill=False for chat (A4/A6)
+2026-11-09 16:16:53   warmup trtllm-q8b-bf16 chat c=1 n=16 err=0
+2026-11-09 16:17:37   trtllm-q8b-bf16 chat c=1 rep2 n=16 err=0 thr=85.2 tok/s ttft50=30ms tpot50=11.65ms valid=True reset=block_reuse_off
+2026-11-09 16:18:21   trtllm-q8b-bf16 chat c=1 rep3 n=16 err=0 thr=85.2 tok/s ttft50=28ms tpot50=11.65ms valid=True reset=block_reuse_off
+2026-11-09 16:18:37   warmup trtllm-q8b-bf16 chat c=4 n=16 err=0
+2026-11-09 16:19:09   trtllm-q8b-bf16 chat c=4 rep1 n=32 err=0 thr=276.4 tok/s ttft50=37ms tpot50=11.94ms valid=True reset=block_reuse_off
+2026-11-09 16:19:42   trtllm-q8b-bf16 chat c=4 rep2 n=32 err=0 thr=275.5 tok/s ttft50=37ms tpot50=11.94ms valid=True reset=block_reuse_off
+2026-11-09 16:20:14   trtllm-q8b-bf16 chat c=4 rep3 n=32 err=0 thr=275.9 tok/s ttft50=37ms tpot50=11.93ms valid=True reset=block_reuse_off
+2026-11-09 16:20:24   warmup trtllm-q8b-bf16 chat c=16 n=16 err=0
+2026-11-09 16:20:57   trtllm-q8b-bf16 chat c=16 rep1 n=128 err=0 thr=1168.0 tok/s ttft50=41ms tpot50=12.28ms valid=True reset=block_reuse_off
+2026-11-09 16:21:31   trtllm-q8b-bf16 chat c=16 rep2 n=128 err=0 thr=1153.9 tok/s ttft50=40ms tpot50=12.28ms valid=True reset=block_reuse_off
+2026-11-09 16:22:04   trtllm-q8b-bf16 chat c=16 rep3 n=128 err=0 thr=1171.7 tok/s ttft50=41ms tpot50=12.27ms valid=True reset=block_reuse_off
+2026-11-09 16:22:14   warmup trtllm-q8b-bf16 chat c=32 n=32 err=0
+2026-11-09 16:22:49   trtllm-q8b-bf16 chat c=32 rep1 n=256 err=0 thr=2021.3 tok/s ttft50=63ms tpot50=13.58ms valid=True reset=block_reuse_off
+2026-11-09 16:23:23   trtllm-q8b-bf16 chat c=32 rep2 n=256 err=0 thr=2017.2 tok/s ttft50=61ms tpot50=13.57ms valid=True reset=block_reuse_off
+2026-11-09 16:23:58   trtllm-q8b-bf16 chat c=32 rep3 n=256 err=0 thr=2021.0 tok/s ttft50=60ms tpot50=13.55ms valid=True reset=block_reuse_off
+2026-11-09 16:24:11   warmup trtllm-q8b-bf16 chat c=64 n=64 err=0
+2026-11-09 16:24:58   trtllm-q8b-bf16 chat c=64 rep1 n=512 err=0 thr=2968.4 tok/s ttft50=64ms tpot50=16.80ms valid=False reset=block_reuse_off
+2026-11-09 16:25:45   trtllm-q8b-bf16 chat c=64 rep2 n=512 err=0 thr=2951.7 tok/s ttft50=64ms tpot50=16.98ms valid=False reset=block_reuse_off
+2026-11-09 16:26:34   trtllm-q8b-bf16 chat c=64 rep3 n=512 err=0 thr=2911.4 tok/s ttft50=65ms tpot50=17.34ms valid=True reset=block_reuse_off
+2026-11-09 16:26:49   warmup trtllm-q8b-bf16 chat c=128 n=128 err=0
+2026-11-09 16:27:47   trtllm-q8b-bf16 chat c=128 rep1 n=1024 err=0 thr=5002.0 tok/s ttft50=93ms tpot50=21.83ms valid=True reset=block_reuse_off
+2026-11-09 16:28:45   trtllm-q8b-bf16 chat c=128 rep2 n=1024 err=0 thr=5026.4 tok/s ttft50=89ms tpot50=21.53ms valid=True reset=block_reuse_off
+2026-11-09 16:29:43   trtllm-q8b-bf16 chat c=128 rep3 n=1024 err=0 thr=4964.3 tok/s ttft50=97ms tpot50=21.69ms valid=True reset=block_reuse_off
+2026-11-09 16:30:01   warmup trtllm-q8b-bf16 chat c=256 n=256 err=0
+2026-11-09 16:31:21   trtllm-q8b-bf16 chat c=256 rep1 n=2048 err=0 thr=7324.1 tok/s ttft50=253ms tpot50=29.69ms valid=False reset=block_reuse_off
+2026-11-09 16:32:43   trtllm-q8b-bf16 chat c=256 rep2 n=2048 err=0 thr=7209.4 tok/s ttft50=212ms tpot50=30.23ms valid=False reset=block_reuse_off
+2026-11-09 16:34:04   trtllm-q8b-bf16 chat c=256 rep3 n=2048 err=0 thr=7259.8 tok/s ttft50=237ms tpot50=30.00ms valid=False reset=block_reuse_off
+2026-11-09 16:34:28   warmup trtllm-q8b-bf16 chat c=512 n=512 err=0
+2026-11-09 16:35:39   trtllm-q8b-bf16 chat c=512 rep1 n=2048 err=0 thr=8298.7 tok/s ttft50=1319ms tpot50=48.84ms valid=False reset=block_reuse_off
+2026-11-09 16:36:50   trtllm-q8b-bf16 chat c=512 rep2 n=2048 err=0 thr=8355.8 tok/s ttft50=1480ms tpot50=48.40ms valid=False reset=block_reuse_off
+2026-11-09 16:38:02   trtllm-q8b-bf16 chat c=512 rep3 n=2048 err=0 thr=8181.6 tok/s ttft50=1508ms tpot50=48.89ms valid=False reset=block_reuse_off
+2026-11-09 16:38:11   warmup trtllm-q8b-bf16 prefill8k c=1 n=4 err=0
+2026-11-09 16:38:45   trtllm-q8b-bf16 prefill8k c=1 rep1 n=16 err=0 thr=62.3 tok/s ttft50=490ms tpot50=12.33ms valid=True reset=block_reuse_off
+2026-11-09 16:39:19   trtllm-q8b-bf16 prefill8k c=1 rep2 n=16 err=0 thr=62.5 tok/s ttft50=490ms tpot50=12.34ms valid=True reset=block_reuse_off
+2026-11-09 16:39:54   trtllm-q8b-bf16 prefill8k c=1 rep3 n=16 err=0 thr=62.4 tok/s ttft50=484ms tpot50=12.34ms valid=True reset=block_reuse_off
+2026-11-09 16:40:00   warmup trtllm-q8b-bf16 prefill8k c=2 n=4 err=0
+2026-11-09 16:40:22   trtllm-q8b-bf16 prefill8k c=2 rep1 n=16 err=0 thr=99.0 tok/s ttft50=685ms tpot50=14.91ms valid=True reset=block_reuse_off
+2026-11-09 16:40:44   trtllm-q8b-bf16 prefill8k c=2 rep2 n=16 err=0 thr=98.7 tok/s ttft50=692ms tpot50=14.93ms valid=True reset=block_reuse_off
+2026-11-09 16:41:06   trtllm-q8b-bf16 prefill8k c=2 rep3 n=16 err=0 thr=98.8 tok/s ttft50=691ms tpot50=14.93ms valid=True reset=block_reuse_off
+2026-11-09 16:41:11   warmup trtllm-q8b-bf16 prefill8k c=4 n=4 err=0
+2026-11-09 16:41:27   trtllm-q8b-bf16 prefill8k c=4 rep1 n=16 err=0 thr=143.0 tok/s ttft50=1108ms tpot50=19.41ms valid=True reset=block_reuse_off
+2026-11-09 16:41:42   trtllm-q8b-bf16 prefill8k c=4 rep2 n=16 err=0 thr=143.4 tok/s ttft50=1114ms tpot50=19.40ms valid=True reset=block_reuse_off
+2026-11-09 16:41:58   trtllm-q8b-bf16 prefill8k c=4 rep3 n=16 err=0 thr=144.1 tok/s ttft50=1083ms tpot50=19.40ms valid=True reset=block_reuse_off
+2026-11-09 16:42:04   warmup trtllm-q8b-bf16 prefill8k c=8 n=8 err=0
+2026-11-09 16:42:28   trtllm-q8b-bf16 prefill8k c=8 rep1 n=32 err=0 thr=183.5 tok/s ttft50=1682ms tpot50=30.35ms valid=True reset=block_reuse_off
+2026-11-09 16:42:52   trtllm-q8b-bf16 prefill8k c=8 rep2 n=32 err=0 thr=183.2 tok/s ttft50=1909ms tpot50=28.92ms valid=True reset=block_reuse_off
+2026-11-09 16:43:16   trtllm-q8b-bf16 prefill8k c=8 rep3 n=32 err=0 thr=182.5 tok/s ttft50=1949ms tpot50=28.94ms valid=True reset=block_reuse_off
+2026-11-09 16:43:27   warmup trtllm-q8b-bf16 prefill8k c=16 n=16 err=0
+2026-11-09 16:44:07   trtllm-q8b-bf16 prefill8k c=16 rep1 n=64 err=0 thr=210.6 tok/s ttft50=2148ms tpot50=59.67ms valid=True reset=block_reuse_off
+2026-11-09 16:44:48   trtllm-q8b-bf16 prefill8k c=16 rep2 n=64 err=0 thr=208.9 tok/s ttft50=2190ms tpot50=59.39ms valid=True reset=block_reuse_off
+2026-11-09 16:45:28   trtllm-q8b-bf16 prefill8k c=16 rep3 n=64 err=0 thr=210.5 tok/s ttft50=2145ms tpot50=59.48ms valid=True reset=block_reuse_off
+2026-11-09 16:45:39   warmup trtllm-q8b-bf16 prefill8k c=32 n=16 err=0
+2026-11-09 16:46:34   trtllm-q8b-bf16 prefill8k c=32 rep1 n=96 err=0 thr=226.9 tok/s ttft50=1802ms tpot50=125.54ms valid=True reset=block_reuse_off
+2026-11-09 16:47:31   trtllm-q8b-bf16 prefill8k c=32 rep2 n=96 err=0 thr=221.4 tok/s ttft50=1850ms tpot50=129.23ms valid=True reset=block_reuse_off
+2026-11-09 16:48:28   trtllm-q8b-bf16 prefill8k c=32 rep3 n=96 err=0 thr=222.6 tok/s ttft50=1845ms tpot50=129.38ms valid=True reset=block_reuse_off
+2026-11-09 16:49:11   trtllm-q8b-bf16 restarted with enable_block_reuse=False enable_chunked_prefill=True for prefill16k (A4/A6)
+2026-11-09 16:49:23   warmup trtllm-q8b-bf16 prefill16k c=1 n=4 err=0
+2026-11-09 16:50:08   trtllm-q8b-bf16 prefill16k c=1 rep1 n=16 err=0 thr=46.4 tok/s ttft50=1092ms tpot50=13.13ms valid=True reset=block_reuse_off
+2026-11-09 16:50:54   trtllm-q8b-bf16 prefill16k c=1 rep2 n=16 err=0 thr=46.3 tok/s ttft50=1097ms tpot50=13.14ms valid=True reset=block_reuse_off
+2026-11-09 16:51:40   trtllm-q8b-bf16 prefill16k c=1 rep3 n=16 err=0 thr=46.3 tok/s ttft50=1093ms tpot50=13.13ms valid=True reset=block_reuse_off
+2026-11-09 16:51:49   warmup trtllm-q8b-bf16 prefill16k c=2 n=4 err=0
+2026-11-09 16:52:22   trtllm-q8b-bf16 prefill16k c=2 rep1 n=16 err=0 thr=64.4 tok/s ttft50=1594ms tpot50=18.72ms valid=True reset=block_reuse_off
+2026-11-09 16:52:55   trtllm-q8b-bf16 prefill16k c=2 rep2 n=16 err=0 thr=64.4 tok/s ttft50=1590ms tpot50=18.70ms valid=True reset=block_reuse_off
+2026-11-09 16:53:28   trtllm-q8b-bf16 prefill16k c=2 rep3 n=16 err=0 thr=64.3 tok/s ttft50=1590ms tpot50=18.74ms valid=True reset=block_reuse_off
+2026-11-09 16:53:36   warmup trtllm-q8b-bf16 prefill16k c=4 n=4 err=0
+2026-11-09 16:54:02   trtllm-q8b-bf16 prefill16k c=4 rep1 n=16 err=0 thr=81.1 tok/s ttft50=2619ms tpot50=29.08ms valid=True reset=block_reuse_off
+2026-11-09 16:54:29   trtllm-q8b-bf16 prefill16k c=4 rep2 n=16 err=0 thr=80.9 tok/s ttft50=2604ms tpot50=29.13ms valid=True reset=block_reuse_off
+2026-11-09 16:54:56   trtllm-q8b-bf16 prefill16k c=4 rep3 n=16 err=0 thr=80.7 tok/s ttft50=2618ms tpot50=29.13ms valid=True reset=block_reuse_off
+2026-11-09 16:55:08   warmup trtllm-q8b-bf16 prefill16k c=8 n=8 err=0
+2026-11-09 16:55:55   trtllm-q8b-bf16 prefill16k c=8 rep1 n=32 err=0 thr=90.8 tok/s ttft50=3219ms tpot50=63.05ms valid=True reset=block_reuse_off
+2026-11-09 16:56:41   trtllm-q8b-bf16 prefill16k c=8 rep2 n=32 err=0 thr=90.6 tok/s ttft50=2768ms tpot50=66.21ms valid=True reset=block_reuse_off
+2026-11-09 16:57:28   trtllm-q8b-bf16 prefill16k c=8 rep3 n=32 err=0 thr=90.5 tok/s ttft50=3216ms tpot50=63.09ms valid=True reset=block_reuse_off
+2026-11-09 16:57:50   warmup trtllm-q8b-bf16 prefill16k c=16 n=16 err=0
+2026-11-09 16:59:16   trtllm-q8b-bf16 prefill16k c=16 rep1 n=64 err=0 thr=96.8 tok/s ttft50=2849ms tpot50=142.54ms valid=True reset=block_reuse_off
+2026-11-09 17:00:42   trtllm-q8b-bf16 prefill16k c=16 rep2 n=64 err=0 thr=97.7 tok/s ttft50=3296ms tpot50=138.81ms valid=True reset=block_reuse_off
+2026-11-09 17:02:06   trtllm-q8b-bf16 prefill16k c=16 rep3 n=64 err=0 thr=98.1 tok/s ttft50=3363ms tpot50=137.22ms valid=True reset=block_reuse_off
+2026-11-09 17:02:29   warmup trtllm-q8b-bf16 prefill16k c=32 n=16 err=0
+2026-11-09 17:04:35   trtllm-q8b-bf16 prefill16k c=32 rep1 n=96 err=0 thr=98.4 tok/s ttft50=2991ms tpot50=295.01ms valid=True reset=block_reuse_off
+2026-11-09 17:06:39   trtllm-q8b-bf16 prefill16k c=32 rep2 n=96 err=0 thr=100.5 tok/s ttft50=2975ms tpot50=284.11ms valid=True reset=block_reuse_off
+2026-11-09 17:08:42   trtllm-q8b-bf16 prefill16k c=32 rep3 n=96 err=0 thr=100.7 tok/s ttft50=2982ms tpot50=284.42ms valid=True reset=block_reuse_off
+2026-11-09 17:08:42   knee prefill16k: c=32 median thr 100.5 < 1.05 x 97.7
+2026-11-09 17:09:02   warmup trtllm-q8b-bf16 prefill32k c=1 n=4 err=0
+2026-11-09 17:10:20   trtllm-q8b-bf16 prefill32k c=1 rep1 n=16 err=0 thr=26.9 tok/s ttft50=2890ms tpot50=14.65ms valid=True reset=block_reuse_off
+2026-11-09 17:11:37   trtllm-q8b-bf16 prefill32k c=1 rep2 n=16 err=0 thr=27.0 tok/s ttft50=2883ms tpot50=14.65ms valid=True reset=block_reuse_off
+2026-11-09 17:12:54   trtllm-q8b-bf16 prefill32k c=1 rep3 n=16 err=0 thr=27.0 tok/s ttft50=2878ms tpot50=14.65ms valid=True reset=block_reuse_off
+2026-11-09 17:13:11   warmup trtllm-q8b-bf16 prefill32k c=2 n=4 err=0
+2026-11-09 17:14:16   trtllm-q8b-bf16 prefill32k c=2 rep1 n=16 err=0 thr=32.2 tok/s ttft50=4296ms tpot50=28.36ms valid=True reset=block_reuse_off
+2026-11-09 17:15:21   trtllm-q8b-bf16 prefill32k c=2 rep2 n=16 err=0 thr=32.3 tok/s ttft50=4276ms tpot50=28.39ms valid=True reset=block_reuse_off
+2026-11-09 17:16:26   trtllm-q8b-bf16 prefill32k c=2 rep3 n=16 err=0 thr=32.3 tok/s ttft50=4270ms tpot50=28.38ms valid=True reset=block_reuse_off
+2026-11-09 17:16:41   warmup trtllm-q8b-bf16 prefill32k c=4 n=4 err=0
+2026-11-09 17:17:40   trtllm-q8b-bf16 prefill32k c=4 rep1 n=16 err=0 thr=35.7 tok/s ttft50=6702ms tpot50=59.96ms valid=True reset=block_reuse_off
+2026-11-09 17:18:38   trtllm-q8b-bf16 prefill32k c=4 rep2 n=16 err=0 thr=35.9 tok/s ttft50=6893ms tpot50=57.60ms valid=True reset=block_reuse_off
+2026-11-09 17:19:37   trtllm-q8b-bf16 prefill32k c=4 rep3 n=16 err=0 thr=35.9 tok/s ttft50=7112ms tpot50=55.70ms valid=True reset=block_reuse_off
+2026-11-09 17:20:05   warmup trtllm-q8b-bf16 prefill32k c=8 n=8 err=0
+2026-11-09 17:21:53   trtllm-q8b-bf16 prefill32k c=8 rep1 n=32 err=0 thr=38.4 tok/s ttft50=5846ms tpot50=160.41ms valid=True reset=block_reuse_off
+2026-11-09 17:23:43   trtllm-q8b-bf16 prefill32k c=8 rep2 n=32 err=0 thr=37.7 tok/s ttft50=5917ms tpot50=165.82ms valid=True reset=block_reuse_off
+2026-11-09 17:25:33   trtllm-q8b-bf16 prefill32k c=8 rep3 n=32 err=0 thr=37.6 tok/s ttft50=6757ms tpot50=160.52ms valid=True reset=block_reuse_off
+2026-11-09 17:25:33   knee prefill32k: c=8 median thr 37.7 < 1.05 x 35.9
+2026-11-09 17:26:17   trtllm-q8b-bf16 restarted with enable_block_reuse=True enable_chunked_prefill=True for agent (A4/A6)
+2026-11-09 17:28:31   warmup trtllm-q8b-bf16 agent c=1 n=8 err=0
+2026-11-09 17:36:36   trtllm-q8b-bf16 agent c=1 rep1 n=55 err=0 thr=76.5 tok/s ttft50=123ms tpot50=12.24ms valid=True reset=restart
+2026-11-09 17:41:14   trtllm-q8b-bf16 agent c=1 rep2 n=55 err=0 thr=76.8 tok/s ttft50=114ms tpot50=12.25ms valid=True reset=restart
+2026-11-09 17:45:47   trtllm-q8b-bf16 agent c=1 rep3 n=55 err=0 thr=76.8 tok/s ttft50=117ms tpot50=12.22ms valid=True reset=restart
+2026-11-09 17:46:31   warmup trtllm-q8b-bf16 agent c=4 n=8 err=0
+2026-11-09 17:48:35   trtllm-q8b-bf16 agent c=4 rep1 n=55 err=0 thr=228.0 tok/s ttft50=149ms tpot50=14.30ms valid=True reset=restart
+2026-11-09 17:50:38   trtllm-q8b-bf16 agent c=4 rep2 n=55 err=0 thr=228.5 tok/s ttft50=136ms tpot50=14.27ms valid=True reset=restart
+2026-11-09 17:52:42   trtllm-q8b-bf16 agent c=4 rep3 n=55 err=0 thr=228.3 tok/s ttft50=138ms tpot50=14.31ms valid=True reset=restart
+2026-11-09 17:53:18   warmup trtllm-q8b-bf16 agent c=16 n=16 err=0
+2026-11-09 17:57:39   trtllm-q8b-bf16 agent c=16 rep1 n=239 err=0 thr=433.9 tok/s ttft50=183ms tpot50=26.75ms valid=True reset=restart
+2026-11-09 18:02:00   trtllm-q8b-bf16 agent c=16 rep2 n=239 err=0 thr=433.5 tok/s ttft50=186ms tpot50=26.82ms valid=True reset=restart
+2026-11-09 18:04:36   trtllm-q8b-bf16 agent c=16 rep3 n=239 err=0 thr=434.0 tok/s ttft50=182ms tpot50=26.72ms valid=True reset=restart
+2026-11-09 18:05:34   warmup trtllm-q8b-bf16 agent c=32 n=32 err=0
+2026-11-09 18:10:52   trtllm-q8b-bf16 agent c=32 rep1 n=493 err=0 thr=611.0 tok/s ttft50=240ms tpot50=40.21ms valid=True reset=restart
+2026-11-09 18:14:24   trtllm-q8b-bf16 agent c=32 rep2 n=493 err=0 thr=610.2 tok/s ttft50=236ms tpot50=40.29ms valid=True reset=restart
+2026-11-09 18:17:55   trtllm-q8b-bf16 agent c=32 rep3 n=493 err=0 thr=609.8 tok/s ttft50=230ms tpot50=40.16ms valid=True reset=restart
+2026-11-09 18:19:42   warmup trtllm-q8b-bf16 agent c=64 n=64 err=0
+2026-11-09 18:25:22   trtllm-q8b-bf16 agent c=64 rep1 n=1005 err=0 thr=720.1 tok/s ttft50=322ms tpot50=73.09ms valid=True reset=restart
+2026-11-09 18:31:02   trtllm-q8b-bf16 agent c=64 rep2 n=1005 err=0 thr=719.6 tok/s ttft50=319ms tpot50=73.05ms valid=True reset=restart
+2026-11-09 18:36:41   trtllm-q8b-bf16 agent c=64 rep3 n=1005 err=0 thr=720.1 tok/s ttft50=335ms tpot50=72.92ms valid=True reset=restart
+2026-11-09 18:38:28   warmup trtllm-q8b-bf16 agent c=128 n=64 err=0
+2026-11-09 18:53:59   trtllm-q8b-bf16 agent c=128 rep1 n=2007 err=0 thr=376.5 tok/s ttft50=12215ms tpot50=250.67ms valid=True reset=restart
+2026-11-09 19:08:36   trtllm-q8b-bf16 agent c=128 rep2 n=2007 err=0 thr=379.2 tok/s ttft50=11639ms tpot50=249.68ms valid=True reset=restart
+2026-11-09 19:23:10   trtllm-q8b-bf16 agent c=128 rep3 n=2007 err=0 thr=378.1 tok/s ttft50=11744ms tpot50=249.17ms valid=True reset=restart
+2026-11-09 19:23:10   knee agent: c=128 median thr 378.1 < 1.05 x 720.1
+2026-11-09 19:23:13 server trtllm-q8b-bf16 stopped
+2026-11-09 19:23:59 server trtllm-q8b-fp8 up in 44s fp=6d9d79ae4414 kv={'[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)': '540000', 'max_tokens[=:\\s]+(\\d+)': '540007'} smoke='Paris'
+2026-11-09 19:23:59 quality trtllm-q8b-fp8: acc=0.924 err=0
+2026-11-09 19:25:43   trtllm-q8b-fp8 restarted with enable_block_reuse=False enable_chunked_prefill=False for chat (A4/A6)
+2026-11-09 19:26:20   warmup trtllm-q8b-fp8 chat c=1 n=16 err=0
+2026-11-09 19:26:49   trtllm-q8b-fp8 chat c=1 rep1 n=16 err=0 thr=128.9 tok/s ttft50=42ms tpot50=7.60ms valid=True reset=block_reuse_off
+2026-11-09 19:27:19   trtllm-q8b-fp8 chat c=1 rep2 n=16 err=0 thr=126.8 tok/s ttft50=40ms tpot50=7.61ms valid=True reset=block_reuse_off
+2026-11-09 19:27:48   trtllm-q8b-fp8 chat c=1 rep3 n=16 err=0 thr=128.8 tok/s ttft50=40ms tpot50=7.61ms valid=True reset=block_reuse_off
+2026-11-09 19:28:00   warmup trtllm-q8b-fp8 chat c=4 n=16 err=0
+2026-11-09 19:28:22   trtllm-q8b-fp8 chat c=4 rep1 n=32 err=0 thr=404.7 tok/s ttft50=44ms tpot50=8.16ms valid=True reset=block_reuse_off
+2026-11-09 19:28:45   trtllm-q8b-fp8 chat c=4 rep2 n=32 err=0 thr=404.1 tok/s ttft50=45ms tpot50=8.18ms valid=True reset=block_reuse_off
+2026-11-09 19:29:07   trtllm-q8b-fp8 chat c=4 rep3 n=32 err=0 thr=404.2 tok/s ttft50=44ms tpot50=8.17ms valid=True reset=block_reuse_off
+2026-11-09 19:29:14   warmup trtllm-q8b-fp8 chat c=16 n=16 err=0
+2026-11-09 19:29:39   trtllm-q8b-fp8 chat c=16 rep1 n=128 err=0 thr=1556.3 tok/s ttft50=58ms tpot50=9.07ms valid=True reset=block_reuse_off
+2026-11-09 19:30:04   trtllm-q8b-fp8 chat c=16 rep2 n=128 err=0 thr=1578.4 tok/s ttft50=59ms tpot50=9.07ms valid=True reset=block_reuse_off
+2026-11-09 19:30:30   trtllm-q8b-fp8 chat c=16 rep3 n=128 err=0 thr=1580.9 tok/s ttft50=58ms tpot50=9.11ms valid=True reset=block_reuse_off
+2026-11-09 19:30:37   warmup trtllm-q8b-fp8 chat c=32 n=32 err=0
+2026-11-09 19:31:05   trtllm-q8b-fp8 chat c=32 rep1 n=256 err=0 thr=2525.1 tok/s ttft50=88ms tpot50=10.90ms valid=True reset=block_reuse_off
+2026-11-09 19:31:32   trtllm-q8b-fp8 chat c=32 rep2 n=256 err=0 thr=2582.3 tok/s ttft50=87ms tpot50=10.73ms valid=True reset=block_reuse_off
+2026-11-09 19:32:00   trtllm-q8b-fp8 chat c=32 rep3 n=256 err=0 thr=2505.5 tok/s ttft50=94ms tpot50=10.68ms valid=True reset=block_reuse_off
+2026-11-09 19:32:14   warmup trtllm-q8b-fp8 chat c=64 n=64 err=0
+2026-11-09 19:33:12   trtllm-q8b-fp8 chat c=64 rep1 n=512 err=0 thr=2419.5 tok/s ttft50=109ms tpot50=21.91ms valid=True reset=block_reuse_off
+2026-11-09 19:34:08   trtllm-q8b-fp8 chat c=64 rep2 n=512 err=0 thr=2460.6 tok/s ttft50=104ms tpot50=22.05ms valid=True reset=block_reuse_off
+2026-11-09 19:35:05   trtllm-q8b-fp8 chat c=64 rep3 n=512 err=0 thr=2440.1 tok/s ttft50=105ms tpot50=21.89ms valid=True reset=block_reuse_off
+2026-11-09 19:35:05   knee chat: c=64 median thr 2440.1 < 1.05 x 2525.1
+2026-11-09 19:35:12   warmup trtllm-q8b-fp8 prefill8k c=1 n=4 err=0
+2026-11-09 19:35:39   trtllm-q8b-fp8 prefill8k c=1 rep1 n=16 err=0 thr=82.3 tok/s ttft50=512ms tpot50=8.27ms valid=True reset=block_reuse_off
+2026-11-09 19:36:05   trtllm-q8b-fp8 prefill8k c=1 rep2 n=16 err=0 thr=81.7 tok/s ttft50=516ms tpot50=8.24ms valid=True reset=block_reuse_off
+2026-11-09 19:36:31   trtllm-q8b-fp8 prefill8k c=1 rep3 n=16 err=0 thr=82.4 tok/s ttft50=507ms tpot50=8.27ms valid=True reset=block_reuse_off
+2026-11-09 19:36:36   warmup trtllm-q8b-fp8 prefill8k c=2 n=4 err=0
+2026-11-09 19:36:54   trtllm-q8b-fp8 prefill8k c=2 rep1 n=16 err=0 thr=122.5 tok/s ttft50=712ms tpot50=10.74ms valid=True reset=block_reuse_off
+2026-11-09 19:37:13   trtllm-q8b-fp8 prefill8k c=2 rep2 n=16 err=0 thr=122.5 tok/s ttft50=722ms tpot50=10.74ms valid=True reset=block_reuse_off
+2026-11-09 19:37:31   trtllm-q8b-fp8 prefill8k c=2 rep3 n=16 err=0 thr=122.0 tok/s ttft50=726ms tpot50=10.75ms valid=True reset=block_reuse_off
+2026-11-09 19:37:35   warmup trtllm-q8b-fp8 prefill8k c=4 n=4 err=0
+2026-11-09 19:37:49   trtllm-q8b-fp8 prefill8k c=4 rep1 n=16 err=0 thr=160.9 tok/s ttft50=1171ms tpot50=15.77ms valid=True reset=block_reuse_off
+2026-11-09 19:38:03   trtllm-q8b-fp8 prefill8k c=4 rep2 n=16 err=0 thr=162.0 tok/s ttft50=1155ms tpot50=15.76ms valid=True reset=block_reuse_off
+2026-11-09 19:38:17   trtllm-q8b-fp8 prefill8k c=4 rep3 n=16 err=0 thr=161.8 tok/s ttft50=1164ms tpot50=15.78ms valid=True reset=block_reuse_off
+2026-11-09 19:38:23   warmup trtllm-q8b-fp8 prefill8k c=8 n=8 err=0
+2026-11-09 19:38:46   trtllm-q8b-fp8 prefill8k c=8 rep1 n=32 err=0 thr=193.2 tok/s ttft50=2029ms tpot50=25.64ms valid=True reset=block_reuse_off
+2026-11-09 19:39:09   trtllm-q8b-fp8 prefill8k c=8 rep2 n=32 err=0 thr=192.0 tok/s ttft50=2031ms tpot50=26.01ms valid=True reset=block_reuse_off
+2026-11-09 19:39:34   trtllm-q8b-fp8 prefill8k c=8 rep3 n=32 err=0 thr=173.9 tok/s ttft50=2011ms tpot50=30.75ms valid=True reset=block_reuse_off
+2026-11-09 19:39:44   warmup trtllm-q8b-fp8 prefill8k c=16 n=16 err=0
+2026-11-09 19:40:24   trtllm-q8b-fp8 prefill8k c=16 rep1 n=64 err=0 thr=212.6 tok/s ttft50=2291ms tpot50=57.44ms valid=True reset=block_reuse_off
+2026-11-09 19:41:05   trtllm-q8b-fp8 prefill8k c=16 rep2 n=64 err=0 thr=210.1 tok/s ttft50=2747ms tpot50=54.85ms valid=True reset=block_reuse_off
+2026-11-09 19:41:45   trtllm-q8b-fp8 prefill8k c=16 rep3 n=64 err=0 thr=210.3 tok/s ttft50=2677ms tpot50=55.37ms valid=True reset=block_reuse_off
+2026-11-09 19:41:56   warmup trtllm-q8b-fp8 prefill8k c=32 n=16 err=0
+2026-11-09 19:42:53   trtllm-q8b-fp8 prefill8k c=32 rep1 n=96 err=0 thr=221.4 tok/s ttft50=2367ms tpot50=126.82ms valid=True reset=block_reuse_off
+2026-11-09 19:43:50   trtllm-q8b-fp8 prefill8k c=32 rep2 n=96 err=0 thr=220.9 tok/s ttft50=2357ms tpot50=125.99ms valid=True reset=block_reuse_off
+2026-11-09 19:44:47   trtllm-q8b-fp8 prefill8k c=32 rep3 n=96 err=0 thr=220.8 tok/s ttft50=2383ms tpot50=127.02ms valid=True reset=block_reuse_off
+2026-11-09 19:45:36   trtllm-q8b-fp8 restarted with enable_block_reuse=False enable_chunked_prefill=True for prefill16k (A4/A6)
+2026-11-09 19:45:46   warmup trtllm-q8b-fp8 prefill16k c=1 n=4 err=0
+2026-11-09 19:46:24   trtllm-q8b-fp8 prefill16k c=1 rep1 n=16 err=0 thr=55.6 tok/s ttft50=1147ms tpot50=9.07ms valid=True reset=block_reuse_off
+2026-11-09 19:47:03   trtllm-q8b-fp8 prefill16k c=1 rep2 n=16 err=0 thr=54.9 tok/s ttft50=1150ms tpot50=9.07ms valid=True reset=block_reuse_off
+2026-11-09 19:47:41   trtllm-q8b-fp8 prefill16k c=1 rep3 n=16 err=0 thr=55.5 tok/s ttft50=1159ms tpot50=9.07ms valid=True reset=block_reuse_off
+2026-11-09 19:47:49   warmup trtllm-q8b-fp8 prefill16k c=2 n=4 err=0
+2026-11-09 19:48:19   trtllm-q8b-fp8 prefill16k c=2 rep1 n=16 err=0 thr=71.9 tok/s ttft50=1693ms tpot50=14.66ms valid=True reset=block_reuse_off
+2026-11-09 19:48:49   trtllm-q8b-fp8 prefill16k c=2 rep2 n=16 err=0 thr=71.8 tok/s ttft50=1689ms tpot50=14.67ms valid=True reset=block_reuse_off
+2026-11-09 19:49:19   trtllm-q8b-fp8 prefill16k c=2 rep3 n=16 err=0 thr=71.8 tok/s ttft50=1695ms tpot50=14.67ms valid=True reset=block_reuse_off
+2026-11-09 19:49:26   warmup trtllm-q8b-fp8 prefill16k c=4 n=4 err=0
+2026-11-09 19:49:52   trtllm-q8b-fp8 prefill16k c=4 rep1 n=16 err=0 thr=83.8 tok/s ttft50=2817ms tpot50=25.84ms valid=True reset=block_reuse_off
+2026-11-09 19:50:18   trtllm-q8b-fp8 prefill16k c=4 rep2 n=16 err=0 thr=83.4 tok/s ttft50=2808ms tpot50=25.95ms valid=True reset=block_reuse_off
+2026-11-09 19:50:44   trtllm-q8b-fp8 prefill16k c=4 rep3 n=16 err=0 thr=83.5 tok/s ttft50=2810ms tpot50=25.93ms valid=True reset=block_reuse_off
+2026-11-09 19:50:56   warmup trtllm-q8b-fp8 prefill16k c=8 n=8 err=0
+2026-11-09 19:51:43   trtllm-q8b-fp8 prefill16k c=8 rep1 n=32 err=0 thr=90.9 tok/s ttft50=3998ms tpot50=56.21ms valid=True reset=block_reuse_off
+2026-11-09 19:52:29   trtllm-q8b-fp8 prefill16k c=8 rep2 n=32 err=0 thr=90.6 tok/s ttft50=4052ms tpot50=56.63ms valid=True reset=block_reuse_off
+2026-11-09 19:53:16   trtllm-q8b-fp8 prefill16k c=8 rep3 n=32 err=0 thr=90.5 tok/s ttft50=4521ms tpot50=53.50ms valid=True reset=block_reuse_off
+2026-11-09 19:53:39   warmup trtllm-q8b-fp8 prefill16k c=16 n=16 err=0
+2026-11-09 19:55:07   trtllm-q8b-fp8 prefill16k c=16 rep1 n=64 err=0 thr=94.5 tok/s ttft50=3481ms tpot50=142.89ms valid=True reset=block_reuse_off
+2026-11-09 19:56:34   trtllm-q8b-fp8 prefill16k c=16 rep2 n=64 err=0 thr=94.9 tok/s ttft50=2925ms tpot50=146.47ms valid=True reset=block_reuse_off
+2026-11-09 19:58:02   trtllm-q8b-fp8 prefill16k c=16 rep3 n=64 err=0 thr=95.3 tok/s ttft50=4063ms tpot50=138.07ms valid=True reset=block_reuse_off
+2026-11-09 19:58:02   knee prefill16k: c=16 median thr 94.9 < 1.05 x 90.6
+2026-11-09 19:58:20   warmup trtllm-q8b-fp8 prefill32k c=1 n=4 err=0
+2026-11-09 19:59:31   trtllm-q8b-fp8 prefill32k c=1 rep1 n=16 err=0 thr=29.5 tok/s ttft50=3015ms tpot50=10.56ms valid=False reset=block_reuse_off
+2026-11-09 20:00:42   trtllm-q8b-fp8 prefill32k c=1 rep2 n=16 err=0 thr=29.3 tok/s ttft50=3021ms tpot50=10.57ms valid=True reset=block_reuse_off
+2026-11-09 20:01:54   trtllm-q8b-fp8 prefill32k c=1 rep3 n=16 err=0 thr=29.3 tok/s ttft50=3022ms tpot50=10.56ms valid=True reset=block_reuse_off
+2026-11-09 20:02:10   warmup trtllm-q8b-fp8 prefill32k c=2 n=4 err=0
+2026-11-09 20:03:12   trtllm-q8b-fp8 prefill32k c=2 rep1 n=16 err=0 thr=33.7 tok/s ttft50=4447ms tpot50=24.52ms valid=True reset=block_reuse_off
+2026-11-09 20:04:15   trtllm-q8b-fp8 prefill32k c=2 rep2 n=16 err=0 thr=33.3 tok/s ttft50=4526ms tpot50=24.72ms valid=True reset=block_reuse_off
+2026-11-09 20:05:17   trtllm-q8b-fp8 prefill32k c=2 rep3 n=16 err=0 thr=33.4 tok/s ttft50=4496ms tpot50=24.56ms valid=True reset=block_reuse_off
+2026-11-09 20:05:33   warmup trtllm-q8b-fp8 prefill32k c=4 n=4 err=0
+2026-11-09 20:06:31   trtllm-q8b-fp8 prefill32k c=4 rep1 n=16 err=0 thr=36.1 tok/s ttft50=7371ms tpot50=52.84ms valid=True reset=block_reuse_off
+2026-11-09 20:07:30   trtllm-q8b-fp8 prefill32k c=4 rep2 n=16 err=0 thr=35.5 tok/s ttft50=6955ms tpot50=58.31ms valid=True reset=block_reuse_off
+2026-11-09 20:08:29   trtllm-q8b-fp8 prefill32k c=4 rep3 n=16 err=0 thr=35.3 tok/s ttft50=8073ms tpot50=51.78ms valid=True reset=block_reuse_off
+2026-11-09 20:08:57   warmup trtllm-q8b-fp8 prefill32k c=8 n=8 err=0
+2026-11-09 20:10:49   trtllm-q8b-fp8 prefill32k c=8 rep1 n=32 err=0 thr=37.1 tok/s ttft50=7856ms tpot50=156.62ms valid=True reset=block_reuse_off
+2026-11-09 20:12:41   trtllm-q8b-fp8 prefill32k c=8 rep2 n=32 err=0 thr=37.0 tok/s ttft50=7817ms tpot50=156.12ms valid=True reset=block_reuse_off
+2026-11-09 20:14:33   trtllm-q8b-fp8 prefill32k c=8 rep3 n=32 err=0 thr=37.0 tok/s ttft50=7976ms tpot50=155.20ms valid=True reset=block_reuse_off
+2026-11-09 20:14:33   knee prefill32k: c=8 median thr 37.0 < 1.05 x 35.5
+2026-11-09 20:15:22   trtllm-q8b-fp8 restarted with enable_block_reuse=True enable_chunked_prefill=True for agent (A4/A6)
+2026-11-09 20:16:57   warmup trtllm-q8b-fp8 agent c=1 n=8 err=0
+2026-11-09 20:22:12   trtllm-q8b-fp8 agent c=1 rep1 n=55 err=0 thr=109.8 tok/s ttft50=132ms tpot50=8.18ms valid=True reset=restart
+2026-11-09 20:25:42   trtllm-q8b-fp8 agent c=1 rep2 n=55 err=0 thr=110.1 tok/s ttft50=125ms tpot50=8.18ms valid=True reset=restart
+2026-11-09 20:30:57   trtllm-q8b-fp8 agent c=1 rep3 n=55 err=0 thr=109.8 tok/s ttft50=129ms tpot50=8.18ms valid=True reset=restart
+2026-11-09 20:31:30   warmup trtllm-q8b-fp8 agent c=4 n=8 err=0
+2026-11-09 20:35:05   trtllm-q8b-fp8 agent c=4 rep1 n=55 err=0 thr=298.7 tok/s ttft50=143ms tpot50=10.42ms valid=True reset=restart
+2026-11-09 20:36:54   trtllm-q8b-fp8 agent c=4 rep2 n=55 err=0 thr=298.7 tok/s ttft50=143ms tpot50=10.50ms valid=True reset=restart
+2026-11-09 20:40:29   trtllm-q8b-fp8 agent c=4 rep3 n=55 err=0 thr=299.8 tok/s ttft50=142ms tpot50=10.46ms valid=True reset=restart
+2026-11-09 20:40:59   warmup trtllm-q8b-fp8 agent c=16 n=16 err=0
+2026-11-09 20:43:24   trtllm-q8b-fp8 agent c=16 rep1 n=239 err=0 thr=511.9 tok/s ttft50=187ms tpot50=23.41ms valid=True reset=restart
+2026-11-09 20:45:49   trtllm-q8b-fp8 agent c=16 rep2 n=239 err=0 thr=509.1 tok/s ttft50=188ms tpot50=23.65ms valid=True reset=restart
+2026-11-09 20:48:14   trtllm-q8b-fp8 agent c=16 rep3 n=239 err=0 thr=509.3 tok/s ttft50=188ms tpot50=23.67ms valid=True reset=restart
+2026-11-09 20:49:07   warmup trtllm-q8b-fp8 agent c=32 n=32 err=0
+2026-11-09 20:52:29   trtllm-q8b-fp8 agent c=32 rep1 n=493 err=0 thr=663.5 tok/s ttft50=232ms tpot50=37.40ms valid=True reset=restart
+2026-11-09 20:55:51   trtllm-q8b-fp8 agent c=32 rep2 n=493 err=0 thr=664.0 tok/s ttft50=231ms tpot50=37.25ms valid=True reset=restart
+2026-11-09 21:00:59   trtllm-q8b-fp8 agent c=32 rep3 n=493 err=0 thr=663.5 tok/s ttft50=236ms tpot50=37.85ms valid=True reset=restart
+2026-11-09 21:02:44   warmup trtllm-q8b-fp8 agent c=64 n=64 err=0
+2026-11-09 21:08:22   trtllm-q8b-fp8 agent c=64 rep1 n=1005 err=0 thr=732.4 tok/s ttft50=324ms tpot50=72.23ms valid=True reset=restart
+2026-11-09 21:14:03   trtllm-q8b-fp8 agent c=64 rep2 n=1005 err=0 thr=733.8 tok/s ttft50=325ms tpot50=72.38ms valid=True reset=restart
+2026-11-09 21:21:28   trtllm-q8b-fp8 agent c=64 rep3 n=1005 err=0 thr=732.1 tok/s ttft50=328ms tpot50=73.42ms valid=True reset=restart
+2026-11-09 21:23:12   warmup trtllm-q8b-fp8 agent c=128 n=64 err=0
+2026-11-09 21:38:01   trtllm-q8b-fp8 agent c=128 rep1 n=2007 err=0 thr=371.5 tok/s ttft50=10020ms tpot50=276.13ms valid=True reset=restart
+2026-11-09 21:54:36   trtllm-q8b-fp8 agent c=128 rep2 n=2007 err=0 thr=371.8 tok/s ttft50=9977ms tpot50=275.58ms valid=True reset=restart
+2026-11-09 22:10:08   trtllm-q8b-fp8 agent c=128 rep3 n=2007 err=0 thr=372.1 tok/s ttft50=9633ms tpot50=274.35ms valid=True reset=restart
+2026-11-09 22:10:08   knee agent: c=128 median thr 371.8 < 1.05 x 732.4
+2026-11-09 22:10:15 server trtllm-q8b-fp8 stopped

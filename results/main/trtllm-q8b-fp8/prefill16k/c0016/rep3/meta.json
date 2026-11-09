@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-fp8",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "fp8",
+ "workload": "prefill16k",
+ "concurrency": 16,
+ "n_requests": 64,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794225395.0406027,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.7727120270000114,
+    "wall_s": 85.92617559153587,
+    "cpu_frac": 0.008992743150506598
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794225395.1193445,
+   "mono0": 8138089.413151156
+  }
+ },
+ "energy_mj_start": 2316894772526,
+ "energy_mj_end": 2316941321756,
+ "window_s": 87.07469498179853,
+ "request_window_s": 85.92507551331073,
+ "gpu_before": {
+  "temp_c": 68,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 320.059,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89648,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 70,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 343.544,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 89648,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 64,
+  "n_ok": 64,
+  "n_err": 0,
+  "makespan_s": 85.92507551331073,
+  "output_tokens": 8192,
+  "input_tokens": 1023991,
+  "output_throughput": 95.33887460745926,
+  "total_token_throughput": 12012.593458123916,
+  "request_throughput": 0.7448349578707755,
+  "ttft_mean_ms": 5102.637135176337,
+  "ttft_p50_ms": 4063.2595629431307,
+  "ttft_p90_ms": 11002.024344541136,
+  "ttft_p99_ms": 17293.626044895496,
+  "tpot_mean_ms": 128.4705935954483,
+  "tpot_p50_ms": 138.0650192997822,
+  "tpot_p90_ms": 148.64737248986845,
+  "tpot_p99_ms": 159.09633905832163,
+  "e2e_mean_ms": 21418.40252179827,
+  "e2e_p50_ms": 21371.94262025878,
+  "e2e_p90_ms": 28663.348590768877,
+  "e2e_p99_ms": 35201.24342247844,
+  "itl_mean_ms": 129.84279967669733,
+  "itl_p50_ms": 32.48299999999915,
+  "itl_p90_ms": 569.7562999999993,
+  "itl_p99_ms": 644.5348300000004,
+  "itl_max_ms": 1180.5780000000007,
+  "chunks_per_token": 0.989501953125,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 78.11991964382445,
+  "steady_window_s": 57.47674550395459,
+  "slo_attainment": 0.046875,
+  "goodput_rps": 0.0349141386501926,
+  "goodput_tok_s": 4.469009747224653,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 46549.23,
+  "energy_j": 46432.61390234375,
+  "avg_power_w": 540.3849065590967,
+  "j_per_output_token": 5.668043689250946,
+  "j_per_total_token": 0.044984865961117115,
+  "power_mean_w_series": 540.9316391152503,
+  "power_max_w": 633.442,
+  "energy_j_series": 46442.816843189925,
+  "peak_mem_mib": 89648.0,
+  "sm_mhz_mean": 2358.752037252619,
+  "sm_mhz_min": 2257.0,
+  "temp_max_c": 86.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill16k-0063"
+    ],
+    [
+     0,
+     "prefill16k-0062"
+    ],
+    [
+     0,
+     "prefill16k-0061"
+    ],
+    [
+     0,
+     "prefill16k-0060"
+    ],
+    [
+     0,
+     "prefill16k-0059"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 4.4438145286763735,
+   "max_single_stream_tok_s": 194.94887213505578,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.008992743150506598
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 12.10467495557445,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

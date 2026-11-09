@@ -1,0 +1,310 @@
+2026-11-10 00:30:40 plan nvfp4 commit=e13ae7bcdb1a8cfc37083d8b031c8c4fa9b601d0+dirty servers=['vllm-q32b-nvfp4', 'sglang-q32b-nvfp4', 'trtllm-q32b-nvfp4']
+2026-11-10 00:34:12 SERVER START FAILED vllm-q32b-nvfp4: vllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/nvfp4/vllm-q32b-nvfp4/server_01.log
+    await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 190, in run_server_worker
+    async with build_async_engine_client(
+  File "/root/miniconda3/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 60, in build_async_engine_client
+    async with build_async_engine_client_from_engine_args(
+  File "/root/miniconda3/lib/python3.12/contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/entrypoints/launchers/api_server/entry.py", line 94, in build_async_engine_client_from_engine_args
+    async_llm = AsyncLLM.from_vllm_config(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 264, in from_vllm_config
+    return cls(
+           ^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/async_llm.py", line 193, in __init__
+    self.engine_core = EngineCoreClient.make_async_mp_client(
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 170, in make_async_mp_client
+    return AsyncMPClient(
+           ^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/tracing/otel.py", line 175, in sync_wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 1163, in __init__
+    super().__init__(
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/core_client.py", line 699, in __init__
+    with launch_core_engines(
+  File "/root/miniconda3/lib/python3.12/contextlib.py", line 144, in __exit__
+    next(self.gen)
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1393, in launch_core_engines
+    wait_for_engine_startup(
+  File "/root/envs/vllm/lib/python3.12/site-packages/vllm/v1/engine/utils.py", line 1473, in wait_for_engine_startup
+    raise RuntimeError(
+RuntimeError: Engine core initialization failed. See root cause above. Failed core proc(s): {}
+
+2026-11-10 00:35:00 SERVER START FAILED sglang-q32b-nvfp4: sglang server exited rc=-9; see /root/autodl-tmp/bench-repo/results/nvfp4/sglang-q32b-nvfp4/server_01.log
+[2/8]  c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_envUtils.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/envUtils.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_envUtils.o 
+FAILED: [code=1] /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_envUtils.o 
+ c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_envUtils.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/envUtils.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_envUtils.o 
+In file included from /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/envUtils.cpp:28:
+/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include/tensorrt_llm/common/cudaUtils.h:19:10: fatal error: cublasLt.h: No such file or directory
+   19 | #include <cublasLt.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+[3/8]  c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/thop_fp4Quantize.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/tensorrt_llm/thop/fp4Quantize.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/thop_fp4Quantize.o 
+FAILED: [code=1] /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/thop_fp4Quantize.o 
+ c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/thop_fp4Quantize.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/tensorrt_llm/thop/fp4Quantize.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/thop_fp4Quantize.o 
+In file included from /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/tensorrt_llm/thop/fp4Quantize.h:23,
+                 from /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/tensorrt_llm/thop/fp4Quantize.cpp:16:
+/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include/tensorrt_llm/common/cudaUtils.h:19:10: fatal error: cublasLt.h: No such file or directory
+   19 | #include <cublasLt.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+[4/8]  c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_logger.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/logger.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_logger.o 
+FAILED: [code=1] /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_logger.o 
+ c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_logger.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/logger.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_logger.o 
+In file included from /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/logger.cpp:21:
+/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include/tensorrt_llm/common/cudaUtils.h:19:10: fatal error: cublasLt.h: No such file or directory
+   19 | #include <cublasLt.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+[5/8]  c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_tllmException.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/tllmException.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_tllmException.o 
+[6/8]  c++ -MMD -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_stringUtils.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include -fPIC -std=c++17 -Wno-switch-bool -DNDEBUG -O3 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/common/stringUtils.cpp -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/common_stringUtils.o 
+[7/8]  /root/cuda13.0/nvidia/cu13/bin/nvcc --generate-dependencies-with-compile -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/kernels_quantization.cuda.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include --compiler-options=-fPIC --expt-relaxed-constexpr -static-global-template-stub=false -DFLASHINFER_ENABLE_FP8_E8M0 -DFLASHINFER_ENABLE_FP4_E2M1 -std=c++17 --threads=1 -use_fast_math -Xfatbin=-compress-all --compress-mode=size -DFLASHINFER_ENABLE_F16 -DFLASHINFER_ENABLE_BF16 -DFLASHINFER_ENABLE_FP8_E4M3 -DFLASHINFER_ENABLE_FP8_E5M2 -DNDEBUG -O3 -gencode=arch=compute_120f,code=sm_120f -DFLASHINFER_ENABLE_FP8_E8M0 -DFLASHINFER_ENABLE_FP4_E2M1 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/kernels/quantization.cu -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/kernels_quantization.cuda.o 
+FAILED: [code=1] /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/kernels_quantization.cuda.o 
+ /root/cuda13.0/nvidia/cu13/bin/nvcc --generate-dependencies-with-compile -MF /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/kernels_quantization.cuda.o.d -DPy_LIMITED_API=0x03090000 -D_GLIBCXX_USE_CXX11_ABI=1 -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/cub -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/libcudacxx/include -I/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cccl/thrust -isystem /root/miniconda3/include/python3.12 -isystem /root/cuda13.0/nvidia/cu13/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/tvm_ffi/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/cutlass/tools/util/include -isystem /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/spdlog/include --compiler-options=-fPIC --expt-relaxed-constexpr -static-global-template-stub=false -DFLASHINFER_ENABLE_FP8_E8M0 -DFLASHINFER_ENABLE_FP4_E2M1 -std=c++17 --threads=1 -use_fast_math -Xfatbin=-compress-all --compress-mode=size -DFLASHINFER_ENABLE_F16 -DFLASHINFER_ENABLE_BF16 -DFLASHINFER_ENABLE_FP8_E4M3 -DFLASHINFER_ENABLE_FP8_E5M2 -DNDEBUG -O3 -gencode=arch=compute_120f,code=sm_120f -DFLASHINFER_ENABLE_FP8_E8M0 -DFLASHINFER_ENABLE_FP4_E2M1 -DENABLE_BF16 -DENABLE_FP8 -DENABLE_FP4 -c /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/kernels/quantization.cu -o /root/.cache/sglang/.cache/flashinfer/0.7.2/120f/cached_ops/fp4_quantization_120f/kernels_quantization.cuda.o 
+In file included from /root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/cpp/kernels/quantization.cu:26:
+/root/envs/sglang/lib/python3.12/site-packages/flashinfer/data/csrc/nv_internal/include/tensorrt_llm/common/cudaUtils.h:19:10: fatal error: cublasLt.h: No such file or directory
+   19 | #include <cublasLt.h>
+      |          ^~~~~~~~~~~~
+compilation terminated.
+ninja: build stopped: subcommand failed.
+
+
+[2026-11-10 00:34:54] Received sigquit from a child process. It usually means the child failed.
+[2026-11-10 00:34:54] kill_process_tree called: parent_pid=155106, include_parent=True, pid=155106
+
+2026-11-10 00:37:07 SERVER START FAILED trtllm-q32b-nvfp4: trtllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/nvfp4/trtllm-q32b-nvfp4/server_04.log
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1653, in __call__
+    return self.main(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1560, in main
+    rv = self.invoke(ctx)
+         ^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 2054, in invoke
+    return _process_result(sub_ctx.command.invoke(sub_ctx))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 1414, in invoke
+    return ctx.invoke(self.callback, **ctx.params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py", line 911, in invoke
+    return callback(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 568, in serve
+    launch_server(host, port, llm_args, tool_parser, chat_template,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py", line 201, in launch_server
+    llm = PyTorchLLM(**llm_args)
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 1202, in __init__
+    super().__init__(model, tokenizer, tokenizer_mode, skip_tokenizer_init,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 1088, in __init__
+    super().__init__(model,
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 236, in __init__
+    self._build_model()
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/llmapi/llm.py", line 1149, in _build_model
+    self._executor = self._executor_cls.create(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/executor.py", line 546, in create
+    return GenerationExecutor._create_ipc_executor(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/executor.py", line 417, in _create_ipc_executor
+    return GenerationExecutorProxy(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/proxy.py", line 111, in __init__
+    self._start_executor_workers(worker_kwargs)
+  File "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/executor/proxy.py", line 268, in _start_executor_workers
+    raise RuntimeError(
+RuntimeError: Executor worker returned error
+
+2026-11-10 00:39:25 plan nvfp4 commit=124d30e1bdea8b2473b07c9cdb7942570fd0fe0a+dirty servers=['vllm-q32b-nvfp4', 'sglang-q32b-nvfp4', 'trtllm-q32b-nvfp4']
+2026-11-10 00:42:12 server vllm-q32b-nvfp4 up in 164s fp=21da858b52b0 kv={'GPU KV cache size:\\s*([\\d,]+)\\s*tokens': '262,512', 'Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x': ('40,960', '6.41')} smoke='Paris'
+2026-11-10 00:42:58 quality vllm-q32b-nvfp4: acc=0.960 err=0
+2026-11-10 00:44:20   warmup vllm-q32b-nvfp4 chat c=1 n=16 err=0
+2026-11-10 00:45:24   vllm-q32b-nvfp4 chat c=1 rep1 n=16 err=0 thr=57.7 tok/s ttft50=48ms tpot50=17.18ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:46:27   vllm-q32b-nvfp4 chat c=1 rep2 n=16 err=0 thr=57.7 tok/s ttft50=46ms tpot50=17.18ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:47:31   vllm-q32b-nvfp4 chat c=1 rep3 n=16 err=0 thr=57.7 tok/s ttft50=47ms tpot50=17.18ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:47:54   warmup vllm-q32b-nvfp4 chat c=4 n=16 err=0
+2026-11-10 00:48:39   vllm-q32b-nvfp4 chat c=4 rep1 n=32 err=0 thr=195.2 tok/s ttft50=54ms tpot50=16.74ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:49:24   vllm-q32b-nvfp4 chat c=4 rep2 n=32 err=0 thr=195.1 tok/s ttft50=57ms tpot50=16.76ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:50:09   vllm-q32b-nvfp4 chat c=4 rep3 n=32 err=0 thr=195.1 tok/s ttft50=55ms tpot50=16.75ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:50:23   warmup vllm-q32b-nvfp4 chat c=16 n=16 err=0
+2026-11-10 00:51:10   vllm-q32b-nvfp4 chat c=16 rep1 n=128 err=0 thr=801.1 tok/s ttft50=59ms tpot50=17.74ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:51:58   vllm-q32b-nvfp4 chat c=16 rep2 n=128 err=0 thr=801.8 tok/s ttft50=58ms tpot50=17.75ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:52:46   vllm-q32b-nvfp4 chat c=16 rep3 n=128 err=0 thr=801.7 tok/s ttft50=59ms tpot50=17.76ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:53:01   warmup vllm-q32b-nvfp4 chat c=32 n=32 err=0
+2026-11-10 00:53:51   vllm-q32b-nvfp4 chat c=32 rep1 n=256 err=0 thr=1360.8 tok/s ttft50=66ms tpot50=20.40ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:54:41   vllm-q32b-nvfp4 chat c=32 rep2 n=256 err=0 thr=1359.0 tok/s ttft50=66ms tpot50=20.39ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:55:32   vllm-q32b-nvfp4 chat c=32 rep3 n=256 err=0 thr=1359.1 tok/s ttft50=66ms tpot50=20.43ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:55:48   warmup vllm-q32b-nvfp4 chat c=64 n=64 err=0
+2026-11-10 00:56:56   vllm-q32b-nvfp4 chat c=64 rep1 n=512 err=0 thr=2039.4 tok/s ttft50=87ms tpot50=25.05ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:58:04   vllm-q32b-nvfp4 chat c=64 rep2 n=512 err=0 thr=2036.9 tok/s ttft50=87ms tpot50=25.12ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:59:12   vllm-q32b-nvfp4 chat c=64 rep3 n=512 err=0 thr=2036.4 tok/s ttft50=86ms tpot50=25.09ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 00:59:31   warmup vllm-q32b-nvfp4 chat c=128 n=128 err=0
+2026-11-10 01:01:01   vllm-q32b-nvfp4 chat c=128 rep1 n=1024 err=0 thr=3175.0 tok/s ttft50=133ms tpot50=36.25ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:02:32   vllm-q32b-nvfp4 chat c=128 rep2 n=1024 err=0 thr=3164.4 tok/s ttft50=135ms tpot50=36.46ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:04:02   vllm-q32b-nvfp4 chat c=128 rep3 n=1024 err=0 thr=3175.9 tok/s ttft50=133ms tpot50=36.27ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:04:26   warmup vllm-q32b-nvfp4 chat c=256 n=256 err=0
+2026-11-10 01:07:06   vllm-q32b-nvfp4 chat c=256 rep1 n=2048 err=0 thr=3609.1 tok/s ttft50=264ms tpot50=67.11ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:09:45   vllm-q32b-nvfp4 chat c=256 rep2 n=2048 err=0 thr=3617.4 tok/s ttft50=261ms tpot50=67.16ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:12:25   vllm-q32b-nvfp4 chat c=256 rep3 n=2048 err=0 thr=3610.6 tok/s ttft50=265ms tpot50=66.93ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:12:58   warmup vllm-q32b-nvfp4 chat c=512 n=512 err=0
+2026-11-10 01:15:45   vllm-q32b-nvfp4 chat c=512 rep1 n=2048 err=0 thr=3440.0 tok/s ttft50=558ms tpot50=142.64ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:18:35   vllm-q32b-nvfp4 chat c=512 rep2 n=2048 err=0 thr=3398.1 tok/s ttft50=558ms tpot50=144.85ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:21:25   vllm-q32b-nvfp4 chat c=512 rep3 n=2048 err=0 thr=3389.6 tok/s ttft50=560ms tpot50=145.63ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:21:25   knee chat: c=512 median thr 3398.1 < 1.05 x 3610.6
+2026-11-10 01:21:39   warmup vllm-q32b-nvfp4 prefill8k c=1 n=4 err=0
+2026-11-10 01:22:30   vllm-q32b-nvfp4 prefill8k c=1 rep1 n=16 err=0 thr=41.2 tok/s ttft50=748ms tpot50=18.58ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:23:21   vllm-q32b-nvfp4 prefill8k c=1 rep2 n=16 err=0 thr=41.2 tok/s ttft50=747ms tpot50=18.58ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:24:12   vllm-q32b-nvfp4 prefill8k c=1 rep3 n=16 err=0 thr=41.2 tok/s ttft50=747ms tpot50=18.58ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:24:20   warmup vllm-q32b-nvfp4 prefill8k c=2 n=4 err=0
+2026-11-10 01:24:58   vllm-q32b-nvfp4 prefill8k c=2 rep1 n=16 err=0 thr=66.0 tok/s ttft50=1069ms tpot50=22.15ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:25:30   vllm-q32b-nvfp4 prefill8k c=2 rep2 n=16 err=0 thr=66.0 tok/s ttft50=1066ms tpot50=22.12ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:26:02   vllm-q32b-nvfp4 prefill8k c=2 rep3 n=16 err=0 thr=66.0 tok/s ttft50=1069ms tpot50=22.11ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:26:09   warmup vllm-q32b-nvfp4 prefill8k c=4 n=4 err=0
+2026-11-10 01:26:33   vllm-q32b-nvfp4 prefill8k c=4 rep1 n=16 err=0 thr=92.1 tok/s ttft50=1738ms tpot50=30.03ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:26:56   vllm-q32b-nvfp4 prefill8k c=4 rep2 n=16 err=0 thr=91.9 tok/s ttft50=1746ms tpot50=30.02ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:27:20   vllm-q32b-nvfp4 prefill8k c=4 rep3 n=16 err=0 thr=92.0 tok/s ttft50=1681ms tpot50=30.42ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:27:30   warmup vllm-q32b-nvfp4 prefill8k c=8 n=8 err=0
+2026-11-10 01:28:08   vllm-q32b-nvfp4 prefill8k c=8 rep1 n=32 err=0 thr=113.5 tok/s ttft50=2137ms tpot50=53.88ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:28:45   vllm-q32b-nvfp4 prefill8k c=8 rep2 n=32 err=0 thr=113.3 tok/s ttft50=2146ms tpot50=53.87ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:29:23   vllm-q32b-nvfp4 prefill8k c=8 rep3 n=32 err=0 thr=113.3 tok/s ttft50=2143ms tpot50=53.94ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:29:40   warmup vllm-q32b-nvfp4 prefill8k c=16 n=16 err=0
+2026-11-10 01:30:47   vllm-q32b-nvfp4 prefill8k c=16 rep1 n=64 err=0 thr=124.8 tok/s ttft50=2990ms tpot50=106.52ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:31:55   vllm-q32b-nvfp4 prefill8k c=16 rep2 n=64 err=0 thr=124.0 tok/s ttft50=3006ms tpot50=106.96ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:33:02   vllm-q32b-nvfp4 prefill8k c=16 rep3 n=64 err=0 thr=123.7 tok/s ttft50=3015ms tpot50=107.39ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:33:20   warmup vllm-q32b-nvfp4 prefill8k c=32 n=16 err=0
+2026-11-10 01:35:01   vllm-q32b-nvfp4 prefill8k c=32 rep1 n=96 err=0 thr=123.0 tok/s ttft50=3502ms tpot50=240.36ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:36:40   vllm-q32b-nvfp4 prefill8k c=32 rep2 n=96 err=0 thr=125.7 tok/s ttft50=3363ms tpot50=233.41ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:38:20   vllm-q32b-nvfp4 prefill8k c=32 rep3 n=96 err=0 thr=125.2 tok/s ttft50=2563ms tpot50=236.02ms valid=True reset=endpoint:/reset_prefix_cache
+2026-11-10 01:38:20   knee prefill8k: c=32 median thr 125.2 < 1.05 x 124.0
+2026-11-10 01:38:21 server vllm-q32b-nvfp4 stopped
+2026-11-10 01:43:28 server sglang-q32b-nvfp4 up in 305s fp=a9d6719adc17 kv={'max_total_num_tokens=(\\d+)': '250849'} smoke='Paris'
+2026-11-10 01:44:17 quality sglang-q32b-nvfp4: acc=0.956 err=0
+2026-11-10 01:45:34   warmup sglang-q32b-nvfp4 chat c=1 n=16 err=0
+2026-11-10 01:46:35   sglang-q32b-nvfp4 chat c=1 rep1 n=16 err=0 thr=61.1 tok/s ttft50=29ms tpot50=16.30ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:47:35   sglang-q32b-nvfp4 chat c=1 rep2 n=16 err=0 thr=61.1 tok/s ttft50=28ms tpot50=16.30ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:48:35   sglang-q32b-nvfp4 chat c=1 rep3 n=16 err=0 thr=61.1 tok/s ttft50=28ms tpot50=16.29ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:48:58   warmup sglang-q32b-nvfp4 chat c=4 n=16 err=0
+2026-11-10 01:49:42   sglang-q32b-nvfp4 chat c=4 rep1 n=32 err=0 thr=198.8 tok/s ttft50=52ms tpot50=16.62ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:50:26   sglang-q32b-nvfp4 chat c=4 rep2 n=32 err=0 thr=198.8 tok/s ttft50=52ms tpot50=16.61ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:51:10   sglang-q32b-nvfp4 chat c=4 rep3 n=32 err=0 thr=198.8 tok/s ttft50=52ms tpot50=16.62ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:51:24   warmup sglang-q32b-nvfp4 chat c=16 n=16 err=0
+2026-11-10 01:52:13   sglang-q32b-nvfp4 chat c=16 rep1 n=128 err=0 thr=777.0 tok/s ttft50=54ms tpot50=18.71ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:53:02   sglang-q32b-nvfp4 chat c=16 rep2 n=128 err=0 thr=776.2 tok/s ttft50=54ms tpot50=18.75ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:53:52   sglang-q32b-nvfp4 chat c=16 rep3 n=128 err=0 thr=776.4 tok/s ttft50=54ms tpot50=18.76ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:54:06   warmup sglang-q32b-nvfp4 chat c=32 n=32 err=0
+2026-11-10 01:54:58   sglang-q32b-nvfp4 chat c=32 rep1 n=256 err=0 thr=1306.2 tok/s ttft50=58ms tpot50=21.56ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:55:51   sglang-q32b-nvfp4 chat c=32 rep2 n=256 err=0 thr=1305.0 tok/s ttft50=59ms tpot50=21.58ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:56:43   sglang-q32b-nvfp4 chat c=32 rep3 n=256 err=0 thr=1303.7 tok/s ttft50=59ms tpot50=21.60ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:57:00   warmup sglang-q32b-nvfp4 chat c=64 n=64 err=0
+2026-11-10 01:58:10   sglang-q32b-nvfp4 chat c=64 rep1 n=512 err=0 thr=1975.1 tok/s ttft50=69ms tpot50=26.51ms valid=True reset=endpoint:/flush_cache
+2026-11-10 01:59:20   sglang-q32b-nvfp4 chat c=64 rep2 n=512 err=0 thr=1971.0 tok/s ttft50=69ms tpot50=26.61ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:00:30   sglang-q32b-nvfp4 chat c=64 rep3 n=512 err=0 thr=1972.9 tok/s ttft50=68ms tpot50=26.58ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:00:49   warmup sglang-q32b-nvfp4 chat c=128 n=128 err=0
+2026-11-10 02:02:17   sglang-q32b-nvfp4 chat c=128 rep1 n=1024 err=0 thr=3250.7 tok/s ttft50=87ms tpot50=35.31ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:03:46   sglang-q32b-nvfp4 chat c=128 rep2 n=1024 err=0 thr=3253.2 tok/s ttft50=88ms tpot50=35.33ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:05:14   sglang-q32b-nvfp4 chat c=128 rep3 n=1024 err=0 thr=3241.2 tok/s ttft50=88ms tpot50=35.47ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:05:38   warmup sglang-q32b-nvfp4 chat c=256 n=256 err=0
+2026-11-10 02:07:50   sglang-q32b-nvfp4 chat c=256 rep1 n=2048 err=0 thr=4401.9 tok/s ttft50=112ms tpot50=53.33ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:10:02   sglang-q32b-nvfp4 chat c=256 rep2 n=2048 err=0 thr=4391.0 tok/s ttft50=110ms tpot50=53.70ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:12:13   sglang-q32b-nvfp4 chat c=256 rep3 n=2048 err=0 thr=4398.1 tok/s ttft50=111ms tpot50=53.33ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:12:57   warmup sglang-q32b-nvfp4 chat c=512 n=512 err=0
+2026-11-10 02:15:16   sglang-q32b-nvfp4 chat c=512 rep1 n=2048 err=0 thr=4154.8 tok/s ttft50=2376ms tpot50=104.74ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:17:34   sglang-q32b-nvfp4 chat c=512 rep2 n=2048 err=0 thr=4197.8 tok/s ttft50=2366ms tpot50=104.00ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:19:53   sglang-q32b-nvfp4 chat c=512 rep3 n=2048 err=0 thr=4164.4 tok/s ttft50=2368ms tpot50=104.95ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:19:53   knee chat: c=512 median thr 4164.4 < 1.05 x 4398.1
+2026-11-10 02:20:06   warmup sglang-q32b-nvfp4 prefill8k c=1 n=4 err=0
+2026-11-10 02:20:56   sglang-q32b-nvfp4 prefill8k c=1 rep1 n=16 err=0 thr=42.0 tok/s ttft50=811ms tpot50=17.67ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:21:47   sglang-q32b-nvfp4 prefill8k c=1 rep2 n=16 err=0 thr=41.9 tok/s ttft50=812ms tpot50=17.67ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:22:37   sglang-q32b-nvfp4 prefill8k c=1 rep3 n=16 err=0 thr=41.9 tok/s ttft50=814ms tpot50=17.67ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:22:46   warmup sglang-q32b-nvfp4 prefill8k c=2 n=4 err=0
+2026-11-10 02:23:19   sglang-q32b-nvfp4 prefill8k c=2 rep1 n=16 err=0 thr=64.4 tok/s ttft50=1177ms tpot50=22.11ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:23:52   sglang-q32b-nvfp4 prefill8k c=2 rep2 n=16 err=0 thr=64.5 tok/s ttft50=1175ms tpot50=22.08ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:24:25   sglang-q32b-nvfp4 prefill8k c=2 rep3 n=16 err=0 thr=64.4 tok/s ttft50=1175ms tpot50=22.07ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:24:32   warmup sglang-q32b-nvfp4 prefill8k c=4 n=4 err=0
+2026-11-10 02:24:57   sglang-q32b-nvfp4 prefill8k c=4 rep1 n=16 err=0 thr=88.3 tok/s ttft50=1940ms tpot50=30.48ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:25:21   sglang-q32b-nvfp4 prefill8k c=4 rep2 n=16 err=0 thr=88.2 tok/s ttft50=1934ms tpot50=30.49ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:25:46   sglang-q32b-nvfp4 prefill8k c=4 rep3 n=16 err=0 thr=88.0 tok/s ttft50=1943ms tpot50=30.48ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:25:56   warmup sglang-q32b-nvfp4 prefill8k c=8 n=8 err=0
+2026-11-10 02:26:36   sglang-q32b-nvfp4 prefill8k c=8 rep1 n=32 err=0 thr=107.5 tok/s ttft50=3462ms tpot50=47.80ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:27:15   sglang-q32b-nvfp4 prefill8k c=8 rep2 n=32 err=0 thr=107.4 tok/s ttft50=3461ms tpot50=47.81ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:27:55   sglang-q32b-nvfp4 prefill8k c=8 rep3 n=32 err=0 thr=107.4 tok/s ttft50=3464ms tpot50=47.83ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:28:13   warmup sglang-q32b-nvfp4 prefill8k c=16 n=16 err=0
+2026-11-10 02:29:22   sglang-q32b-nvfp4 prefill8k c=16 rep1 n=64 err=0 thr=120.7 tok/s ttft50=6506ms tpot50=82.45ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:30:32   sglang-q32b-nvfp4 prefill8k c=16 rep2 n=64 err=0 thr=120.6 tok/s ttft50=6514ms tpot50=82.44ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:31:41   sglang-q32b-nvfp4 prefill8k c=16 rep3 n=64 err=0 thr=120.6 tok/s ttft50=6513ms tpot50=82.50ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:31:59   warmup sglang-q32b-nvfp4 prefill8k c=32 n=16 err=0
+2026-11-10 02:33:38   sglang-q32b-nvfp4 prefill8k c=32 rep1 n=96 err=0 thr=126.0 tok/s ttft50=12587ms tpot50=136.75ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:35:17   sglang-q32b-nvfp4 prefill8k c=32 rep2 n=96 err=0 thr=125.9 tok/s ttft50=12608ms tpot50=136.83ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:36:57   sglang-q32b-nvfp4 prefill8k c=32 rep3 n=96 err=0 thr=124.3 tok/s ttft50=12711ms tpot50=138.64ms valid=True reset=endpoint:/flush_cache
+2026-11-10 02:36:57   knee prefill8k: c=32 median thr 125.9 < 1.05 x 120.6
+2026-11-10 02:37:04 server sglang-q32b-nvfp4 stopped
+2026-11-10 02:39:09 server trtllm-q32b-nvfp4 up in 66s fp=6d9d79ae4414 kv={'[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)': '264224', 'max_tokens[=:\\s]+(\\d+)': '264234'} smoke='Paris'
+2026-11-10 02:40:05 quality trtllm-q32b-nvfp4: acc=0.968 err=0
+2026-11-10 02:43:11   trtllm-q32b-nvfp4 restarted with enable_block_reuse=False enable_chunked_prefill=False for chat (A4/A6)
+2026-11-10 02:44:28   warmup trtllm-q32b-nvfp4 chat c=1 n=16 err=0
+2026-11-10 02:45:28   trtllm-q32b-nvfp4 chat c=1 rep1 n=16 err=0 thr=61.5 tok/s ttft50=61ms tpot50=16.06ms valid=True reset=block_reuse_off
+2026-11-10 02:46:28   trtllm-q32b-nvfp4 chat c=1 rep2 n=16 err=0 thr=61.5 tok/s ttft50=62ms tpot50=16.06ms valid=True reset=block_reuse_off
+2026-11-10 02:47:28   trtllm-q32b-nvfp4 chat c=1 rep3 n=16 err=0 thr=61.5 tok/s ttft50=60ms tpot50=16.06ms valid=True reset=block_reuse_off
+2026-11-10 02:47:53   warmup trtllm-q32b-nvfp4 chat c=4 n=16 err=0
+2026-11-10 02:48:43   trtllm-q32b-nvfp4 chat c=4 rep1 n=32 err=0 thr=176.6 tok/s ttft50=73ms tpot50=19.36ms valid=True reset=block_reuse_off
+2026-11-10 02:49:33   trtllm-q32b-nvfp4 chat c=4 rep2 n=32 err=0 thr=175.2 tok/s ttft50=73ms tpot50=19.37ms valid=True reset=block_reuse_off
+2026-11-10 02:50:22   trtllm-q32b-nvfp4 chat c=4 rep3 n=32 err=0 thr=175.8 tok/s ttft50=74ms tpot50=19.37ms valid=True reset=block_reuse_off
+2026-11-10 02:50:38   warmup trtllm-q32b-nvfp4 chat c=16 n=16 err=0
+2026-11-10 02:51:35   trtllm-q32b-nvfp4 chat c=16 rep1 n=128 err=0 thr=666.6 tok/s ttft50=83ms tpot50=21.65ms valid=True reset=block_reuse_off
+2026-11-10 02:52:33   trtllm-q32b-nvfp4 chat c=16 rep2 n=128 err=0 thr=665.2 tok/s ttft50=84ms tpot50=21.70ms valid=True reset=block_reuse_off
+2026-11-10 02:53:30   trtllm-q32b-nvfp4 chat c=16 rep3 n=128 err=0 thr=665.6 tok/s ttft50=83ms tpot50=21.72ms valid=True reset=block_reuse_off
+2026-11-10 02:53:46   warmup trtllm-q32b-nvfp4 chat c=32 n=32 err=0
+2026-11-10 02:54:44   trtllm-q32b-nvfp4 chat c=32 rep1 n=256 err=0 thr=1188.4 tok/s ttft50=92ms tpot50=23.28ms valid=True reset=block_reuse_off
+2026-11-10 02:55:41   trtllm-q32b-nvfp4 chat c=32 rep2 n=256 err=0 thr=1189.5 tok/s ttft50=98ms tpot50=23.25ms valid=True reset=block_reuse_off
+2026-11-10 02:56:38   trtllm-q32b-nvfp4 chat c=32 rep3 n=256 err=0 thr=1194.5 tok/s ttft50=92ms tpot50=23.07ms valid=True reset=block_reuse_off
+2026-11-10 02:57:04   warmup trtllm-q32b-nvfp4 chat c=64 n=64 err=0
+2026-11-10 02:58:39   trtllm-q32b-nvfp4 chat c=64 rep1 n=512 err=0 thr=1442.0 tok/s ttft50=153ms tpot50=36.63ms valid=True reset=block_reuse_off
+2026-11-10 03:00:15   trtllm-q32b-nvfp4 chat c=64 rep2 n=512 err=0 thr=1429.4 tok/s ttft50=154ms tpot50=37.15ms valid=True reset=block_reuse_off
+2026-11-10 03:01:51   trtllm-q32b-nvfp4 chat c=64 rep3 n=512 err=0 thr=1428.8 tok/s ttft50=157ms tpot50=36.99ms valid=True reset=block_reuse_off
+2026-11-10 03:02:23   warmup trtllm-q32b-nvfp4 chat c=128 n=128 err=0
+2026-11-10 03:04:25   trtllm-q32b-nvfp4 chat c=128 rep1 n=1024 err=0 thr=2341.8 tok/s ttft50=171ms tpot50=46.96ms valid=True reset=block_reuse_off
+2026-11-10 03:06:27   trtllm-q32b-nvfp4 chat c=128 rep2 n=1024 err=0 thr=2327.8 tok/s ttft50=174ms tpot50=47.17ms valid=True reset=block_reuse_off
+2026-11-10 03:08:28   trtllm-q32b-nvfp4 chat c=128 rep3 n=1024 err=0 thr=2356.8 tok/s ttft50=172ms tpot50=46.40ms valid=True reset=block_reuse_off
+2026-11-10 03:09:06   warmup trtllm-q32b-nvfp4 chat c=256 n=256 err=0
+2026-11-10 03:11:44   trtllm-q32b-nvfp4 chat c=256 rep1 n=2048 err=0 thr=3652.6 tok/s ttft50=187ms tpot50=60.38ms valid=False reset=block_reuse_off
+2026-11-10 03:14:25   trtllm-q32b-nvfp4 chat c=256 rep2 n=2048 err=0 thr=3600.3 tok/s ttft50=191ms tpot50=61.43ms valid=False reset=block_reuse_off
+2026-11-10 03:17:03   trtllm-q32b-nvfp4 chat c=256 rep3 n=2048 err=0 thr=3651.6 tok/s ttft50=188ms tpot50=60.09ms valid=False reset=block_reuse_off
+2026-11-10 03:17:48   warmup trtllm-q32b-nvfp4 chat c=512 n=512 err=0
+2026-11-10 03:19:44   trtllm-q32b-nvfp4 chat c=512 rep1 n=2048 err=0 thr=4990.6 tok/s ttft50=1799ms tpot50=77.91ms valid=False reset=block_reuse_off
+2026-11-10 03:21:40   trtllm-q32b-nvfp4 chat c=512 rep2 n=2048 err=0 thr=5015.5 tok/s ttft50=1667ms tpot50=77.81ms valid=False reset=block_reuse_off
+2026-11-10 03:23:36   trtllm-q32b-nvfp4 chat c=512 rep3 n=2048 err=0 thr=5018.4 tok/s ttft50=1857ms tpot50=77.57ms valid=False reset=block_reuse_off
+2026-11-10 03:23:49   warmup trtllm-q32b-nvfp4 prefill8k c=1 n=4 err=0
+2026-11-10 03:24:39   trtllm-q32b-nvfp4 prefill8k c=1 rep1 n=16 err=0 thr=42.0 tok/s ttft50=863ms tpot50=17.22ms valid=True reset=block_reuse_off
+2026-11-10 03:25:29   trtllm-q32b-nvfp4 prefill8k c=1 rep2 n=16 err=0 thr=42.1 tok/s ttft50=860ms tpot50=17.23ms valid=True reset=block_reuse_off
+2026-11-10 03:26:20   trtllm-q32b-nvfp4 prefill8k c=1 rep3 n=16 err=0 thr=42.0 tok/s ttft50=862ms tpot50=17.23ms valid=True reset=block_reuse_off
+2026-11-10 03:26:29   warmup trtllm-q32b-nvfp4 prefill8k c=2 n=4 err=0
+2026-11-10 03:27:03   trtllm-q32b-nvfp4 prefill8k c=2 rep1 n=16 err=0 thr=62.5 tok/s ttft50=1294ms tpot50=22.01ms valid=True reset=block_reuse_off
+2026-11-10 03:27:37   trtllm-q32b-nvfp4 prefill8k c=2 rep2 n=16 err=0 thr=62.5 tok/s ttft50=1302ms tpot50=22.01ms valid=True reset=block_reuse_off
+2026-11-10 03:28:11   trtllm-q32b-nvfp4 prefill8k c=2 rep3 n=16 err=0 thr=62.5 tok/s ttft50=1290ms tpot50=22.02ms valid=True reset=block_reuse_off
+2026-11-10 03:28:18   warmup trtllm-q32b-nvfp4 prefill8k c=4 n=4 err=0
+2026-11-10 03:28:45   trtllm-q32b-nvfp4 prefill8k c=4 rep1 n=16 err=0 thr=81.9 tok/s ttft50=2144ms tpot50=32.34ms valid=True reset=block_reuse_off
+2026-11-10 03:29:11   trtllm-q32b-nvfp4 prefill8k c=4 rep2 n=16 err=0 thr=81.9 tok/s ttft50=2137ms tpot50=32.34ms valid=True reset=block_reuse_off
+2026-11-10 03:29:38   trtllm-q32b-nvfp4 prefill8k c=4 rep3 n=16 err=0 thr=82.0 tok/s ttft50=2128ms tpot50=32.34ms valid=True reset=block_reuse_off
+2026-11-10 03:29:49   warmup trtllm-q32b-nvfp4 prefill8k c=8 n=8 err=0
+2026-11-10 03:30:32   trtllm-q32b-nvfp4 prefill8k c=8 rep1 n=32 err=0 thr=99.0 tok/s ttft50=2588ms tpot50=61.16ms valid=True reset=block_reuse_off
+2026-11-10 03:31:14   trtllm-q32b-nvfp4 prefill8k c=8 rep2 n=32 err=0 thr=99.1 tok/s ttft50=3181ms tpot50=55.85ms valid=True reset=block_reuse_off
+2026-11-10 03:31:57   trtllm-q32b-nvfp4 prefill8k c=8 rep3 n=32 err=0 thr=98.8 tok/s ttft50=3190ms tpot50=55.81ms valid=True reset=block_reuse_off
+2026-11-10 03:32:17   warmup trtllm-q32b-nvfp4 prefill8k c=16 n=16 err=0
+2026-11-10 03:33:30   trtllm-q32b-nvfp4 prefill8k c=16 rep1 n=64 err=0 thr=113.9 tok/s ttft50=3241ms tpot50=115.37ms valid=True reset=block_reuse_off
+2026-11-10 03:34:43   trtllm-q32b-nvfp4 prefill8k c=16 rep2 n=64 err=0 thr=113.7 tok/s ttft50=3243ms tpot50=115.54ms valid=True reset=block_reuse_off
+2026-11-10 03:35:57   trtllm-q32b-nvfp4 prefill8k c=16 rep3 n=64 err=0 thr=114.3 tok/s ttft50=3237ms tpot50=114.99ms valid=True reset=block_reuse_off
+2026-11-10 03:36:16   warmup trtllm-q32b-nvfp4 prefill8k c=32 n=16 err=0
+2026-11-10 03:37:57   trtllm-q32b-nvfp4 prefill8k c=32 rep1 n=96 err=0 thr=122.5 tok/s ttft50=2538ms tpot50=240.07ms valid=True reset=block_reuse_off
+2026-11-10 03:39:39   trtllm-q32b-nvfp4 prefill8k c=32 rep2 n=96 err=0 thr=122.6 tok/s ttft50=2531ms tpot50=240.50ms valid=True reset=block_reuse_off
+2026-11-10 03:41:21   trtllm-q32b-nvfp4 prefill8k c=32 rep3 n=96 err=0 thr=122.7 tok/s ttft50=3354ms tpot50=234.16ms valid=True reset=block_reuse_off
+2026-11-10 03:41:24 server trtllm-q32b-nvfp4 stopped

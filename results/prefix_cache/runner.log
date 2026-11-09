@@ -88,3 +88,32 @@ Traceback (most recent call last):
     raise RuntimeError(f"Failed to bind socket to {host}:{port}: {e}")
 RuntimeError: Failed to bind socket to 127.0.0.1:8000: [Errno 98] Address already in use
 
+2026-11-09 22:10:15 plan prefix_cache commit=e13ae7bcdb1a8cfc37083d8b031c8c4fa9b601d0+dirty servers=['vllm-q8b-bf16-nocache', 'sglang-q8b-bf16-nocache', 'trtllm-q8b-bf16-nocache']
+2026-11-09 22:10:58 server trtllm-q8b-bf16-nocache up in 40s fp=6d9d79ae4414 kv={'[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)': '504576', 'max_tokens[=:\\s]+(\\d+)': '504581'} smoke='Paris'
+2026-11-09 22:14:25   trtllm-q8b-bf16-nocache restarted with enable_block_reuse=False enable_chunked_prefill=True for agent (A4/A6)
+2026-11-09 22:17:07   warmup trtllm-q8b-bf16-nocache agent c=1 n=8 err=0
+2026-11-09 22:18:58   trtllm-q8b-bf16-nocache agent c=1 rep1 n=55 err=0 thr=65.9 tok/s ttft50=391ms tpot50=12.22ms valid=True reset=block_reuse_off
+2026-11-09 22:20:50   trtllm-q8b-bf16-nocache agent c=1 rep2 n=55 err=0 thr=65.7 tok/s ttft50=401ms tpot50=12.23ms valid=True reset=block_reuse_off
+2026-11-09 22:22:42   trtllm-q8b-bf16-nocache agent c=1 rep3 n=55 err=0 thr=65.9 tok/s ttft50=398ms tpot50=12.24ms valid=True reset=block_reuse_off
+2026-11-09 22:23:57   warmup trtllm-q8b-bf16-nocache agent c=4 n=8 err=0
+2026-11-09 22:24:47   trtllm-q8b-bf16-nocache agent c=4 rep1 n=55 err=0 thr=151.0 tok/s ttft50=455ms tpot50=19.74ms valid=True reset=block_reuse_off
+2026-11-09 22:25:36   trtllm-q8b-bf16-nocache agent c=4 rep2 n=55 err=0 thr=151.2 tok/s ttft50=463ms tpot50=19.19ms valid=True reset=block_reuse_off
+2026-11-09 22:26:26   trtllm-q8b-bf16-nocache agent c=4 rep3 n=55 err=0 thr=150.7 tok/s ttft50=462ms tpot50=19.24ms valid=True reset=block_reuse_off
+2026-11-09 22:27:59   warmup trtllm-q8b-bf16-nocache agent c=16 n=16 err=0
+2026-11-09 22:30:41   trtllm-q8b-bf16-nocache agent c=16 rep1 n=239 err=0 thr=193.3 tok/s ttft50=629ms tpot50=64.32ms valid=True reset=block_reuse_off
+2026-11-09 22:33:25   trtllm-q8b-bf16-nocache agent c=16 rep2 n=239 err=0 thr=191.7 tok/s ttft50=662ms tpot50=64.64ms valid=True reset=block_reuse_off
+2026-11-09 22:36:07   trtllm-q8b-bf16-nocache agent c=16 rep3 n=239 err=0 thr=193.1 tok/s ttft50=589ms tpot50=65.02ms valid=True reset=block_reuse_off
+2026-11-09 22:38:46   warmup trtllm-q8b-bf16-nocache agent c=32 n=32 err=0
+2026-11-09 22:43:45   trtllm-q8b-bf16-nocache agent c=32 rep1 n=493 err=0 thr=218.9 tok/s ttft50=896ms tpot50=114.67ms valid=True reset=block_reuse_off
+2026-11-09 22:48:41   trtllm-q8b-bf16-nocache agent c=32 rep2 n=493 err=0 thr=220.1 tok/s ttft50=895ms tpot50=113.84ms valid=True reset=block_reuse_off
+2026-11-09 22:53:40   trtllm-q8b-bf16-nocache agent c=32 rep3 n=493 err=0 thr=218.7 tok/s ttft50=939ms tpot50=114.08ms valid=True reset=block_reuse_off
+2026-11-09 22:58:48   warmup trtllm-q8b-bf16-nocache agent c=64 n=64 err=0
+2026-11-09 23:08:33   trtllm-q8b-bf16-nocache agent c=64 rep1 n=1005 err=0 thr=233.0 tok/s ttft50=1731ms tpot50=230.61ms valid=True reset=block_reuse_off
+2026-11-09 23:18:22   trtllm-q8b-bf16-nocache agent c=64 rep2 n=1005 err=0 thr=231.4 tok/s ttft50=1669ms tpot50=232.83ms valid=True reset=block_reuse_off
+2026-11-09 23:28:09   trtllm-q8b-bf16-nocache agent c=64 rep3 n=1005 err=0 thr=232.2 tok/s ttft50=1772ms tpot50=231.48ms valid=True reset=block_reuse_off
+2026-11-09 23:33:17   warmup trtllm-q8b-bf16-nocache agent c=128 n=64 err=0
+2026-11-09 23:52:24   trtllm-q8b-bf16-nocache agent c=128 rep1 n=2007 err=0 thr=238.5 tok/s ttft50=32050ms tpot50=237.81ms valid=True reset=block_reuse_off
+2026-11-10 00:11:28   trtllm-q8b-bf16-nocache agent c=128 rep2 n=2007 err=0 thr=239.1 tok/s ttft50=31868ms tpot50=236.79ms valid=True reset=block_reuse_off
+2026-11-10 00:30:35   trtllm-q8b-bf16-nocache agent c=128 rep3 n=2007 err=0 thr=238.4 tok/s ttft50=32016ms tpot50=237.01ms valid=True reset=block_reuse_off
+2026-11-10 00:30:35   knee agent: c=128 median thr 238.5 < 1.05 x 232.2
+2026-11-10 00:30:39 server trtllm-q8b-bf16-nocache stopped

@@ -1,5 +1,33 @@
 {
- "status": "start_failed",
- "error": "trtllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/prefix_cache/trtllm-q8b-bf16-nocache/server_01.log",
- "log_tail": "/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.\n  _warnings.warn(\n[TensorRT-LLM] TensorRT LLM version: 1.2.1\n/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name \"schema\" in \"ResponseFormat\" shadows an attribute in parent \"OpenAIBaseModel\"\n  class ResponseFormat(OpenAIBaseModel):\n[11/09/2026-01:14:10] [TRT-LLM] [W] Overriding kv_cache_config \nTraceback (most recent call last):\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py\", line 193, in launch_server\n    s.bind((host, port))\nOSError: [Errno 98] Address already in use\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/root/envs/trtllm/bin/trtllm-serve\", line 10, in <module>\n    sys.exit(main())\n             ^^^^^^\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py\", line 1653, in __call__\n    return self.main(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py\", line 1560, in main\n    rv = self.invoke(ctx)\n         ^^^^^^^^^^^^^^^^\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py\", line 2054, in invoke\n    return _process_result(sub_ctx.command.invoke(sub_ctx))\n                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py\", line 1414, in invoke\n    return ctx.invoke(self.callback, **ctx.params)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/click/core.py\", line 911, in invoke\n    return callback(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py\", line 568, in serve\n    launch_server(host, port, llm_args, tool_parser, chat_template,\n  File \"/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/commands/serve.py\", line 197, in launch_server\n    raise RuntimeError(f\"Failed to bind socket to {host}:{port}: {e}\")\nRuntimeError: Failed to bind socket to 127.0.0.1:8000: [Errno 98] Address already in use\n"
+ "status": "ok",
+ "fingerprint": "6d9d79ae4414",
+ "load_s": 40.09169299155474,
+ "server_cfg": {
+  "id": "trtllm-q8b-bf16-nocache",
+  "framework": "trtllm",
+  "env": "/root/envs/trtllm",
+  "model": "/root/autodl-tmp/models/Qwen3-8B",
+  "model_id": "Qwen3-8B",
+  "precision": "bf16",
+  "max_model_len": 40960,
+  "prefix_cache": false,
+  "quality": false
+ },
+ "kv_capacity": {
+  "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "504576",
+  "max_tokens[=:\\s]+(\\d+)": "504581"
+ },
+ "model_bytes": {
+  "total_bytes": 16381470720,
+  "embed_bytes": 1244659712,
+  "read_bytes_per_step": 15136811008,
+  "kv_bytes_per_token": 147456.0
+ },
+ "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+ "smoke_text": "Paris",
+ "commit": "e13ae7bcdb1a8cfc37083d8b031c8c4fa9b601d0+dirty",
+ "request_files": {
+  "data/requests/agent.jsonl.gz": "6e69d59606767889565db6994a0227dd0b19ca54614fbbe6d3ebbbe26d96c35a",
+  "data/requests/agent_warmup.jsonl.gz": "a1316f432e83fa2fa29e74e7e850521d5f3fde4f8352053770040c4cd2cec824"
+ }
 }

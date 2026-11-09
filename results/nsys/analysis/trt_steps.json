@@ -1,0 +1,112 @@
+[
+ {
+  "capture": "trt_q8b_fp8_chat_c32",
+  "total": {
+   "steps": 402,
+   "mean_period_ms": 11.652270470149253,
+   "gpu_busy_fraction": 0.7479601003833914
+  },
+  "by_class": {
+   "decode, CUDA-graph size": {
+    "steps": 362,
+    "share": 0.900497512437811,
+    "mean_period_ms": 8.278294986187845,
+    "mean_cpu_ms": 0.8604932458563537,
+    "mean_gpu_ms": 8.021573593922652,
+    "mean_kernel_launches": 2.0,
+    "steps_with_graph_launch": 1.0,
+    "mean_batch": 31.41988950276243
+   },
+   "mixed (\u22651 context request)": {
+    "steps": 40,
+    "share": 0.09950248756218906,
+    "mean_period_ms": 42.1867486,
+    "mean_cpu_ms": 38.4126944,
+    "mean_gpu_ms": 14.994864549999999,
+    "mean_kernel_launches": 631.0,
+    "steps_with_graph_launch": 0.0,
+    "mean_batch": 31.55
+   }
+  }
+ },
+ {
+  "capture": "trt_q8b_fp8_chat_c64",
+  "total": {
+   "steps": 190,
+   "mean_period_ms": 26.80785822631579,
+   "gpu_busy_fraction": 0.4121665387649513
+  },
+  "by_class": {
+   "decode, CUDA-graph size": {
+    "steps": 86,
+    "share": 0.45263157894736844,
+    "mean_period_ms": 8.74620396511628,
+    "mean_cpu_ms": 0.9767707558139535,
+    "mean_gpu_ms": 8.290276790697675,
+    "mean_kernel_launches": 2.0,
+    "steps_with_graph_launch": 1.0,
+    "mean_batch": 64.0
+   },
+   "decode, no graph for this size": {
+    "steps": 55,
+    "share": 0.2894736842105263,
+    "mean_period_ms": 41.04599141818182,
+    "mean_cpu_ms": 36.10552578181818,
+    "mean_gpu_ms": 11.940836690909093,
+    "mean_kernel_launches": 523.0,
+    "steps_with_graph_launch": 0.0,
+    "mean_batch": 62.67272727272727
+   },
+   "mixed (\u22651 context request)": {
+    "steps": 49,
+    "share": 0.2578947368421053,
+    "mean_period_ms": 42.52632640816327,
+    "mean_cpu_ms": 37.85727848979592,
+    "mean_gpu_ms": 14.890971102040817,
+    "mean_kernel_launches": 631.0,
+    "steps_with_graph_launch": 0.0,
+    "mean_batch": 63.08163265306123
+   }
+  }
+ },
+ {
+  "capture": "trt_q8b_bf16_chat_c64",
+  "total": {
+   "steps": 254,
+   "mean_period_ms": 19.73467340944882,
+   "gpu_busy_fraction": 0.7765779380425026
+  },
+  "by_class": {
+   "decode, no graph for this size": {
+    "steps": 79,
+    "share": 0.3110236220472441,
+    "mean_period_ms": 24.869255113924048,
+    "mean_cpu_ms": 20.276333379746838,
+    "mean_gpu_ms": 17.975148265822785,
+    "mean_kernel_launches": 451.0,
+    "steps_with_graph_launch": 0.0,
+    "mean_batch": 62.79746835443038
+   },
+   "mixed (\u22651 context request)": {
+    "steps": 55,
+    "share": 0.21653543307086615,
+    "mean_period_ms": 26.67599892727273,
+    "mean_cpu_ms": 21.94641170909091,
+    "mean_gpu_ms": 17.05246561818182,
+    "mean_kernel_launches": 561.6181818181818,
+    "steps_with_graph_launch": 0.0,
+    "mean_batch": 63.41818181818182
+   },
+   "decode, CUDA-graph size": {
+    "steps": 120,
+    "share": 0.47244094488188976,
+    "mean_period_ms": 13.172966258333334,
+    "mean_cpu_ms": 0.9512131666666667,
+    "mean_gpu_ms": 12.789647683333333,
+    "mean_kernel_launches": 2.0,
+    "steps_with_graph_launch": 1.0,
+    "mean_batch": 64.0
+   }
+  }
+ }
+]

@@ -1,0 +1,33 @@
+{
+ "status": "ok",
+ "fingerprint": "6d9d79ae4414",
+ "load_s": 66.03306782990694,
+ "server_cfg": {
+  "id": "trtllm-q32b-nvfp4",
+  "framework": "trtllm",
+  "env": "/root/envs/trtllm",
+  "model": "/root/autodl-tmp/models/Qwen3-32B-NVFP4-kvbf16",
+  "model_id": "Qwen3-32B",
+  "precision": "nvfp4",
+  "max_model_len": 40960
+ },
+ "kv_capacity": {
+  "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "264224",
+  "max_tokens[=:\\s]+(\\d+)": "264234"
+ },
+ "model_bytes": {
+  "total_bytes": 20666169344,
+  "embed_bytes": 1555824640,
+  "read_bytes_per_step": 19110344704,
+  "kv_bytes_per_token": 262144.0
+ },
+ "model_manifest_revision": null,
+ "smoke_text": "Paris",
+ "commit": "124d30e1bdea8b2473b07c9cdb7942570fd0fe0a+dirty",
+ "request_files": {
+  "data/requests/chat.jsonl.gz": "4bc983fe622b317cf03e8b21b2faf4befe389decba7bb598cec7f03b510b5e1c",
+  "data/requests/chat_warmup.jsonl.gz": "4e30cc8128a14f23a16df4b50c38bc0584e3795b2539d873fd5721adf2402b37",
+  "data/requests/prefill8k.jsonl.gz": "94c3bb9ff034f54f83dd8a0ca94cf2d235787d6dea0bc36a87f1180add797d6d",
+  "data/requests/prefill8k_warmup.jsonl.gz": "453219184c711c9227ce0e6e9ed4aa41d948eff8fc6d705741b0e447e19acce6"
+ }
+}

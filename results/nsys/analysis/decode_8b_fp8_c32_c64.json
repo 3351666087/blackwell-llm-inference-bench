@@ -1,0 +1,128 @@
+[
+ {
+  "capture": "trt_q8b_fp8_chat_c32",
+  "steps": 402.1388888888889,
+  "kernel_ms_per_step": 8.743338806935137,
+  "by_cat_ms_per_step": {
+   "quantized GEMM (+split-K reduce)": 5.787912719486081,
+   "attention": 1.3699982971610138,
+   "BF16 GEMM/GEMV (lm_head)": 0.8326634634247426,
+   "other (norm, RoPE, act, copies, sampling)": 0.443012018788423,
+   "activation quant": 0.3097523080748774
+  },
+  "gpu_busy_fraction": 0.7481058182209712,
+  "window_ms": 4699.844993,
+  "share": {
+   "quantized GEMM (+split-K reduce)": 0.661979690744131,
+   "attention": 0.15669051919552102,
+   "BF16 GEMM/GEMV (lm_head)": 0.09523403837036276,
+   "other (norm, RoPE, act, copies, sampling)": 0.05066851789353398,
+   "activation quant": 0.035427233796451386
+  },
+  "tok_s": 2525.1,
+  "gpu_ms_per_output_token": 0.2962677985905395,
+  "by_cat_us_per_output_token": {
+   "quantized GEMM (+split-K reduce)": 196.12326568840982,
+   "attention": 46.42235518206568,
+   "BF16 GEMM/GEMV (lm_head)": 28.214778898874343,
+   "other (norm, RoPE, act, copies, sampling)": 15.011450254162671,
+   "activation quant": 10.495948567027012
+  }
+ },
+ {
+  "capture": "trt_q8b_fp8_chat_c64",
+  "steps": 190.19444444444446,
+  "kernel_ms_per_step": 11.047857265955892,
+  "by_cat_ms_per_step": {
+   "quantized GEMM (+split-K reduce)": 6.609490764422374,
+   "attention": 2.5672211426902294,
+   "BF16 GEMM/GEMV (lm_head)": 0.865590624799182,
+   "other (norm, RoPE, act, copies, sampling)": 0.5640804089382211,
+   "activation quant": 0.44147432510588575
+  },
+  "gpu_busy_fraction": 0.4123137783178431,
+  "window_ms": 5095.892307,
+  "share": {
+   "quantized GEMM (+split-K reduce)": 0.5982599707175437,
+   "attention": 0.23237276522399986,
+   "BF16 GEMM/GEMV (lm_head)": 0.07834918608756018,
+   "other (norm, RoPE, act, copies, sampling)": 0.05105790157847547,
+   "activation quant": 0.039960176392420846
+  },
+  "tok_s": 2440.1,
+  "gpu_ms_per_output_token": 0.16897413151831608,
+  "by_cat_us_per_output_token": {
+   "quantized GEMM (+split-K reduce)": 101.09045897417015,
+   "attention": 39.264986192234936,
+   "BF16 GEMM/GEMV (lm_head)": 13.238985674312415,
+   "other (norm, RoPE, act, copies, sampling)": 8.627464576370553,
+   "activation quant": 6.752236101228029
+  }
+ },
+ {
+  "capture": "vllm_q8b_fp8_chat_c32",
+  "steps": 940.5555555555555,
+  "kernel_ms_per_step": 6.052361234140579,
+  "by_cat_ms_per_step": {
+   "quantized GEMM (+split-K reduce)": 4.5679562250443,
+   "attention": 0.7779807005316007,
+   "BF16 GEMM/GEMV (lm_head)": 0.44018793845245124,
+   "other (norm, RoPE, act, copies, sampling)": 0.16034982102776138,
+   "activation quant": 0.10432508576491435,
+   "attention merge/combine": 0.0015614633195510927
+  },
+  "gpu_busy_fraction": 0.8788379369023015,
+  "window_ms": 5099.350054,
+  "share": {
+   "quantized GEMM (+split-K reduce)": 0.7547395220359709,
+   "attention": 0.12854168322655846,
+   "BF16 GEMM/GEMV (lm_head)": 0.07272995140630545,
+   "other (norm, RoPE, act, copies, sampling)": 0.026493762487812027,
+   "activation quant": 0.017237088423676723,
+   "attention merge/combine": 0.00025799241967632106
+  },
+  "tok_s": 2976.0,
+  "gpu_ms_per_output_token": 0.29530844653975186,
+  "by_cat_us_per_output_token": {
+   "quantized GEMM (+split-K reduce)": 222.88095579459738,
+   "attention": 37.95944478923985,
+   "BF16 GEMM/GEMV (lm_head)": 21.477768966707703,
+   "other (norm, RoPE, act, copies, sampling)": 7.823831843268922,
+   "activation quant": 5.090257805264313,
+   "attention merge/combine": 0.07618734067364608
+  }
+ },
+ {
+  "capture": "vllm_q8b_fp8_chat_c64",
+  "steps": 409.72222222222223,
+  "kernel_ms_per_step": 13.556813047322034,
+  "by_cat_ms_per_step": {
+   "quantized GEMM (+split-K reduce)": 9.036011837288134,
+   "attention": 3.1239172409491527,
+   "BF16 GEMM/GEMV (lm_head)": 0.8623639110508474,
+   "other (norm, RoPE, act, copies, sampling)": 0.32441056352542375,
+   "activation quant": 0.2067376393220339,
+   "attention merge/combine": 0.003371855186440678
+  },
+  "gpu_busy_fraction": 0.8928464492863988,
+  "window_ms": 5099.449261,
+  "share": {
+   "quantized GEMM (+split-K reduce)": 0.6665292060712659,
+   "attention": 0.23043153505507996,
+   "BF16 GEMM/GEMV (lm_head)": 0.06361110889710143,
+   "other (norm, RoPE, act, copies, sampling)": 0.023929706959373218,
+   "activation quant": 0.015249722674524315,
+   "attention merge/combine": 0.0002487203426550713
+  },
+  "tok_s": 4531.0,
+  "gpu_ms_per_output_token": 0.19705284689613745,
+  "by_cat_us_per_output_token": {
+   "quantized GEMM (+split-K reduce)": 131.3414775957652,
+   "attention": 45.407189997250605,
+   "BF16 GEMM/GEMV (lm_head)": 12.534750102394057,
+   "other (norm, RoPE, act, copies, sampling)": 4.715416881734805,
+   "activation quant": 3.0050012673915956,
+   "attention merge/combine": 0.04901105160116462
+  }
+ }
+]

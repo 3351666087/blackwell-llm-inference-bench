@@ -1,0 +1,184 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "chat",
+ "concurrency": 64,
+ "n_requests": 512,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794212651.1350718,
+ "client": {
+  "procs": 2,
+  "per_proc": [
+   {
+    "cpu_s": 5.621905811,
+    "wall_s": 40.91154392249882,
+    "cpu_frac": 0.13741612444765985
+   },
+   {
+    "cpu_s": 5.792073456,
+    "wall_s": 45.38402863871306,
+    "cpu_frac": 0.1276236074613107
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794212651.2611191,
+   "mono0": 8125345.554926159
+  }
+ },
+ "energy_mj_start": 2311455643999,
+ "energy_mj_end": 2311473310011,
+ "window_s": 46.59716363623738,
+ "request_window_s": 45.37714694160968,
+ "gpu_before": {
+  "temp_c": 64,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 324.135,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90344,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 63,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 320.744,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90344,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 512,
+  "n_ok": 512,
+  "n_err": 0,
+  "makespan_s": 45.37714694160968,
+  "output_tokens": 134699,
+  "input_tokens": 57232,
+  "output_throughput": 2968.432549832358,
+  "total_token_throughput": 4229.6841678251085,
+  "request_throughput": 11.28321268542578,
+  "ttft_mean_ms": 100.6400611695426,
+  "ttft_p50_ms": 64.15021093562245,
+  "ttft_p90_ms": 298.74023608863354,
+  "ttft_p99_ms": 306.91891495138407,
+  "tpot_mean_ms": 16.816691220355697,
+  "tpot_p50_ms": 16.804724795400023,
+  "tpot_p90_ms": 17.49071888318152,
+  "tpot_p99_ms": 19.192378426504764,
+  "e2e_mean_ms": 4497.44234894024,
+  "e2e_p50_ms": 4021.7947349883616,
+  "e2e_p90_ms": 8576.675738487394,
+  "e2e_p99_ms": 13305.09108768776,
+  "itl_mean_ms": 16.87701824220976,
+  "itl_p50_ms": 18.269000000000005,
+  "itl_p90_ms": 23.01299999999995,
+  "itl_p99_ms": 33.39428999999997,
+  "itl_max_ms": 879.365,
+  "chunks_per_token": 0.9939494725276357,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 3735.9149213698015,
+  "steady_window_s": 33.091599891893566,
+  "slo_attainment": 1.0,
+  "goodput_rps": 11.28321268542578,
+  "goodput_tok_s": 2968.432549832358,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 17666.012,
+  "energy_j": 17527.368656738283,
+  "avg_power_w": 386.2598210348508,
+  "j_per_output_token": 0.13012248536914367,
+  "j_per_total_token": 0.09132119697567502,
+  "power_mean_w_series": 383.80001766004415,
+  "power_max_w": 686.974,
+  "energy_j_series": 17362.610408445715,
+  "peak_mem_mib": 90344.0,
+  "sm_mhz_mean": 2411.551876379691,
+  "sm_mhz_min": 2370.0,
+  "temp_max_c": 73.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "chat-00511"
+    ],
+    [
+     0,
+     "chat-00510"
+    ],
+    [
+     0,
+     "chat-00509"
+    ],
+    [
+     0,
+     "chat-00508"
+    ],
+    [
+     0,
+     "chat-00507"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": false,
+   "min_tpot_over_bound": 0.38168693534316467,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 2,
+   "examples": [
+    [
+     "chat-00088",
+     3.622,
+     9.489
+    ],
+    [
+     "chat-00360",
+     8.772,
+     9.488
+    ]
+   ]
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.13741612444765985
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": false,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.00390625,
+   "p10_tpot_over_bound": 1.7095021746792811,
+   "burst_requests": 1,
+   "burst_fraction": 0.001953125
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": false
+}

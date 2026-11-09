@@ -1,0 +1,36 @@
+{
+ "status": "ok",
+ "fingerprint": "6d9d79ae4414",
+ "load_s": 40.02287626545876,
+ "server_cfg": {
+  "id": "trtllm-q8b-fp8-padded",
+  "framework": "trtllm",
+  "env": "/root/envs/trtllm",
+  "model": "/root/autodl-tmp/models/Qwen3-8B-FP8",
+  "model_id": "Qwen3-8B",
+  "precision": "fp8",
+  "max_model_len": 40960,
+  "llm_api_options": {
+   "cuda_graph_config": {
+    "enable_padding": true
+   }
+  }
+ },
+ "kv_capacity": {
+  "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "541312",
+  "max_tokens[=:\\s]+(\\d+)": "541338"
+ },
+ "model_bytes": {
+  "total_bytes": 9436551168,
+  "embed_bytes": 1244659712,
+  "read_bytes_per_step": 8191891456,
+  "kv_bytes_per_token": 147456.0
+ },
+ "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+ "smoke_text": "Paris",
+ "commit": "1f898202eabef9db6811fadfa7befc8e7b46839c+dirty",
+ "request_files": {
+  "data/requests/chat.jsonl.gz": "4bc983fe622b317cf03e8b21b2faf4befe389decba7bb598cec7f03b510b5e1c",
+  "data/requests/chat_warmup.jsonl.gz": "4e30cc8128a14f23a16df4b50c38bc0584e3795b2539d873fd5721adf2402b37"
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "trtllm-q8b-fp8-padded": {
+  "status": "ok",
+  "fingerprint": "6d9d79ae4414",
+  "load_s": 40.02287626545876,
+  "kv_capacity": {
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "541312",
+   "max_tokens[=:\\s]+(\\d+)": "541338"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "f82078df775943d2179ff538a33725f0d5c8ad5b",
+  "error": null
+ }
+}

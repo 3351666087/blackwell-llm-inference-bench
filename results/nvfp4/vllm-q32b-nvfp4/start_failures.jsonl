@@ -1,0 +1,1 @@
+{"time": "2026-11-10 00:34:07", "attempt": 1, "log": "/root/autodl-tmp/bench-repo/results/nvfp4/vllm-q32b-nvfp4/server_01.log", "error": "vllm server exited rc=1; see /root/autodl-tmp/bench-repo/results/nvfp4/vllm-q32b-nvfp4/server_01.log"}

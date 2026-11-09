@@ -1,0 +1,79 @@
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/09/2026-20:25:58] [TRT-LLM] [W] Overriding kv_cache_config 
+[11/09/2026-20:25:58] [TRT-LLM] [I] Using LLM with PyTorch backend
+[11/09/2026-20:25:58] [TRT-LLM] [I] neither checkpoint_format nor checkpoint_loader were provided, checkpoint_format will be set to HF.
+[11/09/2026-20:25:58] [TRT-LLM] [I] Found quantization_config field in /root/autodl-tmp/models/Qwen3-8B-FP8/config.json, pre-quantized checkpoint is used.
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+You are using a model of type qwen3 to instantiate a model of type . This is not supported for all configurations of models and can yield errors.
+`torch_dtype` is deprecated! Use `dtype` instead!
+[11/09/2026-20:25:59] [TRT-LLM] [W] Orchestrator is creating IPC executor
+[33;20mrank 0 using MpiPoolSession to spawn MPI processes
+[0m[11/09/2026-20:25:59] [TRT-LLM] [I] Generating a new HMAC key for server proxy_request_queue
+[11/09/2026-20:25:59] [TRT-LLM] [I] Generating a new HMAC key for server worker_init_status_queue
+[11/09/2026-20:25:59] [TRT-LLM] [I] Generating a new HMAC key for server proxy_result_queue
+Multiple distributions found for package optimum. Picked distribution: optimum
+Multiple distributions found for package modelopt. Picked distribution: nvidia-modelopt
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 4.57.3 is incompatible with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+  _warnings.warn(
+[TensorRT-LLM] TensorRT LLM version: 1.2.1
+/root/autodl-tmp/envs/trtllm/lib/python3.12/site-packages/tensorrt_llm/serve/openai_protocol.py:104: UserWarning: Field name "schema" in "ResponseFormat" shadows an attribute in parent "OpenAIBaseModel"
+  class ResponseFormat(OpenAIBaseModel):
+[11/09/2026-20:26:09] [TRT-LLM] [W] cloudpickle is not installed. TransformersTokenizer will not be serializable across nodes in multi-node setups. Install cloudpickle to fix this: pip install cloudpickle
+[TensorRT-LLM][INFO] Refreshed the MPI local session
+[11/09/2026-20:26:10] [TRT-LLM] [W] Worker process 138583 is affined to run on the following CPUs: [2, 106] (subset of all logical CPUs). This may harm performance if set incorrectly.
+[11/09/2026-20:26:10] [TRT-LLM] [W] Worker process 138583 has constrained CPU affinity but `TLLM_NUMA_AWARE_WORKER_AFFINITY` is not set. Removing CPU affinity constraints.
+[11/09/2026-20:26:10] [TRT-LLM] [I] ATTENTION RUNTIME FEATURES:  AttentionRuntimeFeatures(chunked_prefill=True, cache_reuse=True, has_speculative_draft_tokens=False, chunk_size=8192, chunked_prefill_buffer_batch_size=4)
+`torch_dtype` is deprecated! Use `dtype` instead!
+[11/09/2026-20:26:10] [TRT-LLM] [I] Validating KV Cache config against kv_cache_dtype="auto"
+[11/09/2026-20:26:10] [TRT-LLM] [I] KV cache quantization set to "auto". Using checkpoint KV quantization.
+[11/09/2026-20:26:10] [TRT-LLM] [I] Use 8.79 GB for model weights.
+[11/09/2026-20:26:10] [TRT-LLM] [I] Prefetching 8.79GB checkpoint files.
+[11/09/2026-20:26:10] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-8B-FP8/model-00002-of-00002.safetensors to memory...
+[11/09/2026-20:26:10] [TRT-LLM] [I] Prefetching /root/autodl-tmp/models/Qwen3-8B-FP8/model-00001-of-00002.safetensors to memory...
+[11/09/2026-20:26:12] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-8B-FP8/model-00002-of-00002.safetensors.
+[11/09/2026-20:26:13] [TRT-LLM] [I] Finished prefetching /root/autodl-tmp/models/Qwen3-8B-FP8/model-00001-of-00002.safetensors.
+Loading safetensors weights in parallel:   0%|          | 0/2 [00:00<?, ?it/s][11/09/2026-20:26:13] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-8B-FP8/model-00002-of-00002.safetensors
+[11/09/2026-20:26:13] [TRT-LLM] [I] Start to load safetensor file /root/autodl-tmp/models/Qwen3-8B-FP8/model-00001-of-00002.safetensors
+Loading safetensors weights in parallel: 100%|██████████| 2/2 [00:00<00:00, 144.44it/s]
+Loading weights concurrently:   0%|          | 0/836 [00:00<?, ?it/s]Loading weights concurrently:   8%|▊         | 65/836 [00:00<00:02, 364.11it/s]Loading weights concurrently:  18%|█▊        | 150/836 [00:00<00:01, 562.34it/s]Loading weights concurrently:  25%|██▌       | 212/836 [00:00<00:01, 340.47it/s]Loading weights concurrently:  31%|███       | 256/836 [00:00<00:01, 352.34it/s]Loading weights concurrently:  36%|███▌      | 298/836 [00:00<00:01, 346.39it/s]Loading weights concurrently:  45%|████▌     | 377/836 [00:00<00:01, 435.18it/s]Loading weights concurrently:  51%|█████     | 425/836 [00:01<00:00, 418.64it/s]Loading weights concurrently:  56%|█████▋    | 472/836 [00:01<00:00, 429.13it/s]Loading weights concurrently:  62%|██████▏   | 517/836 [00:01<00:00, 422.71it/s]Loading weights concurrently:  68%|██████▊   | 571/836 [00:01<00:00, 446.80it/s]Loading weights concurrently:  74%|███████▍  | 617/836 [00:01<00:00, 450.08it/s]Loading weights concurrently:  79%|███████▉  | 664/836 [00:01<00:00, 454.80it/s]Loading weights concurrently:  85%|████████▌ | 711/836 [00:01<00:00, 451.79it/s]Loading weights concurrently:  91%|█████████ | 757/836 [00:01<00:00, 416.76it/s]Loading weights concurrently:  97%|█████████▋| 807/836 [00:01<00:00, 431.42it/s]Loading weights concurrently: 100%|██████████| 836/836 [00:02<00:00, 374.74it/s]
+Model init total -- 5.66s
+!!!!!!! Segfault encountered !!!!!!!
+  File "<unknown>", line 0, in nvmlSystemGetConfComputeSettings
+  File "<unknown>", line 0, in ffi_call
+  File "/usr/local/src/conda/python-3.12.3/Modules/_ctypes/callproc.c", line 931, in _call_function_pointer
+  File "/usr/local/src/conda/python-3.12.3/Modules/_ctypes/callproc.c", line 1273, in _ctypes_callproc
+  File "/usr/local/src/conda/python-3.12.3/Modules/_ctypes/_ctypes.c", line 4167, in PyCFuncPtr_call
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 240, in _PyObject_MakeTpCall
+  File "Python/bytecodes.c", line 2706, in _PyEval_EvalFrameDefault
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 144, in _PyObject_FastCallDictTstate
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 508, in _PyObject_Call_Prepend
+  File "/usr/local/src/conda/python-3.12.3/Objects/typeobject.c", line 9014, in slot_tp_init
+  File "/usr/local/src/conda/python-3.12.3/Objects/typeobject.c", line 1673, in type_call
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 240, in _PyObject_MakeTpCall
+  File "Python/bytecodes.c", line 2706, in _PyEval_EvalFrameDefault
+  File "/usr/local/src/conda/python-3.12.3/Python/ceval.c", line 578, in PyEval_EvalCode
+  File "/usr/local/src/conda/python-3.12.3/Python/bltinmodule.c", line 1096, in builtin_exec_impl
+  File "/usr/local/src/conda/python-3.12.3/Python/clinic/bltinmodule.c.h", line 586, in builtin_exec
+  File "/usr/local/src/conda/python-3.12.3/Objects/methodobject.c", line 438, in cfunction_vectorcall_FASTCALL_KEYWORDS
+  File "/usr/local/src/conda/python-3.12.3/Include/internal/pycore_call.h", line 92, in _PyObject_VectorcallTstate
+  File "/usr/local/src/conda/python-3.12.3/Objects/call.c", line 325, in PyObject_Vectorcall
+  File "Python/bytecodes.c", line 2706, in _PyEval_EvalFrameDefault
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 300, in pymain_run_module
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 623, in pymain_run_python
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 709, in Py_RunMain
+  File "/usr/local/src/conda/python-3.12.3/Modules/main.c", line 763, in Py_BytesMain
+  File "<unknown>", line 0, in 0xffffffffffffffff
+
+--------------------------------------------------------------------------
+Child job 2 terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+
+Aborted!
+--------------------------------------------------------------------------
+(null) noticed that process rank 0 with PID 0 on node autodl-container-fnrr36bcry-d3ca6404 exited on signal 11 (Segmentation fault).
+--------------------------------------------------------------------------

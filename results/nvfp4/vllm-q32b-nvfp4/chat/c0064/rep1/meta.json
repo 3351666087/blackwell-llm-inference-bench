@@ -1,0 +1,171 @@
+{
+ "status": "ok",
+ "server_id": "vllm-q32b-nvfp4",
+ "framework": "vllm",
+ "model_id": "Qwen3-32B",
+ "precision": "nvfp4",
+ "workload": "chat",
+ "concurrency": 64,
+ "n_requests": 512,
+ "fingerprint": "21da858b52b0",
+ "commit": "124d30e1bdea8b2473b07c9cdb7942570fd0fe0a+dirty",
+ "wall_start": 1794243348.9322634,
+ "client": {
+  "procs": 2,
+  "per_proc": [
+   {
+    "cpu_s": 5.321901755,
+    "wall_s": 59.433048537001014,
+    "cpu_frac": 0.08954448553462242
+   },
+   {
+    "cpu_s": 5.072321511,
+    "wall_s": 66.05592207610607,
+    "cpu_frac": 0.0767882931852188
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794243349.058821,
+   "mono0": 8156043.35262757
+  }
+ },
+ "energy_mj_start": 2324940778694,
+ "energy_mj_end": 2324968124134,
+ "window_s": 67.2610650844872,
+ "request_window_s": 66.04833039827645,
+ "gpu_before": {
+  "temp_c": 63,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 287.391,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90595,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 63,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 283.351,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90595,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 512,
+  "n_ok": 512,
+  "n_err": 0,
+  "makespan_s": 66.04833039827645,
+  "output_tokens": 134699,
+  "input_tokens": 57232,
+  "output_throughput": 2039.4005296993096,
+  "total_token_throughput": 2905.917512867343,
+  "request_throughput": 7.7518992064235555,
+  "ttft_mean_ms": 137.80758456232434,
+  "ttft_p50_ms": 86.84523683041334,
+  "ttft_p90_ms": 469.68967486172915,
+  "ttft_p99_ms": 474.13902439177036,
+  "tpot_mean_ms": 24.753401588217315,
+  "tpot_p50_ms": 25.05102531283243,
+  "tpot_p90_ms": 25.720689956830785,
+  "tpot_p99_ms": 29.53381396452518,
+  "e2e_mean_ms": 6569.155762832452,
+  "e2e_p50_ms": 5837.427671533078,
+  "e2e_p90_ms": 12646.083669364452,
+  "e2e_p99_ms": 19717.161812158298,
+  "itl_mean_ms": 24.691755296411564,
+  "itl_p50_ms": 21.764000000001005,
+  "itl_p90_ms": 33.65,
+  "itl_p99_ms": 111.8208000000001,
+  "itl_max_ms": 169.037,
+  "chunks_per_token": 0.9937490256052384,
+  "prefix_cache_hit_rate": 0.0002795638803466592,
+  "steady_output_throughput": 2533.682275604143,
+  "steady_window_s": 48.81079287454486,
+  "slo_attainment": 1.0,
+  "goodput_rps": 7.7518992064235555,
+  "goodput_tok_s": 2039.4005296993096,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 27345.44,
+  "energy_j": 27213.652367675782,
+  "avg_power_w": 412.02634803295393,
+  "j_per_output_token": 0.20203306904784582,
+  "j_per_total_token": 0.1417887280724624,
+  "power_mean_w_series": 412.25349090909094,
+  "power_max_w": 633.703,
+  "energy_j_series": 27187.546258896473,
+  "peak_mem_mib": 90595.0,
+  "sm_mhz_mean": 2404.931818181818,
+  "sm_mhz_min": 2355.0,
+  "temp_max_c": 75.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0002795638803466592,
+   "top": [
+    [
+     16,
+     "chat-00304"
+    ],
+    [
+     0,
+     "chat-00511"
+    ],
+    [
+     0,
+     "chat-00510"
+    ],
+    [
+     0,
+     "chat-00509"
+    ],
+    [
+     0,
+     "chat-00508"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.5194251707738091,
+   "max_single_stream_tok_s": 83.56730476273046,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.08954448553462242
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.9424090524076434,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "endpoint:/reset_prefix_cache"
+}

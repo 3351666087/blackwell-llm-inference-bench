@@ -1,0 +1,10 @@
+{
+ "captured_at": "2026-11-10T00:35:03+0800",
+ "sm_clock": "180 MHz",
+ "mem_clock": "12481 MHz",
+ "power_draw": "47.25 W",
+ "temperature": "38 C",
+ "performance_state": "P0",
+ "smi_csv": "NVIDIA RTX PRO 6000 Blackwell Server Edition, GPU-443cb70a-0c2d-960d-5bb4-6d8bd15b31a7, 1794225639515, 98.02.67.00.0A, 595.71.05, 97887 MiB, 600.00 W, 600.00 W, 600.00 W, 2430 MHz, 12481 MHz, 180 MHz, 12481 MHz, 38, Disabled, P0, Enabled, 5, 16",
+ "hostname": "autodl-container-fnrr36bcry-d3ca6404"
+}

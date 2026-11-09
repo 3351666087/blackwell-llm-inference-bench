@@ -1,0 +1,171 @@
+{
+ "status": "ok",
+ "server_id": "sglang-q32b-nvfp4",
+ "framework": "sglang",
+ "model_id": "Qwen3-32B",
+ "precision": "nvfp4",
+ "workload": "chat",
+ "concurrency": 64,
+ "n_requests": 512,
+ "fingerprint": "a9d6719adc17",
+ "commit": "124d30e1bdea8b2473b07c9cdb7942570fd0fe0a+dirty",
+ "wall_start": 1794247160.2948744,
+ "client": {
+  "procs": 2,
+  "per_proc": [
+   {
+    "cpu_s": 4.920834048000001,
+    "wall_s": 61.931695577688515,
+    "cpu_frac": 0.07945582632768701
+   },
+   {
+    "cpu_s": 4.942467892,
+    "wall_s": 68.28283876273781,
+    "cpu_frac": 0.07238228494239349
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794247160.3962,
+   "mono0": 8159854.690006538
+  }
+ },
+ "energy_mj_start": 2326557110260,
+ "energy_mj_end": 2326583690180,
+ "window_s": 69.46609452925622,
+ "request_window_s": 68.27537637483329,
+ "gpu_before": {
+  "temp_c": 61,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 196.674,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 88596,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 61,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 290.945,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 88748,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 512,
+  "n_ok": 512,
+  "n_err": 0,
+  "makespan_s": 68.27537637483329,
+  "output_tokens": 134699,
+  "input_tokens": 57232,
+  "output_throughput": 1972.878175881442,
+  "total_token_throughput": 2811.1306036058254,
+  "request_throughput": 7.499043244948354,
+  "ttft_mean_ms": 93.4054546050902,
+  "ttft_p50_ms": 67.61958776041865,
+  "ttft_p90_ms": 229.28592348471284,
+  "ttft_p99_ms": 341.4959550369531,
+  "tpot_mean_ms": 26.195002546684965,
+  "tpot_p50_ms": 26.578228081685786,
+  "tpot_p90_ms": 27.398739496456127,
+  "tpot_p99_ms": 30.516971430651555,
+  "e2e_mean_ms": 6884.778468147488,
+  "e2e_p50_ms": 6158.9809050783515,
+  "e2e_p90_ms": 13367.398963030437,
+  "e2e_p99_ms": 20806.37582540512,
+  "itl_mean_ms": 25.978007068088257,
+  "itl_p50_ms": 22.204000000000335,
+  "itl_p90_ms": 36.01800000000033,
+  "itl_p99_ms": 66.71199999999976,
+  "itl_max_ms": 262.488,
+  "chunks_per_token": 0.9974313098092784,
+  "prefix_cache_hit_rate": 0.03751397819401733,
+  "steady_output_throughput": 2406.1679780059085,
+  "steady_window_s": 51.38038498163223,
+  "slo_attainment": 1.0,
+  "goodput_rps": 7.499043244948354,
+  "goodput_tok_s": 1972.878175881442,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 26579.92,
+  "energy_j": 26432.79943408203,
+  "avg_power_w": 387.1498164867725,
+  "j_per_output_token": 0.19623604803363076,
+  "j_per_total_token": 0.13772032362714742,
+  "power_mean_w_series": 388.2186246334311,
+  "power_max_w": 643.553,
+  "energy_j_series": 26455.025639519798,
+  "peak_mem_mib": 88748.0,
+  "sm_mhz_mean": 2413.8475073313784,
+  "sm_mhz_min": 2280.0,
+  "temp_max_c": 73.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.03751397819401733,
+   "top": [
+    [
+     16,
+     "chat-00304"
+    ],
+    [
+     11,
+     "chat-00469"
+    ],
+    [
+     11,
+     "chat-00378"
+    ],
+    [
+     11,
+     "chat-00296"
+    ],
+    [
+     11,
+     "chat-00267"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.6965065431931579,
+   "max_single_stream_tok_s": 83.56730476273046,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.07945582632768701
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.9890755837311462,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "endpoint:/flush_cache"
+}

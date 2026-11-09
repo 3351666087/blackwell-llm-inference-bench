@@ -1,0 +1,40 @@
+{
+ "vllm-q8b-bf16-nocache": {
+  "status": "ok",
+  "fingerprint": "52cfe45f523f",
+  "load_s": 42.046033401973546,
+  "kv_capacity": {
+   "GPU KV cache size:\\s*([\\d,]+)\\s*tokens": "501,296",
+   "Maximum concurrency for ([\\d,]+) tokens per request:\\s*([\\d.]+)x": [
+    "40,960",
+    "12.24"
+   ]
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ },
+ "sglang-q8b-bf16-nocache": {
+  "status": "ok",
+  "fingerprint": "2b5e316a398a",
+  "load_s": 45.037766829133034,
+  "kv_capacity": {
+   "max_total_num_tokens=(\\d+)": "477443"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ },
+ "trtllm-q8b-bf16-nocache": {
+  "status": "ok",
+  "fingerprint": "6d9d79ae4414",
+  "load_s": 40.09169299155474,
+  "kv_capacity": {
+   "[Mm]ax(?:imum)? (?:number of )?tokens[^\\n]*KV cache[^\\n]*?(\\d[\\d,]*)": "504576",
+   "max_tokens[=:\\s]+(\\d+)": "504581"
+  },
+  "smoke_text": "Paris",
+  "model_manifest_revision": "8188480f040c5f1606a1bb3556abf14b31975155",
+  "error": null
+ }
+}

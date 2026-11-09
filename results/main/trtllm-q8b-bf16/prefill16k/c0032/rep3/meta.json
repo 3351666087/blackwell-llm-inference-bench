@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill16k",
+ "concurrency": 32,
+ "n_requests": 96,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794215199.3244643,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 1.2325650580000058,
+    "wall_s": 122.05076037254184,
+    "cpu_frac": 0.01009879048879158
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794215199.4244902,
+   "mono0": 8127893.718297027
+  }
+ },
+ "energy_mj_start": 2312655407554,
+ "energy_mj_end": 2312721399272,
+ "window_s": 123.21801041439176,
+ "request_window_s": 122.04855784028769,
+ "gpu_before": {
+  "temp_c": 71,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 293.368,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90252,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 73,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 347.959,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90252,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 96,
+  "n_ok": 96,
+  "n_err": 0,
+  "makespan_s": 122.04855784028769,
+  "output_tokens": 12288,
+  "input_tokens": 1535987,
+  "output_throughput": 100.68123882364947,
+  "total_token_throughput": 12685.729576797354,
+  "request_throughput": 0.7865721783097614,
+  "ttft_mean_ms": 7873.819216067204,
+  "ttft_p50_ms": 2982.3113693855703,
+  "ttft_p90_ms": 23817.723295651376,
+  "ttft_p99_ms": 32869.865605235085,
+  "tpot_mean_ms": 253.13669811969984,
+  "tpot_p50_ms": 284.4178362008859,
+  "tpot_p90_ms": 298.04469545657827,
+  "tpot_p99_ms": 299.56886358375795,
+  "e2e_mean_ms": 40022.17987726908,
+  "e2e_p50_ms": 40526.70659776777,
+  "e2e_p90_ms": 60046.089629177004,
+  "e2e_p99_ms": 69707.99401015973,
+  "itl_mean_ms": 255.52407269415465,
+  "itl_p50_ms": 61.282500000000795,
+  "itl_p90_ms": 646.0830999999993,
+  "itl_p99_ms": 667.1298700000042,
+  "itl_max_ms": 1171.520000000001,
+  "chunks_per_token": 0.99072265625,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 100.82010556754453,
+  "steady_window_s": 79.24611122813076,
+  "slo_attainment": 0.052083333333333336,
+  "goodput_rps": 0.040967300953633407,
+  "goodput_tok_s": 5.243814522065076,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 65991.718,
+  "energy_j": 65859.81630566406,
+  "avg_power_w": 539.6197830690305,
+  "j_per_output_token": 5.359685571750005,
+  "j_per_total_token": 0.04253754423837113,
+  "power_mean_w_series": 539.5168401639344,
+  "power_max_w": 671.627,
+  "energy_j_series": 65797.03865096842,
+  "peak_mem_mib": 90252.0,
+  "sm_mhz_mean": 2244.239344262295,
+  "sm_mhz_min": 2107.0,
+  "temp_max_c": 86.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill16k-0095"
+    ],
+    [
+     0,
+     "prefill16k-0094"
+    ],
+    [
+     0,
+     "prefill16k-0093"
+    ],
+    [
+     0,
+     "prefill16k-0092"
+    ],
+    [
+     0,
+     "prefill16k-0091"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 2.3075540745512444,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.01009879048879158
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 11.600242219697154,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

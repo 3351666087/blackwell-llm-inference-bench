@@ -1,0 +1,168 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "prefill32k",
+ "concurrency": 1,
+ "n_requests": 16,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794215420.5348525,
+ "client": {
+  "procs": 1,
+  "per_proc": [
+   {
+    "cpu_s": 0.25416701700000033,
+    "wall_s": 75.89553862158209,
+    "cpu_frac": 0.0033489058990316452
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794215420.6365135,
+   "mono0": 8128114.930320488
+  }
+ },
+ "energy_mj_start": 2312768809599,
+ "energy_mj_end": 2312806525746,
+ "window_s": 77.06359896622598,
+ "request_window_s": 75.8937499653548,
+ "gpu_before": {
+  "temp_c": 72,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 304.195,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90252,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 74,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 334.697,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90252,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 16,
+  "n_ok": 16,
+  "n_err": 0,
+  "makespan_s": 75.8937499653548,
+  "output_tokens": 2048,
+  "input_tokens": 511999,
+  "output_throughput": 26.985094305326907,
+  "total_token_throughput": 6773.245494321475,
+  "request_throughput": 0.21082104926036646,
+  "ttft_mean_ms": 2882.2611246141605,
+  "ttft_p50_ms": 2882.9582016915083,
+  "ttft_p90_ms": 2915.553185623139,
+  "ttft_p99_ms": 2919.771184027195,
+  "tpot_mean_ms": 14.65236792830369,
+  "tpot_p50_ms": 14.65167907821968,
+  "tpot_p90_ms": 14.666955265414526,
+  "tpot_p99_ms": 14.684116514399648,
+  "e2e_mean_ms": 4743.111851508729,
+  "e2e_p50_ms": 4744.135149288923,
+  "e2e_p90_ms": 4779.353986028582,
+  "e2e_p99_ms": 4782.456629863009,
+  "itl_mean_ms": 14.774018362282877,
+  "itl_p50_ms": 14.6980000000001,
+  "itl_p90_ms": 15.12600000000024,
+  "itl_p99_ms": 19.644279999999974,
+  "itl_max_ms": 30.542000000000513,
+  "chunks_per_token": 0.99169921875,
+  "prefix_cache_hit_rate": 0.0,
+  "steady_output_throughput": 26.965134757999035,
+  "steady_window_s": 66.45618559233844,
+  "slo_attainment": 1.0,
+  "goodput_rps": 0.21082104926036646,
+  "goodput_tok_s": 26.985094305326907,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 37716.147,
+  "energy_j": 37569.559719238285,
+  "avg_power_w": 495.0283750162384,
+  "j_per_output_token": 18.34451158165932,
+  "j_per_total_token": 0.07308584568967096,
+  "power_mean_w_series": 495.6591306068601,
+  "power_max_w": 695.116,
+  "energy_j_series": 37546.08309407499,
+  "peak_mem_mib": 90252.0,
+  "sm_mhz_mean": 2329.9881266490765,
+  "sm_mhz_min": 2205.0,
+  "temp_max_c": 85.0
+ },
+ "sanity": {
+  "no_unexpected_cache_hits": {
+   "pass": true,
+   "hit_rate": 0.0,
+   "top": [
+    [
+     0,
+     "prefill32k-0015"
+    ],
+    [
+     0,
+     "prefill32k-0014"
+    ],
+    [
+     0,
+     "prefill32k-0013"
+    ],
+    [
+     0,
+     "prefill32k-0012"
+    ],
+    [
+     0,
+     "prefill32k-0011"
+    ]
+   ]
+  },
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.1739941203874837,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.0033489058990316452
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 1.1769171038851058,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "block_reuse_off",
+ "trt_enable_block_reuse": false,
+ "trt_enable_chunked_prefill": true
+}

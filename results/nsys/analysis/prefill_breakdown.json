@@ -1,0 +1,215 @@
+[
+ {
+  "capture": "trt_q8b_bf16_prefill8k_c1",
+  "n_prefills": 3,
+  "mean_span_ms": 410.75177866666667,
+  "mean_kernel_ms": 409.658324,
+  "mean_by_cat_ms": {
+   "quantized GEMM": 0.0,
+   "activation quant": 0.0,
+   "attention": 97.34475900000001,
+   "BF16 GEMM": 291.17224600000003,
+   "other": 21.141319
+  },
+  "prefills": [
+   {
+    "span_ms": 410.313253,
+    "kernel_ms": 409.68753,
+    "by_cat_ms": {
+     "other": 21.145653,
+     "attention": 97.296743,
+     "BF16 GEMM": 291.245134
+    },
+    "by_cat_n": {
+     "other": 160,
+     "attention": 109,
+     "BF16 GEMM": 145
+    }
+   },
+   {
+    "span_ms": 410.985879,
+    "kernel_ms": 409.672448,
+    "by_cat_ms": {
+     "other": 21.164543,
+     "attention": 97.384628,
+     "BF16 GEMM": 291.123277
+    },
+    "by_cat_n": {
+     "other": 160,
+     "attention": 109,
+     "BF16 GEMM": 145
+    }
+   },
+   {
+    "span_ms": 410.956204,
+    "kernel_ms": 409.614994,
+    "by_cat_ms": {
+     "other": 21.113761,
+     "attention": 97.352906,
+     "BF16 GEMM": 291.148327
+    },
+    "by_cat_n": {
+     "other": 160,
+     "attention": 109,
+     "BF16 GEMM": 145
+    }
+   }
+  ]
+ },
+ {
+  "capture": "trt_q8b_fp8_prefill8k_c1",
+  "n_prefills": 3,
+  "mean_span_ms": 438.07617933333336,
+  "mean_kernel_ms": 437.39243733333336,
+  "mean_by_cat_ms": {
+   "quantized GEMM": 282.3142813333333,
+   "activation quant": 35.938751333333336,
+   "attention": 97.13561433333332,
+   "BF16 GEMM": 0.869635,
+   "other": 21.134155333333336
+  },
+  "prefills": [
+   {
+    "span_ms": 438.023571,
+    "kernel_ms": 437.302853,
+    "by_cat_ms": {
+     "other": 21.127156,
+     "attention": 97.115197,
+     "activation quant": 35.938084,
+     "quantized GEMM": 282.252429,
+     "BF16 GEMM": 0.869987
+    },
+    "by_cat_n": {
+     "other": 160,
+     "attention": 109,
+     "activation quant": 144,
+     "quantized GEMM": 144,
+     "BF16 GEMM": 1
+    }
+   },
+   {
+    "span_ms": 437.897791,
+    "kernel_ms": 437.356237,
+    "by_cat_ms": {
+     "other": 21.107094,
+     "attention": 97.10013,
+     "activation quant": 35.935617,
+     "quantized GEMM": 282.345137,
+     "BF16 GEMM": 0.868259
+    },
+    "by_cat_n": {
+     "other": 160,
+     "attention": 109,
+     "activation quant": 144,
+     "quantized GEMM": 144,
+     "BF16 GEMM": 1
+    }
+   },
+   {
+    "span_ms": 438.307176,
+    "kernel_ms": 437.518222,
+    "by_cat_ms": {
+     "other": 21.168216,
+     "attention": 97.191516,
+     "activation quant": 35.942553,
+     "quantized GEMM": 282.345278,
+     "BF16 GEMM": 0.870659
+    },
+    "by_cat_n": {
+     "other": 160,
+     "attention": 109,
+     "activation quant": 144,
+     "quantized GEMM": 144,
+     "BF16 GEMM": 1
+    }
+   }
+  ]
+ },
+ {
+  "capture": "vllm_q8b_fp8_prefill8k_c1",
+  "n_prefills": 4,
+  "mean_span_ms": 266.6430895,
+  "mean_kernel_ms": 266.33052399999997,
+  "mean_by_cat_ms": {
+   "quantized GEMM": 157.550265,
+   "activation quant": 34.359936000000005,
+   "attention": 69.71816825,
+   "BF16 GEMM": 0.858413,
+   "other": 3.84374175
+  },
+  "prefills": [
+   {
+    "span_ms": 266.256129,
+    "kernel_ms": 265.946899,
+    "by_cat_ms": {
+     "activation quant": 34.370221,
+     "quantized GEMM": 157.18458,
+     "other": 3.851978,
+     "attention": 69.682051,
+     "BF16 GEMM": 0.858069
+    },
+    "by_cat_n": {
+     "activation quant": 252,
+     "quantized GEMM": 144,
+     "other": 77,
+     "attention": 72,
+     "BF16 GEMM": 1
+    }
+   },
+   {
+    "span_ms": 266.790715,
+    "kernel_ms": 266.274131,
+    "by_cat_ms": {
+     "activation quant": 34.359656,
+     "quantized GEMM": 157.537962,
+     "other": 3.862668,
+     "attention": 69.656864,
+     "BF16 GEMM": 0.856981
+    },
+    "by_cat_n": {
+     "activation quant": 252,
+     "quantized GEMM": 144,
+     "other": 77,
+     "attention": 72,
+     "BF16 GEMM": 1
+    }
+   },
+   {
+    "span_ms": 266.878467,
+    "kernel_ms": 266.749846,
+    "by_cat_ms": {
+     "activation quant": 34.369843,
+     "quantized GEMM": 157.857925,
+     "other": 3.826736,
+     "attention": 69.836089,
+     "BF16 GEMM": 0.859253
+    },
+    "by_cat_n": {
+     "activation quant": 252,
+     "quantized GEMM": 144,
+     "other": 77,
+     "attention": 72,
+     "BF16 GEMM": 1
+    }
+   },
+   {
+    "span_ms": 266.647047,
+    "kernel_ms": 266.35122,
+    "by_cat_ms": {
+     "activation quant": 34.340024,
+     "quantized GEMM": 157.620593,
+     "other": 3.833585,
+     "attention": 69.697669,
+     "BF16 GEMM": 0.859349
+    },
+    "by_cat_n": {
+     "activation quant": 252,
+     "quantized GEMM": 144,
+     "other": 77,
+     "attention": 72,
+     "BF16 GEMM": 1
+    }
+   }
+  ]
+ }
+]

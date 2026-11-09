@@ -1,0 +1,27 @@
+{
+ "cmd": [
+  "nsys",
+  "launch",
+  "--session-new=bib_trt_q8b_fp8_1794253284",
+  "--trace=cuda,nvtx,osrt",
+  "--cuda-graph-trace=node",
+  "--trace-fork-before-exec=true",
+  "/root/envs/trtllm/bin/trtllm-serve",
+  "/root/autodl-tmp/models/Qwen3-8B-FP8",
+  "--host",
+  "127.0.0.1",
+  "--port",
+  "8000",
+  "--backend",
+  "pytorch",
+  "--max_seq_len",
+  "40960",
+  "--extra_llm_api_options",
+  "/root/autodl-tmp/bench-repo/results/nsys/trt_q8b_fp8_server/trtllm_llm_api_options.yaml"
+ ],
+ "shell": "nsys launch --session-new=bib_trt_q8b_fp8_1794253284 --trace=cuda,nvtx,osrt --cuda-graph-trace=node --trace-fork-before-exec=true /root/envs/trtllm/bin/trtllm-serve /root/autodl-tmp/models/Qwen3-8B-FP8 --host 127.0.0.1 --port 8000 --backend pytorch --max_seq_len 40960 --extra_llm_api_options /root/autodl-tmp/bench-repo/results/nsys/trt_q8b_fp8_server/trtllm_llm_api_options.yaml",
+ "env_overrides": {
+  "HF_HUB_OFFLINE": "1",
+  "TRANSFORMERS_OFFLINE": "1"
+ }
+}

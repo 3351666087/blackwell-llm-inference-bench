@@ -1,0 +1,65 @@
+[
+ {
+  "capture": "vllm_q32b_fp8_chat_c256",
+  "steps": 40.671875,
+  "kernel_ms_per_step": 89.92630551210142,
+  "by_cat_ms_per_step": {
+   "quantized GEMM (+split-K reduce)": 45.49899516557818,
+   "attention": 41.46171603841721,
+   "BF16 GEMM/GEMV (lm_head)": 1.2641881644256627,
+   "other (norm, RoPE, act, copies, sampling)": 0.9412416319631196,
+   "activation quant": 0.7545517879369958,
+   "attention merge/combine": 0.005612723780253554
+  },
+  "gpu_busy_fraction": 0.9942263250815289,
+  "window_ms": 3495.609345,
+  "share": {
+   "quantized GEMM (+split-K reduce)": 0.5059586836852245,
+   "attention": 0.46106326510697904,
+   "BF16 GEMM/GEMV (lm_head)": 0.01405804627718794,
+   "other (norm, RoPE, act, copies, sampling)": 0.010466810869222869,
+   "activation quant": 0.008390779356941951,
+   "attention merge/combine": 6.241470444372083e-05
+  },
+  "tok_s": 2629.4,
+  "gpu_ms_per_output_token": 0.3781190861343001,
+  "by_cat_us_per_output_token": {
+   "quantized GEMM (+split-K reduce)": 191.3126350967705,
+   "attention": 174.33682045234747,
+   "BF16 GEMM/GEMV (lm_head)": 5.315615611164004,
+   "other (norm, RoPE, act, copies, sampling)": 3.9577009606111107,
+   "activation quant": 3.172713822401441,
+   "attention merge/combine": 0.02360019100560216
+  }
+ },
+ {
+  "capture": "sglang_q32b_fp8_chat_c256",
+  "steps": 86.65625,
+  "kernel_ms_per_step": 45.41164174540209,
+  "by_cat_ms_per_step": {
+   "quantized GEMM (+split-K reduce)": 30.995615596105303,
+   "attention": 10.321650683014786,
+   "other (norm, RoPE, act, copies, sampling)": 2.671191679769203,
+   "BF16 GEMM/GEMV (lm_head)": 1.0594408827984134,
+   "attention merge/combine": 0.3637429037143888
+  },
+  "gpu_busy_fraction": 0.9851363816423654,
+  "window_ms": 3989.987806,
+  "share": {
+   "quantized GEMM (+split-K reduce)": 0.6825477874127639,
+   "attention": 0.22729085067839125,
+   "other (norm, RoPE, act, copies, sampling)": 0.05882173771089568,
+   "BF16 GEMM/GEMV (lm_head)": 0.023329719914952893,
+   "attention merge/combine": 0.008009904282996277
+  },
+  "tok_s": 3148.6,
+  "gpu_ms_per_output_token": 0.3128807665763722,
+  "by_cat_us_per_output_token": {
+   "quantized GEMM (+split-K reduce)": 213.5560749507123,
+   "attention": 71.1149355960508,
+   "other (norm, RoPE, act, copies, sampling)": 18.40419038633934,
+   "BF16 GEMM/GEMV (lm_head)": 7.299420651002518,
+   "attention merge/combine": 2.506144992267242
+  }
+ }
+]

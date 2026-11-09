@@ -1,0 +1,157 @@
+{
+ "status": "ok",
+ "server_id": "trtllm-q8b-bf16",
+ "framework": "trtllm",
+ "model_id": "Qwen3-8B",
+ "precision": "bf16",
+ "workload": "agent",
+ "concurrency": 128,
+ "n_requests": 2007,
+ "fingerprint": "6d9d79ae4414",
+ "commit": "27c0623267fe5e3afe24f0943c23ffb04b187bb9",
+ "wall_start": 1794220912.0417063,
+ "client": {
+  "procs": 4,
+  "per_proc": [
+   {
+    "cpu_s": 6.695304599,
+    "wall_s": 720.3826027931646,
+    "cpu_frac": 0.009294095350220927
+   },
+   {
+    "cpu_s": 6.9857946,
+    "wall_s": 717.9576084241271,
+    "cpu_frac": 0.009730093417818067
+   },
+   {
+    "cpu_s": 7.173722695,
+    "wall_s": 725.2597856279463,
+    "cpu_frac": 0.009891245643502527
+   },
+   {
+    "cpu_s": 7.361005682,
+    "wall_s": 722.2674788311124,
+    "cpu_frac": 0.010191523082158906
+   }
+  ],
+  "clock": {
+   "wall_at_mono0": 1794220912.1701112,
+   "mono0": 8133606.463918344
+  }
+ },
+ "energy_mj_start": 2314804456680,
+ "energy_mj_end": 2315202889222,
+ "window_s": 726.5166732668877,
+ "request_window_s": 725.2542806277052,
+ "gpu_before": {
+  "temp_c": 70,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 351.256,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 90782,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "gpu_after": {
+  "temp_c": 70,
+  "sm_mhz": 2422,
+  "mem_mhz": 12481,
+  "power_w": 332.592,
+  "power_limit_w": 600.0,
+  "mem_used_mib": 91442,
+  "ecc_current": 0,
+  "ecc_pending": 0
+ },
+ "prefix_cache": true,
+ "metrics": {
+  "n_requests": 2007,
+  "n_ok": 2007,
+  "n_err": 0,
+  "makespan_s": 725.2542806277052,
+  "output_tokens": 273083,
+  "input_tokens": 16251561,
+  "output_throughput": 376.5341443605787,
+  "total_token_throughput": 22784.621120330343,
+  "request_throughput": 2.767305279829508,
+  "ttft_mean_ms": 10557.854688852583,
+  "ttft_p50_ms": 12215.10171238333,
+  "ttft_p90_ms": 20262.267292290926,
+  "ttft_p99_ms": 23786.902533490218,
+  "tpot_mean_ms": 215.09353470755093,
+  "tpot_p50_ms": 250.67492981546934,
+  "tpot_p90_ms": 295.4057651014045,
+  "tpot_p99_ms": 322.61064149945327,
+  "e2e_mean_ms": 39939.183770084965,
+  "e2e_p50_ms": 39365.8398790285,
+  "e2e_p90_ms": 70082.24208205938,
+  "e2e_p99_ms": 112686.22172215965,
+  "itl_mean_ms": 220.09611020900292,
+  "itl_p50_ms": 110.344,
+  "itl_p90_ms": 535.0699999999974,
+  "itl_p99_ms": 679.7760999999973,
+  "itl_max_ms": 1457.5150000000078,
+  "chunks_per_token": 0.9883368792638135,
+  "prefix_cache_hit_rate": 0.4627752374064251,
+  "steady_output_throughput": 375.5426514820637,
+  "steady_window_s": 720.3839118015021,
+  "slo_attainment": 0.028898854010961636,
+  "goodput_rps": 0.07997195128555627,
+  "goodput_tok_s": 8.5969847631973,
+  "energy_source": "nvml_counter_interpolated",
+  "energy_j_outer_window": 398432.542,
+  "energy_j": 398292.018015625,
+  "avg_power_w": 549.1756872788184,
+  "j_per_output_token": 1.4585016936814998,
+  "j_per_total_token": 0.024102910659716786,
+  "power_mean_w_series": 549.3731020408163,
+  "power_max_w": 675.884,
+  "energy_j_series": 398381.1576374034,
+  "peak_mem_mib": 91442.0,
+  "sm_mhz_mean": 2271.618587975731,
+  "sm_mhz_min": 2040.0,
+  "temp_max_c": 88.0
+ },
+ "sanity": {
+  "no_errors": {
+   "pass": true,
+   "n_err": 0,
+   "examples": []
+  },
+  "token_counts": {
+   "pass": true,
+   "n_mismatch": 0,
+   "n_missing_usage": 0,
+   "examples": []
+  },
+  "bandwidth_bound": {
+   "pass": true,
+   "min_tpot_over_bound": 1.3117938665837172,
+   "max_single_stream_tok_s": 105.50438921090876,
+   "n_violations": 0,
+   "examples": []
+  },
+  "client_not_saturated": {
+   "pass": true,
+   "max_cpu_frac": 0.010191523082158906
+  },
+  "finish_length": {
+   "pass": true,
+   "n_bad": 0,
+   "n_no_finish_reason": 0,
+   "examples": []
+  },
+  "valid": true,
+  "bandwidth_bound_a5": {
+   "pass": true,
+   "violation_fraction": 0.0,
+   "p10_tpot_over_bound": 7.22317686162228,
+   "burst_requests": 0,
+   "burst_fraction": 0.0
+  },
+  "valid_a5": true
+ },
+ "cache_reset": "restart",
+ "trt_enable_block_reuse": true,
+ "trt_enable_chunked_prefill": true
+}

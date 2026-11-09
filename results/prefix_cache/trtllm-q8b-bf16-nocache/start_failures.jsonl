@@ -1,0 +1,1 @@
+{"time": "2026-11-09 22:13:40", "attempt": 1, "log": "/root/autodl-tmp/bench-repo/results/prefix_cache/trtllm-q8b-bf16-nocache/server_03.log", "error": "trtllm server log shows fatal error 'Segfault encountered'; see /root/autodl-tmp/bench-repo/results/prefix_cache/trtllm-q8b-bf16-nocache/server_03.log"}

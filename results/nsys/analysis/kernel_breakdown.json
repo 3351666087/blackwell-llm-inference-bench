@@ -1,0 +1,590 @@
+[
+ {
+  "name": "trt_q8b_fp8_chat_c64",
+  "window_ms": 5095.892307,
+  "kernels": 106685,
+  "gpu_busy_fraction": 0.4123137783178431,
+  "kernel_time_ms": 2101.241075,
+  "by_category": {
+   "gemm_fp8_block": {
+    "ms": 1257.088424,
+    "share": 0.5982599707175437
+   },
+   "other": {
+    "ms": 558.628007,
+    "share": 0.2658562188063071
+   },
+   "gemm": {
+    "ms": 164.630528,
+    "share": 0.07834918608756018
+   },
+   "norm_act_rope": {
+    "ms": 88.046039,
+    "share": 0.04190192170120223
+   },
+   "attn_prefill": {
+    "ms": 17.684946,
+    "share": 0.008416428847889335
+   },
+   "attn_decode": {
+    "ms": 6.370027,
+    "share": 0.0030315545778106397
+   },
+   "memcpy_comm": {
+    "ms": 6.035972,
+    "share": 0.0028725747234881176
+   },
+   "sampling_logits": {
+    "ms": 2.757132,
+    "share": 0.001312144538198693
+   }
+  },
+  "top_kernels": [
+   {
+    "name": "void cutlass::device_kernel<sm120_blockscaled_gemm::SM120BlockScaledKernel<sm120_blockscaled_gemm::SM120BlockScaledBuild",
+    "ms": 1257.088424,
+    "count": 27389,
+    "category": "gemm_fp8_block",
+    "share": 0.5982599707175437
+   },
+   {
+    "name": "kernel_mha",
+    "ms": 470.586253,
+    "count": 6847,
+    "category": "other",
+    "share": 0.22395633637611048
+   },
+   {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x64_32x4_tn_align8>(T1::Params)",
+    "ms": 164.630528,
+    "count": 190,
+    "category": "gemm",
+    "share": 0.07834918608756018
+   },
+   {
+    "name": "_per_token_quant_and_transform_kernel",
+    "ms": 83.965964,
+    "count": 27389,
+    "category": "other",
+    "share": 0.039960176392420846
+   },
+   {
+    "name": "void flashinfer::norm::FusedAddRMSNormKernel<(unsigned int)8, __nv_bfloat16>(T2 *, T2 *, T2 *, unsigned int, unsigned in",
+    "ms": 36.826307,
+    "count": 13694,
+    "category": "norm_act_rope",
+    "share": 0.017525979021707445
+   },
+   {
+    "name": "void tensorrt_llm::_v1::kernels::fusedQKNormRopeKernel<(int)128, (bool)0>(__nv_bfloat16 *, int, int, int, int, float, co",
+    "ms": 23.039685,
+    "count": 6848,
+    "category": "norm_act_rope",
+    "share": 0.010964798506044815
+   },
+   {
+    "name": "fmha_v2_flash_attention_bf16_64_32_S_qkv_128_causal_sm120_kernel_nl",
+    "ms": 17.684946,
+    "count": 1764,
+    "category": "attn_prefill",
+    "share": 0.008416428847889335
+   },
+   {
+    "name": "void tensorrt_llm::_v1::kernels::applyBiasRopeUpdateKVCacheV2<__nv_bfloat16, __nv_bfloat16, (int)256, (int)128, (bool)0,",
+    "ms": 15.999845,
+    "count": 8611,
+    "category": "norm_act_rope",
+    "share": 0.007614473746188309
+   },
+   {
+    "name": "silu_and_mul_kernel",
+    "ms": 11.729161,
+    "count": 6847,
+    "category": "norm_act_rope",
+    "share": 0.005582015856985853
+   },
+   {
+    "name": "void tensorrt_llm::_v1::kernels::computeSeqAndPaddingOffsets<__nv_bfloat16, (int)256>(tensorrt_llm::_v1::kernels::BuildD",
+    "ms": 6.370027,
+    "count": 1764,
+    "category": "attn_decode",
+    "share": 0.0030315545778106397
+   },
+   {
+    "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase &)::[lambda() (i",
+    "ms": 4.386929,
+    "count": 762,
+    "category": "memcpy_comm",
+    "share": 0.0020877799564240863
+   },
+   {
+    "name": "void at::native::reduce_kernel<(int)512, (int)1, at::native::ReduceOp<float, at::native::ArgMaxOps<float>, unsigned int,",
+    "ms": 2.757132,
+    "count": 191,
+    "category": "sampling_logits",
+    "share": 0.001312144538198693
+   },
+   {
+    "name": "void at::native::index_elementwise_kernel<(int)128, (int)4, void at::native::gpu_index_kernel<void at::native::index_ker",
+    "ms": 0.927426,
+    "count": 573,
+    "category": "other",
+    "share": 0.0004413705838108081
+   },
+   {
+    "name": "void at::native::vectorized_gather_kernel<(int)16, long>(char *, char *, T2 *, int, long, long, long, long, bool)",
+    "ms": 0.584354,
+    "count": 381,
+    "category": "memcpy_comm",
+    "share": 0.00027809945605598824
+   },
+   {
+    "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::<unnamed>::mas",
+    "ms": 0.54712,
+    "count": 191,
+    "category": "memcpy_comm",
+    "share": 0.0002603794521768522
+   }
+  ],
+  "timeline_png": "results/nsys/analysis/trt_q8b_fp8_chat_c64_timeline.png"
+ },
+ {
+  "name": "vllm_q8b_fp8_chat_c64",
+  "window_ms": 5099.449261,
+  "kernels": 307248,
+  "gpu_busy_fraction": 0.8928464492863988,
+  "kernel_time_ms": 5554.527568,
+  "by_category": {
+   "gemm_fp8_block": {
+    "ms": 3592.051585,
+    "share": 0.6466889471742019
+   },
+   "gemm": {
+    "ms": 1633.267972,
+    "share": 0.2940426439521814
+   },
+   "norm_act_rope": {
+    "ms": 131.834506,
+    "share": 0.023734602877750987
+   },
+   "other": {
+    "ms": 90.620138,
+    "share": 0.01631464366511899
+   },
+   "memcpy_comm": {
+    "ms": 87.513258,
+    "share": 0.015755301765746858
+   },
+   "sampling_logits": {
+    "ms": 17.61894,
+    "share": 0.0031719961390603004
+   },
+   "attn_decode": {
+    "ms": 1.381524,
+    "share": 0.0002487203426550713
+   },
+   "attn_prefill": {
+    "ms": 0.239645,
+    "share": 4.3144083284528226e-05
+   }
+  },
+  "top_kernels": [
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)24576, (unsigned int)4096, (unsigned int)128",
+    "ms": 1292.09685,
+    "count": 14750,
+    "category": "gemm_fp8_block",
+    "share": 0.232620476571915
+   },
+   {
+    "name": "void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<(int)128, (int)64, (int)64, (int)4, (bool)0, (bool)0, cutla",
+    "ms": 900.832501,
+    "count": 12014,
+    "category": "gemm",
+    "share": 0.1621798595779334
+   },
+   {
+    "name": "void deep_gemm::sm120_split_k_reduce_impl<cutlass::bfloat16_t, (unsigned int)4, deep_gemm::epilogue::operators::Identity",
+    "ms": 733.409283,
+    "count": 26836,
+    "category": "gemm_fp8_block",
+    "share": 0.1320381029748091
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)4096, (unsigned int)12288, (unsigned int)128",
+    "ms": 650.591696,
+    "count": 14750,
+    "category": "gemm_fp8_block",
+    "share": 0.11712817841576693
+   },
+   {
+    "name": "void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<(int)128, (int)64, (int)128, (int)4, (bool)0, (bool)0, cutl",
+    "ms": 379.105813,
+    "count": 2736,
+    "category": "gemm",
+    "share": 0.06825167547714654
+   },
+   {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_256x64_32x4_tn_align8>(T1::Params)",
+    "ms": 353.329658,
+    "count": 409,
+    "category": "gemm",
+    "share": 0.06361110889710143
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)6144, (unsigned int)4096, (unsigned int)128,",
+    "ms": 340.648193,
+    "count": 14750,
+    "category": "gemm_fp8_block",
+    "share": 0.06132802273995303
+   },
+   {
+    "name": "void deep_gemm::sm120_split_k_reduce_impl<cutlass::bfloat16_t, (unsigned int)2, deep_gemm::epilogue::operators::Identity",
+    "ms": 294.677171,
+    "count": 14102,
+    "category": "gemm_fp8_block",
+    "share": 0.05305170734909205
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)4096, (unsigned int)4096, (unsigned int)128,",
+    "ms": 254.004392,
+    "count": 14750,
+    "category": "gemm_fp8_block",
+    "share": 0.045729252198393265
+   },
+   {
+    "name": "void per_token_group_quant_8bit_packed_register_kernel<c10::BFloat16, c10::Float8_e4m3fn, (int)128, (int)16, (int)1>(con",
+    "ms": 84.705005,
+    "count": 59000,
+    "category": "other",
+    "share": 0.015249722674524315
+   },
+   {
+    "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_ke",
+    "ms": 43.970532,
+    "count": 24028,
+    "category": "memcpy_comm",
+    "share": 0.007916160548615716
+   },
+   {
+    "name": "triton_red_fused_fused_add_rms_norm_per_token_group_fp8_quant_packed_2",
+    "ms": 29.988843,
+    "count": 14340,
+    "category": "norm_act_rope",
+    "share": 0.005398990757155965
+   },
+   {
+    "name": "void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0>(const T1 *, const T",
+    "ms": 27.896574,
+    "count": 14750,
+    "category": "memcpy_comm",
+    "share": 0.005022312637480459
+   },
+   {
+    "name": "triton_red_fused_fused_add_rms_norm_per_token_group_fp8_quant_packed_0",
+    "ms": 27.31315,
+    "count": 14750,
+    "category": "norm_act_rope",
+    "share": 0.0049172768818995264
+   },
+   {
+    "name": "void deep_gemm::sm120_split_k_reduce_impl<cutlass::bfloat16_t, (unsigned int)3, deep_gemm::epilogue::operators::Identity",
+    "ms": 26.624,
+    "count": 684,
+    "category": "gemm_fp8_block",
+    "share": 0.004793206924272484
+   }
+  ],
+  "timeline_png": "results/nsys/analysis/vllm_q8b_fp8_chat_c64_timeline.png"
+ },
+ {
+  "name": "vllm_q32b_fp8_chat_c256",
+  "window_ms": 3495.609345,
+  "kernels": 45061,
+  "gpu_busy_fraction": 0.9942263250815289,
+  "kernel_time_ms": 3657.471457,
+  "by_category": {
+   "gemm_fp8_block": {
+    "ms": 1783.239824,
+    "share": 0.48756083129154
+   },
+   "gemm": {
+    "ms": 1737.742635,
+    "share": 0.475121311384167
+   },
+   "norm_act_rope": {
+    "ms": 78.601394,
+    "share": 0.02149063770533753
+   },
+   "other": {
+    "ms": 31.63392,
+    "share": 0.008649122863134349
+   },
+   "memcpy_comm": {
+    "ms": 17.800603,
+    "share": 0.004866915083077844
+   },
+   "sampling_logits": {
+    "ms": 8.071497,
+    "share": 0.0022068516719527744
+   },
+   "attn_decode": {
+    "ms": 0.22828,
+    "share": 6.241470444372083e-05
+   },
+   "attn_prefill": {
+    "ms": 0.153304,
+    "share": 4.1915296346767907e-05
+   }
+  },
+  "top_kernels": [
+   {
+    "name": "void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<(int)128, (int)64, (int)128, (int)4, (bool)0, (bool)0, cutl",
+    "ms": 1441.839062,
+    "count": 1579,
+    "category": "gemm",
+    "share": 0.3942174474774035
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)51200, (unsigned int)5120, (unsigned int)128",
+    "ms": 773.373028,
+    "count": 2602,
+    "category": "gemm_fp8_block",
+    "share": 0.2114501882222071
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)5120, (unsigned int)25600, (unsigned int)128",
+    "ms": 476.547514,
+    "count": 2602,
+    "category": "gemm_fp8_block",
+    "share": 0.13029425372218292
+   },
+   {
+    "name": "void flash::flash_fwd_splitkv_kernel<Flash_fwd_kernel_traits<(int)128, (int)64, (int)64, (int)4, (bool)0, (bool)0, cutla",
+    "ms": 244.48667,
+    "count": 1024,
+    "category": "gemm",
+    "share": 0.06684581762957556
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)10240, (unsigned int)5120, (unsigned int)128",
+    "ms": 191.850943,
+    "count": 2603,
+    "category": "gemm_fp8_block",
+    "share": 0.05245452910721102
+   },
+   {
+    "name": "void deep_gemm::sm120_split_k_reduce_impl<cutlass::bfloat16_t, (unsigned int)2, deep_gemm::epilogue::operators::Identity",
+    "ms": 188.408513,
+    "count": 2048,
+    "category": "gemm_fp8_block",
+    "share": 0.05151332422277875
+   },
+   {
+    "name": "void deep_gemm::sm120_fp8_fp4_gemm_1d1d_impl<(unsigned int)0, (unsigned int)5120, (unsigned int)8192, (unsigned int)128,",
+    "ms": 153.059826,
+    "count": 2602,
+    "category": "gemm_fp8_block",
+    "share": 0.04184853601716023
+   },
+   {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_128x256_32x3_tn_align8>(T1::Params)",
+    "ms": 51.416903,
+    "count": 40,
+    "category": "gemm",
+    "share": 0.01405804627718794
+   },
+   {
+    "name": "triton_poi_fused_mul_per_token_group_fp8_quant_packed_silu_slice_1",
+    "ms": 40.284632,
+    "count": 2602,
+    "category": "norm_act_rope",
+    "share": 0.011014339407324594
+   },
+   {
+    "name": "void per_token_group_quant_8bit_packed_register_kernel<c10::BFloat16, c10::Float8_e4m3fn, (int)128, (int)8, (int)2>(cons",
+    "ms": 23.154364,
+    "count": 7807,
+    "category": "other",
+    "share": 0.00633070258297849
+   },
+   {
+    "name": "triton_per_fused_add_cat_index_select_mul_rms_norm_split_split_with_sizes_sub_unsqueeze_view_3",
+    "ms": 11.681974,
+    "count": 2562,
+    "category": "norm_act_rope",
+    "share": 0.0031940027796093884
+   },
+   {
+    "name": "triton_red_fused_fused_add_rms_norm_per_token_group_fp8_quant_packed_2",
+    "ms": 11.018906,
+    "count": 2562,
+    "category": "norm_act_rope",
+    "share": 0.0030127114126648944
+   },
+   {
+    "name": "triton_red_fused_fused_add_rms_norm_per_token_group_fp8_quant_packed_0",
+    "ms": 10.002891,
+    "count": 2602,
+    "category": "norm_act_rope",
+    "share": 0.002734919771104587
+   },
+   {
+    "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_ke",
+    "ms": 9.750549,
+    "count": 2048,
+    "category": "memcpy_comm",
+    "share": 0.0026659262046566396
+   },
+   {
+    "name": "_gumbel_sample_kernel",
+    "ms": 7.604702,
+    "count": 40,
+    "category": "sampling_logits",
+    "share": 0.0020792238816916622
+   }
+  ],
+  "timeline_png": "results/nsys/analysis/vllm_q32b_fp8_chat_c256_timeline.png"
+ },
+ {
+  "name": "sglang_q32b_fp8_chat_c256",
+  "window_ms": 3989.987806,
+  "kernels": 103817,
+  "gpu_busy_fraction": 0.9851363816423654,
+  "kernel_time_ms": 3935.20258,
+  "by_category": {
+   "gemm": {
+    "ms": 2795.124549,
+    "share": 0.7102873339242424
+   },
+   "attn_prefill": {
+    "ms": 918.22416,
+    "share": 0.23333593159008348
+   },
+   "norm_act_rope": {
+    "ms": 93.458632,
+    "share": 0.023749382681081694
+   },
+   "other": {
+    "ms": 90.913569,
+    "share": 0.023102640118720395
+   },
+   "memcpy_comm": {
+    "ms": 26.887862,
+    "share": 0.006832650023318495
+   },
+   "sampling_logits": {
+    "ms": 10.593808,
+    "share": 0.002692061662553596
+   }
+  },
+  "top_kernels": [
+   {
+    "name": "void cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal<cute::tuple<int, int, int, int>, cutlass::gemm::collect",
+    "ms": 2642.055527,
+    "count": 22183,
+    "category": "gemm",
+    "share": 0.6713899661551859
+   },
+   {
+    "name": "void flashinfer::BatchPrefillWithPagedKVCacheKernel<(bool)1, flashinfer::KernelTraits<(flashinfer::MaskMode)0, (unsigned",
+    "ms": 894.435542,
+    "count": 5546,
+    "category": "attn_prefill",
+    "share": 0.22729085067839125
+   },
+   {
+    "name": "void cutlass::Kernel2<cutlass_80_tensorop_bf16_s16816gemm_relu_bf16_128x256_32x3_tn_align8>(T1::Params)",
+    "ms": 71.491911,
+    "count": 55,
+    "category": "gemm",
+    "share": 0.018167275901714824
+   },
+   {
+    "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, (bool)1, (bool)0, (bool)0, (bool)0, (bool)0, (",
+    "ms": 57.8481,
+    "count": 5545,
+    "category": "norm_act_rope",
+    "share": 0.014700158079282414
+   },
+   {
+    "name": "kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi",
+    "ms": 48.295592,
+    "count": 11091,
+    "category": "gemm",
+    "share": 0.012272707952941015
+   },
+   {
+    "name": "void sglang::per_token_group_quant_flat_kernel<sglang::QuantTrait<__nv_bfloat16, __nv_fp8_e4m3, (unsigned int)128, (bool",
+    "ms": 43.908287,
+    "count": 22183,
+    "category": "other",
+    "share": 0.011157821257578053
+   },
+   {
+    "name": "void flashinfer::PersistentVariableLengthMergeStatesKernel<(unsigned int)8, (unsigned int)16, (unsigned int)8, (unsigned",
+    "ms": 31.520596,
+    "count": 3712,
+    "category": "other",
+    "share": 0.008009904282996277
+   },
+   {
+    "name": "void flashinfer::BatchPrefillWithRaggedKVCacheKernel<flashinfer::KernelTraits<(flashinfer::MaskMode)1, (unsigned int)128",
+    "ms": 23.788618,
+    "count": 2026,
+    "category": "attn_prefill",
+    "share": 0.006045080911692226
+   },
+   {
+    "name": "std::enable_if<!T7, void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, (b",
+    "ms": 20.315263,
+    "count": 19,
+    "category": "gemm",
+    "share": 0.005162444013238068
+   },
+   {
+    "name": "void at::native::elementwise_kernel<(int)128, (int)4, void at::native::gpu_kernel_impl_nocast<at::native::direct_copy_ke",
+    "ms": 19.88253,
+    "count": 5546,
+    "category": "memcpy_comm",
+    "share": 0.005052479407553143
+   },
+   {
+    "name": "void sglang::fused_rope_kernel<(bool)1, (long)128, (bool)1, __nv_bfloat16, __nv_bfloat16, long, (unsigned int)16>(sglang",
+    "ms": 18.620837,
+    "count": 5546,
+    "category": "norm_act_rope",
+    "share": 0.004731862368315483
+   },
+   {
+    "name": "void sglang::fused_qknorm_half_warp<(bool)1, __nv_bfloat16>(sglang::QKNormParams)",
+    "ms": 16.989695,
+    "count": 5546,
+    "category": "norm_act_rope",
+    "share": 0.004317362233483797
+   },
+   {
+    "name": "void cutlass::Kernel2<cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8>(T1::Params)",
+    "ms": 12.649175,
+    "count": 12,
+    "category": "gemm",
+    "share": 0.0032143643796858864
+   },
+   {
+    "name": "void sglang::store_kvcache_kernel<(long)2048, (long)2048, (unsigned int)128, (bool)1, long>(sglang::StoreKVCacheParams)",
+    "ms": 7.671146,
+    "count": 5546,
+    "category": "other",
+    "share": 0.0019493649549294613
+   },
+   {
+    "name": "softcap_inplace_logits_kernel",
+    "ms": 5.943797,
+    "count": 86,
+    "category": "sampling_logits",
+    "share": 0.001510417031694465
+   }
+  ],
+  "timeline_png": "results/nsys/analysis/sglang_q32b_fp8_chat_c256_timeline.png"
+ }
+]
