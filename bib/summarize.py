@@ -72,9 +72,11 @@ def recompute_run(rdir: str, plan: dict, minfo_cache: dict) -> dict:
     return {"meta": meta, "metrics": m, "sanity": chk, "recs": recs}
 
 
-def summarize(root: str, sample_per_rep: int = 400) -> dict:
+def summarize(root: str, sample_per_rep: int = 400, variant: str = "strict") -> dict:
+    """variant='strict' uses the pre-registered validity; 'a5' uses the post-hoc robust
+    bandwidth rule (AMENDMENTS A5) and writes to summary_a5/."""
     plan = __import__("yaml").safe_load(open(os.path.join(root, "plan.yaml")))
-    out_dir = os.path.join(root, "summary")
+    out_dir = os.path.join(root, "summary" if variant == "strict" else "summary_a5")
     os.makedirs(out_dir, exist_ok=True)
     quality = load_quality(root)
     rows, points = [], defaultdict(list)
@@ -91,19 +93,24 @@ def summarize(root: str, sample_per_rep: int = 400) -> dict:
         if not q_ok:
             failed.append("quality")
         valid = chk["valid"] and q_ok
+        valid_a5 = chk.get("valid_a5", chk["valid"]) and q_ok
         row = {"plan": plan["name"], "server_id": sid, "framework": meta["framework"], "model_id": meta["model_id"],
                "precision": meta["precision"], "prefix_cache": meta.get("prefix_cache", True),
                "workload": meta["workload"], "concurrency": meta["concurrency"],
-               "rep": os.path.basename(rdir), "valid": valid, "failed_checks": ";".join(failed),
+               "rep": os.path.basename(rdir), "valid": valid, "valid_a5": valid_a5,
+               "burst_fraction": (chk.get("bandwidth_bound_a5") or {}).get("burst_fraction"),
+               "failed_checks": ";".join(failed),
                "n_requests": m.get("n_requests"), "n_err": m.get("n_err"),
                "min_tpot_over_bw_bound": chk["bandwidth_bound"]["min_tpot_over_bound"],
                "fingerprint": meta["fingerprint"], "source": os.path.relpath(rdir, root)}
         for k in KEY_METRICS:
             row[k] = m.get(k)
         rows.append(row)
+        if variant == "a5":
+            row["valid"] = valid_a5
         key = (sid, meta["workload"], meta["concurrency"])
         points[key].append(row)
-        if valid:
+        if row["valid"]:
             ok = [x for x in r["recs"] if not x.get("error")]
             idx = np.linspace(0, len(ok) - 1, min(sample_per_rep, len(ok))).astype(int) if ok else []
             samples[key].append({
@@ -156,5 +163,7 @@ def summarize(root: str, sample_per_rep: int = 400) -> dict:
 
 if __name__ == "__main__":
     import sys
-    for r in sys.argv[1:]:
-        summarize(r)
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    var = "a5" if "--a5" in sys.argv else "strict"
+    for r in args:
+        summarize(r, variant=var)

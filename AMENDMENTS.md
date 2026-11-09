@@ -72,3 +72,18 @@ cold cache (warm-up used different requests); those numbers are compared with th
 runs in REPORT §6 (A4 validation).
 (c) Seen at the time: everything up to SGLang 32B FP8 (complete), TensorRT-LLM 8B BF16 quality
 and the superseded runs. Not yet run: TensorRT-LLM 32B, TensorRT-LLM 8B (re-run), NVFP4.
+
+## A5 — burst-tolerant bandwidth check, reported as a secondary variant (2026-11-09 ~10:35, post hoc)
+
+(a) TensorRT-LLM occasionally delivers a short, already-finished response in one burst under load
+(e.g. `chat-00360`, 4 tokens: TTFT 0.919 s, then all tokens within 0.3 ms;
+`results/main/trtllm-q32b-fp8/chat/c0256/rep1`). Client-observed TPOT of such a request is far
+below the bandwidth floor, so the pre-registered per-request check invalidates the whole run
+(here 1 of 2048 requests). A client timing error would shift every request, not one.
+Variant A5: the run passes the bandwidth check if ≤ 1 % of requests are below the floor **and**
+the 10th-percentile TPOT/floor ratio ≥ 0.97. Every run also reports `burst_fraction` (share of
+requests whose tokens arrived over less than half the time the floor allows).
+(b) **The primary tables keep the pre-registered strict rule.** A5 tables are produced separately
+(`summary_a5/`, `python -m bib summarize <dir> --a5`) and every place that uses them says so.
+(c) Seen at the time: all vLLM/SGLang results, TensorRT-LLM 32B chat up to c=256 and the superseded
+TensorRT-LLM 8B runs. Defined after seeing the violations, hence labelled post hoc.

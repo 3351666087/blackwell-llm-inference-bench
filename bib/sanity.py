@@ -111,6 +111,32 @@ def check_run(recs: list[dict], meta: dict, model_info: dict, bw_gbps: float, ig
     res["bandwidth_bound"] = {"pass": not viol, "min_tpot_over_bound": worst,
                               "max_single_stream_tok_s": bw / w, "n_violations": len(viol),
                               "examples": viol[:5]}
+    # AMENDMENTS A5 (post hoc, reported separately; does NOT change `valid`): a client timing
+    # error would shift every request, while a server that occasionally delivers a finished
+    # response in one burst produces isolated violations. Robust variant: <= 1 % of requests
+    # below the floor AND the 10th-percentile TPOT/floor ratio >= 1 - slack.
+    ratios = []
+    bursts = 0
+    for r in recs:
+        if r.get("error") or r.get("ttft") is None:
+            continue
+        n = r["usage_out"] if r.get("usage_out") is not None else r["exp_out"]
+        if n < 2:
+            continue
+        tp = (r["e2e"] - r["ttft"]) / (n - 1)
+        bound = (w + kvpt * ((r["usage_in"] or r["exp_in"]) + n / 2)) / bw
+        ratios.append(tp / bound)
+        c = r.get("chunk_t") or []
+        if len(c) >= 2 and (c[-1] - c[0]) < 0.5 * (n - 1) * bound:
+            bursts += 1
+    if ratios:
+        p10 = float(sorted(ratios)[int(0.1 * (len(ratios) - 1))])
+        frac = len(viol) / len(ratios)
+        res_a5 = {"pass": frac <= 0.01 and p10 >= 1 - slack, "violation_fraction": frac, "p10_tpot_over_bound": p10,
+                  "burst_requests": bursts, "burst_fraction": bursts / len(ratios)}
+    else:
+        res_a5 = {"pass": True, "violation_fraction": 0.0, "p10_tpot_over_bound": None, "burst_requests": 0}
+    res_a5_holder = res_a5
 
     fr = [p.get("cpu_frac") or 0 for p in meta.get("client", {}).get("per_proc", [])]
     res["client_not_saturated"] = {"pass": (max(fr) if fr else 0) < 0.90, "max_cpu_frac": max(fr) if fr else None}
@@ -121,6 +147,10 @@ def check_run(recs: list[dict], meta: dict, model_info: dict, bw_gbps: float, ig
         res["finish_length"] = {"pass": not bad, "n_bad": len(bad), "n_no_finish_reason": nofin,
                                 "examples": bad[:5]}
     res["valid"] = all(v["pass"] for k, v in res.items() if isinstance(v, dict))
+    # A5 variant: same checks, robust bandwidth rule (reported as `valid_a5`)
+    res["bandwidth_bound_a5"] = res_a5_holder
+    res["valid_a5"] = all(v["pass"] for k, v in res.items()
+                          if isinstance(v, dict) and k not in ("bandwidth_bound",))
     return res
 
 
