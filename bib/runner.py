@@ -267,17 +267,30 @@ def run_workload(server, scfg, wl, plan, plan_dir, sdir, root, fid, minfo, commi
     reps = int(wl.get("reps", plan.get("reps", 3)))
     prev_thr = None
     trt_reuse = None
+    trt_chunk = None
     if scfg["framework"] == "trtllm":
         # AMENDMENTS A4: TensorRT-LLM has no cache-reset endpoint. On workloads without
         # cross-request prefix sharing (chat, prefill) KV-block reuse is switched OFF, which
         # gives every repetition the same cold-cache state as a reset; on prefix-sensitive
         # workloads (agent) reuse stays ON and the server is restarted before every rep (A2).
         trt_reuse = bool(wl.get("prefix_sensitive")) and scfg.get("prefix_cache", True)
-        if server.cfg.get("_block_reuse_active") != trt_reuse:
+        # AMENDMENTS A6: TensorRT-LLM's default is chunked prefill OFF with max_num_tokens 8192,
+        # so prompts longer than 8192 tokens are rejected (HTTP 400). For workloads that contain
+        # such prompts, chunked prefill is switched on (budget stays 8192, like vLLM/SGLang).
+        max_in = max(r["input_tokens"] for r in reqs)
+        trt_chunk = max_in > int(scfg.get("trt_max_num_tokens", 8192))
+        want = (trt_reuse, trt_chunk)
+        if server.cfg.get("_trt_mode") != want:
             server.stop()
-            server.cfg = dict(server.cfg, prefix_cache=trt_reuse, _block_reuse_active=trt_reuse)
+            opts = dict(server.cfg.get("llm_api_options") or {})
+            if trt_chunk:
+                opts["enable_chunked_prefill"] = True
+            else:
+                opts.pop("enable_chunked_prefill", None)
+            server.cfg = dict(server.cfg, prefix_cache=trt_reuse, _trt_mode=want, llm_api_options=opts)
             server.start(plan.get("server_timeout_s", 3600))
-            log(root, f"  {scfg['id']} restarted with enable_block_reuse={trt_reuse} for {wl['name']} (A4)")
+            log(root, f"  {scfg['id']} restarted with enable_block_reuse={trt_reuse} "
+                      f"enable_chunked_prefill={trt_chunk} for {wl['name']} (A4/A6)")
     for conc in wl["concurrency"]:
         cdir = os.path.join(sdir, wl["name"], f"c{conc:04d}")
         os.makedirs(cdir, exist_ok=True)
@@ -317,6 +330,7 @@ def run_workload(server, scfg, wl, plan, plan_dir, sdir, root, fid, minfo, commi
             meta["cache_reset"] = how
             if trt_reuse is not None:
                 meta["trt_enable_block_reuse"] = trt_reuse
+                meta["trt_enable_chunked_prefill"] = trt_chunk
             json.dump(meta, open(mp, "w"), indent=1, default=str)
             m = meta["metrics"]
             log(root, f"  {scfg['id']} {wl['name']} c={conc} rep{r} n={m['n_requests']} err={m['n_err']} "

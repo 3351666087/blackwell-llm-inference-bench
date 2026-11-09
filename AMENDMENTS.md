@@ -87,3 +87,17 @@ requests whose tokens arrived over less than half the time the floor allows).
 (`summary_a5/`, `python -m bib summarize <dir> --a5`) and every place that uses them says so.
 (c) Seen at the time: all vLLM/SGLang results, TensorRT-LLM 32B chat up to c=256 and the superseded
 TensorRT-LLM 8B runs. Defined after seeing the violations, hence labelled post hoc.
+
+## A6 — TensorRT-LLM: chunked prefill on for workloads with prompts > 8192 tokens (2026-11-09 ~11:30)
+
+(a) TensorRT-LLM 1.2.1 defaults to `enable_chunked_prefill = false` with `max_num_tokens = 8192`
+and rejects longer prompts: `HTTP 400 … The sum of prompt length (16000.0), query length (0) should
+not exceed max_num_tokens (8192)` (`results/_superseded/A6_trt_no_chunked_prefill/`). vLLM and SGLang
+chunk prefill by default with an 8192-token budget. Change: for workloads whose longest prompt
+exceeds 8192 tokens (prefill16k, prefill32k, agent) TensorRT-LLM runs with
+`enable_chunked_prefill: true` (budget unchanged, 8192); chat and prefill8k keep the default.
+`meta.json` records `trt_enable_chunked_prefill`.
+(b) Required to run the pre-registered workloads at all (same category as `max_model_len`); the
+minimum deviation from defaults. The pre-registration did not anticipate it.
+(c) Seen at the time: as in A5, plus TensorRT-LLM 32B chat and prefill8k (valid, unaffected:
+prompts ≤ 8192), and the failed prefill16k/agent attempts.
