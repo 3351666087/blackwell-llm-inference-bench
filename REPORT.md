@@ -42,7 +42,10 @@ Day-by-day record: [`LOG.md`](LOG.md).*
 6. **Long-prompt scheduling differs by design.** With 32 concurrent 8k prompts all three deliver the same
    throughput (223–235 tok/s), but vLLM and TensorRT-LLM start new prompts first (TTFT p50 1.8 s, TPOT 129 ms)
    while SGLang protects running decodes (TTFT 6.6 s, TPOT 85 ms) (§3.5).
-7. **Measurement hygiene mattered.** The pre-registered checks exposed one protocol error of mine
+7. **NVFP4 (Blackwell FP4) is the best 32B format here, in all three frameworks.** Versus FP8: decode
+   TPOT ×0.62–0.68, 8k prefill TTFT ×0.45–0.69, peak chat throughput ×1.23–1.37 (vLLM, SGLang), KV pool
+   +25–32 %, GSM8K within 0.8 points (P13 confirmed; §5.2). It took three toolchain fixes to get there.
+8. **Measurement hygiene mattered.** The pre-registered checks exposed one protocol error of mine
    (TensorRT-LLM cache carry-over between repetitions, A2) and several measurement-code bugs (§7).
    Ten of 738 main runs are invalid, all TensorRT-LLM (bursty streaming, §6); none is used.
 
@@ -291,7 +294,7 @@ Full table with sources: [`results/comparisons/comparisons.md`](results/comparis
 | P10b | cache on/off peak: 2.687 / 2.838 / 3.016 | confirmed ×3 | prefill work ÷ 6 | hit rate measured |
 | P11 | SGLang/vLLM peak chat 32B FP8 1.362 [1.356, 1.369] | **refuted** | shorter decode step at equal batch + queueing at KV limit | «§5.1» |
 | P12 | FP8/BF16 J/token at peak 0.784 / 0.713 / 1.411 | confirmed ×2, **refuted** (TRT) | fewer bytes per token at similar power; TRT's FP8 peak is at c=32 | power series |
-| P13 | NVFP4/FP8 32B c=1 TPOT «…» | «…» | «…» | §5.2 |
+| P13 | NVFP4/FP8 32B c=1 TPOT 0.684 / 0.638 / 0.617; GSM8K Δ −0.8 / −0.4 / 0.0 points | confirmed ×3 | 0.58× bytes + fixed per-layer cost; FP4 near-lossless here | §5.2 |
 
 ## 5. Deep dives
 
@@ -302,7 +305,40 @@ FP8 as a reference. Kernel breakdown `results/nsys/analysis/kernel_breakdown.md`
 
 ### 5.2 NVFP4 vs FP8 (32B, task 5.2)
 
-«…»
+Same workloads (chat, prefill8k) and request files as the 32B FP8 configs of `main`; NVFP4 checkpoint
+`nv-community/Qwen3-32B-NVFP4` (ModelOpt, FP4 weights and activations with FP8 block scales, lm_head
+BF16); **KV cache BF16 in all six configs** (A3, A9). All three frameworks ran it on sm_120 — after
+three build/config fixes (A8: FlashInfer JIT OOM and missing cuBLAS headers; A9: TensorRT-LLM rejects
+a BF16 KV override, solved with a config overlay of the same weights).
+
+| 32B | vLLM FP8 → NVFP4 | SGLang FP8 → NVFP4 | TensorRT-LLM FP8 → NVFP4 |
+|---|---|---|---|
+| bytes read per decode step | 32.8 → 19.1 GB (×0.58) | same | same |
+| c=1 TPOT p50 (P13) | 25.11 → 17.18 ms, **×0.684** | 25.55 → 16.30 ms, **×0.638** | 26.03 → 16.06 ms, **×0.617** |
+| 8k c=1 TTFT p50 | 1173 → 747 ms (×0.64) | 1180 → 812 ms (×0.69) | 1900 → 862 ms (**×0.45**) |
+| peak chat tok/s (c) | 2629 (256) → 3611 (256), ×1.37 | 3581 (512) → 4398 (256), ×1.23 | 2646 (512) → 2342 (128)† |
+| peak 8k-prefill tok/s (c) | 86 (32) → 125 (32) | 90 (32) → 126 (32) | 59 (32) → 123 (32) |
+| J/output token at chat peak | 0.216 → 0.149 | 0.157 → 0.111 | 0.211 → 0.137 (c=128)† |
+| KV pool, tokens | 210,752 → 262,512 | 199,857 → 250,849 | 199,936 → 264,224 |
+| GSM8K (paired, 250) | 0.968 → 0.960 (p = 0.63) | 0.960 → 0.956 (p = 1) | 0.968 → 0.968 (p = 1) |
+
+Sources: `results/nvfp4/summary/points.csv`, `results/main/summary/points.csv` (`*-q32b-*`),
+`results/comparisons/comparisons.md` (P13), `results/nvfp4/QUALITY_FP8_vs_NVFP4.md`
+(`tools/quality_pair.py`), `server_info.json` of each server. † TensorRT-LLM NVFP4 chat c=256 and c=512
+are invalid under the strict rule (bursty streaming, 0.05–0.15 % of requests; all six pass A5), so its
+peak is censored at c=128 (A7).
+
+* **P13 confirmed for all three frameworks**: decode TPOT ×0.62–0.68 against a 0.58 byte ratio, the
+  same "bytes + fixed per-layer cost" pattern as FP8 vs BF16 (§3.1); accuracy drop ≤ 0.8 points
+  (pre-registered bound: 3 points), no McNemar difference.
+* Prefill gains more than decode (×0.45–0.69): the FP4 tensor-core GEMMs are faster, and attention stays
+  BF16. **TensorRT-LLM's NVFP4 prefill is as fast as the others (862 vs 747–812 ms) although its FP8
+  prefill was 62 % slower** — evidence that TensorRT-LLM's problem in §0.3/§5.1 is its FP8 block-scale
+  GEMM path on sm_120, not its prefill pipeline in general.
+* Throughput gains (×1.23–1.37 at peak) come from shorter decode steps *and* a 25–32 % larger KV pool
+  (the 13.7 GB of freed weight memory); peak memory use is unchanged (≈ 87–91 GB, the pools fill it).
+* On this GPU, NVFP4 is the better 32B format on every measured axis; the cost is a more fragile
+  toolchain (two of three frameworks needed JIT-build fixes).
 
 ### 5.3 Regression detection: vLLM 0.32.0 → 0.33.0 (task 5.3)
 

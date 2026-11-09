@@ -28,9 +28,9 @@
 | P12[vllm] | FP8 vs BF16 energy per output token at peak throughput (8B, chat) | j_per_output_token | 0.06151 (c=512) | 0.07832 (c=512) | 0.784 [0.776, 0.792] | [0.6, 0.9] | A better | confirmed |
 | P12[sglang] | FP8 vs BF16 energy per output token at peak throughput (8B, chat) | j_per_output_token | 0.04722 (c=512) | 0.06617 (c=512) | 0.713 [0.709, 0.717] | [0.6, 0.9] | A better | confirmed |
 | P12[trtllm] | FP8 vs BF16 energy per output token at peak throughput (8B, chat) | j_per_output_token | 0.1211 (c=32) | 0.08566 (c=128) | 1.411 [1.395, 1.426] | [0.6, 0.9] | A worse | refuted |
-| P13[vllm] | NVFP4 vs FP8 decode latency at c=1 (32B) — task 5.2 | tpot_p50_ms | – | – | missing data | [0.55, 0.8] | – | not testable |
-| P13[sglang] | NVFP4 vs FP8 decode latency at c=1 (32B) — task 5.2 | tpot_p50_ms | – | – | missing data | [0.55, 0.8] | – | not testable |
-| P13[trtllm] | NVFP4 vs FP8 decode latency at c=1 (32B) — task 5.2 | tpot_p50_ms | – | – | missing data | [0.55, 0.8] | – | not testable |
+| P13[vllm] | NVFP4 vs FP8 decode latency at c=1 (32B) — task 5.2 | tpot_p50_ms | 17.18 (c=1) | 25.11 (c=1) | 0.684 [0.684, 0.684] | [0.55, 0.8] | A better | confirmed |
+| P13[sglang] | NVFP4 vs FP8 decode latency at c=1 (32B) — task 5.2 | tpot_p50_ms | 16.3 (c=1) | 25.55 (c=1) | 0.638 [0.638, 0.638] | [0.55, 0.8] | A better | confirmed |
+| P13[trtllm] | NVFP4 vs FP8 decode latency at c=1 (32B) — task 5.2 | tpot_p50_ms | 16.06 (c=1) | 26.03 (c=1) | 0.617 [0.617, 0.617] | [0.55, 0.8] | A better | confirmed |
 
 Notes:
 

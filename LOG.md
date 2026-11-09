@@ -466,3 +466,11 @@ of each start. Hours are counted from the console's start/stop timestamps.
   toolchain lock before anything ran with it. Killed the waiting `chain6` (it would have started nsys
   as soon as chain5 ended); `chain7` (00:39) = NVFP4 retry for all three servers, then the same nsys
   captures. GPU idle ≈ 2 min.
+- **00:39–03:41 · 5.2** · NVFP4 retry (chain7) succeeded on all three frameworks: vLLM up in 164 s
+  (FlashInfer FP4 JIT with MAX_JOBS=8), SGLang 305 s, TensorRT-LLM 66 s (overlay; its log says "Using
+  checkpoint KV quantization" and its pool of 264 224 tokens matches vLLM's BF16 pool, i.e. BF16 KV as
+  intended). 126 runs, 6 invalid (TRT chat c=256/512, bursts, all A5-valid). P13 confirmed ×3 (c=1 TPOT
+  ×0.684 / 0.638 / 0.617); paired GSM8K vs FP8 Δ −0.8 / −0.4 / 0.0 points, McNemar p ≥ 0.63
+  (`tools/quality_pair.py` → `results/nvfp4/QUALITY_FP8_vs_NVFP4.md`). TRT NVFP4 8k prefill 862 ms vs
+  its FP8 1900 ms — localises the TRT FP8 slowness to the FP8 block-scale GEMM path.
+- **03:41 · 5.1** · Nsight captures started (chain7).

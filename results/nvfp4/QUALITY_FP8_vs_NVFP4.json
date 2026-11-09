@@ -1,0 +1,38 @@
+[
+ {
+  "base": "main/vllm-q32b-fp8",
+  "new": "nvfp4/vllm-q32b-nvfp4",
+  "n": 250,
+  "acc_base": 0.968,
+  "acc_new": 0.96,
+  "delta_points": -0.8000000000000007,
+  "base_only": 3,
+  "new_only": 1,
+  "mcnemar_p": 0.625,
+  "drop_le_3": true
+ },
+ {
+  "base": "main/sglang-q32b-fp8",
+  "new": "nvfp4/sglang-q32b-nvfp4",
+  "n": 250,
+  "acc_base": 0.96,
+  "acc_new": 0.956,
+  "delta_points": -0.40000000000000036,
+  "base_only": 4,
+  "new_only": 3,
+  "mcnemar_p": 1.0,
+  "drop_le_3": true
+ },
+ {
+  "base": "main/trtllm-q32b-fp8",
+  "new": "nvfp4/trtllm-q32b-nvfp4",
+  "n": 250,
+  "acc_base": 0.968,
+  "acc_new": 0.968,
+  "delta_points": 0.0,
+  "base_only": 2,
+  "new_only": 2,
+  "mcnemar_p": 1.0,
+  "drop_le_3": true
+ }
+]

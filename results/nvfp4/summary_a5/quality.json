@@ -1,0 +1,56 @@
+{
+ "vllm-q32b-nvfp4": {
+  "framework": "vllm",
+  "model_id": "Qwen3-32B",
+  "precision": "nvfp4",
+  "accuracy": 0.96,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 259.508,
+  "verdict": {
+   "pass": true,
+   "acc": 0.96,
+   "vs": "trtllm",
+   "delta": -0.008000000000000007,
+   "mcnemar_p": 0.6875,
+   "discordant": [
+    4,
+    2
+   ]
+  }
+ },
+ "sglang-q32b-nvfp4": {
+  "framework": "sglang",
+  "model_id": "Qwen3-32B",
+  "precision": "nvfp4",
+  "accuracy": 0.956,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 261.344,
+  "verdict": {
+   "pass": true,
+   "acc": 0.956,
+   "vs": "trtllm",
+   "delta": -0.01200000000000001,
+   "mcnemar_p": 0.375,
+   "discordant": [
+    4,
+    1
+   ]
+  }
+ },
+ "trtllm-q32b-nvfp4": {
+  "framework": "trtllm",
+  "model_id": "Qwen3-32B",
+  "precision": "nvfp4",
+  "accuracy": 0.968,
+  "n": 250,
+  "n_err": 0,
+  "mean_output_tokens": 260.46,
+  "verdict": {
+   "pass": true,
+   "acc": 0.968,
+   "vs": null
+  }
+ }
+}

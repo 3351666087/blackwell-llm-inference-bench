@@ -616,9 +616,19 @@
    0.55,
    0.8
   ],
-  "status": "missing data",
-  "a_source": "vllm-q32b-nvfp4",
-  "b_source": "vllm-q32b-fp8"
+  "ratio": 0.6842625536928821,
+  "lo": 0.6840680848941963,
+  "hi": 0.6844570777757049,
+  "p": 6.337545401778984e-14,
+  "a_value": 17.181310705949862,
+  "b_value": 25.111629725787715,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "vllm-q32b-nvfp4/chat/c0001/rep1;vllm-q32b-nvfp4/chat/c0001/rep2;vllm-q32b-nvfp4/chat/c0001/rep3",
+  "b_source": "vllm-q32b-fp8/chat/c0001/rep1;vllm-q32b-fp8/chat/c0001/rep2;vllm-q32b-fp8/chat/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
  },
  {
   "id": "P13[sglang]",
@@ -628,9 +638,19 @@
    0.55,
    0.8
   ],
-  "status": "missing data",
-  "a_source": "sglang-q32b-nvfp4",
-  "b_source": "sglang-q32b-fp8"
+  "ratio": 0.6377437659827259,
+  "lo": 0.6375995908682415,
+  "hi": 0.6378879736983348,
+  "p": 1.254778335659144e-08,
+  "a_value": 16.297314787915393,
+  "b_value": 25.553560288102886,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "sglang-q32b-nvfp4/chat/c0001/rep1;sglang-q32b-nvfp4/chat/c0001/rep2;sglang-q32b-nvfp4/chat/c0001/rep3",
+  "b_source": "sglang-q32b-fp8/chat/c0001/rep1;sglang-q32b-fp8/chat/c0001/rep2;sglang-q32b-fp8/chat/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
  },
  {
   "id": "P13[trtllm]",
@@ -640,8 +660,18 @@
    0.55,
    0.8
   ],
-  "status": "missing data",
-  "a_source": "trtllm-q32b-nvfp4",
-  "b_source": "trtllm-q32b-fp8"
+  "ratio": 0.6170264612010151,
+  "lo": 0.616775107331424,
+  "hi": 0.6172779175046491,
+  "p": 2.1102755732089847e-08,
+  "a_value": 16.059023081821813,
+  "b_value": 26.025086135269756,
+  "a_conc": 1,
+  "b_conc": 1,
+  "a_source": "trtllm-q32b-nvfp4/chat/c0001/rep1;trtllm-q32b-nvfp4/chat/c0001/rep2;trtllm-q32b-nvfp4/chat/c0001/rep3",
+  "b_source": "trtllm-q32b-fp8/chat/c0001/rep1;trtllm-q32b-fp8/chat/c0001/rep2;trtllm-q32b-fp8/chat/c0001/rep3",
+  "verdict": "A better",
+  "prediction": "confirmed",
+  "status": "ok"
  }
 ]
