@@ -1,0 +1,32 @@
+# EXPLORATORY, post hoc (not pre-registered; not used for any pre-registered verdict).
+# Intervention test for the Nsight Systems finding of task 5.1: TensorRT-LLM 1.2.1 (trtllm-serve
+# defaults) captures generation-only CUDA graphs for batch sizes 1-32, 64, 128 with
+# cuda_graph_config.enable_padding = false, so decode batches of 33-63 and all mixed steps run eagerly
+# and are host-bound with the FP8 block-scale GEMM path. NVIDIA's trtllm-bench sets enable_padding: true.
+# Same server/model/request files as main's trtllm-q8b-fp8; only cuda_graph_config differs.
+name: explore_trt_cudagraph
+results_dir: results/explore_trt_cudagraph
+request_sums: data/requests/SHA256SUMS
+image_label: "AutoDL base image PyTorch 2.8.0 / Python 3.12 (ubuntu22.04) / CUDA 12.8"
+gpu_bandwidth_gbps: 1597
+port: 8000
+reps: 3
+max_client_procs: 6
+streams_per_proc: 32
+power_interval_s: 0.1
+server_timeout_s: 3600
+quality:
+  file: data/requests/quality_gsm8k.jsonl.gz
+  concurrency: 32
+slo:
+  chat: {ttft_ms: 1000, tpot_ms: 50}
+workloads:
+  - name: chat
+    file: data/requests/chat.jsonl.gz
+    warmup_file: data/requests/chat_warmup.jsonl.gz
+    concurrency: [32, 64, 128, 256]
+    requests: {per_conc: 8, min: 16, max: 2048}
+    knee_min_conc: 100000
+    knee_gain: 0.05
+servers:
+  - {id: trtllm-q8b-fp8-padded, framework: trtllm, env: /root/envs/trtllm, model: /root/autodl-tmp/models/Qwen3-8B-FP8, model_id: Qwen3-8B, precision: fp8, max_model_len: 40960, llm_api_options: {cuda_graph_config: {enable_padding: true}}}
